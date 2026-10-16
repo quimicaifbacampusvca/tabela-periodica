@@ -1,4 +1,4 @@
-# Elementos no nosso cotidiano
+# Cordel dos Elementos
 
 ## Objetivo
 Site estático informativo sobre os 118 elementos, preparado para futura hospedagem no GitHub Pages e acesso direto às páginas individuais por QR Code. Nesta etapa, o foco é a construção e avaliação do site; publicação e geração de QR Codes ficam para depois.

@@ -1,13 +1,11 @@
-# Cordel da Matéria
+# Cordel dos Elementos
 
-Elementos no nosso cotidiano. Site estático com 118 páginas, opções de leitura, logo aprovada, animação de entrada e PWA.
+Site estático com 118 elementos, logo aprovada, animação de entrada e PWA.
 
-Hospedagem: GitHub Pages, branch tabelaifbavca, pasta raiz.
+Acessibilidade: botão no cabeçalho abre gaveta lateral com tema escuro, alto contraste, A−/A+ (80%–200%), espaçamento, movimento reduzido, controle da abertura, leitura simples, paletas alternativas, simulação de visão de cores, VLibras e restauração. Preferências são persistidas entre páginas e restauradas no retorno do navegador.
 
-O conteúdo das páginas está nos arquivos elementos/<nome>/index.html. Dados iniciais: assets/elementos.json. Estilos e interações: assets/.
+O VLibras é opcional, externo e requer internet. Ao desligá-lo após o carregamento, recarregue para remover sua interface.
 
-A apresentação de entrada aparece uma vez por aba, pode ser pulada e respeita movimento reduzido. O manifesto oferece instalação onde suportada; o service worker prepara índice e 118 elementos para consulta offline. A preparação exige uma primeira conexão bem-sucedida. VLibras requer internet.
+Cards físicos em desenvolvimento separado. Dados científicos em revisão editorial.
 
-Os cards físicos estão em desenvolvimento separado e não integram esta edição do site. Dados científicos permanecem em revisão.
-
-Validação realizada: sintaxe JavaScript, links locais, IDs e títulos, manifesto e caminhos de cache. A instalação real, a renderização em navegadores e o VLibras no celular ainda precisam de homologação.
+Verificações: sintaxe JavaScript, links, IDs, cache offline e testes de lógica das preferências. Renderização em navegadores, instalação real do PWA e uso do VLibras em celulares ainda precisam de homologação.
