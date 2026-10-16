@@ -5,8 +5,8 @@ Site estático informativo sobre os 118 elementos, preparado para futura hospeda
 
 ## Fontes do projeto
 - Identidade visual: coleção v05 disponibilizada pelo responsável no Google Drive. Preservar a direção artística e consultar seus materiais antes de implementar a aparência final.
-- Conteúdo inicial: informações dos elementos do SITP enviado pelo responsável. Não reutilizar sua interface, mecânicas ou simuladores.
-- Revisar dados científicos, unidades, condições, convenções e referências antes de publicar. A presença de um dado no SITP não constitui validação científica.
+- Conteúdo inicial: informações dos elementos fornecidas pelo responsável. A interface será construída para este projeto.
+- Revisar dados científicos, unidades, condições, convenções e referências antes de publicar. A presença de um dado na base inicial não constitui validação científica.
 
 ## Organização proposta, ainda em avaliação
 - Índice dos elementos com busca por nome, símbolo e número atômico.
@@ -30,4 +30,4 @@ Verificar recursos oficialmente suportados e testar seleção por toque, tamanho
 Página do cobre para avaliar hierarquia de conteúdo, adaptação da coleção gráfica e acessibilidade antes de expandir para os demais elementos. Essa escolha é uma proposta de trabalho, não uma aprovação final do layout.
 
 ## Publicação e direitos
-GitHub Pages ainda não configurado nesta etapa. Não presumir autorização de reutilização de textos, imagens ou marcas a partir da licença do código. A política de licenciamento dos diferentes materiais será definida separadamente.
+GitHub Pages ativado pelo responsável. A construção e avaliação do conteúdo permanecem em andamento. Não presumir autorização de reutilização de textos, imagens ou marcas a partir da licença do código. A política de licenciamento dos diferentes materiais será definida separadamente.
