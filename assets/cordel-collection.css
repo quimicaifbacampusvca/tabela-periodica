@@ -1,0 +1,116 @@
+/* Adaptação web das artes do Drive: mesmas fontes, moldura, ícones e ilustrações. */
+@font-face{font-family:CordelSerif;src:url('fonts/DejaVuSerif-Bold.woff') format('woff');font-style:normal;font-weight:700;font-display:swap}
+@font-face{font-family:CordelSans;src:url('fonts/DejaVuSans.woff') format('woff');font-style:normal;font-weight:400;font-display:swap}
+@font-face{font-family:CordelSans;src:url('fonts/DejaVuSans-Bold.woff') format('woff');font-style:normal;font-weight:700;font-display:swap}
+.catalog-intro{max-width:40rem;margin:.6rem 0 0;color:var(--muted)}
+#colecao .catalog-viewport{width:100%;max-width:100%;min-width:0;margin:4px 0;padding:.35rem;overscroll-behavior-x:contain}
+.cordel-collection .symbol{white-space:nowrap;overflow-wrap:normal;word-break:normal;hyphens:none}
+.grid.cordel-collection:not(.periodic){--rope-ink:#69543b;--rope-fibre:#c4a275;--peg-paper:#c99d61;--peg-ink:#614a30;position:relative;isolation:isolate;grid-template-columns:repeat(auto-fill,minmax(min(100%,15rem),1fr));column-gap:1.9rem;row-gap:4.8rem;padding:2.5rem .75rem 2.6rem}
+.cordel-ropes{position:absolute;inset:0;z-index:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.cordel-rope{fill:none;stroke:var(--rope-ink);stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.cordel-rope-fibre{stroke:var(--rope-fibre);stroke-width:.8;stroke-dasharray:2 5}
+.cordel-collection:not(.periodic) .tile{--folio-tilt:-.65deg;z-index:1;min-height:0;padding:1.2rem 1.35rem 1.4rem;border:0;border-radius:0;background:var(--paper);color:var(--ink);box-shadow:1px 2px 0 var(--line),3px 4px 0 var(--paper),4px 5px 0 var(--line),0 7px 10px #233c370d;font-family:CordelSans,system-ui,sans-serif;text-align:center;align-items:stretch;transform:rotate(var(--folio-tilt));transform-origin:50% -12px;transition:transform 300ms cubic-bezier(.2,.75,.25,1),box-shadow 300ms ease}
+.cordel-collection:not(.periodic) .tile:nth-of-type(4n+2){--folio-tilt:.7deg}
+.cordel-collection:not(.periodic) .tile:nth-of-type(4n+3){--folio-tilt:-.4deg}
+.cordel-collection:not(.periodic) .tile:nth-of-type(4n+4){--folio-tilt:.55deg}
+.folio-frame{position:absolute;inset:0;width:100%;height:100%;fill:none;stroke:currentColor;pointer-events:none}
+.folio-frame path{vector-effect:non-scaling-stroke}
+.folio-frame-outer{stroke-width:1.9}.folio-frame-inner{stroke-width:.65}.folio-frame-hatch{stroke-width:.8}
+.folio-pin{position:absolute;z-index:2;top:-26px;left:calc(50% - 5.5px);width:11px;height:38px;border:1px solid var(--peg-ink);border-radius:1px 1px 2px 2px;background:linear-gradient(90deg,var(--peg-paper) 0 43%,var(--peg-ink) 44% 53%,var(--peg-paper) 54% 100%);box-shadow:1px 2px 0 #233c3720;pointer-events:none}
+.folio-pin::after{content:'';position:absolute;left:-1px;right:-1px;top:15px;height:4px;border-top:1px solid var(--peg-ink);border-bottom:1px solid var(--peg-ink);background:var(--peg-paper)}
+.folio-header{display:grid;grid-template-columns:auto 1fr;column-gap:.35rem;align-items:center;text-align:left}
+.cordel-collection:not(.periodic) .z{grid-column:1;grid-row:1/3;color:var(--ink);font-size:1.65rem;line-height:1.2;font-weight:700;font-variant-numeric:tabular-nums}
+.folio-state{display:flex;align-items:center;justify-content:flex-end;gap:.3rem;min-width:0}
+.folio-state-icon{width:2.2rem;height:2.2rem;object-fit:contain;flex:none}
+.folio-state strong{display:block;font-size:.7rem;line-height:1.25;text-transform:uppercase}
+.folio-condition{display:block;font-size:.65rem;line-height:1.4;color:var(--muted);margin-top:.25rem;white-space:normal}
+.cordel-collection:not(.periodic) .folio-category{grid-column:2;margin:.4rem 0 .15rem;color:var(--muted);font-size:.69rem;line-height:1.4;text-align:right;text-wrap:balance}
+.cordel-collection:not(.periodic) .symbol{font:700 3.7rem/1.08 CordelSerif,Georgia,serif;color:var(--ink);padding:.6rem 0 .25rem;letter-spacing:-.035em}
+.folio-illustration{width:100%;height:7.8rem;object-fit:contain;margin:.35rem 0 .6rem}
+.cordel-collection:not(.periodic) .name{font:700 1.13rem/1.3 CordelSerif,Georgia,serif;color:var(--ink);text-wrap:balance}
+.folio-mass{font-size:.84rem;line-height:1.4;color:var(--ink);margin-top:.25rem}
+.folio-divider{display:flex;align-items:center;justify-content:center;gap:.45rem;margin:.7rem .2rem .55rem;color:var(--ink)}
+.folio-divider::before,.folio-divider::after{content:'';flex:1;height:3px;border-top:1px solid currentColor;border-bottom:.5px solid currentColor}
+.folio-divider i{width:6px;height:6px;background:currentColor;transform:rotate(45deg)}
+.folio-phrase{font-size:.76rem;line-height:1.45;min-height:2.9em;text-wrap:balance;margin-bottom:0;color:var(--ink)}
+.folio-open{position:absolute;bottom:-1.8rem;left:0;right:0;display:flex;align-items:center;justify-content:center;gap:.4rem;color:var(--muted);font:400 .68rem/1.4 CordelSans,system-ui,sans-serif}
+.folio-open span{font-size:.9rem}
+@media(hover:hover) and (pointer:fine){.cordel-collection:not(.periodic) .tile:hover{z-index:2;transform:rotate(0deg);background:var(--paper);box-shadow:1px 2px 0 var(--line),3px 4px 0 var(--paper),4px 5px 0 var(--line),0 9px 16px #233c371a;outline:1px solid var(--ink);outline-offset:3px}}
+.cordel-collection:not(.periodic) .tile:focus-visible{z-index:2;transform:rotate(0deg);outline:3px solid var(--accent);outline-offset:5px}
+/* Posições e densidade do modo tabela preservadas. */
+.cordel-collection.periodic .cordel-ropes,.cordel-collection.periodic .folio-decoration{display:none}
+.cordel-collection.periodic .folio-header{display:contents}
+body[data-theme=dark] .grid.cordel-collection{--rope-ink:#c5ad88;--rope-fibre:#736149;--peg-paper:#ac8654;--peg-ink:#362b20}
+body[data-theme=contrast] .grid.cordel-collection{--rope-ink:#fff;--rope-fibre:#000;--peg-paper:#fff;--peg-ink:#000}
+body[data-theme=contrast] .cordel-collection:not(.periodic) .tile{box-shadow:none}
+body[data-palette=mono] .folio-state-icon{filter:grayscale(1)}
+body[data-palette=redgreen] .folio-state-icon{filter:grayscale(1) sepia(1) saturate(2.2) hue-rotate(165deg)}
+body[data-palette=blueyellow] .folio-state-icon{filter:grayscale(1) sepia(1) saturate(1.8) hue-rotate(290deg)}
+.simple-reading .cordel-collection:not(.periodic) .tile,.reduce-motion .cordel-collection:not(.periodic) .tile{transform:none;transition:none}
+.simple-reading .folio-frame-hatch{display:none}
+@media(max-width:650px){.grid.cordel-collection:not(.periodic){grid-template-columns:repeat(auto-fill,minmax(min(100%,14rem),1fr));column-gap:1.4rem;row-gap:4.3rem;padding-inline:.65rem}.cordel-collection:not(.periodic) .tile{padding:1.25rem 1.5rem 1.5rem}.folio-illustration{height:9rem}}
+@media(prefers-reduced-motion:reduce){.cordel-collection:not(.periodic) .tile{transform:none;transition:none}}
+@media(forced-colors:active){.grid.cordel-collection{--rope-ink:CanvasText;--rope-fibre:Canvas;--peg-ink:CanvasText;--peg-paper:Canvas}.cordel-collection:not(.periodic) .tile{background:Canvas;color:LinkText;box-shadow:none;transform:none}.folio-pin{background:Canvas;border-color:CanvasText}.folio-frame{stroke:CanvasText}}
+
+/* Cores de categoria da referência atual; as palavras acompanham as cores. */
+.tile[data-category="Não metal"]{--cat:#526D94}
+.tile[data-category="Gás nobre"]{--cat:#70518E}
+.tile[data-category="Metal alcalino"]{--cat:#A94F29}
+.tile[data-category="Metal alcalinoterroso"]{--cat:#876213}
+.tile[data-category="Semimetal"]{--cat:#527143}
+.tile[data-category="Halogênio"]{--cat:#A24967}
+.tile[data-category="Outro metal"]{--cat:#326384}
+.tile[data-category="Metal de transição"]{--cat:#146B61}
+.tile[data-category="Lantanídeo"]{--cat:#866744}
+.tile[data-category="Actinídeo"]{--cat:#805256}
+
+/* Tabela clássica: 18 grupos, sete períodos e duas séries destacadas.
+   A coluna estreita inicial e a primeira linha servem apenas aos rótulos. */
+.periodic-only{display:none}
+.grid.cordel-collection.periodic{
+  --periodic-cell-min:5.5rem;
+  position:relative;isolation:isolate;width:100%;min-width:max-content;
+  grid-template-columns:1.35rem repeat(18,minmax(var(--periodic-cell-min),1fr));
+  grid-template-rows:1.2rem repeat(7,minmax(6.25rem,auto)) 1.15rem repeat(2,minmax(6.25rem,auto));
+  gap:.3rem;padding:.65rem .5rem .8rem;
+}
+.grid.cordel-collection.periodic .tile{
+  grid-column:calc(var(--col) + 1);grid-row:calc(var(--row) + 1);
+  display:grid;grid-template-rows:auto auto minmax(1.4em,1fr);gap:.25rem;
+  position:relative;border:0;border-radius:0;min-width:var(--periodic-cell-min);min-height:6.25rem;padding:.55rem .35rem .65rem;
+  background:var(--paper);color:var(--ink);box-shadow:none;transform:none;
+  align-items:start;align-content:start;text-align:center;font-family:CordelSans,system-ui,sans-serif;
+  overflow-wrap:normal;word-break:normal;
+  transition:background-color .18s ease,opacity .18s ease;
+}
+.cordel-collection.periodic .folio-frame{display:block}
+.cordel-collection.periodic .folio-frame-outer{stroke-width:1.15}
+.cordel-collection.periodic .folio-frame-inner{stroke-width:.45}
+.cordel-collection.periodic .folio-frame-hatch{stroke-width:.55}
+.cordel-collection.periodic .folio-header{display:flex;justify-content:space-between;align-items:center;gap:.25rem;min-height:1.25rem}
+.cordel-collection.periodic .z{font-size:.66rem;font-weight:700;line-height:1;color:var(--ink);white-space:nowrap}
+.cordel-collection.periodic .folio-state{display:block;flex:none}
+.cordel-collection.periodic .folio-state>span{display:none}
+.cordel-collection.periodic .folio-state-icon{display:block;width:1.25rem;height:1.25rem;object-fit:contain}
+/* Match the full cell selector: legacy .grid.periodic .tile rules must not win. */
+.grid.cordel-collection.periodic .tile .symbol{font:700 1.7rem/1.15 CordelSerif,Georgia,serif;margin:0;padding:0;letter-spacing:-.035em;white-space:nowrap;overflow-wrap:normal;word-break:normal}
+.grid.cordel-collection.periodic .tile .name{font:400 .68rem/1.4 CordelSans,system-ui,sans-serif;min-height:0;margin:0;white-space:nowrap;overflow-wrap:normal;word-break:normal;hyphens:none}
+.letter-spacing .grid.cordel-collection.periodic{--periodic-cell-min:6.15rem}
+/* Large screens provide room for all groups; narrow screens keep local scrolling. */
+@media(min-width:1200px){#colecao.catalog-periodic{--catalog-room:min(1740px,calc(100vw - 3rem));width:var(--catalog-room);margin-inline:calc((100% - var(--catalog-room))/2)}}
+.cordel-collection.periodic .tile.unmatched{opacity:.32}
+.cordel-collection.periodic .tile:hover{transform:none;background:var(--soft);outline:1px solid var(--accent);outline-offset:1px;z-index:1}
+.cordel-collection.periodic .tile:focus-visible{transform:none;outline:3px solid var(--accent);outline-offset:2px;z-index:2;opacity:1}
+.cordel-collection.periodic .periodic-only{display:flex}
+.periodic-group,.periodic-period{align-items:center;justify-content:center;font:400 .65rem/1 CordelSans,system-ui,sans-serif;color:var(--muted)}
+.periodic-series{align-items:center;justify-content:flex-end;text-align:right;padding-right:.35rem;font:400 .64rem/1.3 CordelSans,system-ui,sans-serif;color:var(--muted)}
+.periodic-series-marker{flex-direction:column;justify-content:center;align-items:center;gap:.4rem;border:1px solid var(--line);outline:1px solid var(--line);outline-offset:-4px;color:var(--muted);background:var(--paper)}
+.periodic-series-marker small{font:400 .58rem/1.3 CordelSans,system-ui,sans-serif}
+.periodic-series-marker strong{font:700 .7rem/1.2 CordelSerif,Georgia,serif}
+.periodic-brand{align-self:center;justify-self:center;align-items:center;flex-direction:column;justify-content:center;gap:.45rem;padding:1rem;text-align:center;color:var(--ink)}
+.periodic-brand strong{font:700 1.05rem/1.3 CordelSerif,Georgia,serif}
+.periodic-brand>span{font:400 .67rem/1.4 CordelSans,system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase}
+.periodic-emblem{display:block;width:6.5rem;height:6.5rem;object-fit:contain}
+.simple-reading .periodic-emblem{display:none}
+@media(forced-colors:active){.cordel-collection.periodic .tile{background:Canvas;color:LinkText}.cordel-collection.periodic .tile:hover{background:Canvas}.periodic-series-marker{border-color:CanvasText;outline-color:CanvasText}}
+@media(prefers-reduced-motion:reduce){.cordel-collection.periodic .tile{transition:none}}
