@@ -1,6 +1,12 @@
-/* Mesma sequência e fundo da animação aprovada em 17/10/2026. */
-#brand-intro{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;padding:1rem;background:rgb(244,237,219);opacity:1;animation:none;transition:opacity 350ms ease;pointer-events:auto}
+/* Cena aprovada, integrada ao papel e à escala da página. */
+html{scrollbar-gutter:stable}
+html.intro-active,html.intro-active body{overflow:hidden}
+#brand-intro{--intro-paper:#f4eedf;position:fixed;inset:0;z-index:1000;display:grid;place-items:center;padding:1rem 1rem 5rem;background:var(--intro-paper);color:#233c37;color-scheme:light;opacity:1;animation:none;transition:opacity 500ms ease;pointer-events:auto;isolation:isolate}
 #brand-intro.intro-leaving{opacity:0;pointer-events:none}
-#brand-intro .approved-intro-video{display:block;width:min(960px,96vw);height:min(720px,72vw,calc(100vh - 6rem));height:min(720px,72vw,calc(100dvh - 6rem));max-width:100%;object-fit:contain;pointer-events:none}
-#brand-intro #intro-skip{position:absolute;right:max(1rem,env(safe-area-inset-right));bottom:max(1rem,env(safe-area-inset-bottom));min-height:44px;pointer-events:auto;background:rgb(244,237,219);color:#233c37;border-color:#52695b}
+#brand-intro .approved-intro-video{position:absolute;inset:0;width:1px;height:1px;opacity:0;pointer-events:none}
+#brand-intro .approved-intro-canvas{display:block;width:min(760px,92vw);height:auto;max-width:100%;max-height:calc(100vh - 8rem);max-height:calc(100dvh - 8rem);aspect-ratio:4/3;object-fit:contain;border:0;border-radius:0;box-shadow:none;background:transparent;filter:none;opacity:1;transition:opacity 450ms ease}
+#brand-intro.intro-leaving .approved-intro-canvas{opacity:0}
+#brand-intro #intro-skip{position:absolute;right:max(1.25rem,env(safe-area-inset-right));bottom:max(1.25rem,env(safe-area-inset-bottom));min-height:44px;padding:.6rem 1rem;pointer-events:auto;background:transparent;color:inherit;border:1px solid #52695b;border-radius:3px;font:400 .85rem/1.4 CordelSans,system-ui,sans-serif}
+#brand-intro #intro-skip:hover{background:#233c3710}
+@media(max-height:450px){#brand-intro{padding:1rem 4.5rem 3.5rem}#brand-intro .approved-intro-canvas{max-height:calc(100dvh - 5rem)}}
 @media(prefers-reduced-motion:reduce){#brand-intro{display:none!important;transition:none}}

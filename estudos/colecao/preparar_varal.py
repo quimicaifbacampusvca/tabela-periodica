@@ -89,7 +89,7 @@ index=index.replace('data-view="collection" aria-pressed="true">Coleção</butto
 options='<option value="">Todas as categorias</option>'+''.join(f'<option>{escape(c)}</option>' for c in categories)
 index=re.sub(r'(<select id="category">).*?(</select>)',lambda m:m[1]+options+m[2],index,count=1,flags=re.S)
 index_path.write_text(index)
-sw_path=SITE/'sw.js';sw=sw_path.read_text();sw=re.sub(r"const CACHE='cordel-[^']+'","const CACHE='cordel-varal-v4'",sw,count=1)
+sw_path=SITE/'sw.js';sw=sw_path.read_text();sw=re.sub(r"const CACHE='cordel-[^']+'","const CACHE='cordel-varal-v5'",sw,count=1)
 cache_files=['assets/cordel-collection.css','assets/cordel-collection.js']+[p['web'] for p in provenance]+[str(p.relative_to(SITE)) for p in font_dir.glob('*.woff')]
 extra=[json.dumps(f) for f in cache_files if json.dumps(f) not in sw]
 if extra:sw=sw.replace('const FILES=[','const FILES=['+','.join(extra)+',',1)
