@@ -45,13 +45,13 @@ grid.classList.toggle('periodic',false);filter();assert.equal(ropes.children.len
 columns=2;grid.clientWidth=580;flush();assert.equal(ropes.children.length,118);
 columns=1;grid.clientWidth=280;flush();assert.equal(ropes.children.length,236);
 assert(ropes.children.every(p=>!p.attributes.d.includes('NaN')));
-// The real 30-second scheduler runs against a fake clock, without delaying this test.
+// The real 10-second scheduler runs against a fake clock, without delaying this test.
 columns=4;grid.clientWidth=1120;flush();
-assert.equal(timers.size,1);assert.equal([...timers.values()][0].at-now,30000);
+assert.equal(timers.size,1);assert.equal([...timers.values()][0].at-now,10000);
 tiles[0].interacting=true;
-advance(29999);assert.equal(animations.length,0);
+advance(9999);assert.equal(animations.length,0);
 advance(1);assert.equal(animations.length,7,'Only the eight on-screen cards, minus the one being read');
-assert.equal(timers.size,1);assert.equal([...timers.values()][0].at-now,30000);
+assert.equal(timers.size,1);assert.equal([...timers.values()][0].at-now,10000);
 for(const a of animations){
   assert.equal(a.frames.length,65);
   assert.equal(a.frames[0].transform,`rotate(${a.tile.rest.toFixed(4)}deg)`);
@@ -75,7 +75,7 @@ document.hidden=false;document.dispatch('visibilitychange');assert.equal(timers.
 grid.classList.add('periodic');flush();assert.equal(timers.size,0);
 grid.classList.toggle('periodic',false);flush();assert.equal(timers.size,1);
 tiles[0].interacting=false;
-advance(30000);assert.equal(animations.length,15);
+advance(10000);assert.equal(animations.length,15);
 window.dispatch('pagehide');assert.equal(timers.size,0);assert(animations.every(a=>a.cancelled));
 window.dispatch('pageshow');flush();assert.equal(timers.size,1);
-console.log(JSON.stringify({cards:118,filters:'search, accents, categories, empty',table:'positions retained; unmatched visible',ropeRows:'4, 2 and 1 columns; filtered reflow',breeze:'30-second cycle; visible cards only; staggered, bounded rotation; hover/focus cancellation; reduced-motion, reading, hidden-tab, table and page lifecycle checks',verification:'DOM simulated; no browser QA'}));
+console.log(JSON.stringify({cards:118,filters:'search, accents, categories, empty',table:'positions retained; unmatched visible',ropeRows:'4, 2 and 1 columns; filtered reflow',breeze:'10-second cycle; visible cards only; staggered, bounded rotation; hover/focus cancellation; reduced-motion, reading, hidden-tab, table and page lifecycle checks',verification:'DOM simulated; no browser QA'}));

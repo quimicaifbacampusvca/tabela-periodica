@@ -3,7 +3,7 @@
 @font-face{font-family:CordelSans;src:url('fonts/DejaVuSans.woff') format('woff');font-style:normal;font-weight:400;font-display:swap}
 @font-face{font-family:CordelSans;src:url('fonts/DejaVuSans-Bold.woff') format('woff');font-style:normal;font-weight:700;font-display:swap}
 .catalog-intro{max-width:40rem;margin:.6rem 0 0;color:var(--muted)}
-#colecao .catalog-viewport{width:100%;max-width:100%;min-width:0;margin:4px 0;padding:.35rem;overscroll-behavior-x:contain}
+#colecao .catalog-viewport{width:100%;max-width:100%;min-width:0;margin:4px 0;padding:.35rem;overscroll-behavior-x:contain;container-type:inline-size}
 .cordel-collection .symbol{white-space:nowrap;overflow-wrap:normal;word-break:normal;hyphens:none}
 .grid.cordel-collection:not(.periodic){--rope-ink:#69543b;--rope-fibre:#c4a275;--peg-paper:#c99d61;--peg-ink:#614a30;position:relative;isolation:isolate;grid-template-columns:repeat(auto-fill,minmax(min(100%,15rem),1fr));column-gap:1.9rem;row-gap:4.8rem;padding:2.5rem .75rem 2.6rem}
 .cordel-ropes{position:absolute;inset:0;z-index:0;width:100%;height:100%;overflow:visible;pointer-events:none}
@@ -68,16 +68,16 @@ body[data-palette=blueyellow] .folio-state-icon{filter:grayscale(1) sepia(1) sat
    A coluna estreita inicial e a primeira linha servem apenas aos rótulos. */
 .periodic-only{display:none}
 .grid.cordel-collection.periodic{
-  --periodic-cell-min:5.5rem;
-  position:relative;isolation:isolate;width:100%;min-width:max-content;
+  --periodic-cell-min:3.3rem;
+  position:relative;isolation:isolate;width:100%;min-width:calc(var(--periodic-cell-min) * 18 + 7rem);
   grid-template-columns:1.35rem repeat(18,minmax(var(--periodic-cell-min),1fr));
-  grid-template-rows:1.2rem repeat(7,minmax(6.25rem,auto)) 1.15rem repeat(2,minmax(6.25rem,auto));
-  gap:.3rem;padding:.65rem .5rem .8rem;
+  grid-template-rows:1.2rem repeat(7,minmax(5.7rem,auto)) 1.15rem repeat(2,minmax(5.7rem,auto));
+  gap:.25rem;padding:.65rem .5rem .8rem;
 }
 .grid.cordel-collection.periodic .tile{
   grid-column:calc(var(--col) + 1);grid-row:calc(var(--row) + 1);
-  display:grid;grid-template-rows:auto auto minmax(1.4em,1fr);gap:.25rem;
-  position:relative;border:0;border-radius:0;min-width:var(--periodic-cell-min);min-height:6.25rem;padding:.55rem .35rem .65rem;
+  display:grid;grid-template-rows:auto auto auto;gap:.15rem;
+  position:relative;border:0;border-radius:0;min-width:0;min-height:5.7rem;padding:.5rem .18rem .55rem;
   background:var(--paper);color:var(--ink);box-shadow:none;transform:none;
   align-items:start;align-content:start;text-align:center;font-family:CordelSans,system-ui,sans-serif;
   overflow-wrap:normal;word-break:normal;
@@ -93,9 +93,9 @@ body[data-palette=blueyellow] .folio-state-icon{filter:grayscale(1) sepia(1) sat
 .cordel-collection.periodic .folio-state>span{display:none}
 .cordel-collection.periodic .folio-state-icon{display:block;width:1.25rem;height:1.25rem;object-fit:contain}
 /* Match the full cell selector: legacy .grid.periodic .tile rules must not win. */
-.grid.cordel-collection.periodic .tile .symbol{font:700 1.7rem/1.15 CordelSerif,Georgia,serif;margin:0;padding:0;letter-spacing:-.035em;white-space:nowrap;overflow-wrap:normal;word-break:normal}
-.grid.cordel-collection.periodic .tile .name{font:400 .68rem/1.4 CordelSans,system-ui,sans-serif;min-height:0;margin:0;white-space:nowrap;overflow-wrap:normal;word-break:normal;hyphens:none}
-.letter-spacing .grid.cordel-collection.periodic{--periodic-cell-min:6.15rem}
+.grid.cordel-collection.periodic .tile .symbol{font:700 1.5rem/1.15 CordelSerif,Georgia,serif;font-size:clamp(1.5rem,1.8cqw,1.7rem);margin:0;padding:0;letter-spacing:-.035em;white-space:nowrap;overflow-wrap:normal;word-break:normal}
+.grid.cordel-collection.periodic .tile .name{font:400 .62rem/1.4 CordelSans,system-ui,sans-serif;font-size:clamp(.62rem,.74cqw,.68rem);min-height:2.8em;margin:0;white-space:normal;overflow-wrap:normal;word-break:normal;hyphens:manual;text-wrap:balance}
+.letter-spacing .grid.cordel-collection.periodic{--periodic-cell-min:3.9rem}
 /* Large screens provide room for all groups; narrow screens keep local scrolling. */
 @media(min-width:1200px){#colecao.catalog-periodic{--catalog-room:min(1740px,calc(100vw - 3rem));width:var(--catalog-room);margin-inline:calc((100% - var(--catalog-room))/2)}}
 .cordel-collection.periodic .tile.unmatched{opacity:.32}

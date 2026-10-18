@@ -7,7 +7,7 @@
   "layout": "18 groups, 7 periods, 15 lanthanides, 15 actinides",
   "browser_visual_test": false,
   "breeze": {
-    "interval_ms": 30000,
+    "interval_ms": 10000,
     "duration_ms": [3200, 3620],
     "verification": "simulated DOM and clock",
     "checks": ["visible cards only", "repeat interval", "rest angle restored", "bounded rotation", "hover and focus cancellation", "OS and panel reduced motion", "simple reading", "hidden tab", "table mode", "page lifecycle"]

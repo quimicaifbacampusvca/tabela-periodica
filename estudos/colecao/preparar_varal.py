@@ -12,6 +12,7 @@ SITE=Path(__file__).resolve().parents[2]
 SOURCE=Path(sys.argv[1]).resolve()
 DATA=json.loads((SOURCE/'Colecao_v08/04_Dados_e_fontes/Dados_118_elementos_v08.json').read_text())
 ELEMENTS=DATA['elements']
+NAME_BREAKS=json.loads(Path(__file__).with_name('quebras-nomes.json').read_text())
 ASSETS=SITE/'assets/colecao'; ASSETS.mkdir(parents=True,exist_ok=True)
 
 def image_for_web(source,destination,edge):
@@ -75,7 +76,7 @@ def card(e):
     z=e['z']; state_id=f'folio-state-{z}'; phrase_id=f'folio-phrase-{z}'
     return f'''<a class="tile category-{categories.index(e['category'])}" href="{escape(routes[z],quote=True)}" style="{positions[z]}" data-search="{z} {escape(e['symbol'])} {escape(e['name'])}" data-category="{escape(e['category'])}" aria-label="{escape(e['name'])}, {escape(e['symbol'])}, número atômico {z}, {escape(e['category'])}. Abrir folheto." aria-describedby="{state_id} {phrase_id}">
 {FRAME}<span class="folio-header"><span class="z">{z}</span><span class="folio-state folio-decoration" id="{state_id}"><img class="folio-state-icon" src="assets/colecao/{icons[z]}.webp" width="42" height="42" alt="" loading="lazy" decoding="async"><span><strong>{escape(e['state'])}</strong><span class="folio-condition">25 °C / 1 atm</span></span></span><small class="folio-category">{escape(e['category'])}</small></span>
-<span class="symbol">{escape(e['symbol'])}</span><img class="folio-illustration folio-decoration" src="assets/colecao/arte-{z:03d}.webp" alt="{escape(e['illustration_description'],quote=True)}" width="640" height="427" loading="lazy" decoding="async"><span class="name">{escape(e['name'])}</span><span class="folio-mass folio-decoration">{escape(e['mass'])}</span>{DIVIDER}<span class="folio-phrase folio-decoration" id="{phrase_id}">{escape(phrase(e))}</span><span class="folio-open folio-decoration" aria-hidden="true">Abrir folheto <span>↗</span></span></a>'''
+<span class="symbol">{escape(e['symbol'])}</span><img class="folio-illustration folio-decoration" src="assets/colecao/arte-{z:03d}.webp" alt="{escape(e['illustration_description'],quote=True)}" width="640" height="427" loading="lazy" decoding="async"><span class="name">{escape(NAME_BREAKS.get(e['name'],e['name']))}</span><span class="folio-mass folio-decoration">{escape(e['mass'])}</span>{DIVIDER}<span class="folio-phrase folio-decoration" id="{phrase_id}">{escape(phrase(e))}</span><span class="folio-open folio-decoration" aria-hidden="true">Abrir folheto <span>↗</span></span></a>'''
 cards=''.join(card(e) for e in ELEMENTS)
 index,n=re.subn(r'<div class="grid(?: cordel-collection)?">.*?</div>(?=</div><p id="empty")','<div class="grid cordel-collection">'+cards+'</div>',index,count=1,flags=re.S)
 assert n==1,'Catálogo não encontrado; índice não alterado.'
@@ -88,7 +89,7 @@ index=index.replace('data-view="collection" aria-pressed="true">Coleção</butto
 options='<option value="">Todas as categorias</option>'+''.join(f'<option>{escape(c)}</option>' for c in categories)
 index=re.sub(r'(<select id="category">).*?(</select>)',lambda m:m[1]+options+m[2],index,count=1,flags=re.S)
 index_path.write_text(index)
-sw_path=SITE/'sw.js';sw=sw_path.read_text();sw=re.sub(r"const CACHE='cordel-[^']+'","const CACHE='cordel-varal-v3'",sw,count=1)
+sw_path=SITE/'sw.js';sw=sw_path.read_text();sw=re.sub(r"const CACHE='cordel-[^']+'","const CACHE='cordel-varal-v4'",sw,count=1)
 cache_files=['assets/cordel-collection.css','assets/cordel-collection.js']+[p['web'] for p in provenance]+[str(p.relative_to(SITE)) for p in font_dir.glob('*.woff')]
 extra=[json.dumps(f) for f in cache_files if json.dumps(f) not in sw]
 if extra:sw=sw.replace('const FILES=[','const FILES=['+','.join(extra)+',',1)

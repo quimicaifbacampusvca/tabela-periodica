@@ -1,1 +1,64 @@
-(()=>{'use strict';const intro=document.getElementById('brand-intro');if(!intro)return;const skip=document.getElementById('intro-skip'),scene=intro.querySelector('.book-scene'),logo=intro.querySelector('.intro-final-logo');let animations=[],timer=null,active=false;function stop(){animations.forEach(a=>a.cancel());animations=[];clearTimeout(timer);intro.hidden=true;active=false;document.removeEventListener('keydown',keySkip)}function keySkip(e){if(['Escape','Enter',' ','Tab'].includes(e.key))stop()}function animate(el,frames,delay,duration,easing='cubic-bezier(.2,.7,.25,1)'){if(el)animations.push(el.animate(frames,{delay,duration,easing,fill:'both'}))}function start(){stop();if(window.CordelAccess?.reduced()||window.CordelAccess?.state.intro===false||matchMedia('(prefers-reduced-motion: reduce)').matches)return;intro.hidden=false;active=true;document.addEventListener('keydown',keySkip);for(const side of ['left','right'])animate(intro.querySelector('.pages-'+side),[{opacity:0,transform:`scaleX(.04) rotate(${side==='left'?9:-9}deg)`},{opacity:1,transform:'scaleX(.1) rotate(0deg)',offset:.15},{opacity:1,transform:'scaleX(1) rotate(0deg)'}],100,1600);animate(intro.querySelector('.art-network'),[{opacity:0,clipPath:'inset(95% 0 0 0)'},{opacity:1,clipPath:'inset(0% 0 0 0)'}],1600,2100);intro.querySelectorAll('.art-node').forEach((el,i)=>{const dx=640-Number(el.dataset.x),dy=1040-Number(el.dataset.y);animate(el,[{opacity:0,transform:`translate(${dx}px,${dy}px) scale(.12)`},{opacity:1,transform:`translate(${dx*.4}px,${dy*.45}px) scale(.7)`,offset:.45},{opacity:1,transform:'translate(0px,0px) scale(1)'}],1550+i*90,1800)});intro.querySelectorAll('.art-flyer').forEach((el,i)=>{animate(el,[{opacity:0,transform:`translate(${i===0?110:i===2?-90:0}px,240px) rotate(${i===0?-12:12}deg) scale(.6)`},{opacity:1,transform:'translate(0px,-10px) rotate(-2deg) scale(1)',offset:.8},{opacity:1,transform:'translate(0px,0px) rotate(0deg) scale(1)'}],3250+i*240,1300)});animate(intro.querySelector('.art-complete'),[{opacity:0},{opacity:1}],4650,500);animate(scene,[{opacity:1},{opacity:0}],5350,650);animate(logo,[{opacity:0,transform:'scale(.97)'},{opacity:1,transform:'scale(1)'}],5450,750);animate(intro,[{opacity:1},{opacity:0}],6800,450);timer=setTimeout(stop,7300)}skip.onclick=stop;window.addEventListener('pagehide',stop);document.addEventListener('change',()=>{if(active&&window.CordelAccess?.reduced())stop()});start()})();
+/* Reprodução da prévia 06 aprovada: sem redesenho, sempre ao abrir a página. */
+(() => {
+  'use strict';
+  const intro = document.getElementById('brand-intro');
+  const video = intro?.querySelector('.approved-intro-video');
+  const skip = document.getElementById('intro-skip');
+  if (!intro || !video || !skip) return;
+  const motion = matchMedia('(prefers-reduced-motion: reduce)');
+  let active = false, run = 0, watchdog = null, fadeTimer = null;
+  const blocked = () => motion.matches || window.CordelAccess?.reduced() ||
+    window.CordelAccess?.state.intro === false;
+  function stop() {
+    run++;
+    active = false;
+    clearTimeout(watchdog);
+    clearTimeout(fadeTimer);
+    watchdog = fadeTimer = null;
+    video.pause();
+    intro.hidden = true;
+    intro.classList.remove('intro-leaving');
+    document.removeEventListener('keydown', keySkip);
+  }
+  function keySkip(event) {
+    if (['Escape', 'Enter', ' ', 'Tab'].includes(event.key)) stop();
+  }
+  function start() {
+    stop();
+    if (blocked()) return;
+    active = true;
+    const currentRun = run;
+    video.muted = true;
+    video.defaultMuted = true;
+    video.playsInline = true;
+    if (!video.getAttribute('src')) video.src = video.dataset.src;
+    video.currentTime = 0;
+    document.addEventListener('keydown', keySkip);
+    // Carregamento ou reprodução indisponíveis nunca bloqueiam o catálogo.
+    watchdog = setTimeout(stop, 8000);
+    try {
+      const playback = video.play();
+      playback?.catch(() => { if (currentRun === run) stop(); });
+    } catch { stop(); }
+  }
+  video.addEventListener('playing', () => {
+    if (!active || blocked()) { stop(); return; }
+    clearTimeout(watchdog);
+    intro.hidden = false;
+    const remaining = Number.isFinite(video.duration) ? video.duration - video.currentTime : 12;
+    watchdog = setTimeout(stop, Math.max(0, remaining) * 1000 + 3000);
+  });
+  video.addEventListener('ended', () => {
+    if (!active) return;
+    clearTimeout(watchdog);
+    intro.classList.add('intro-leaving');
+    fadeTimer = setTimeout(stop, 350);
+  });
+  video.addEventListener('error', stop);
+  skip.addEventListener('click', stop);
+  window.addEventListener('pagehide', stop);
+  window.addEventListener('pageshow', event => { if (event.persisted) start(); });
+  document.addEventListener('change', () => { if (active && blocked()) stop(); });
+  motion.addEventListener?.('change', () => { if (active && blocked()) stop(); });
+  start();
+})();

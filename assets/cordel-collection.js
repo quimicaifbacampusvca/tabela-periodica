@@ -112,7 +112,7 @@
   document.fonts?.ready.then(schedule);
 
   // Uma brisa curta a cada 30 s. Apenas papéis visíveis; ponto de suspensão fixo.
-  const WIND_INTERVAL = 30000;
+  const WIND_INTERVAL = 10000;
   const activeWind = new Map();
   const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
   let windTimer = null;
