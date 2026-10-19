@@ -369,12 +369,13 @@ body.element-page[data-palette=blueyellow] .ep-state img,body.element-page[data-
   .ep-print-signature a{color:#1d3630!important;text-decoration:underline}
 }
 
-/* PROTÓTIPOS EDITORIAIS — quatro gramáticas brasileiras de quadrinhos:
+/* MATRIZES DE IMPRESSÃO — quatro gramáticas brasileiras de quadrinhos:
    sólido (clareza narrativa), líquido (curva expressiva),
    gasoso (linha cinética), não determinado (hachura dramática).
    Inspiradas em repertórios históricos do cartum nacional sem copiar
    personagens, lettering, composição específica ou arte de terceiros.
-   Apenas Z = 1, 6, 35, 115; demais folhetos preservam o modelo atual. */
+   Aplicadas por estado físico aos 118 elementos; vinheta principal, dados,
+   balões, hierarquia e margens mantêm o mesmo contrato editorial. */
 @media print {
   body.element-page > .ep-print-sheet.ep-print-prototype {
     grid-template-rows:15mm 8mm 103mm 65mm 46mm 22mm;
@@ -568,4 +569,57 @@ body.element-page[data-palette=blueyellow] .ep-state img,body.element-page[data-
   }
   .ep-print-unknown .ep-print-state{background:#f9f5ec}
   .ep-print-unknown .ep-print-art-panel figcaption{border-style:double;border-width:2pt}
+}
+
+/* FASE 1/2: reservar os quadros complementares sem gerar imagens genéricas.
+   A próxima fase vai povoar estes slots a partir de um manifesto de artes,
+   sem modificar a hierarquia, os textos, as molduras ou as proporções. */
+@media print{
+  .ep-print-prototype .ep-print-story{
+    display:flex!important;
+    flex-direction:column!important;
+    min-height:0!important;
+    overflow:hidden!important;
+  }
+  .ep-print-prototype .ep-print-story h2{
+    flex:0 0 auto!important;
+  }
+  .ep-print-prototype .ep-print-story p{
+    flex:0 0 auto!important;
+    font-size:8.1pt!important;
+    line-height:1.31!important;
+    overflow-wrap:break-word;
+  }
+  .ep-print-prototype .ep-print-story-art{
+    display:block!important;
+    flex:1 1 auto!important;
+    position:relative!important;
+    min-height:9mm!important;
+    max-height:24mm!important;
+    margin-top:auto!important;
+    background:none!important;
+    background-image:none!important;
+    border:0!important;
+  }
+  /* Diagram and art will be inserted inside the reserved slot only after
+     each individual image is reviewed and approved. */
+  .ep-print-prototype .ep-print-story-art:empty::before,
+  .ep-print-prototype .ep-print-story-art:empty::after{
+    content:none!important;
+  }
+  .ep-print-prototype .ep-print-story:nth-child(1) h2{
+    font-size:8.8pt!important;
+  }
+  .ep-print-prototype .ep-print-feature-copy h1{
+    font-size:clamp(16pt,25pt,25pt)!important;
+    line-height:1.04!important;
+    overflow-wrap:anywhere;
+  }
+  .ep-print-prototype .ep-print-bubble{
+    font-size:9.8pt!important;
+    line-height:1.25!important;
+  }
+  .ep-print-prototype .ep-print-unknown .ep-print-bubble{
+    font-size:9.6pt!important;
+  }
 }

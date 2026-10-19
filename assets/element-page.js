@@ -116,14 +116,21 @@
       '<div class="ep-print-property"><dt>'+escapeText(label)+'</dt><dd>'+escapeText(value)+'</dd></div>'
     ).join('');
     const sheet=document.createElement('article');
-    // Prototyping just four editorial directions, without changing the other 114.
-    const stateDirection={
-      1:{className:'ep-print-gas',label:'VENTOS E TRAÇOS'},
-      6:{className:'ep-print-solid',label:'FORMAS EM QUADRINHOS'},
-      35:{className:'ep-print-liquid',label:'LINHAS QUE FLUEM'},
-      115:{className:'ep-print-unknown',label:'FRONTEIRAS DO CONHECIMENTO'}
-    }[current.z];
-    sheet.className='ep-print-sheet'+(stateDirection?' ep-print-prototype '+stateDirection.className:'');
+    // Cada um dos 118 elementos pertence a uma das quatro famílias visuais.
+    // A arte principal permanece intacta; os dois quadros de apoio reservam
+    // espaço para ilustrações que serão validadas individualmente depois.
+    const directions={
+      'Gasoso':{className:'ep-print-gas',label:'VENTOS E TRAÇOS'},
+      'Sólido':{className:'ep-print-solid',label:'FORMAS EM QUADRINHOS'},
+      'Líquido':{className:'ep-print-liquid',label:'LINHAS QUE FLUEM'},
+      'Não determinado':{className:'ep-print-unknown',label:'FRONTEIRAS DO CONHECIMENTO'}
+    };
+    const stateDirection=directions[current.state];
+    if(!stateDirection)throw new Error('Estado sem contrato editorial: '+current.state);
+    const artIndex=String(current.z).padStart(3,'0');
+    sheet.className='ep-print-sheet ep-print-prototype '+stateDirection.className;
+    sheet.dataset.printPhase='estrutura-sem-cenas';
+    sheet.dataset.element=artIndex;
     sheet.setAttribute('aria-label','Folheto de cordel para impressão: '+current.name);
     sheet.style.setProperty('--print-element-color',shade);
     sheet.innerHTML=`
@@ -134,7 +141,7 @@
         </div>
         <p class="ep-print-issue">COLEÇÃO PERIÓDICA <b>Nº ${String(current.z).padStart(3,'0')} / 118</b></p>
       </div>
-      <div class="ep-print-ribbon"><span>CIÊNCIA EM QUADRINHOS</span><i aria-hidden="true">✦</i><span>${stateDirection?stateDirection.label:'UM ELEMENTO, MUITAS HISTÓRIAS'}</span></div>
+      <div class="ep-print-ribbon"><span>CIÊNCIA EM QUADRINHOS</span><i aria-hidden="true">✦</i><span>${stateDirection.label}</span></div>
       <div class="ep-print-feature">
         <figure class="ep-print-art-panel">
           <div class="ep-print-art-label"><b>${escapeText(current.symbol)}</b><span>Z = ${current.z}</span></div>
@@ -144,7 +151,7 @@
           <figcaption>${escapeText(illustration)}</figcaption>
         </figure>
         <div class="ep-print-feature-copy">
-          <span class="ep-print-comic-tag"><i aria-hidden="true">✷</i> ${stateDirection?'UM FATO QUÍMICO':'VOCÊ SABIA?'}</span>
+          <span class="ep-print-comic-tag"><i aria-hidden="true">✷</i> UM FATO QUÍMICO</span>
           <h1>${escapeText(current.name)}</h1>
           <p class="ep-print-category">${escapeText(cat)}</p>
           <blockquote class="ep-print-bubble">${escapeText(phrase)}</blockquote>
@@ -163,12 +170,14 @@
       </section>
       <div class="ep-print-stories">
         <section class="ep-print-story">
-          <h2><span aria-hidden="true">01</span> NO COTIDIANO</h2>
+          <h2><span aria-hidden="true">01</span> ${current.state==='Não determinado'?'EM INVESTIGAÇÃO':'NO COTIDIANO'}</h2>
           <p>${escapeText(excerpt(story,235))}</p>
+          <div class="ep-print-story-art" data-scene="${artIndex}-01" aria-hidden="true"></div>
         </section>
         <section class="ep-print-story">
           <h2><span aria-hidden="true">02</span> DA ORIGEM À OBTENÇÃO</h2>
           <p>${escapeText(excerpt(origin,235))}</p>
+          <div class="ep-print-story-art" data-scene="${artIndex}-02" aria-hidden="true"></div>
         </section>
       </div>
       <footer class="ep-print-footer">
