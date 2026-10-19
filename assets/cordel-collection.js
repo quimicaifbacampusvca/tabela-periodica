@@ -87,6 +87,22 @@
       </div>
       <span class="periodic-legend-credit">IFBA · Campus Vitória da Conquista</span>
     </footer>`;
+  // The legend hangs from the same three physical cord lines as the folhetos.
+  // Its rope connections and wooden pins follow actual period offsets.
+  const legendCordContainer = document.createElement('div');
+  legendCordContainer.className = 'periodic-legend-cords';
+  legendCordContainer.setAttribute('aria-hidden', 'true');
+  for (let i = 1; i <= 3; i++) {
+    const lane = document.createElement('span');
+    lane.className = 'periodic-legend-cord-lane periodic-legend-cord-lane-' + i;
+    for (const side of ['start', 'end']) {
+      const pin = document.createElement('i');
+      pin.className = 'periodic-legend-pin periodic-legend-pin-' + side;
+      lane.appendChild(pin);
+    }
+    legendCordContainer.appendChild(lane);
+  }
+  legend.appendChild(legendCordContainer);
   grid.appendChild(legend);
   grid.prepend(ropes);
   grid.classList.add('cordel-collection');
@@ -118,6 +134,15 @@
       let row = rows.find(row => Math.abs(row.y - y) < 2);
       if (!row) { row = { y, pins: [] }; rows.push(row); }
       row.pins.push(tile.offsetLeft + tile.offsetWidth / 2);
+    }
+    // Keep each cord connection synchronized with the actual element-row
+    // positions, including font scaling, responsive widths and PWA resize.
+    if (periodic) {
+      const periodCords = [...rows].sort((a, b) => a.y - b.y).slice(0, 3);
+      periodCords.forEach((row, index) => {
+        legend.style.setProperty('--legend-cord-y-' + (index + 1),
+          (row.y - legend.offsetTop).toFixed(1) + 'px');
+      });
     }
     const width = grid.clientWidth, height = grid.clientHeight;
     const paths = rows.map(({y, pins}) => {
