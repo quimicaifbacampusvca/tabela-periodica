@@ -53,16 +53,16 @@ body[data-palette=blueyellow] .folio-state-icon{filter:grayscale(1) sepia(1) sat
 @media(forced-colors:active){.grid.cordel-collection{--rope-ink:CanvasText;--rope-fibre:Canvas;--peg-ink:CanvasText;--peg-paper:Canvas}.cordel-collection:not(.periodic) .tile{background:Canvas;color:LinkText;box-shadow:none;transform:none}.folio-pin{background:Canvas;border-color:CanvasText}.folio-frame{stroke:CanvasText}}
 
 /* Cores de categoria da referência atual; as palavras acompanham as cores. */
-:is(.tile,.legend-key)[data-category="Não metal"]{--cat:#526D94}
-:is(.tile,.legend-key)[data-category="Gás nobre"]{--cat:#70518E}
-:is(.tile,.legend-key)[data-category="Metal alcalino"]{--cat:#A94F29}
-:is(.tile,.legend-key)[data-category="Metal alcalinoterroso"]{--cat:#876213}
-:is(.tile,.legend-key)[data-category="Semimetal"]{--cat:#527143}
-:is(.tile,.legend-key)[data-category="Halogênio"]{--cat:#A24967}
-:is(.tile,.legend-key)[data-category="Outro metal"]{--cat:#326384}
-:is(.tile,.legend-key)[data-category="Metal de transição"]{--cat:#146B61}
-:is(.tile,.legend-key)[data-category="Lantanídeo"]{--cat:#866744}
-:is(.tile,.legend-key)[data-category="Actinídeo"]{--cat:#805256}
+.tile[data-category="Não metal"]{--cat:#526D94}
+.tile[data-category="Gás nobre"]{--cat:#70518E}
+.tile[data-category="Metal alcalino"]{--cat:#A94F29}
+.tile[data-category="Metal alcalinoterroso"]{--cat:#876213}
+.tile[data-category="Semimetal"]{--cat:#527143}
+.tile[data-category="Halogênio"]{--cat:#A24967}
+.tile[data-category="Outro metal"]{--cat:#326384}
+.tile[data-category="Metal de transição"]{--cat:#146B61}
+.tile[data-category="Lantanídeo"]{--cat:#866744}
+.tile[data-category="Actinídeo"]{--cat:#805256}
 
 /* Tabela clássica: 18 grupos, sete períodos e duas séries destacadas.
    A coluna estreita inicial e a primeira linha servem apenas aos rótulos. */
@@ -130,26 +130,38 @@ body[data-theme=contrast] .grid.cordel-collection.periodic{--rope-ink:#fff;--rop
 body[data-palette=mono] :is(.tile,.legend-key){--cat:var(--ink)!important}
 body[data-palette=redgreen] :is(.tile,.legend-key){--cat:#466c9c!important}
 body[data-palette=blueyellow] :is(.tile,.legend-key){--cat:#9c5266!important}
-/* Digital adaptation of the Drive legend; visible in the classic periodic view. */
-#colecao .periodic-legend{display:none}
-#colecao.catalog-periodic .periodic-legend{display:block;margin:1.3rem 0 1.2rem;padding:1.15rem 1.2rem;background:var(--surface);border:3px double var(--ink);box-shadow:4px 4px 0 var(--line);font-family:CordelSans,system-ui,sans-serif}
-.periodic-legend-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.5rem 1rem;padding-bottom:.7rem;border-bottom:1px solid var(--line)}
-.periodic-legend-head .eyebrow{margin:0;font-size:.62rem}
-.periodic-legend-head h3{margin:.25rem 0 0;font:700 1.1rem/1.4 CordelSerif,Georgia,serif}
-.periodic-legend-head>span{font-size:.6rem;letter-spacing:.12em;color:var(--muted)}
-.periodic-legend-columns{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(15rem,1fr);gap:1rem 1.6rem}
-.periodic-legend-columns>div{min-width:0}
-.periodic-legend-columns h4{font:700 .84rem/1.5 CordelSerif,Georgia,serif;margin:.75rem 0 .35rem}
-.periodic-legend-columns p,.periodic-legend-source{font-size:.7rem;line-height:1.6;color:var(--muted);margin:.25rem 0 .6rem}
-.periodic-legend-categories,.periodic-legend-states{margin:0;padding:0;list-style:none;display:grid;gap:.3rem .5rem}
-.periodic-legend-categories{grid-template-columns:repeat(2,minmax(0,1fr))}
-.periodic-legend-categories .legend-key{display:flex;align-items:center;gap:.45rem;min-width:0;padding:.25rem .35rem;border-bottom:1px solid var(--line);color:var(--ink);font-size:.67rem;line-height:1.45}
-.periodic-legend-categories .legend-code{flex:0 0 auto;min-width:2.1rem;text-align:center;border:1px solid var(--ink);border-left:4px solid var(--cat);padding:.18rem;background:var(--paper);color:var(--ink);font-size:.67rem}
-.periodic-legend-states{grid-template-columns:repeat(2,minmax(0,1fr))}
-.periodic-legend-states li{display:flex;align-items:center;gap:.45rem;min-height:44px;padding:.25rem .35rem;border-bottom:1px solid var(--line);font-size:.72rem;line-height:1.4;color:var(--ink)}
-.periodic-legend-states img{width:2.15rem;height:2.15rem;object-fit:contain;flex:none}
-.periodic-legend-note{margin-top:.75rem!important}
-.periodic-legend-source{border-top:1px solid var(--line);padding-top:.55rem;margin:.6rem 0 0}
-@media(max-width:860px){.periodic-legend-columns{grid-template-columns:1fr}}
-@media(max-width:510px){#colecao.catalog-periodic .periodic-legend{padding:.85rem}.periodic-legend-categories{grid-template-columns:1fr}.periodic-legend-head h3{font-size:1rem}}
-@media(forced-colors:active){.grid.cordel-collection.periodic{--rope-ink:CanvasText;--rope-fibre:CanvasText;--peg-paper:Canvas;--peg-ink:CanvasText}#colecao.catalog-periodic .periodic-legend{box-shadow:none;border-color:CanvasText}.periodic-legend-categories .legend-code,.grid.cordel-collection.periodic .periodic-cat-code{border-color:CanvasText;border-left-style:double;border-left-width:5px}}
+
+/* Approved Drive legend: the original PDF, placed between groups 4-11 and
+   chemical periods 1-3. CSS grid row 1 is reserved for group labels. */
+.grid.cordel-collection.periodic .periodic-brand.periodic-legend-file{
+  grid-column:4 / span 8;
+  grid-row:2 / span 3;
+  position:relative;z-index:2;
+  display:grid;grid-template-rows:minmax(0,1fr) auto;
+  align-self:stretch;justify-self:stretch;min-width:0;min-height:0;
+  padding:.3rem .45rem;gap:.3rem;
+  background:var(--paper);border:2px solid var(--ink);
+  box-shadow:2px 3px 0 var(--line);
+  color:var(--ink)
+}
+.grid.cordel-collection.periodic .periodic-legend-preview{
+  display:block;width:100%;height:100%;min-height:0;
+  border:0;background:var(--paper);
+  pointer-events:none
+}
+.grid.cordel-collection.periodic .periodic-legend-open{
+  display:flex;align-items:center;justify-content:center;
+  min-height:30px;padding:.25rem .35rem;
+  color:var(--ink);background:var(--surface);
+  border-top:1px solid var(--line);
+  font:700 .7rem/1.4 CordelSans,system-ui,sans-serif;
+  text-align:center;text-decoration:underline;text-underline-offset:.2em;
+  overflow-wrap:anywhere
+}
+.grid.cordel-collection.periodic .periodic-legend-open:hover{background:var(--soft)}
+.grid.cordel-collection.periodic .periodic-legend-open:focus-visible{outline-offset:2px}
+body[data-theme=contrast] .grid.cordel-collection.periodic .periodic-legend-file{box-shadow:none}
+@media(forced-colors:active){
+ .grid.cordel-collection.periodic .periodic-legend-file{background:Canvas;border-color:CanvasText;box-shadow:none}
+ .grid.cordel-collection.periodic .periodic-legend-open{background:Canvas;color:LinkText;border-color:CanvasText}
+}

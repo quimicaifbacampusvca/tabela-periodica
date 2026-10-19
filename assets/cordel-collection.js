@@ -44,16 +44,30 @@
     const symbols = document.createElement('strong'); symbols.textContent = names;
     marker.appendChild(numbers); marker.appendChild(symbols);
   }
-  const brand = tableLabel('periodic-brand', '', 4, '2 / span 3', 8);
-  const approvedLogo = document.querySelector('.brand img, .preview-head img');
-  if (approvedLogo) {
-    const emblem = approvedLogo.cloneNode(false);
-    emblem.className = 'periodic-emblem'; emblem.setAttribute('alt', '');
-    brand.appendChild(emblem);
-  }
-  const brandName = document.createElement('strong'); brandName.textContent = 'Cordel dos Elementos';
-  const brandNote = document.createElement('span'); brandNote.textContent = 'Tabela periódica';
-  brand.appendChild(brandName); brand.appendChild(brandNote);
+  // Original A4 legend from the Drive collection. The classic periodic table
+  // has a free area spanning columns 4–11 and chemical periods 1–3.
+  // Row 1 belongs to group numbers, hence CSS grid rows 2–4.
+  const brand = tableLabel('periodic-brand periodic-legend-file', '', 4, '2 / span 3', 8);
+  const documentUrl = new URL('legenda-central-original.pdf', document.currentScript.src).href;
+  brand.removeAttribute('aria-hidden');
+  brand.setAttribute('role','group');
+  brand.setAttribute('aria-label','Legenda oficial da tabela periódica');
+  const pdfPreview = document.createElement('object');
+  pdfPreview.className = 'periodic-legend-preview';
+  pdfPreview.type = 'application/pdf';
+  pdfPreview.data = documentUrl + '#view=Fit&toolbar=0&navpanes=0&scrollbar=0';
+  pdfPreview.tabIndex = -1;
+  pdfPreview.setAttribute('aria-hidden','true');
+  const fallback = document.createElement('span');
+  fallback.textContent = 'Prévia indisponível neste navegador. Abra a legenda original em PDF.';
+  pdfPreview.appendChild(fallback);
+  const openDocument = document.createElement('a');
+  openDocument.className = 'periodic-legend-open';
+  openDocument.href = documentUrl;
+  openDocument.target = '_blank';
+  openDocument.rel = 'noopener';
+  openDocument.textContent = 'Abrir legenda original (PDF) ↗';
+  brand.append(pdfPreview, openDocument);
   grid.prepend(ropes);
   grid.classList.add('cordel-collection');
   let frame = 0, lastDrawing = '', lastMode = null;
