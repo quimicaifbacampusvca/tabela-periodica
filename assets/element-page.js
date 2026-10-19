@@ -115,8 +115,6 @@
     const props=details.map(([label,value])=>
       '<div class="ep-print-property"><dt>'+escapeText(label)+'</dt><dd>'+escapeText(value)+'</dd></div>'
     ).join('');
-    const href=new URL(location.href);
-    href.hash='';href.search='';
     const sheet=document.createElement('article');
     sheet.className='ep-print-sheet';
     sheet.setAttribute('aria-label','Folheto de cordel para impressão: '+current.name);
@@ -166,7 +164,7 @@
       </div>
       <footer class="ep-print-footer">
         <p><strong>Fontes e leitura:</strong> CIAAW, IUPAC, NIST e referências científicas detalhadas na ficha digital. Valores sem incerteza informada não são medidas exatas. O estado indicado refere-se à substância simples.</p>
-        <div class="ep-print-signature"><span>IFBA · Campus Vitória da Conquista</span><span>Folheto ${String(current.z).padStart(3,'0')} · <a href="${escapeText(href.href)}">Ver a ficha digital ↗</a></span></div>
+        <div class="ep-print-signature"><span>IFBA · Campus Vitória da Conquista</span><span>Folheto ${String(current.z).padStart(3,'0')}</span></div>
       </footer>`;
     document.body.append(sheet);
     return sheet;
