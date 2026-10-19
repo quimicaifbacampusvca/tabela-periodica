@@ -1,0 +1,23 @@
+name: Verificar abertura Cordel
+on:
+  pull_request:
+    branches: [tabelaifbavca]
+    paths:
+      - 'assets/book-intro.js'
+      - 'assets/book-intro.css'
+      - 'index.html'
+      - 'sw.js'
+      - 'tests/verify-intro.cjs'
+      - '.github/workflows/verify-intro.yml'
+jobs:
+  test-intro:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Conferir abertura e integridade do catálogo
+        run: node tests/verify-intro.cjs
