@@ -47,7 +47,7 @@
   // Original A4 legend from the Drive collection. The classic periodic table
   // has a free area spanning columns 4–11 and chemical periods 1–3.
   // Row 1 belongs to group numbers, hence CSS grid rows 2–4.
-  const brand = tableLabel('periodic-brand periodic-legend-file', '', 4, '2 / span 3', 8);
+  const brand = tableLabel('periodic-brand periodic-legend-file', '', 5, '2 / span 3', 8);
   const documentUrl = new URL('legenda-central-original.pdf', document.currentScript.src).href;
   brand.removeAttribute('aria-hidden');
   brand.setAttribute('role','group');
