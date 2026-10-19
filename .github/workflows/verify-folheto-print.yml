@@ -26,7 +26,6 @@ jobs:
           set -euo pipefail
           CHROME="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || true)"
           test -n "$CHROME" || { echo 'Chrome indisponível no runner'; exit 1; }
-          command -v pdfinfo
           python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/cordel-http.log 2>&1 &
           SERVER_PID=$!
           trap 'kill $SERVER_PID || true' EXIT
@@ -35,7 +34,14 @@ jobs:
             OUT="$RUNNER_TEMP/folheto-${SLUG}.pdf"
             "$CHROME" --headless --no-sandbox --disable-gpu --disable-dev-shm-usage --no-pdf-header-footer --virtual-time-budget=5500 --print-to-pdf="$OUT" "http://127.0.0.1:8765/elementos/$SLUG/"
             test -s "$OUT"
-            PAGES="$(pdfinfo "$OUT" | awk '/^Pages:/{print $2}')"
+            PAGES="$(node -e 'const fs=require("fs");const pdf=fs.readFileSync(process.argv[1],"latin1");process.stdout.write(String((pdf.match(/\\/Type\\s*\\/Page\\b/g)||[]).length))' "$OUT")"
             echo "$SLUG: $PAGES página(s)"
             test "$PAGES" = '1' || { echo "A impressão de $SLUG rompe o A4"; exit 1; }
           done
+      - name: Disponibilizar amostras em PDF para revisão visual
+        uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: folhetos-a4-amostras
+          path: ${{ runner.temp }}/folheto-*.pdf
+          retention-days: 14
