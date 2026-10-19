@@ -11,3 +11,26 @@ dialog.access-drawer{position:fixed;inset:0 auto 0 0;margin:0;padding:0;width:mi
 #brand-intro{animation:none;pointer-events:auto}#brand-intro .book-animation-stage{width:min(90vw,740px);height:min(78vh,650px);position:relative;display:grid;place-items:center}#brand-intro .book-scene{width:100%;height:100%;overflow:visible;position:absolute;inset:0}#brand-intro img.intro-final-logo{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;animation:none;opacity:0}#brand-intro .book-left,#brand-intro .book-right,#brand-intro .sheet-swing{transform-origin:0 0;transform-box:view-box}#intro-replay{margin-top:20px;font-size:.85rem;background:#f4eedf;color:#233c37;border-color:#788b76}#intro-replay-status{font-size:.8rem;color:#233c37;text-align:center;max-width:35em}#brand-intro .scene-particle{opacity:0}#brand-intro .scene-cord path,#brand-intro .scene-bonds path{stroke-dasharray:1;stroke-dashoffset:1}#brand-intro .book-left,#brand-intro .book-right{opacity:0}body[data-theme=contrast] #intro-replay{background:#000;color:#fff;border-color:#fff}@media(prefers-reduced-motion:reduce){#brand-intro{display:none!important}}
 /* Every animated piece uses pixels from the approved woodcut logo. */
 #brand-intro .art-pages{transform-origin:640px 1060px;transform-box:view-box;opacity:0}#brand-intro .art-node{transform-origin:640px 1040px;transform-box:view-box;opacity:0}#brand-intro .art-network,#brand-intro .art-complete{opacity:0}#brand-intro .art-flyer{transform-origin:640px 640px;transform-box:view-box;opacity:0}#brand-intro .book-animation-stage{width:min(90vw,670px);height:min(82vh,720px)}
+
+/* Shared cordel design language for controls and catalogue filters. */
+header nav{gap:.45rem .6rem;min-width:0}
+header nav>a,header nav>button{display:inline-flex;align-items:center;justify-content:center;min-height:44px;max-width:100%;padding:.5rem .75rem;border:2px solid var(--ink);border-radius:0;background:var(--surface);color:var(--ink);box-shadow:2px 2px 0 var(--line);font-size:.78rem;font-weight:700;line-height:1.4;text-align:center;text-decoration:none}
+header nav>a:hover,header nav>button:hover,header nav>a:focus-visible,header nav>button:focus-visible{background:var(--soft);color:var(--ink);box-shadow:3px 3px 0 var(--accent)}
+body:not(.element-page) .tools{position:relative;padding:1.1rem 1.25rem;border:2px solid var(--ink);border-radius:0;background:var(--surface);box-shadow:4px 4px 0 var(--line)}
+body:not(.element-page) .tools label{font:700 .77rem/1.5 CordelSans,system-ui,sans-serif;min-width:min(12rem,100%)}
+body:not(.element-page) .tools input,body:not(.element-page) .tools select{min-width:0;min-height:48px;width:100%;background:var(--paper);color:var(--ink);border:2px solid var(--ink);border-radius:0;font-size:.84rem;box-shadow:2px 2px 0 var(--line)}
+body:not(.element-page) .tools input::placeholder{color:var(--muted);opacity:1}
+body:not(.element-page) .view-switch{display:inline-flex;flex-wrap:wrap;gap:.3rem;padding:.25rem;border:2px solid var(--ink);background:var(--surface)}
+body:not(.element-page) .view-switch button{min-height:44px;min-width:5rem;border:0;border-radius:0;background:transparent;color:var(--ink);font:700 .79rem/1.4 CordelSans,system-ui,sans-serif}
+body:not(.element-page) .view-switch button[aria-pressed=true]{background:var(--ink);color:var(--paper);text-decoration:underline;text-underline-offset:.25em}
+body:not(.element-page) .view-switch button[aria-pressed=false]:hover{background:var(--soft)}
+body:not(.element-page) .discovery-actions a{display:inline-flex;align-items:center;min-height:44px;border-bottom:2px solid var(--ink);padding:.55rem .8rem;color:var(--ink);font:700 .83rem/1.4 CordelSans,system-ui,sans-serif;text-decoration:none}
+body:not(.element-page) .discovery-actions a:hover{background:var(--soft)}
+body:not(.element-page) #count{border-left:3px solid var(--accent);padding:.25rem .8rem;font-size:.8rem;font-weight:700}
+dialog:not(.access-drawer){border:3px double var(--ink);border-radius:0;box-shadow:4px 4px 0 var(--line)}
+dialog:not(.access-drawer) button{min-height:44px;border:2px solid var(--ink);border-radius:0;background:var(--paper);color:var(--ink);font-weight:700}
+dialog:not(.access-drawer) button:hover{background:var(--soft)}
+.access-drawer .access-head button,.access-drawer #access-reset,.access-drawer .access-font button,.access-drawer select{border:2px solid var(--ink);border-radius:0;background:var(--paper);color:var(--ink)}
+@media(max-width:650px){header nav{width:100%;gap:.35rem}header nav>a,header nav>button{flex:1 1 auto;padding:.55rem .35rem;font-size:.74rem}body:not(.element-page) .tools{padding:1rem}body:not(.element-page) .tools label{flex:1 1 min(100%,15rem)}}
+@media(max-width:350px){header nav>a,header nav>button{flex:1 1 100%}body:not(.element-page) .view-switch button{min-width:0;flex:1 1 auto}}
+@media(forced-colors:active){header nav>a,header nav>button,body:not(.element-page) .tools,body:not(.element-page) .view-switch{box-shadow:none;border-color:CanvasText}body:not(.element-page) .view-switch button[aria-pressed=true]{color:HighlightText;background:Highlight}}

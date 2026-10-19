@@ -11,7 +11,15 @@
   ropes.setAttribute('aria-hidden', 'true');
   ropes.setAttribute('focusable', 'false');
   ropes.setAttribute('preserveAspectRatio', 'none');
+  const categoryCodes = {"Metal alcalino":"MA","Metal alcalinoterroso":"MC","Metal de transição":"MT","Outro metal":"OM","Semimetal":"SM","Não metal":"NM","Halogênio":"HL","Gás nobre":"GN","Lantanídeo":"LN","Actinídeo":"AC"};
   tiles.forEach(tile => {
+    const shortCode = categoryCodes[tile.dataset.category];
+    if (!shortCode) throw new Error('Categoria sem sigla: '+tile.dataset.category);
+    const code = document.createElement('span');
+    code.className = 'periodic-cat-code';
+    code.textContent = shortCode;
+    code.setAttribute('aria-hidden','true');
+    tile.appendChild(code);
     const pin = document.createElement('span');
     pin.className = 'folio-pin folio-decoration';
     pin.setAttribute('aria-hidden', 'true');
@@ -54,6 +62,7 @@
     const periodic = grid.classList.contains('periodic');
     if (lastMode !== periodic) {
       lastMode = periodic;
+      lastDrawing = '';
       document.querySelector('#colecao')?.classList.toggle('catalog-periodic',periodic);
       stopBreeze();
       if (!periodic) armBreeze();
@@ -67,14 +76,11 @@
       const intro = document.querySelector('#colecao .catalog-intro');
       if (intro) intro.textContent = periodic ? 'Explore os elementos por grupos e períodos.' : 'Escolha um folheto e descubra a química no cotidiano.';
     }
-    if (periodic) {
-      ropes.replaceChildren(); lastDrawing = ''; return;
-    }
-    // Offset geometry is unaffected by rotations on the pamphlets.
+    // Ropes follow the upper edges of each period, preserving varal positioning.
     const rows = [];
     for (const tile of tiles) {
       if (tile.hidden || tile.offsetWidth === 0) continue;
-      const y = tile.offsetTop - 12;
+      const y = tile.offsetTop - (periodic ? 6 : 12);
       let row = rows.find(row => Math.abs(row.y - y) < 2);
       if (!row) { row = { y, pins: [] }; rows.push(row); }
       row.pins.push(tile.offsetLeft + tile.offsetWidth / 2);

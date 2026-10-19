@@ -163,3 +163,24 @@ body.element-page[data-palette=blueyellow] .ep-state img,body.element-page[data-
 @media(prefers-reduced-motion:reduce){.ep-cover,.ep-shell,.ep-related-card{transform:none!important;transition:none}.ep-meter>i{transition:none}}
 @media(forced-colors:active){.ep-cover,.ep-question,.ep-comparison{box-shadow:none}.ep-shell[aria-pressed=true]{outline:3px solid Highlight;outline-offset:2px}.ep-meter>i{background:CanvasText!important}.ep-category::before{background:CanvasText}}
 @media print{html{font-size:10pt!important;scroll-behavior:auto}.element-page{--paper:#fff!important;--surface:#fff!important;--ink:#000!important;--muted:#333!important;--line:#999!important;--accent:#000!important;--soft:#fff!important;background:#fff!important;color:#000!important}.element-page header,.element-page footer,.skip,.ep-chapters,.ep-actions,.ep-breadcrumb,.ep-pager,.ep-unit-controls,.ep-shell-explorer,.ep-comparison,.ep-related,dialog,.access-filters,#share-status,#share-fallback{display:none!important}.element-page main{filter:none!important;width:100%;max-width:none!important;container-type:normal}.ep-hero{display:grid;grid-template-columns:34% 1fr;gap:2rem;padding:1rem 0 2rem;break-inside:avoid}.ep-cover{transform:none;box-shadow:none;padding:1.5rem}.ep-cover-pin,.ep-cover::before{display:none}.ep-symbol{font-size:3.5rem}.element-page h1{font-size:2.5rem}.ep-introduction{max-width:none}.ep-reading{display:block}.ep-section{margin-bottom:1rem;padding-bottom:1rem}.ep-section-heading{break-after:avoid}.element-page details{break-inside:avoid}.ep-properties{display:block;columns:2;column-gap:1.5rem}.ep-property{break-inside:avoid}.ep-property summary small{display:none}.ep-table-scroll{overflow:visible}.ep-art{max-height:10rem}.ep-references a{overflow-wrap:anywhere}a{color:#000!important}.ep-section>p{max-width:none}.ep-state-note{break-inside:avoid}.element-page main h2{font-size:1.5rem}}
+
+/* Lists, navigation and button consistency across all 118 folhetos. */
+.element-page .ep-actions button{background:var(--surface);color:var(--ink);border:2px solid var(--ink);border-radius:0;box-shadow:2px 2px 0 var(--line);font-weight:700}
+.element-page .ep-actions button:hover{background:var(--soft)}
+.element-page .ep-actions .ep-primary{border:2px solid var(--ink);border-radius:0;box-shadow:2px 2px 0 var(--line)}
+.element-page .ep-identity-facts>div,.element-page .ep-position-facts>div{border-top:1px solid var(--line);padding:.65rem .3rem .6rem 0;min-width:0}
+.element-page .ep-chapters a{border-left:3px solid var(--line);line-height:1.5}
+.element-page .ep-chapters a[aria-current=location]{border-left-color:var(--accent);font-weight:700;text-decoration:underline;text-underline-offset:.25em}
+.element-page .ep-unit-controls select,.element-page .ep-compare-controls select{min-height:48px;border:2px solid var(--ink);border-radius:0;background:var(--surface);color:var(--ink);box-shadow:2px 2px 0 var(--line)}
+.element-page .ep-property summary{padding:.75rem .6rem;margin-inline:-.35rem;border-left:3px solid transparent;line-height:1.6}
+.element-page .ep-property summary:hover,.element-page .ep-property summary:focus-visible{background:var(--soft);border-left-color:var(--ink)}
+.element-page .ep-property[open] summary{background:var(--soft);border-left-color:var(--accent)}
+.element-page .ep-references ol{list-style:none;counter-reset:source;display:grid;gap:.65rem;margin:1rem 0;padding:0}
+.element-page .ep-references ol>li{counter-increment:source;position:relative;min-width:0;margin:0;padding:.8rem .9rem .8rem 3.2rem;background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--ink);line-height:1.7;overflow-wrap:anywhere}
+.element-page .ep-references ol>li::before{content:counter(source,decimal-leading-zero);position:absolute;top:.75rem;left:.55rem;display:grid;place-items:center;width:1.9rem;min-height:1.9rem;border:1px solid var(--ink);background:var(--paper);color:var(--ink);font:700 .71rem CordelSerif,Georgia,serif}
+.element-page .ep-references li a{font-weight:700;color:var(--accent);text-underline-offset:.2em}
+.element-page .ep-pager a{padding:.85rem 1rem;border:1px solid var(--line);background:var(--surface)}
+.element-page .ep-pager a:hover{background:var(--soft)}
+@media(max-width:440px){.element-page .ep-actions>*{flex:1 1 100%;min-width:0;width:100%}.element-page .ep-pager{grid-template-columns:1fr;gap:.7rem}.element-page .ep-pager a:last-child{align-items:flex-start;text-align:left}}
+@media(forced-colors:active){.element-page .ep-actions button,.element-page .ep-references li,.element-page .ep-pager a{box-shadow:none;border-color:CanvasText}}
+@media print{.element-page .ep-references ol{gap:.2rem}.element-page .ep-references ol>li{break-inside:avoid;border-color:#bbb;padding:.35rem .5rem .35rem 2.5rem}.element-page .ep-references ol>li::before{top:.35rem;left:.2rem;width:1.85rem;min-height:1.85rem}}

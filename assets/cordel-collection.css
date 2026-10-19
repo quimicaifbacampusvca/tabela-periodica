@@ -38,7 +38,7 @@
 @media(hover:hover) and (pointer:fine){.cordel-collection:not(.periodic) .tile:hover{z-index:2;transform:rotate(0deg);background:var(--paper);box-shadow:1px 2px 0 var(--line),3px 4px 0 var(--paper),4px 5px 0 var(--line),0 9px 16px #233c371a;outline:1px solid var(--ink);outline-offset:3px}}
 .cordel-collection:not(.periodic) .tile:focus-visible{z-index:2;transform:rotate(0deg);outline:3px solid var(--accent);outline-offset:5px}
 /* Posições e densidade do modo tabela preservadas. */
-.cordel-collection.periodic .cordel-ropes,.cordel-collection.periodic .folio-decoration{display:none}
+.cordel-collection.periodic .folio-decoration{display:none}
 .cordel-collection.periodic .folio-header{display:contents}
 body[data-theme=dark] .grid.cordel-collection{--rope-ink:#c5ad88;--rope-fibre:#736149;--peg-paper:#ac8654;--peg-ink:#362b20}
 body[data-theme=contrast] .grid.cordel-collection{--rope-ink:#fff;--rope-fibre:#000;--peg-paper:#fff;--peg-ink:#000}
@@ -53,16 +53,16 @@ body[data-palette=blueyellow] .folio-state-icon{filter:grayscale(1) sepia(1) sat
 @media(forced-colors:active){.grid.cordel-collection{--rope-ink:CanvasText;--rope-fibre:Canvas;--peg-ink:CanvasText;--peg-paper:Canvas}.cordel-collection:not(.periodic) .tile{background:Canvas;color:LinkText;box-shadow:none;transform:none}.folio-pin{background:Canvas;border-color:CanvasText}.folio-frame{stroke:CanvasText}}
 
 /* Cores de categoria da referência atual; as palavras acompanham as cores. */
-.tile[data-category="Não metal"]{--cat:#526D94}
-.tile[data-category="Gás nobre"]{--cat:#70518E}
-.tile[data-category="Metal alcalino"]{--cat:#A94F29}
-.tile[data-category="Metal alcalinoterroso"]{--cat:#876213}
-.tile[data-category="Semimetal"]{--cat:#527143}
-.tile[data-category="Halogênio"]{--cat:#A24967}
-.tile[data-category="Outro metal"]{--cat:#326384}
-.tile[data-category="Metal de transição"]{--cat:#146B61}
-.tile[data-category="Lantanídeo"]{--cat:#866744}
-.tile[data-category="Actinídeo"]{--cat:#805256}
+:is(.tile,.legend-key)[data-category="Não metal"]{--cat:#526D94}
+:is(.tile,.legend-key)[data-category="Gás nobre"]{--cat:#70518E}
+:is(.tile,.legend-key)[data-category="Metal alcalino"]{--cat:#A94F29}
+:is(.tile,.legend-key)[data-category="Metal alcalinoterroso"]{--cat:#876213}
+:is(.tile,.legend-key)[data-category="Semimetal"]{--cat:#527143}
+:is(.tile,.legend-key)[data-category="Halogênio"]{--cat:#A24967}
+:is(.tile,.legend-key)[data-category="Outro metal"]{--cat:#326384}
+:is(.tile,.legend-key)[data-category="Metal de transição"]{--cat:#146B61}
+:is(.tile,.legend-key)[data-category="Lantanídeo"]{--cat:#866744}
+:is(.tile,.legend-key)[data-category="Actinídeo"]{--cat:#805256}
 
 /* Tabela clássica: 18 grupos, sete períodos e duas séries destacadas.
    A coluna estreita inicial e a primeira linha servem apenas aos rótulos. */
@@ -114,3 +114,42 @@ body[data-palette=blueyellow] .folio-state-icon{filter:grayscale(1) sepia(1) sat
 .simple-reading .periodic-emblem{display:none}
 @media(forced-colors:active){.cordel-collection.periodic .tile{background:Canvas;color:LinkText}.cordel-collection.periodic .tile:hover{background:Canvas}.periodic-series-marker{border-color:CanvasText;outline-color:CanvasText}}
 @media(prefers-reduced-motion:reduce){.cordel-collection.periodic .tile{transition:none}}
+
+/* Periods as suspended folhetos: the rope stays between rows, not over text. */
+.grid.cordel-collection.periodic{--rope-ink:#69543b;--rope-fibre:#c4a275;--peg-paper:#c99d61;--peg-ink:#614a30;row-gap:.85rem}
+.grid.cordel-collection.periodic .cordel-ropes{display:block;position:absolute;inset:0;z-index:0;pointer-events:none}
+.grid.cordel-collection.periodic .cordel-rope{stroke-width:1.9;opacity:.85}
+.grid.cordel-collection.periodic .cordel-rope-fibre{stroke-width:.65;opacity:.7}
+.grid.cordel-collection.periodic .folio-pin{display:block;top:-.82rem;left:calc(50% - .22rem);width:.44rem;height:1.13rem;box-shadow:none;z-index:2}
+.grid.cordel-collection.periodic .folio-pin::after{top:.4rem;height:.2rem}
+.grid.cordel-collection.periodic .tile{grid-template-rows:auto auto auto auto}
+.grid.cordel-collection.periodic .periodic-cat-code{display:inline-flex;align-items:center;justify-content:center;justify-self:center;min-width:2em;padding:.08rem .25rem;border:1px solid var(--ink);border-left:3px solid var(--cat);background:var(--surface);color:var(--ink);font:700 .54rem/1.3 CordelSans,system-ui,sans-serif;letter-spacing:.03em;white-space:nowrap}
+.cordel-collection:not(.periodic) .periodic-cat-code{display:none}
+body[data-theme=dark] .grid.cordel-collection.periodic{--rope-ink:#c5ad88;--rope-fibre:#827056;--peg-paper:#b48f64;--peg-ink:#433427}
+body[data-theme=contrast] .grid.cordel-collection.periodic{--rope-ink:#fff;--rope-fibre:#fff;--peg-paper:#000;--peg-ink:#fff}
+body[data-palette=mono] :is(.tile,.legend-key){--cat:var(--ink)!important}
+body[data-palette=redgreen] :is(.tile,.legend-key){--cat:#466c9c!important}
+body[data-palette=blueyellow] :is(.tile,.legend-key){--cat:#9c5266!important}
+/* Digital adaptation of the Drive legend; visible in the classic periodic view. */
+#colecao .periodic-legend{display:none}
+#colecao.catalog-periodic .periodic-legend{display:block;margin:1.3rem 0 1.2rem;padding:1.15rem 1.2rem;background:var(--surface);border:3px double var(--ink);box-shadow:4px 4px 0 var(--line);font-family:CordelSans,system-ui,sans-serif}
+.periodic-legend-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.5rem 1rem;padding-bottom:.7rem;border-bottom:1px solid var(--line)}
+.periodic-legend-head .eyebrow{margin:0;font-size:.62rem}
+.periodic-legend-head h3{margin:.25rem 0 0;font:700 1.1rem/1.4 CordelSerif,Georgia,serif}
+.periodic-legend-head>span{font-size:.6rem;letter-spacing:.12em;color:var(--muted)}
+.periodic-legend-columns{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(15rem,1fr);gap:1rem 1.6rem}
+.periodic-legend-columns>div{min-width:0}
+.periodic-legend-columns h4{font:700 .84rem/1.5 CordelSerif,Georgia,serif;margin:.75rem 0 .35rem}
+.periodic-legend-columns p,.periodic-legend-source{font-size:.7rem;line-height:1.6;color:var(--muted);margin:.25rem 0 .6rem}
+.periodic-legend-categories,.periodic-legend-states{margin:0;padding:0;list-style:none;display:grid;gap:.3rem .5rem}
+.periodic-legend-categories{grid-template-columns:repeat(2,minmax(0,1fr))}
+.periodic-legend-categories .legend-key{display:flex;align-items:center;gap:.45rem;min-width:0;padding:.25rem .35rem;border-bottom:1px solid var(--line);color:var(--ink);font-size:.67rem;line-height:1.45}
+.periodic-legend-categories .legend-code{flex:0 0 auto;min-width:2.1rem;text-align:center;border:1px solid var(--ink);border-left:4px solid var(--cat);padding:.18rem;background:var(--paper);color:var(--ink);font-size:.67rem}
+.periodic-legend-states{grid-template-columns:repeat(2,minmax(0,1fr))}
+.periodic-legend-states li{display:flex;align-items:center;gap:.45rem;min-height:44px;padding:.25rem .35rem;border-bottom:1px solid var(--line);font-size:.72rem;line-height:1.4;color:var(--ink)}
+.periodic-legend-states img{width:2.15rem;height:2.15rem;object-fit:contain;flex:none}
+.periodic-legend-note{margin-top:.75rem!important}
+.periodic-legend-source{border-top:1px solid var(--line);padding-top:.55rem;margin:.6rem 0 0}
+@media(max-width:860px){.periodic-legend-columns{grid-template-columns:1fr}}
+@media(max-width:510px){#colecao.catalog-periodic .periodic-legend{padding:.85rem}.periodic-legend-categories{grid-template-columns:1fr}.periodic-legend-head h3{font-size:1rem}}
+@media(forced-colors:active){.grid.cordel-collection.periodic{--rope-ink:CanvasText;--rope-fibre:CanvasText;--peg-paper:Canvas;--peg-ink:CanvasText}#colecao.catalog-periodic .periodic-legend{box-shadow:none;border-color:CanvasText}.periodic-legend-categories .legend-code,.grid.cordel-collection.periodic .periodic-cat-code{border-color:CanvasText;border-left-style:double;border-left-width:5px}}
