@@ -149,7 +149,7 @@
         <div class="ep-print-fact-row">
           <div><small>Massa apresentada</small><strong>${escapeText(current.mass)}</strong></div>
           <div><small>Posição periódica</small><strong>${escapeText(position)}</strong></div>
-          <div><small>Átomo neutro</small><strong>${current.z} prótons · ${current.z} elétrons</strong></div>
+          <div><small>Átomo neutro</small><strong>${current.z} próton${current.z===1?'':'s'} · ${current.z} elétron${current.z===1?'':'s'}</strong></div>
         </div>
         <div class="ep-print-config"><span>CONFIGURAÇÃO ELETRÔNICA${current.predictedConfig?' · PREVISÃO TEÓRICA':''}</span><strong>${escapeText(current.config)}</strong></div>
         <dl class="ep-print-property-grid">${props}</dl>
