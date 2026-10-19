@@ -116,7 +116,14 @@
       '<div class="ep-print-property"><dt>'+escapeText(label)+'</dt><dd>'+escapeText(value)+'</dd></div>'
     ).join('');
     const sheet=document.createElement('article');
-    sheet.className='ep-print-sheet';
+    // Prototyping just four editorial directions, without changing the other 114.
+    const stateDirection={
+      1:{className:'ep-print-gas',label:'VENTOS E TRAÇOS'},
+      6:{className:'ep-print-solid',label:'FORMAS EM QUADRINHOS'},
+      35:{className:'ep-print-liquid',label:'LINHAS QUE FLUEM'},
+      115:{className:'ep-print-unknown',label:'FRONTEIRAS DO CONHECIMENTO'}
+    }[current.z];
+    sheet.className='ep-print-sheet'+(stateDirection?' ep-print-prototype '+stateDirection.className:'');
     sheet.setAttribute('aria-label','Folheto de cordel para impressão: '+current.name);
     sheet.style.setProperty('--print-element-color',shade);
     sheet.innerHTML=`
@@ -127,15 +134,17 @@
         </div>
         <p class="ep-print-issue">COLEÇÃO PERIÓDICA <b>Nº ${String(current.z).padStart(3,'0')} / 118</b></p>
       </div>
-      <div class="ep-print-ribbon"><span>CIÊNCIA EM QUADRINHOS</span><i aria-hidden="true">✦</i><span>UM ELEMENTO, MUITAS HISTÓRIAS</span></div>
+      <div class="ep-print-ribbon"><span>CIÊNCIA EM QUADRINHOS</span><i aria-hidden="true">✦</i><span>${stateDirection?stateDirection.label:'UM ELEMENTO, MUITAS HISTÓRIAS'}</span></div>
       <div class="ep-print-feature">
         <figure class="ep-print-art-panel">
           <div class="ep-print-art-label"><b>${escapeText(current.symbol)}</b><span>Z = ${current.z}</span></div>
+          <span class="ep-print-scene-motif" aria-hidden="true"></span>
           <img class="ep-print-main-art" src="${escapeText(art?.getAttribute('src')||'')}" alt="${escapeText(illustration)}">
+          <span class="ep-print-scene-sparks" aria-hidden="true"><i></i><i></i><i></i></span>
           <figcaption>${escapeText(illustration)}</figcaption>
         </figure>
         <div class="ep-print-feature-copy">
-          <span class="ep-print-comic-tag"><i aria-hidden="true">✷</i> VOCÊ SABIA?</span>
+          <span class="ep-print-comic-tag"><i aria-hidden="true">✷</i> ${stateDirection?'UM FATO QUÍMICO':'VOCÊ SABIA?'}</span>
           <h1>${escapeText(current.name)}</h1>
           <p class="ep-print-category">${escapeText(cat)}</p>
           <blockquote class="ep-print-bubble">${escapeText(phrase)}</blockquote>

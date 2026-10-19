@@ -1,7 +1,7 @@
 name: Verificar Folheto A4
 on:
   pull_request:
-    branches: [tabelaifbavca]
+    branches: [tabelaifbavca, feat/folheto-editorial-a4-uma-pagina]
     paths:
       - 'assets/element-page.js'
       - 'assets/element-page.css'
@@ -30,7 +30,7 @@ jobs:
           SERVER_PID=$!
           trap 'kill $SERVER_PID || true' EXIT
           sleep 2
-          for SLUG in ferro hidrogenio oganessonio; do
+          for SLUG in hidrogenio carbono bromo moscovio; do
             OUT="$RUNNER_TEMP/folheto-${SLUG}.pdf"
             "$CHROME" --headless --no-sandbox --disable-gpu --disable-dev-shm-usage --no-pdf-header-footer --virtual-time-budget=5500 --print-to-pdf="$OUT" "http://127.0.0.1:8765/elementos/$SLUG/"
             test -s "$OUT"
@@ -42,6 +42,6 @@ jobs:
         uses: actions/upload-artifact@v4
         if: success()
         with:
-          name: folhetos-a4-amostras
+          name: folhetos-quatro-estados
           path: ${{ runner.temp }}/folheto-*.pdf
           retention-days: 14
