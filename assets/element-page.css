@@ -184,3 +184,187 @@ body.element-page[data-palette=blueyellow] .ep-state img,body.element-page[data-
 @media(max-width:440px){.element-page .ep-actions>*{flex:1 1 100%;min-width:0;width:100%}.element-page .ep-pager{grid-template-columns:1fr;gap:.7rem}.element-page .ep-pager a:last-child{align-items:flex-start;text-align:left}}
 @media(forced-colors:active){.element-page .ep-actions button,.element-page .ep-references li,.element-page .ep-pager a{box-shadow:none;border-color:CanvasText}}
 @media print{.element-page .ep-references ol{gap:.2rem}.element-page .ep-references ol>li{break-inside:avoid;border-color:#bbb;padding:.35rem .5rem .35rem 2.5rem}.element-page .ep-references ol>li::before{top:.35rem;left:.2rem;width:1.85rem;min-height:1.85rem}}
+
+
+/* FOLHETO EDITORIAL DE CORDEL · peça única A4, independente da interface.
+   Linguagem gráfica de vinhetas e quadrinhos brasileiros, sem imagens novas
+   sobrepostas à ilustração científica da coleção. */
+@media screen{
+  .ep-print-sheet{display:none!important}
+}
+@page{size:A4 portrait;margin:0}
+@media print{
+  html{font-size:10pt!important;height:auto!important;overflow:visible!important}
+  body.element-page{
+    margin:0!important;padding:0!important;background:#fff!important;
+    --paper:#fffdf4!important;--ink:#1d3630!important;--accent:#994830!important;
+    color:#1d3630!important;overflow:visible!important;
+    print-color-adjust:exact!important;-webkit-print-color-adjust:exact!important
+  }
+  body.element-page > :not(.ep-print-sheet){display:none!important}
+  body.element-page > .ep-print-sheet{
+    display:grid!important;position:relative!important;
+    width:210mm!important;height:296mm!important;max-width:none!important;
+    margin:0!important;padding:10mm 12mm!important;box-sizing:border-box!important;
+    grid-template-rows:15mm 8mm 90mm 65mm 59mm 22mm;
+    row-gap:2mm;overflow:hidden!important;page-break-inside:avoid;
+    break-inside:avoid;background:#fffdf4!important;color:#1d3630!important;
+    font-family:CordelSans,Arial,sans-serif!important;
+    print-color-adjust:exact!important;-webkit-print-color-adjust:exact!important
+  }
+  .ep-print-sheet *{box-sizing:border-box!important}
+  .ep-print-sheet::before{
+    content:'';position:absolute;inset:5.5mm;pointer-events:none;
+    border:1.25pt solid #1d3630;border-radius:0;
+  }
+  .ep-print-sheet::after{
+    content:'';position:absolute;inset:7mm;pointer-events:none;
+    border:.35pt solid #b5a38c;
+  }
+  .ep-print-sheet h1,.ep-print-sheet h2,.ep-print-sheet p,
+  .ep-print-sheet blockquote,.ep-print-sheet figure,.ep-print-sheet dl{
+    margin:0!important;padding:0
+  }
+  .ep-print-sheet .ep-print-masthead{
+    display:flex;align-items:center;justify-content:space-between;
+    gap:5mm;min-width:0;border-bottom:1.3pt solid #1d3630;padding:0 1mm 1.5mm;
+  }
+  .ep-print-brand{display:flex;align-items:center;gap:2.5mm;min-width:0}
+  .ep-print-brand img{width:12mm;height:12mm;object-fit:contain;mix-blend-mode:multiply}
+  .ep-print-brand span{display:flex;flex-direction:column;gap:1mm}
+  .ep-print-brand strong{font:700 12.5pt/1.05 CordelSerif,Georgia,serif;letter-spacing:-.05em}
+  .ep-print-brand small{font:7pt CordelSans,Arial,sans-serif;letter-spacing:.04em}
+  .ep-print-issue{text-align:right;font-size:7pt!important;line-height:1.4;white-space:nowrap}
+  .ep-print-issue b{display:block;font:700 8pt CordelSans,Arial,sans-serif}
+  .ep-print-ribbon{
+    display:flex;align-items:center;justify-content:space-evenly;gap:2mm;
+    background:#1d3630;color:#fffdf4;padding:0 3mm;
+    font:700 7.4pt CordelSans,Arial,sans-serif;letter-spacing:.07em;
+  }
+  .ep-print-ribbon i{font:12pt CordelSerif,Georgia,serif;color:#edc26f}
+  .ep-print-feature{display:grid;grid-template-columns:47% minmax(0,1fr);gap:5mm;min-height:0}
+  .ep-print-art-panel{
+    position:relative;display:grid;grid-template-rows:auto 1fr auto;
+    min-width:0;height:100%;border:2pt solid #1d3630;
+    padding:4mm;background:#f7efd9;overflow:hidden
+  }
+  .ep-print-art-panel::before{
+    content:'';position:absolute;right:0;bottom:1mm;width:25mm;height:23mm;
+    opacity:.2;pointer-events:none;background-image:radial-gradient(#1d3630 12%,transparent 16%);
+    background-size:2.2mm 2.2mm
+  }
+  .ep-print-art-label{display:flex;align-items:start;justify-content:space-between;position:relative;z-index:1}
+  .ep-print-art-label b{
+    font:700 29pt/.95 CordelSerif,Georgia,serif;color:var(--print-element-color,#146b61)
+  }
+  .ep-print-art-label span{font:700 8pt CordelSans,Arial,sans-serif}
+  .ep-print-art-panel .ep-print-main-art{
+    width:100%;height:100%;min-height:0;max-height:60mm;object-fit:contain;
+    align-self:center;justify-self:center;mix-blend-mode:multiply
+  }
+  .ep-print-art-panel figcaption{
+    z-index:1;font:7.4pt/1.25 CordelSans,Arial,sans-serif;
+    padding-top:1.5mm;border-top:1pt solid #1d3630;text-align:center
+  }
+  .ep-print-feature-copy{
+    min-width:0;display:flex;flex-direction:column;align-items:start;
+    justify-content:start;gap:2mm;padding:2mm 1mm 0
+  }
+  .ep-print-comic-tag{
+    display:inline-flex;align-items:center;gap:1.5mm;
+    padding:1.2mm 2.3mm;border:1.25pt solid #1d3630;
+    transform:rotate(-2deg);background:#edc26f;color:#1d3630;
+    font:700 8pt/1 CordelSans,Arial,sans-serif;letter-spacing:.04em
+  }
+  .ep-print-comic-tag i{font:15pt/1 CordelSerif,Georgia,serif}
+  .ep-print-feature-copy h1{
+    max-width:100%;overflow-wrap:break-word;
+    font:700 27pt/1.05 CordelSerif,Georgia,serif!important;letter-spacing:-.05em!important
+  }
+  .ep-print-category{font:700 8pt/1.3 CordelSans,Arial,sans-serif!important;color:#375148}
+  .ep-print-bubble{
+    position:relative;display:block;align-self:stretch;
+    margin:3mm 1.5mm 3mm 0!important;
+    padding:4mm!important;border:1.8pt solid #1d3630;border-radius:5mm 5mm 5mm 1mm;
+    background:#fffdf4;color:#1d3630;
+    font:700 11pt/1.35 CordelSerif,Georgia,serif!important;
+    overflow-wrap:break-word
+  }
+  .ep-print-bubble::after{
+    content:'';position:absolute;left:5mm;bottom:-3.4mm;
+    width:5mm;height:5mm;border-left:1.8pt solid #1d3630;
+    border-bottom:1.8pt solid #1d3630;background:#fffdf4;transform:rotate(-26deg)
+  }
+  .ep-print-state{
+    margin-top:auto;display:grid;gap:.5mm;border-left:3pt solid var(--print-element-color,#146b61);
+    padding-left:2.3mm
+  }
+  .ep-print-state>span{font:700 6.8pt CordelSans,Arial,sans-serif;letter-spacing:.05em}
+  .ep-print-state>strong{font:700 10pt CordelSerif,Georgia,serif}
+  .ep-print-state>small{font:6.5pt CordelSans,Arial,sans-serif}
+  .ep-print-facts{
+    display:grid;grid-template-rows:9mm 14mm 12mm 1fr;gap:1.6mm;
+    border-top:2pt solid #1d3630;border-bottom:2pt solid #1d3630;padding:2mm 0
+  }
+  .ep-print-facts>h2{
+    display:flex;align-items:center;gap:2mm;
+    font:700 10pt CordelSerif,Georgia,serif!important;letter-spacing:-.015em
+  }
+  .ep-print-facts>h2>span{color:#a54f2d;font-size:15pt}
+  .ep-print-facts>h2>small{
+    margin-left:auto;font:7pt CordelSans,Arial,sans-serif;letter-spacing:0
+  }
+  .ep-print-fact-row{display:grid;grid-template-columns:1fr 1.25fr 1.15fr;gap:2mm}
+  .ep-print-fact-row>div{display:grid;align-content:center;gap:1mm;padding:1mm 2mm;background:#f2e6cc}
+  .ep-print-fact-row small{font:6.8pt CordelSans,Arial,sans-serif}
+  .ep-print-fact-row strong{font:700 8.6pt/1.3 CordelSans,Arial,sans-serif}
+  .ep-print-config{
+    display:flex;align-items:center;gap:2mm;justify-content:space-between;padding:1mm 2mm;
+    border:1px solid #bcb19c;min-width:0
+  }
+  .ep-print-config span{font:700 6.6pt CordelSans,Arial,sans-serif;flex-shrink:0}
+  .ep-print-config strong{
+    font:700 8.6pt CordelSans,Arial,sans-serif;text-align:right;
+    overflow-wrap:anywhere
+  }
+  .ep-print-property-grid{
+    display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:1.5mm 2mm;align-content:stretch
+  }
+  .ep-print-property{display:flex;flex-direction:column;justify-content:center;
+    gap:.5mm;padding:1mm 2mm;background:#fff8e8;border-left:1.5pt solid #a54f2d}
+  .ep-print-property dt{font:7pt/1.2 CordelSans,Arial,sans-serif}
+  .ep-print-property dd{font:700 9pt/1.3 CordelSans,Arial,sans-serif;margin:0!important}
+  .ep-print-stories{display:grid;grid-template-columns:1fr 1fr;gap:4mm;min-height:0}
+  .ep-print-story{
+    min-width:0;display:flex;flex-direction:column;gap:2mm;
+    border:1pt solid #1d3630;padding:3.2mm 3.5mm;background:#fff8e8;overflow:hidden
+  }
+  .ep-print-story h2{
+    display:flex;align-items:center;gap:2mm;padding-bottom:2mm!important;
+    border-bottom:.75pt dashed #876c52;
+    font:700 9.4pt CordelSerif,Georgia,serif!important;letter-spacing:-.015em
+  }
+  .ep-print-story h2 span{
+    display:grid;place-items:center;width:7mm;height:7mm;flex-shrink:0;
+    color:#fffdf4;background:#994830;border-radius:50%;
+    font:700 7pt CordelSans,Arial,sans-serif
+  }
+  .ep-print-story p{
+    font:8.6pt/1.44 CordelSans,Arial,sans-serif!important;
+    overflow-wrap:break-word
+  }
+  .ep-print-sheet .ep-print-footer{
+    display:flex!important;flex-direction:column;justify-content:space-between;
+    gap:1mm;min-width:0;margin:0!important;padding:1.5mm 1mm 0!important;
+    border-top:1.3pt solid #1d3630!important;background:none!important;
+    color:#1d3630!important
+  }
+  .ep-print-footer>p{font:7pt/1.28 CordelSans,Arial,sans-serif!important}
+  .ep-print-signature{
+    display:flex;align-items:center;justify-content:space-between;gap:4mm;
+    font:700 7pt CordelSans,Arial,sans-serif;border-top:.35pt solid #b5a38c;padding-top:1mm
+  }
+  .ep-print-signature span{white-space:nowrap}
+  .ep-print-signature a{color:#1d3630!important;text-decoration:underline}
+}
