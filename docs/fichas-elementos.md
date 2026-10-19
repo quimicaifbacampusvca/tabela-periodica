@@ -83,5 +83,9 @@ de DOM não comprovam aparência, paginação real nem comportamento em Safari, 
 ou Chrome. A revisão visual em dispositivos reais permanece uma verificação de
 homologação após a publicação.
 
-O cache passa a `cordel-varal-v6`, incluindo os quatro novos recursos de execução.
+As 118 ilustrações WebP já possuem canal alfa. O CSS mantém o fundo transparente e
+sem borda também nos temas escuro, alto contraste e cores forçadas; o papel do próprio
+folheto aparece atrás da arte, sem um retângulo claro adicional.
+
+O cache passa a `cordel-varal-v7`, incluindo os quatro novos recursos de execução.
 O carregamento parcial do vídeo e a estratégia de navegação existentes são mantidos.

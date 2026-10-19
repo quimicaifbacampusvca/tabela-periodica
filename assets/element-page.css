@@ -29,7 +29,8 @@
 .ep-state img{width:2.5rem;height:2.5rem;object-fit:contain;flex-shrink:0}
 .ep-state small{display:block;color:var(--muted);font-size:.6rem;font-weight:400;margin-top:.25rem}
 .ep-symbol{display:block;font:700 clamp(3rem,18cqi,6rem)/1.1 CordelSerif,Georgia,serif;letter-spacing:-.04em;margin:.8rem 0 .3rem}
-.ep-art{display:block;width:100%;height:auto;aspect-ratio:640/427;object-fit:contain;margin:.2rem auto .5rem}
+/* The approved WebP illustrations already have alpha; show the folheto beneath them in every theme. */
+.ep-art{display:block;width:100%;height:auto;aspect-ratio:640/427;object-fit:contain;margin:.2rem auto .5rem;background:transparent;border:0}
 .ep-cover figcaption>strong{display:block;font:700 1.3rem/1.3 CordelSerif,Georgia,serif}
 .ep-cover figcaption>span{display:block;font-size:.82rem;margin-top:.3rem}
 .ep-cover figcaption p{font-size:.8rem;line-height:1.55;margin:0;text-wrap:balance}
@@ -144,7 +145,6 @@
 .ep-pager span{font-size:.7rem;color:var(--muted);margin-top:.3rem}
 .element-page footer p{margin:.4rem 0}.element-page footer strong{font-family:CordelSerif,Georgia,serif}
 body.element-page[data-theme=dark]{--rope:#c5ad88;--peg:#ac8654;--peg-edge:#362b20}
-body.element-page[data-theme=dark] .ep-art,body.element-page[data-theme=contrast] .ep-art{background:#f4eedf;border:1px solid var(--line)}
 body.element-page[data-theme=contrast]{--rope:#fff;--peg:#fff;--peg-edge:#000}
 body.element-page[data-theme=contrast] .ep-cover,body.element-page[data-theme=contrast] .ep-question,body.element-page[data-theme=contrast] .ep-comparison{box-shadow:none}
 body.element-page[data-palette=redgreen]{--element-color:#466c9c!important}
@@ -161,5 +161,5 @@ body.element-page[data-palette=blueyellow] .ep-state img,body.element-page[data-
 @media(max-width:700px){.ep-hero{grid-template-columns:1fr;gap:2rem}.ep-reading{grid-template-columns:1fr}.ep-chapters{position:static;flex-direction:row;max-height:none;flex-wrap:wrap}.ep-chapters>p{width:100%}.ep-chapters .ep-back-top{display:none}.ep-properties{grid-template-columns:1fr}.ep-cover{max-width:22rem}}
 @media(max-width:400px){.ep-cover{padding:1.6rem 1.5rem}.ep-state{font-size:.6rem}.ep-cover-top>span:first-child>small{font-size:.6rem}.ep-cover-top{gap:.5rem}.ep-state img{width:2rem;height:2rem}.ep-breadcrumb{font-size:.7rem}.ep-actions>*{flex:1 1 auto}.ep-chapters a{font-size:.7rem;padding:.5rem .3rem}.ep-cover::before{left:-.4rem;right:-.4rem}}
 @media(prefers-reduced-motion:reduce){.ep-cover,.ep-shell,.ep-related-card{transform:none!important;transition:none}.ep-meter>i{transition:none}}
-@media(forced-colors:active){.ep-cover,.ep-question,.ep-comparison{box-shadow:none}.ep-art{background:Canvas}.ep-shell[aria-pressed=true]{outline:3px solid Highlight;outline-offset:2px}.ep-meter>i{background:CanvasText!important}.ep-category::before{background:CanvasText}}
+@media(forced-colors:active){.ep-cover,.ep-question,.ep-comparison{box-shadow:none}.ep-shell[aria-pressed=true]{outline:3px solid Highlight;outline-offset:2px}.ep-meter>i{background:CanvasText!important}.ep-category::before{background:CanvasText}}
 @media print{html{font-size:10pt!important;scroll-behavior:auto}.element-page{--paper:#fff!important;--surface:#fff!important;--ink:#000!important;--muted:#333!important;--line:#999!important;--accent:#000!important;--soft:#fff!important;background:#fff!important;color:#000!important}.element-page header,.element-page footer,.skip,.ep-chapters,.ep-actions,.ep-breadcrumb,.ep-pager,.ep-unit-controls,.ep-shell-explorer,.ep-comparison,.ep-related,dialog,.access-filters,#share-status,#share-fallback{display:none!important}.element-page main{filter:none!important;width:100%;max-width:none!important;container-type:normal}.ep-hero{display:grid;grid-template-columns:34% 1fr;gap:2rem;padding:1rem 0 2rem;break-inside:avoid}.ep-cover{transform:none;box-shadow:none;padding:1.5rem}.ep-cover-pin,.ep-cover::before{display:none}.ep-symbol{font-size:3.5rem}.element-page h1{font-size:2.5rem}.ep-introduction{max-width:none}.ep-reading{display:block}.ep-section{margin-bottom:1rem;padding-bottom:1rem}.ep-section-heading{break-after:avoid}.element-page details{break-inside:avoid}.ep-properties{display:block;columns:2;column-gap:1.5rem}.ep-property{break-inside:avoid}.ep-property summary small{display:none}.ep-table-scroll{overflow:visible}.ep-art{max-height:10rem}.ep-references a{overflow-wrap:anywhere}a{color:#000!important}.ep-section>p{max-width:none}.ep-state-note{break-inside:avoid}.element-page main h2{font-size:1.5rem}}
