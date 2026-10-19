@@ -213,16 +213,38 @@ body[data-palette=blueyellow] :is(.tile,.legend-category){--cat:#9c5266!importan
   display:block;min-width:0;overflow-wrap:anywhere
 }
 .periodic-central-legend .periodic-legend-footer{
-  display:flex;justify-content:space-between;align-items:end;gap:.55rem;
-  margin:0;padding:.45rem 0 0;border-top:1px solid var(--line);min-width:0;min-height:0
+  display:flex;justify-content:space-between;align-items:center;gap:.55rem;
+  margin:0;padding:.38rem 0 0;border-top:1px solid var(--line);min-width:0;min-height:0;
+  break-inside:avoid;page-break-inside:avoid
 }
 .periodic-central-legend .periodic-legend-notes{
   display:flex;flex-direction:column;gap:.12rem;min-width:0;
   color:var(--muted);font-size:.61rem;line-height:1.28
 }
+/* Institutional signature: official IFBA geometric mark and a native,
+   unbroken campus label. Preserve the three-period table footprint. */
 .periodic-central-legend .periodic-legend-credit{
-  flex:0 0 28%;text-align:right;color:var(--ink);
-  font:700 .61rem/1.28 CordelSans,system-ui,sans-serif
+  flex:0 0 auto;display:flex;flex-direction:row;
+  align-items:center;justify-content:flex-end;
+  gap:.4rem;min-width:0;max-width:45%;
+  color:var(--ink);text-align:left;
+  font-family:CordelSans,system-ui,sans-serif
+}
+.periodic-central-legend .periodic-legend-ifba-mark{
+  display:block;flex:0 0 auto;width:1.55rem;height:2.12rem;
+  overflow:visible
+}
+.periodic-central-legend .periodic-legend-credit-copy{
+  display:flex;flex-direction:column;align-items:flex-start;justify-content:center;
+  gap:.13rem;min-width:0;line-height:1.2
+}
+.periodic-central-legend .periodic-legend-credit-copy strong{
+  display:block;white-space:nowrap;
+  font-size:.77rem;font-weight:700;letter-spacing:.045em
+}
+.periodic-central-legend .periodic-legend-credit-copy span{
+  display:block;white-space:nowrap;
+  font-size:.57rem;font-weight:600;letter-spacing:-.015em
 }
 /* The card's original scientific mass replaces MA/MC/SM/NM/etc. without
    changing the stored mass, category, or the 118 element records. */
@@ -305,7 +327,10 @@ body[data-theme=contrast] .grid.cordel-collection.periodic .periodic-central-leg
   .periodic-central-legend .periodic-legend-states li{font-size:.62rem;gap:.25rem}
   .periodic-central-legend .periodic-legend-states img{width:1.8rem;height:1.8rem}
   .periodic-central-legend .periodic-legend-notes{font-size:.52rem;gap:.05rem}
-  .periodic-central-legend .periodic-legend-credit{font-size:.5rem}
+  .periodic-central-legend .periodic-legend-credit{max-width:46%;gap:.25rem}
+  .periodic-central-legend .periodic-legend-ifba-mark{width:1.18rem;height:1.65rem}
+  .periodic-central-legend .periodic-legend-credit-copy strong{font-size:.63rem}
+  .periodic-central-legend .periodic-legend-credit-copy span{font-size:.49rem}
 }
 @media(forced-colors:active){
   .periodic-central-legend .periodic-legend-cord-lane::before,
@@ -333,5 +358,34 @@ body[data-theme=contrast] .grid.cordel-collection.periodic .periodic-central-leg
 @media(prefers-reduced-motion:reduce){
   .grid.cordel-collection.periodic .tile{
     transform:none!important;transition:none!important;
+  }
+}
+
+/* In the compact 8-column blank area, keep the campus name intact by moving
+   the whole institutional signature below the scientific notes if necessary. */
+@container periodic-legend (max-width: 29rem){
+  .periodic-central-legend .periodic-legend-footer{
+    display:grid;grid-template-columns:minmax(0,1fr);gap:.28rem;
+  }
+  .periodic-central-legend .periodic-legend-credit{
+    max-width:100%;justify-self:end;justify-content:flex-end;
+    white-space:nowrap;
+  }
+  .periodic-central-legend .periodic-legend-notes{
+    gap:.04rem;line-height:1.2;
+  }
+}
+/* Never allow a line break inside the campus designation, whether the
+   original light mode, dark mode, contrast or large-text option is active. */
+.periodic-central-legend .periodic-legend-credit-copy span{
+  white-space:nowrap;overflow-wrap:normal;word-break:keep-all;
+}
+@media print{
+  .grid.cordel-collection.periodic .periodic-central-legend{
+    break-inside:avoid;page-break-inside:avoid;
+  }
+  .periodic-central-legend .periodic-legend-footer,
+  .periodic-central-legend .periodic-legend-credit{
+    break-inside:avoid;page-break-inside:avoid;
   }
 }

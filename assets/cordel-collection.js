@@ -85,7 +85,26 @@
         <span>Massa em u; [A] é o número de massa de um isótopo.</span>
         <span>Não determinado inclui estados apenas previstos.</span>
       </div>
-      <span class="periodic-legend-credit">IFBA · Campus Vitória da Conquista</span>
+      <div class="periodic-legend-credit" role="group" aria-label="Instituto Federal da Bahia, Campus Vitória da Conquista">
+        <svg class="periodic-legend-ifba-mark" viewBox="0 0 34 46" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+          <circle cx="5.1" cy="5.1" r="4.9" fill="#d81920"/>
+          <g fill="#329b36">
+            <rect x="12" y=".2" width="9.8" height="9.8"/>
+            <rect x="24" y=".2" width="9.8" height="9.8"/>
+            <rect x=".2" y="12" width="9.8" height="9.8"/>
+            <rect x="12" y="12" width="9.8" height="9.8"/>
+            <rect x=".2" y="24" width="9.8" height="9.8"/>
+            <rect x="12" y="24" width="9.8" height="9.8"/>
+            <rect x="24" y="24" width="9.8" height="9.8"/>
+            <rect x=".2" y="36" width="9.8" height="9.8"/>
+            <rect x="12" y="36" width="9.8" height="9.8"/>
+          </g>
+        </svg>
+        <div class="periodic-legend-credit-copy">
+          <strong>IFBA</strong>
+          <span>Campus Vitória da Conquista</span>
+        </div>
+      </div>
     </footer>`;
   // The legend hangs from the same three physical cord lines as the folhetos.
   // Its rope connections and wooden pins follow actual period offsets.
