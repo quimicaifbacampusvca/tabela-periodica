@@ -11,15 +11,8 @@
   ropes.setAttribute('aria-hidden', 'true');
   ropes.setAttribute('focusable', 'false');
   ropes.setAttribute('preserveAspectRatio', 'none');
-  const categoryCodes = {"Metal alcalino":"MA","Metal alcalinoterroso":"MC","Metal de transição":"MT","Outro metal":"OM","Semimetal":"SM","Não metal":"NM","Halogênio":"HL","Gás nobre":"GN","Lantanídeo":"LN","Actinídeo":"AC"};
   tiles.forEach(tile => {
-    const shortCode = categoryCodes[tile.dataset.category];
-    if (!shortCode) throw new Error('Categoria sem sigla: '+tile.dataset.category);
-    const code = document.createElement('span');
-    code.className = 'periodic-cat-code';
-    code.textContent = shortCode;
-    code.setAttribute('aria-hidden','true');
-    tile.appendChild(code);
+    // Periodic view exposes the scientific mass already present in each folheto.
     const pin = document.createElement('span');
     pin.className = 'folio-pin folio-decoration';
     pin.setAttribute('aria-hidden', 'true');
@@ -44,30 +37,57 @@
     const symbols = document.createElement('strong'); symbols.textContent = names;
     marker.appendChild(numbers); marker.appendChild(symbols);
   }
-  // Original A4 legend from the Drive collection. The classic periodic table
-  // has a free area spanning columns 4–11 and chemical periods 1–3.
-  // Row 1 belongs to group numbers, hence CSS grid rows 2–4.
-  const brand = tableLabel('periodic-brand periodic-legend-file', '', 5, '2 / span 3', 8);
-  const documentUrl = new URL('legenda-central-original.pdf', document.currentScript.src).href;
-  brand.removeAttribute('aria-hidden');
-  brand.setAttribute('role','group');
-  brand.setAttribute('aria-label','Legenda oficial da tabela periódica');
-  const pdfPreview = document.createElement('object');
-  pdfPreview.className = 'periodic-legend-preview';
-  pdfPreview.type = 'application/pdf';
-  pdfPreview.data = documentUrl + '#view=Fit&toolbar=0&navpanes=0&scrollbar=0';
-  pdfPreview.tabIndex = -1;
-  pdfPreview.setAttribute('aria-hidden','true');
-  const fallback = document.createElement('span');
-  fallback.textContent = 'Prévia indisponível neste navegador. Abra a legenda original em PDF.';
-  pdfPreview.appendChild(fallback);
-  const openDocument = document.createElement('a');
-  openDocument.className = 'periodic-legend-open';
-  openDocument.href = documentUrl;
-  openDocument.target = '_blank';
-  openDocument.rel = 'noopener';
-  openDocument.textContent = 'Abrir legenda original (PDF) ↗';
-  brand.append(pdfPreview, openDocument);
+  // Native graphic reconstructed from the approved Drive legend.
+  // Chemical groups 4–11; periods 1–3. The grid has one extra header row/column.
+  const legend = document.createElement('section');
+  legend.className = 'periodic-only periodic-central-legend';
+  legend.setAttribute('aria-labelledby','periodic-legend-heading');
+  legend.innerHTML = `
+    <header class="periodic-legend-heading">
+      <span class="periodic-legend-overline">COMO LER A TABELA</span>
+      <h3 id="periodic-legend-heading">Elementos no cotidiano <span>| legenda central</span></h3>
+    </header>
+    <div class="periodic-legend-columns">
+      <section class="periodic-legend-column" aria-labelledby="periodic-legend-categories-heading">
+        <div class="periodic-legend-caption">
+          <h4 id="periodic-legend-categories-heading">COR = CATEGORIA</h4>
+          <span>Cor dominante do ícone</span>
+        </div>
+        <ul class="periodic-legend-categories">
+          <li class="legend-category" data-category="Metal alcalino"><i aria-hidden="true"></i><span>Metais alcalinos</span></li>
+          <li class="legend-category" data-category="Metal alcalinoterroso"><i aria-hidden="true"></i><span>Alcalinoterrosos</span></li>
+          <li class="legend-category" data-category="Metal de transição"><i aria-hidden="true"></i><span>Metais de transição</span></li>
+          <li class="legend-category" data-category="Outro metal"><i aria-hidden="true"></i><span>Outros metais</span></li>
+          <li class="legend-category" data-category="Semimetal"><i aria-hidden="true"></i><span>Semimetais</span></li>
+          <li class="legend-category" data-category="Não metal"><i aria-hidden="true"></i><span>Não metais</span></li>
+          <li class="legend-category" data-category="Halogênio"><i aria-hidden="true"></i><span>Halogênios</span></li>
+          <li class="legend-category" data-category="Gás nobre"><i aria-hidden="true"></i><span>Gases nobres</span></li>
+          <li class="legend-category" data-category="Lantanídeo"><i aria-hidden="true"></i><span>Lantanídeos</span></li>
+          <li class="legend-category" data-category="Actinídeo"><i aria-hidden="true"></i><span>Actinídeos</span></li>
+        </ul>
+      </section>
+      <section class="periodic-legend-column periodic-legend-physical" aria-labelledby="periodic-legend-states-heading">
+        <div class="periodic-legend-caption">
+          <h4 id="periodic-legend-states-heading">FORMA = ESTADO</h4>
+          <span>A 25 °C e 1 atm</span>
+        </div>
+        <ul class="periodic-legend-states">
+          <li><img src="assets/colecao/estado_solido_transicao.webp" alt="" width="42" height="42"><span>Sólido</span></li>
+          <li><img src="assets/colecao/estado_liquido_halogenios.webp" alt="" width="42" height="42"><span>Líquido</span></li>
+          <li><img src="assets/colecao/estado_gasoso_grupo18.webp" alt="" width="42" height="42"><span>Gasoso</span></li>
+          <li><img src="assets/colecao/estado_nao_determinado_actinideos.webp" alt="" width="42" height="42"><span>Não determinado</span></li>
+        </ul>
+      </section>
+    </div>
+    <footer class="periodic-legend-footer">
+      <div class="periodic-legend-notes">
+        <span>Estado físico da substância simples do elemento.</span>
+        <span>Massa em u; [A] é o número de massa de um isótopo.</span>
+        <span>Não determinado inclui estados apenas previstos.</span>
+      </div>
+      <span class="periodic-legend-credit">IFBA · Campus Vitória da Conquista</span>
+    </footer>`;
+  grid.appendChild(legend);
   grid.prepend(ropes);
   grid.classList.add('cordel-collection');
   let frame = 0, lastDrawing = '', lastMode = null;
