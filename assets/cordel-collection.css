@@ -138,8 +138,9 @@ body[data-palette=blueyellow] :is(.tile,.legend-category){--cat:#9c5266!importan
   display:grid;grid-template-rows:auto minmax(0,1fr) auto;
   align-self:stretch;justify-self:stretch;align-content:stretch;
   gap:.4rem;min-width:0;min-height:0;
-  /* Move the frame top onto the single existing SVG rope (8 px above the cell). */
-  margin-top:-8px;
+  /* draw() places the existing rope 6px above the element row; use the
+     same measured offset instead of a second parallel top stroke. */
+  margin-top:-6px;
   padding:.72rem .85rem .65rem;
   container:periodic-legend / inline-size;
   position:relative;z-index:2;
