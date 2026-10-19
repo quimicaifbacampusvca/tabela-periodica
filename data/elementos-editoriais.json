@@ -1,0 +1,2991 @@
+{
+  "version": "v08",
+  "condition": "25 °C e 1 atm; substância simples",
+  "mass_reference": "CIAAW 2024; números entre colchetes: edição IUPAC de 4 de maio de 2022",
+  "state_policy": "Estados previstos ou sem caracterização macroscópica suficiente não são apresentados como confirmados. At, Fr e Fm–Og usam Não determinado nesta proposta conservadora.",
+  "elements": [
+    {
+      "z": 1,
+      "symbol": "H",
+      "name": "Hidrogênio",
+      "mass": "1,0080 u",
+      "category": "Não metal",
+      "category_key": "nao_metais",
+      "color": "#526D94",
+      "state": "Gasoso",
+      "map_row": 1,
+      "map_column": 1,
+      "illustration_description": "Copo de água",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/1/hydrogen"
+      ],
+      "phrase": "Na água, faz parte da molécula H₂O.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Hidrogênio",
+          "url": "https://periodic-table.rsc.org/element/1/hydrogen"
+        }
+      ]
+    },
+    {
+      "z": 2,
+      "symbol": "He",
+      "name": "Hélio",
+      "mass": "4,0026 u",
+      "category": "Gás nobre",
+      "category_key": "grupo18",
+      "color": "#70518E",
+      "state": "Gasoso",
+      "map_row": 1,
+      "map_column": 18,
+      "illustration_description": "Balões",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/2/helium"
+      ],
+      "phrase": "O gás hélio enche balões que flutuam no ar.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Hélio",
+          "url": "https://periodic-table.rsc.org/element/2/helium"
+        }
+      ]
+    },
+    {
+      "z": 3,
+      "symbol": "Li",
+      "name": "Lítio",
+      "mass": "6,94 u",
+      "category": "Metal alcalino",
+      "category_key": "alcalinos",
+      "color": "#A94F29",
+      "state": "Sólido",
+      "map_row": 2,
+      "map_column": 1,
+      "illustration_description": "Celular e bateria",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/3/lithium"
+      ],
+      "phrase": "Íons de lítio participam de baterias recarregáveis.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Lítio",
+          "url": "https://periodic-table.rsc.org/element/3/lithium"
+        }
+      ]
+    },
+    {
+      "z": 4,
+      "symbol": "Be",
+      "name": "Berílio",
+      "mass": "9,0122 u",
+      "category": "Metal alcalinoterroso",
+      "category_key": "alcalinoterrosos",
+      "color": "#876213",
+      "state": "Sólido",
+      "map_row": 2,
+      "map_column": 2,
+      "illustration_description": "Mola e contato elétrico",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/4/beryllium"
+      ],
+      "phrase": "Em ligas com cobre, aumenta a resistência de molas e contatos.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Berílio",
+          "url": "https://periodic-table.rsc.org/element/4/beryllium"
+        }
+      ]
+    },
+    {
+      "z": 5,
+      "symbol": "B",
+      "name": "Boro",
+      "mass": "10,81 u",
+      "category": "Semimetal",
+      "category_key": "semimetais",
+      "color": "#527143",
+      "state": "Sólido",
+      "map_row": 2,
+      "map_column": 13,
+      "illustration_description": "Travessa de vidro",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/5/boron"
+      ],
+      "phrase": "Seu óxido integra vidros resistentes ao calor.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Boro",
+          "url": "https://periodic-table.rsc.org/element/5/boron"
+        }
+      ]
+    },
+    {
+      "z": 6,
+      "symbol": "C",
+      "name": "Carbono",
+      "mass": "12,011 u",
+      "category": "Não metal",
+      "category_key": "nao_metais",
+      "color": "#526D94",
+      "state": "Sólido",
+      "map_row": 2,
+      "map_column": 14,
+      "illustration_description": "Lápis",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/6/carbon"
+      ],
+      "phrase": "Na forma de grafite, está na ponta do lápis.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Carbono",
+          "url": "https://periodic-table.rsc.org/element/6/carbon"
+        }
+      ]
+    },
+    {
+      "z": 7,
+      "symbol": "N",
+      "name": "Nitrogênio",
+      "mass": "14,007 u",
+      "category": "Não metal",
+      "category_key": "nao_metais",
+      "color": "#526D94",
+      "state": "Gasoso",
+      "map_row": 2,
+      "map_column": 15,
+      "illustration_description": "Embalagem de salgadinho",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/7/nitrogen"
+      ],
+      "phrase": "O gás N₂ ajuda a conservar alimentos em embalagens.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Nitrogênio",
+          "url": "https://periodic-table.rsc.org/element/7/nitrogen"
+        }
+      ]
+    },
+    {
+      "z": 8,
+      "symbol": "O",
+      "name": "Oxigênio",
+      "mass": "15,999 u",
+      "category": "Não metal",
+      "category_key": "nao_metais",
+      "color": "#526D94",
+      "state": "Gasoso",
+      "map_row": 2,
+      "map_column": 16,
+      "illustration_description": "Cilindro e máscara",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/8/oxygen",
+        "https://www.who.int/news-room/questions-and-answers/item/oxygen"
+      ],
+      "phrase": "O gás O₂ é usado em tratamentos respiratórios.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Oxigênio",
+          "url": "https://periodic-table.rsc.org/element/8/oxygen"
+        },
+        {
+          "label": "OMS: oxigênio medicinal",
+          "url": "https://www.who.int/news-room/questions-and-answers/item/oxygen"
+        }
+      ]
+    },
+    {
+      "z": 9,
+      "symbol": "F",
+      "name": "Flúor",
+      "mass": "18,998 u",
+      "category": "Halogênio",
+      "category_key": "halogenios",
+      "color": "#A24967",
+      "state": "Gasoso",
+      "map_row": 2,
+      "map_column": 17,
+      "illustration_description": "Creme dental e escova",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/9/fluorine"
+      ],
+      "phrase": "Fluoretos estão em muitos cremes dentais.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Flúor",
+          "url": "https://periodic-table.rsc.org/element/9/fluorine"
+        }
+      ]
+    },
+    {
+      "z": 10,
+      "symbol": "Ne",
+      "name": "Neônio",
+      "mass": "20,180 u",
+      "category": "Gás nobre",
+      "category_key": "grupo18",
+      "color": "#70518E",
+      "state": "Gasoso",
+      "map_row": 2,
+      "map_column": 18,
+      "illustration_description": "Tubo luminoso",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/10/neon"
+      ],
+      "phrase": "Seu gás produz luz vermelho-alaranjada em tubos.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Neônio",
+          "url": "https://periodic-table.rsc.org/element/10/neon"
+        }
+      ]
+    },
+    {
+      "z": 11,
+      "symbol": "Na",
+      "name": "Sódio",
+      "mass": "22,990 u",
+      "category": "Metal alcalino",
+      "category_key": "alcalinos",
+      "color": "#A94F29",
+      "state": "Sólido",
+      "map_row": 3,
+      "map_column": 1,
+      "illustration_description": "Sal de cozinha",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/11/sodium"
+      ],
+      "phrase": "Íons de sódio estão no NaCl, principal componente do sal.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Sódio",
+          "url": "https://periodic-table.rsc.org/element/11/sodium"
+        }
+      ]
+    },
+    {
+      "z": 12,
+      "symbol": "Mg",
+      "name": "Magnésio",
+      "mass": "24,305 u",
+      "category": "Metal alcalinoterroso",
+      "category_key": "alcalinoterrosos",
+      "color": "#876213",
+      "state": "Sólido",
+      "map_row": 3,
+      "map_column": 2,
+      "illustration_description": "Câmera",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/12/magnesium"
+      ],
+      "phrase": "Suas ligas leves são usadas no corpo de algumas câmeras.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Magnésio",
+          "url": "https://periodic-table.rsc.org/element/12/magnesium"
+        }
+      ]
+    },
+    {
+      "z": 13,
+      "symbol": "Al",
+      "name": "Alumínio",
+      "mass": "26,982 u",
+      "category": "Outro metal",
+      "category_key": "outros_metais",
+      "color": "#326384",
+      "state": "Sólido",
+      "map_row": 3,
+      "map_column": 13,
+      "illustration_description": "Lata e papel-alumínio",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/13/aluminium"
+      ],
+      "phrase": "Está em latas e no papel-alumínio da cozinha.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Alumínio",
+          "url": "https://periodic-table.rsc.org/element/13/aluminium"
+        }
+      ]
+    },
+    {
+      "z": 14,
+      "symbol": "Si",
+      "name": "Silício",
+      "mass": "28,085 u",
+      "category": "Semimetal",
+      "category_key": "semimetais",
+      "color": "#527143",
+      "state": "Sólido",
+      "map_row": 3,
+      "map_column": 14,
+      "illustration_description": "Microchip",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/14/silicon"
+      ],
+      "phrase": "É um semicondutor usado em microchips.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Silício",
+          "url": "https://periodic-table.rsc.org/element/14/silicon"
+        }
+      ]
+    },
+    {
+      "z": 15,
+      "symbol": "P",
+      "name": "Fósforo",
+      "mass": "30,974 u",
+      "category": "Não metal",
+      "category_key": "nao_metais",
+      "color": "#526D94",
+      "state": "Sólido",
+      "map_row": 3,
+      "map_column": 15,
+      "illustration_description": "Caixa de fósforos",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/15/phosphorus"
+      ],
+      "phrase": "O fósforo vermelho está na faixa de atrito da caixa.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Fósforo",
+          "url": "https://periodic-table.rsc.org/element/15/phosphorus"
+        }
+      ]
+    },
+    {
+      "z": 16,
+      "symbol": "S",
+      "name": "Enxofre",
+      "mass": "32,06 u",
+      "category": "Não metal",
+      "category_key": "nao_metais",
+      "color": "#526D94",
+      "state": "Sólido",
+      "map_row": 3,
+      "map_column": 16,
+      "illustration_description": "Pneu",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/16/sulfur"
+      ],
+      "phrase": "Na vulcanização, ajuda a dar resistência à borracha dos pneus.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Enxofre",
+          "url": "https://periodic-table.rsc.org/element/16/sulfur"
+        }
+      ]
+    },
+    {
+      "z": 17,
+      "symbol": "Cl",
+      "name": "Cloro",
+      "mass": "35,45 u",
+      "category": "Halogênio",
+      "category_key": "halogenios",
+      "color": "#A24967",
+      "state": "Gasoso",
+      "map_row": 3,
+      "map_column": 17,
+      "illustration_description": "Água sanitária",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/17/chlorine",
+        "https://www.gov.br/anvisa/pt-br/acessoainformacao/perguntasfrequentes/saneantes/conceitos-e-definicoes"
+      ],
+      "phrase": "Na água sanitária, aparece em compostos como hipocloritos.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Cloro",
+          "url": "https://periodic-table.rsc.org/element/17/chlorine"
+        },
+        {
+          "label": "Anvisa: água sanitária",
+          "url": "https://www.gov.br/anvisa/pt-br/acessoainformacao/perguntasfrequentes/saneantes/conceitos-e-definicoes"
+        }
+      ]
+    },
+    {
+      "z": 18,
+      "symbol": "Ar",
+      "name": "Argônio",
+      "mass": "39,95 u",
+      "category": "Gás nobre",
+      "category_key": "grupo18",
+      "color": "#70518E",
+      "state": "Gasoso",
+      "map_row": 3,
+      "map_column": 18,
+      "illustration_description": "Janela de vidro duplo",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/18/argon"
+      ],
+      "phrase": "Entre vidros de certas janelas, ajuda no isolamento térmico.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Argônio",
+          "url": "https://periodic-table.rsc.org/element/18/argon"
+        }
+      ]
+    },
+    {
+      "z": 19,
+      "symbol": "K",
+      "name": "Potássio",
+      "mass": "39,098 u",
+      "category": "Metal alcalino",
+      "category_key": "alcalinos",
+      "color": "#A94F29",
+      "state": "Sólido",
+      "map_row": 4,
+      "map_column": 1,
+      "illustration_description": "Fertilizante e muda",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/19/potassium"
+      ],
+      "phrase": "Seus compostos são usados em fertilizantes.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Potássio",
+          "url": "https://periodic-table.rsc.org/element/19/potassium"
+        }
+      ]
+    },
+    {
+      "z": 20,
+      "symbol": "Ca",
+      "name": "Cálcio",
+      "mass": "40,078 u",
+      "category": "Metal alcalinoterroso",
+      "category_key": "alcalinoterrosos",
+      "color": "#876213",
+      "state": "Sólido",
+      "map_row": 4,
+      "map_column": 2,
+      "illustration_description": "Cimento e colher de pedreiro",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/20/calcium"
+      ],
+      "phrase": "Seus compostos participam da produção do cimento.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Cálcio",
+          "url": "https://periodic-table.rsc.org/element/20/calcium"
+        }
+      ]
+    },
+    {
+      "z": 21,
+      "symbol": "Sc",
+      "name": "Escândio",
+      "mass": "44,956 u",
+      "category": "Metal de transição",
+      "category_key": "transicao",
+      "color": "#146B61",
+      "state": "Sólido",
+      "map_row": 4,
+      "map_column": 3,
+      "illustration_description": "Bicicleta",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/21/scandium"
+      ],
+      "phrase": "Integra ligas de alumínio em quadros de certas bicicletas.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Escândio",
+          "url": "https://periodic-table.rsc.org/element/21/scandium"
+        }
+      ]
+    },
+    {
+      "z": 22,
+      "symbol": "Ti",
+      "name": "Titânio",
+      "mass": "47,867 u",
+      "category": "Metal de transição",
+      "category_key": "transicao",
+      "color": "#146B61",
+      "state": "Sólido",
+      "map_row": 4,
+      "map_column": 4,
+      "illustration_description": "Tinta branca",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/22/titanium"
+      ],
+      "phrase": "O dióxido de titânio é um pigmento branco de tintas.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Titânio",
+          "url": "https://periodic-table.rsc.org/element/22/titanium"
+        }
+      ]
+    },
+    {
+      "z": 23,
+      "symbol": "V",
+      "name": "Vanádio",
+      "mass": "50,942 u",
+      "category": "Metal de transição",
+      "category_key": "transicao",
+      "color": "#146B61",
+      "state": "Sólido",
+      "map_row": 4,
+      "map_column": 5,
+      "illustration_description": "Chaves de aço",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/23/vanadium"
+      ],
+      "phrase": "Em ligas de aço, aumenta a resistência de ferramentas.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Vanádio",
+          "url": "https://periodic-table.rsc.org/element/23/vanadium"
+        }
+      ]
+    },
+    {
+      "z": 24,
+      "symbol": "Cr",
+      "name": "Cromo",
+      "mass": "51,996 u",
+      "category": "Metal de transição",
+      "category_key": "transicao",
+      "color": "#146B61",
+      "state": "Sólido",
+      "map_row": 4,
+      "map_column": 6,
+      "illustration_description": "Torneira cromada",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/24/chromium"
+      ],
+      "phrase": "O revestimento de cromo dá brilho e protege peças.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Cromo",
+          "url": "https://periodic-table.rsc.org/element/24/chromium"
+        }
+      ]
+    },
+    {
+      "z": 25,
+      "symbol": "Mn",
+      "name": "Manganês",
+      "mass": "54,938 u",
+      "category": "Metal de transição",
+      "category_key": "transicao",
+      "color": "#146B61",
+      "state": "Sólido",
+      "map_row": 4,
+      "map_column": 7,
+      "illustration_description": "Controle remoto e pilhas",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/25/manganese",
+        "https://periodic-table.rsc.org/element/30/zinc1",
+        "https://energizer.com/wp-content/uploads/2023/12/alkaline_appman.pdf"
+      ],
+      "phrase": "O dióxido de manganês é usado em pilhas alcalinas.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Manganês",
+          "url": "https://periodic-table.rsc.org/element/25/manganese"
+        },
+        {
+          "label": "Energizer: pilhas alcalinas",
+          "url": "https://energizer.com/wp-content/uploads/2023/12/alkaline_appman.pdf"
+        }
+      ]
+    },
+    {
+      "z": 26,
+      "symbol": "Fe",
+      "name": "Ferro",
+      "mass": "55,845 u",
+      "category": "Metal de transição",
+      "category_key": "transicao",
+      "color": "#146B61",
+      "state": "Sólido",
+      "map_row": 4,
+      "map_column": 8,
+      "illustration_description": "Panela de ferro fundido",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/26/iron"
+      ],
+      "phrase": "É a base de ligas como o aço e o ferro fundido.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Ferro",
+          "url": "https://periodic-table.rsc.org/element/26/iron"
+        }
+      ]
+    },
+    {
+      "z": 27,
+      "symbol": "Co",
+      "name": "Cobalto",
+      "mass": "58,933 u",
+      "category": "Metal de transição",
+      "category_key": "transicao",
+      "color": "#146B61",
+      "state": "Sólido",
+      "map_row": 4,
+      "map_column": 9,
+      "illustration_description": "Vaso azul",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/27/cobalt"
+      ],
+      "phrase": "Seus compostos dão tons azuis a cerâmicas.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Cobalto",
+          "url": "https://periodic-table.rsc.org/element/27/cobalt"
+        }
+      ]
+    },
+    {
+      "z": 28,
+      "symbol": "Ni",
+      "name": "Níquel",
+      "mass": "58,693 u",
+      "category": "Metal de transição",
+      "category_key": "transicao",
+      "color": "#146B61",
+      "state": "Sólido",
+      "map_row": 4,
+      "map_column": 10,
+      "illustration_description": "Torradeira",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/28/nickel"
+      ],
+      "phrase": "Ligas de níquel e cromo aquecem torradeiras.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Níquel",
+          "url": "https://periodic-table.rsc.org/element/28/nickel"
+        }
+      ]
+    },
+    {
+      "z": 29,
+      "symbol": "Cu",
+      "name": "Cobre",
+      "mass": "63,546 u",
+      "category": "Metal de transição",
+      "category_key": "transicao",
+      "color": "#146B61",
+      "state": "Sólido",
+      "map_row": 4,
+      "map_column": 11,
+      "illustration_description": "Fios de cobre",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/29/copper"
+      ],
+      "phrase": "Conduz eletricidade nos fios.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Cobre",
+          "url": "https://periodic-table.rsc.org/element/29/copper"
+        }
+      ]
+    },
+    {
+      "z": 30,
+      "symbol": "Zn",
+      "name": "Zinco",
+      "mass": "65,38 u",
+      "category": "Outro metal",
+      "category_key": "outros_metais",
+      "color": "#326384",
+      "state": "Sólido",
+      "map_row": 4,
+      "map_column": 12,
+      "illustration_description": "Balde galvanizado",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/30/zinc"
+      ],
+      "phrase": "Reveste o aço galvanizado e ajuda a evitar corrosão.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Zinco",
+          "url": "https://periodic-table.rsc.org/element/30/zinc"
+        }
+      ]
+    },
+    {
+      "z": 31,
+      "symbol": "Ga",
+      "name": "Gálio",
+      "mass": "69,723 u",
+      "category": "Outro metal",
+      "category_key": "outros_metais",
+      "color": "#326384",
+      "state": "Sólido",
+      "map_row": 4,
+      "map_column": 13,
+      "illustration_description": "LEDs",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/31/gallium"
+      ],
+      "phrase": "Compostos de gálio são usados na fabricação de LEDs.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Gálio",
+          "url": "https://periodic-table.rsc.org/element/31/gallium"
+        }
+      ]
+    },
+    {
+      "z": 32,
+      "symbol": "Ge",
+      "name": "Germânio",
+      "mass": "72,630 u",
+      "category": "Semimetal",
+      "category_key": "semimetais",
+      "color": "#527143",
+      "state": "Sólido",
+      "map_row": 4,
+      "map_column": 14,
+      "illustration_description": "Lentes ópticas",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/32/germanium"
+      ],
+      "phrase": "Seu óxido é usado em vidros de lentes especiais.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Germânio",
+          "url": "https://periodic-table.rsc.org/element/32/germanium"
+        }
+      ]
+    },
+    {
+      "z": 33,
+      "symbol": "As",
+      "name": "Arsênio",
+      "mass": "74,922 u",
+      "category": "Semimetal",
+      "category_key": "semimetais",
+      "color": "#527143",
+      "state": "Sólido",
+      "map_row": 4,
+      "map_column": 15,
+      "illustration_description": "Antena e módulo eletrônico",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/33/arsenic"
+      ],
+      "phrase": "O arsenieto de gálio é um semicondutor usado em circuitos.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Arsênio",
+          "url": "https://periodic-table.rsc.org/element/33/arsenic"
+        }
+      ]
+    },
+    {
+      "z": 34,
+      "symbol": "Se",
+      "name": "Selênio",
+      "mass": "78,971 u",
+      "category": "Não metal",
+      "category_key": "nao_metais",
+      "color": "#526D94",
+      "state": "Sólido",
+      "map_row": 4,
+      "map_column": 16,
+      "illustration_description": "Xampu",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/34/selenium",
+        "https://medlineplus.gov/druginfo/meds/a682258.html"
+      ],
+      "phrase": "Sulfeto de selênio aparece em alguns xampus anticaspa.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Selênio",
+          "url": "https://periodic-table.rsc.org/element/34/selenium"
+        },
+        {
+          "label": "MedlinePlus: sulfeto de selênio",
+          "url": "https://medlineplus.gov/druginfo/meds/a682258.html"
+        }
+      ]
+    },
+    {
+      "z": 35,
+      "symbol": "Br",
+      "name": "Bromo",
+      "mass": "79,904 u",
+      "category": "Halogênio",
+      "category_key": "halogenios",
+      "color": "#A24967",
+      "state": "Líquido",
+      "map_row": 4,
+      "map_column": 17,
+      "illustration_description": "Filme fotográfico",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/35/bromine"
+      ],
+      "phrase": "O brometo de prata registra a luz em filmes fotográficos.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Bromo",
+          "url": "https://periodic-table.rsc.org/element/35/bromine"
+        }
+      ]
+    },
+    {
+      "z": 36,
+      "symbol": "Kr",
+      "name": "Criptônio",
+      "mass": "83,798 u",
+      "category": "Gás nobre",
+      "category_key": "grupo18",
+      "color": "#70518E",
+      "state": "Gasoso",
+      "map_row": 4,
+      "map_column": 18,
+      "illustration_description": "Flash externo",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/36/krypton"
+      ],
+      "phrase": "Seu gás é usado em algumas lâmpadas de flash.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Criptônio",
+          "url": "https://periodic-table.rsc.org/element/36/krypton"
+        }
+      ]
+    },
+    {
+      "z": 37,
+      "symbol": "Rb",
+      "name": "Rubídio",
+      "mass": "85,468 u",
+      "category": "Metal alcalino",
+      "category_key": "alcalinos",
+      "color": "#A94F29",
+      "state": "Sólido",
+      "map_row": 5,
+      "map_column": 1,
+      "illustration_description": "Sensor fotoelétrico",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/37/rubidium"
+      ],
+      "phrase": "Já foi usado em células fotoelétricas que detectam luz.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Rubídio",
+          "url": "https://periodic-table.rsc.org/element/37/rubidium"
+        }
+      ]
+    },
+    {
+      "z": 38,
+      "symbol": "Sr",
+      "name": "Estrôncio",
+      "mass": "87,62 u",
+      "category": "Metal alcalinoterroso",
+      "category_key": "alcalinoterrosos",
+      "color": "#876213",
+      "state": "Sólido",
+      "map_row": 5,
+      "map_column": 2,
+      "illustration_description": "Fogos vermelhos",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/38/strontium"
+      ],
+      "phrase": "Seus sais dão o vermelho a certos fogos de artifício.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Estrôncio",
+          "url": "https://periodic-table.rsc.org/element/38/strontium"
+        }
+      ]
+    },
+    {
+      "z": 39,
+      "symbol": "Y",
+      "name": "Ítrio",
+      "mass": "88,906 u",
+      "category": "Metal de transição",
+      "category_key": "transicao",
+      "color": "#146B61",
+      "state": "Sólido",
+      "map_row": 5,
+      "map_column": 3,
+      "illustration_description": "Cabeçote de laser",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/39/yttrium"
+      ],
+      "phrase": "Integra cristais de YAG usados em equipamentos a laser.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Ítrio",
+          "url": "https://periodic-table.rsc.org/element/39/yttrium"
+        }
+      ]
+    },
+    {
+      "z": 40,
+      "symbol": "Zr",
+      "name": "Zircônio",
+      "mass": "91,222 u",
+      "category": "Metal de transição",
+      "category_key": "transicao",
+      "color": "#146B61",
+      "state": "Sólido",
+      "map_row": 5,
+      "map_column": 4,
+      "illustration_description": "Faca de cerâmica",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/40/zirconium"
+      ],
+      "phrase": "Seu dióxido forma a cerâmica de algumas facas de cozinha.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Zircônio",
+          "url": "https://periodic-table.rsc.org/element/40/zirconium"
+        }
+      ]
+    },
+    {
+      "z": 41,
+      "symbol": "Nb",
+      "name": "Nióbio",
+      "mass": "92,906 u",
+      "category": "Metal de transição",
+      "category_key": "transicao",
+      "color": "#146B61",
+      "state": "Sólido",
+      "map_row": 5,
+      "map_column": 5,
+      "illustration_description": "Ressonância magnética",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/41/niobium"
+      ],
+      "phrase": "Suas ligas integram ímãs de aparelhos de ressonância.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Nióbio",
+          "url": "https://periodic-table.rsc.org/element/41/niobium"
+        }
+      ]
+    },
+    {
+      "z": 42,
+      "symbol": "Mo",
+      "name": "Molibdênio",
+      "mass": "95,95 u",
+      "category": "Metal de transição",
+      "category_key": "transicao",
+      "color": "#146B61",
+      "state": "Sólido",
+      "map_row": 5,
+      "map_column": 6,
+      "illustration_description": "Brocas",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/42/molybdenum"
+      ],
+      "phrase": "Melhora a resistência de aços usados em brocas.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Molibdênio",
+          "url": "https://periodic-table.rsc.org/element/42/molybdenum"
+        }
+      ]
+    },
+    {
+      "z": 43,
+      "symbol": "Tc",
+      "name": "Tecnécio",
+      "mass": "[97]",
+      "category": "Metal de transição",
+      "category_key": "transicao",
+      "color": "#146B61",
+      "state": "Sólido",
+      "map_row": 5,
+      "map_column": 7,
+      "illustration_description": "Câmara de cintilografia",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/43/technetium",
+        "https://iupac.org/wp-content/uploads/2022/07/IUPAC_Periodic_Table-04May22_CRA.pdf"
+      ],
+      "phrase": "Compostos com Tc-99m ajudam a formar imagens na cintilografia.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Tecnécio",
+          "url": "https://periodic-table.rsc.org/element/43/technetium"
+        }
+      ]
+    },
+    {
+      "z": 44,
+      "symbol": "Ru",
+      "name": "Rutênio",
+      "mass": "101,07 u",
+      "category": "Metal de transição",
+      "category_key": "transicao",
+      "color": "#146B61",
+      "state": "Sólido",
+      "map_row": 5,
+      "map_column": 8,
+      "illustration_description": "Relé",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/44/ruthenium"
+      ],
+      "phrase": "É usado em contatos e componentes eletrônicos.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Rutênio",
+          "url": "https://periodic-table.rsc.org/element/44/ruthenium"
+        }
+      ]
+    },
+    {
+      "z": 45,
+      "symbol": "Rh",
+      "name": "Ródio",
+      "mass": "102,91 u",
+      "category": "Metal de transição",
+      "category_key": "transicao",
+      "color": "#146B61",
+      "state": "Sólido",
+      "map_row": 5,
+      "map_column": 9,
+      "illustration_description": "Catalisador automotivo",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/45/rhodium"
+      ],
+      "phrase": "Em catalisadores, ajuda a reduzir poluentes do escapamento.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Ródio",
+          "url": "https://periodic-table.rsc.org/element/45/rhodium"
+        }
+      ]
+    },
+    {
+      "z": 46,
+      "symbol": "Pd",
+      "name": "Paládio",
+      "mass": "106,42 u",
+      "category": "Metal de transição",
+      "category_key": "transicao",
+      "color": "#146B61",
+      "state": "Sólido",
+      "map_row": 5,
+      "map_column": 10,
+      "illustration_description": "Escapamento de moto",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/46/palladium"
+      ],
+      "phrase": "Participa de catalisadores no escapamento de veículos.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Paládio",
+          "url": "https://periodic-table.rsc.org/element/46/palladium"
+        }
+      ]
+    },
+    {
+      "z": 47,
+      "symbol": "Ag",
+      "name": "Prata",
+      "mass": "107,87 u",
+      "category": "Metal de transição",
+      "category_key": "transicao",
+      "color": "#146B61",
+      "state": "Sólido",
+      "map_row": 5,
+      "map_column": 11,
+      "illustration_description": "Joias de prata",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/47/silver"
+      ],
+      "phrase": "Suas ligas dão forma a joias e talheres.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Prata",
+          "url": "https://periodic-table.rsc.org/element/47/silver"
+        }
+      ]
+    },
+    {
+      "z": 48,
+      "symbol": "Cd",
+      "name": "Cádmio",
+      "mass": "112,41 u",
+      "category": "Outro metal",
+      "category_key": "outros_metais",
+      "color": "#326384",
+      "state": "Sólido",
+      "map_row": 5,
+      "map_column": 12,
+      "illustration_description": "Baterias recarregáveis",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/48/cadmium"
+      ],
+      "phrase": "Seus compostos participam de baterias de níquel-cádmio.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Cádmio",
+          "url": "https://periodic-table.rsc.org/element/48/cadmium"
+        }
+      ]
+    },
+    {
+      "z": 49,
+      "symbol": "In",
+      "name": "Índio",
+      "mass": "114,82 u",
+      "category": "Outro metal",
+      "category_key": "outros_metais",
+      "color": "#326384",
+      "state": "Sólido",
+      "map_row": 5,
+      "map_column": 13,
+      "illustration_description": "Tablet",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/49/indium"
+      ],
+      "phrase": "Óxidos de índio e estanho formam camadas condutoras em telas.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Índio",
+          "url": "https://periodic-table.rsc.org/element/49/indium"
+        }
+      ]
+    },
+    {
+      "z": 50,
+      "symbol": "Sn",
+      "name": "Estanho",
+      "mass": "118,71 u",
+      "category": "Outro metal",
+      "category_key": "outros_metais",
+      "color": "#326384",
+      "state": "Sólido",
+      "map_row": 5,
+      "map_column": 14,
+      "illustration_description": "Lata de alimento",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/50/tin"
+      ],
+      "phrase": "Reveste o aço de algumas latas de alimentos.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Estanho",
+          "url": "https://periodic-table.rsc.org/element/50/tin"
+        }
+      ]
+    },
+    {
+      "z": 51,
+      "symbol": "Sb",
+      "name": "Antimônio",
+      "mass": "121,76 u",
+      "category": "Semimetal",
+      "category_key": "semimetais",
+      "color": "#527143",
+      "state": "Sólido",
+      "map_row": 5,
+      "map_column": 15,
+      "illustration_description": "Sofá estofado",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/51/antimony"
+      ],
+      "phrase": "Compostos de antimônio ajudam a retardar chamas em materiais.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Antimônio",
+          "url": "https://periodic-table.rsc.org/element/51/antimony"
+        }
+      ]
+    },
+    {
+      "z": 52,
+      "symbol": "Te",
+      "name": "Telúrio",
+      "mass": "127,60 u",
+      "category": "Semimetal",
+      "category_key": "semimetais",
+      "color": "#527143",
+      "state": "Sólido",
+      "map_row": 5,
+      "map_column": 16,
+      "illustration_description": "Painel solar",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/52/tellurium",
+        "https://www.energy.gov/cmei/systems/cadmium-telluride"
+      ],
+      "phrase": "O telureto de cádmio é usado em painéis solares.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Telúrio",
+          "url": "https://periodic-table.rsc.org/element/52/tellurium"
+        },
+        {
+          "label": "DOE: células de CdTe",
+          "url": "https://www.energy.gov/cmei/systems/cadmium-telluride"
+        }
+      ]
+    },
+    {
+      "z": 53,
+      "symbol": "I",
+      "name": "Iodo",
+      "mass": "126,90 u",
+      "category": "Halogênio",
+      "category_key": "halogenios",
+      "color": "#A24967",
+      "state": "Sólido",
+      "map_row": 5,
+      "map_column": 17,
+      "illustration_description": "Sal iodado",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/53/iodine"
+      ],
+      "phrase": "Compostos de iodo são adicionados ao sal iodado.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Iodo",
+          "url": "https://periodic-table.rsc.org/element/53/iodine"
+        }
+      ]
+    },
+    {
+      "z": 54,
+      "symbol": "Xe",
+      "name": "Xenônio",
+      "mass": "131,29 u",
+      "category": "Gás nobre",
+      "category_key": "grupo18",
+      "color": "#70518E",
+      "state": "Gasoso",
+      "map_row": 5,
+      "map_column": 18,
+      "illustration_description": "Flash fotográfico",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/54/xenon"
+      ],
+      "phrase": "Seu gás emite luz intensa em lâmpadas de flash.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Xenônio",
+          "url": "https://periodic-table.rsc.org/element/54/xenon"
+        }
+      ]
+    },
+    {
+      "z": 55,
+      "symbol": "Cs",
+      "name": "Césio",
+      "mass": "132,91 u",
+      "category": "Metal alcalino",
+      "category_key": "alcalinos",
+      "color": "#A94F29",
+      "state": "Sólido",
+      "map_row": 6,
+      "map_column": 1,
+      "illustration_description": "Relógio atômico",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/55/caesium",
+        "https://www.bipm.org/en/si-base-units/second"
+      ],
+      "phrase": "Uma transição do césio-133 é a referência para o segundo.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Césio",
+          "url": "https://periodic-table.rsc.org/element/55/caesium"
+        },
+        {
+          "label": "BIPM: definição do segundo",
+          "url": "https://www.bipm.org/en/si-base-units/second"
+        }
+      ]
+    },
+    {
+      "z": 56,
+      "symbol": "Ba",
+      "name": "Bário",
+      "mass": "137,33 u",
+      "category": "Metal alcalinoterroso",
+      "category_key": "alcalinoterrosos",
+      "color": "#876213",
+      "state": "Sólido",
+      "map_row": 6,
+      "map_column": 2,
+      "illustration_description": "Rolo e bandeja de tinta",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/56/barium"
+      ],
+      "phrase": "O sulfato de bário integra algumas formulações de tinta.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Bário",
+          "url": "https://periodic-table.rsc.org/element/56/barium"
+        }
+      ]
+    },
+    {
+      "z": 57,
+      "symbol": "La",
+      "name": "Lantânio",
+      "mass": "138,91 u",
+      "category": "Lantanídeo",
+      "category_key": "lantanideos",
+      "color": "#866744",
+      "state": "Sólido",
+      "map_row": 8,
+      "map_column": 4,
+      "illustration_description": "Binóculos",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/57/lanthanum"
+      ],
+      "phrase": "Seu óxido integra vidros de lentes de alta qualidade.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Lantânio",
+          "url": "https://periodic-table.rsc.org/element/57/lanthanum"
+        }
+      ]
+    },
+    {
+      "z": 58,
+      "symbol": "Ce",
+      "name": "Cério",
+      "mass": "140,12 u",
+      "category": "Lantanídeo",
+      "category_key": "lantanideos",
+      "color": "#866744",
+      "state": "Sólido",
+      "map_row": 8,
+      "map_column": 5,
+      "illustration_description": "Isqueiro",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/58/cerium"
+      ],
+      "phrase": "Participa da liga que produz faíscas em isqueiros.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Cério",
+          "url": "https://periodic-table.rsc.org/element/58/cerium"
+        }
+      ]
+    },
+    {
+      "z": 59,
+      "symbol": "Pr",
+      "name": "Praseodímio",
+      "mass": "140,91 u",
+      "category": "Lantanídeo",
+      "category_key": "lantanideos",
+      "color": "#866744",
+      "state": "Sólido",
+      "map_row": 8,
+      "map_column": 6,
+      "illustration_description": "Óculos de vidreiro",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/59/praseodymium"
+      ],
+      "phrase": "Compostos de praseodímio integram lentes de proteção de vidreiros.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Praseodímio",
+          "url": "https://periodic-table.rsc.org/element/59/praseodymium"
+        }
+      ]
+    },
+    {
+      "z": 60,
+      "symbol": "Nd",
+      "name": "Neodímio",
+      "mass": "144,24 u",
+      "category": "Lantanídeo",
+      "category_key": "lantanideos",
+      "color": "#866744",
+      "state": "Sólido",
+      "map_row": 8,
+      "map_column": 7,
+      "illustration_description": "Fones de ouvido",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/60/neodymium"
+      ],
+      "phrase": "Com ferro e boro, forma ímãs usados em fones de ouvido.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Neodímio",
+          "url": "https://periodic-table.rsc.org/element/60/neodymium"
+        }
+      ]
+    },
+    {
+      "z": 61,
+      "symbol": "Pm",
+      "name": "Promécio",
+      "mass": "[145]",
+      "category": "Lantanídeo",
+      "category_key": "lantanideos",
+      "color": "#866744",
+      "state": "Sólido",
+      "map_row": 8,
+      "map_column": 8,
+      "illustration_description": "Instrumento de pesquisa",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/61/promethium",
+        "https://iupac.org/wp-content/uploads/2022/07/IUPAC_Periodic_Table-04May22_CRA.pdf",
+        "https://www.ornl.gov/news/promethium-bound-rare-earth-elements-secrets-exposed/"
+      ],
+      "phrase": "Sua química é investigada em estudos com compostos.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Promécio",
+          "url": "https://periodic-table.rsc.org/element/61/promethium"
+        },
+        {
+          "label": "ORNL: química do promécio",
+          "url": "https://www.ornl.gov/news/promethium-bound-rare-earth-elements-secrets-exposed/"
+        }
+      ]
+    },
+    {
+      "z": 62,
+      "symbol": "Sm",
+      "name": "Samário",
+      "mass": "150,36 u",
+      "category": "Lantanídeo",
+      "category_key": "lantanideos",
+      "color": "#866744",
+      "state": "Sólido",
+      "map_row": 8,
+      "map_column": 9,
+      "illustration_description": "Alto-falante",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/62/samarium"
+      ],
+      "phrase": "Com cobalto, forma ímãs usados em alguns alto-falantes.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Samário",
+          "url": "https://periodic-table.rsc.org/element/62/samarium"
+        }
+      ]
+    },
+    {
+      "z": 63,
+      "symbol": "Eu",
+      "name": "Európio",
+      "mass": "151,96 u",
+      "category": "Lantanídeo",
+      "category_key": "lantanideos",
+      "color": "#866744",
+      "state": "Sólido",
+      "map_row": 8,
+      "map_column": 10,
+      "illustration_description": "Lâmpada fluorescente",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/63/europium"
+      ],
+      "phrase": "Seus compostos ajudam a produzir luz vermelha em fluorescentes.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Európio",
+          "url": "https://periodic-table.rsc.org/element/63/europium"
+        }
+      ]
+    },
+    {
+      "z": 64,
+      "symbol": "Gd",
+      "name": "Gadolínio",
+      "mass": "157,25 u",
+      "category": "Lantanídeo",
+      "category_key": "lantanideos",
+      "color": "#866744",
+      "state": "Sólido",
+      "map_row": 8,
+      "map_column": 11,
+      "illustration_description": "Frasco de contraste",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/64/gadolinium"
+      ],
+      "phrase": "Compostos de gadolínio são usados como contraste em ressonância.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Gadolínio",
+          "url": "https://periodic-table.rsc.org/element/64/gadolinium"
+        }
+      ]
+    },
+    {
+      "z": 65,
+      "symbol": "Tb",
+      "name": "Térbio",
+      "mass": "158,93 u",
+      "category": "Lantanídeo",
+      "category_key": "lantanideos",
+      "color": "#866744",
+      "state": "Sólido",
+      "map_row": 8,
+      "map_column": 12,
+      "illustration_description": "Tubos fluorescentes",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/65/terbium"
+      ],
+      "phrase": "Seus compostos ajudam a produzir luz verde em fluorescentes.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Térbio",
+          "url": "https://periodic-table.rsc.org/element/65/terbium"
+        }
+      ]
+    },
+    {
+      "z": 66,
+      "symbol": "Dy",
+      "name": "Disprósio",
+      "mass": "162,50 u",
+      "category": "Lantanídeo",
+      "category_key": "lantanideos",
+      "color": "#866744",
+      "state": "Sólido",
+      "map_row": 8,
+      "map_column": 13,
+      "illustration_description": "Motor elétrico",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/66/dysprosium"
+      ],
+      "phrase": "Ajuda ímãs de certos motores a manter a força quando aquecidos.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Disprósio",
+          "url": "https://periodic-table.rsc.org/element/66/dysprosium"
+        }
+      ]
+    },
+    {
+      "z": 67,
+      "symbol": "Ho",
+      "name": "Hólmio",
+      "mass": "164,93 u",
+      "category": "Lantanídeo",
+      "category_key": "lantanideos",
+      "color": "#866744",
+      "state": "Sólido",
+      "map_row": 8,
+      "map_column": 14,
+      "illustration_description": "Hastes de controle",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/67/holmium"
+      ],
+      "phrase": "Pode absorver nêutrons em barras de controle de reatores.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Hólmio",
+          "url": "https://periodic-table.rsc.org/element/67/holmium"
+        }
+      ]
+    },
+    {
+      "z": 68,
+      "symbol": "Er",
+      "name": "Érbio",
+      "mass": "167,26 u",
+      "category": "Lantanídeo",
+      "category_key": "lantanideos",
+      "color": "#866744",
+      "state": "Sólido",
+      "map_row": 8,
+      "map_column": 15,
+      "illustration_description": "Fibra óptica",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/68/erbium"
+      ],
+      "phrase": "Íons de érbio ajudam a amplificar sinais de luz em fibras ópticas.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Érbio",
+          "url": "https://periodic-table.rsc.org/element/68/erbium"
+        }
+      ]
+    },
+    {
+      "z": 69,
+      "symbol": "Tm",
+      "name": "Túlio",
+      "mass": "168,93 u",
+      "category": "Lantanídeo",
+      "category_key": "lantanideos",
+      "color": "#866744",
+      "state": "Sólido",
+      "map_row": 8,
+      "map_column": 16,
+      "illustration_description": "Equipamento de raios X",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/69/thulium"
+      ],
+      "phrase": "O Tm-170 pode ser fonte de raios X em equipamentos portáteis.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Túlio",
+          "url": "https://periodic-table.rsc.org/element/69/thulium"
+        }
+      ]
+    },
+    {
+      "z": 70,
+      "symbol": "Yb",
+      "name": "Itérbio",
+      "mass": "173,05 u",
+      "category": "Lantanídeo",
+      "category_key": "lantanideos",
+      "color": "#866744",
+      "state": "Sólido",
+      "map_row": 8,
+      "map_column": 17,
+      "illustration_description": "Módulo de laser",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/70/ytterbium"
+      ],
+      "phrase": "Íons de itérbio integram materiais usados em lasers.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Itérbio",
+          "url": "https://periodic-table.rsc.org/element/70/ytterbium"
+        }
+      ]
+    },
+    {
+      "z": 71,
+      "symbol": "Lu",
+      "name": "Lutécio",
+      "mass": "174,97 u",
+      "category": "Lantanídeo",
+      "category_key": "lantanideos",
+      "color": "#866744",
+      "state": "Sólido",
+      "map_row": 8,
+      "map_column": 18,
+      "illustration_description": "Scanner PET",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/71/lutetium",
+        "https://cmsexperiment.web.cern.ch/news/crystals-precision-timing-arrive-rome"
+      ],
+      "phrase": "Compostos de lutécio integram cristais detectores de aparelhos PET.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Lutécio",
+          "url": "https://periodic-table.rsc.org/element/71/lutetium"
+        },
+        {
+          "label": "CERN: cristais de lutécio no PET",
+          "url": "https://cmsexperiment.web.cern.ch/news/crystals-precision-timing-arrive-rome"
+        }
+      ]
+    },
+    {
+      "z": 72,
+      "symbol": "Hf",
+      "name": "Háfnio",
+      "mass": "178,49 u",
+      "category": "Metal de transição",
+      "category_key": "transicao",
+      "color": "#146B61",
+      "state": "Sólido",
+      "map_row": 6,
+      "map_column": 4,
+      "illustration_description": "Reator e barras",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/72/hafnium"
+      ],
+      "phrase": "É usado em barras de controle de reatores.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Háfnio",
+          "url": "https://periodic-table.rsc.org/element/72/hafnium"
+        }
+      ]
+    },
+    {
+      "z": 73,
+      "symbol": "Ta",
+      "name": "Tântalo",
+      "mass": "180,95 u",
+      "category": "Metal de transição",
+      "category_key": "transicao",
+      "color": "#146B61",
+      "state": "Sólido",
+      "map_row": 6,
+      "map_column": 5,
+      "illustration_description": "Capacitores",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/73/tantalum"
+      ],
+      "phrase": "Capacitores de tântalo estão em eletrônicos portáteis.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Tântalo",
+          "url": "https://periodic-table.rsc.org/element/73/tantalum"
+        }
+      ]
+    },
+    {
+      "z": 74,
+      "symbol": "W",
+      "name": "Tungstênio",
+      "mass": "183,84 u",
+      "category": "Metal de transição",
+      "category_key": "transicao",
+      "color": "#146B61",
+      "state": "Sólido",
+      "map_row": 6,
+      "map_column": 6,
+      "illustration_description": "Lâmpada incandescente",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/74/tungsten"
+      ],
+      "phrase": "Forma o filamento de lâmpadas incandescentes.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Tungstênio",
+          "url": "https://periodic-table.rsc.org/element/74/tungsten"
+        }
+      ]
+    },
+    {
+      "z": 75,
+      "symbol": "Re",
+      "name": "Rênio",
+      "mass": "186,21 u",
+      "category": "Metal de transição",
+      "category_key": "transicao",
+      "color": "#146B61",
+      "state": "Sólido",
+      "map_row": 6,
+      "map_column": 7,
+      "illustration_description": "Rotor de turbina",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/75/rhenium"
+      ],
+      "phrase": "Integra ligas resistentes ao calor de turbinas.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Rênio",
+          "url": "https://periodic-table.rsc.org/element/75/rhenium"
+        }
+      ]
+    },
+    {
+      "z": 76,
+      "symbol": "Os",
+      "name": "Ósmio",
+      "mass": "190,23 u",
+      "category": "Metal de transição",
+      "category_key": "transicao",
+      "color": "#146B61",
+      "state": "Sólido",
+      "map_row": 6,
+      "map_column": 8,
+      "illustration_description": "Caneta-tinteiro",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/76/osmium"
+      ],
+      "phrase": "Uso tradicional: ligas duras em pontas de canetas-tinteiro.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Ósmio",
+          "url": "https://periodic-table.rsc.org/element/76/osmium"
+        }
+      ]
+    },
+    {
+      "z": 77,
+      "symbol": "Ir",
+      "name": "Irídio",
+      "mass": "192,22 u",
+      "category": "Metal de transição",
+      "category_key": "transicao",
+      "color": "#146B61",
+      "state": "Sólido",
+      "map_row": 6,
+      "map_column": 9,
+      "illustration_description": "Vela de ignição",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/77/iridium"
+      ],
+      "phrase": "Integra eletrodos resistentes de velas de ignição.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Irídio",
+          "url": "https://periodic-table.rsc.org/element/77/iridium"
+        }
+      ]
+    },
+    {
+      "z": 78,
+      "symbol": "Pt",
+      "name": "Platina",
+      "mass": "195,08 u",
+      "category": "Metal de transição",
+      "category_key": "transicao",
+      "color": "#146B61",
+      "state": "Sólido",
+      "map_row": 6,
+      "map_column": 10,
+      "illustration_description": "Colar de platina",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/78/platinum"
+      ],
+      "phrase": "É usada em joias e resiste à corrosão.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Platina",
+          "url": "https://periodic-table.rsc.org/element/78/platinum"
+        }
+      ]
+    },
+    {
+      "z": 79,
+      "symbol": "Au",
+      "name": "Ouro",
+      "mass": "196,97 u",
+      "category": "Metal de transição",
+      "category_key": "transicao",
+      "color": "#146B61",
+      "state": "Sólido",
+      "map_row": 6,
+      "map_column": 11,
+      "illustration_description": "Alianças",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/79/gold"
+      ],
+      "phrase": "Suas ligas são usadas em alianças e outras joias.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Ouro",
+          "url": "https://periodic-table.rsc.org/element/79/gold"
+        }
+      ]
+    },
+    {
+      "z": 80,
+      "symbol": "Hg",
+      "name": "Mercúrio",
+      "mass": "200,59 u",
+      "category": "Outro metal",
+      "category_key": "outros_metais",
+      "color": "#326384",
+      "state": "Líquido",
+      "map_row": 6,
+      "map_column": 12,
+      "illustration_description": "Termômetro antigo",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/80/mercury"
+      ],
+      "phrase": "Uso histórico: termômetros com coluna de metal líquido.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Mercúrio",
+          "url": "https://periodic-table.rsc.org/element/80/mercury"
+        }
+      ]
+    },
+    {
+      "z": 81,
+      "symbol": "Tl",
+      "name": "Tálio",
+      "mass": "204,38 u",
+      "category": "Outro metal",
+      "category_key": "outros_metais",
+      "color": "#326384",
+      "state": "Sólido",
+      "map_row": 6,
+      "map_column": 13,
+      "illustration_description": "Medidor fotoelétrico",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/81/thallium"
+      ],
+      "phrase": "O sulfeto de tálio é usado em certos sensores de luz.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Tálio",
+          "url": "https://periodic-table.rsc.org/element/81/thallium"
+        }
+      ]
+    },
+    {
+      "z": 82,
+      "symbol": "Pb",
+      "name": "Chumbo",
+      "mass": "207,2 u",
+      "category": "Outro metal",
+      "category_key": "outros_metais",
+      "color": "#326384",
+      "state": "Sólido",
+      "map_row": 6,
+      "map_column": 14,
+      "illustration_description": "Bateria automotiva",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/82/lead"
+      ],
+      "phrase": "É usado nas baterias de chumbo-ácido dos carros.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Chumbo",
+          "url": "https://periodic-table.rsc.org/element/82/lead"
+        }
+      ]
+    },
+    {
+      "z": 83,
+      "symbol": "Bi",
+      "name": "Bismuto",
+      "mass": "208,98 u",
+      "category": "Outro metal",
+      "category_key": "outros_metais",
+      "color": "#326384",
+      "state": "Sólido",
+      "map_row": 6,
+      "map_column": 15,
+      "illustration_description": "Maquiagem perolada",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/83/bismuth"
+      ],
+      "phrase": "O oxicloreto de bismuto dá efeito perolado a cosméticos.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Bismuto",
+          "url": "https://periodic-table.rsc.org/element/83/bismuth"
+        }
+      ]
+    },
+    {
+      "z": 84,
+      "symbol": "Po",
+      "name": "Polônio",
+      "mass": "[209]",
+      "category": "Outro metal",
+      "category_key": "outros_metais",
+      "color": "#326384",
+      "state": "Sólido",
+      "map_row": 6,
+      "map_column": 16,
+      "illustration_description": "Fonte selada e detector",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/84/polonium",
+        "https://iupac.org/wp-content/uploads/2022/07/IUPAC_Periodic_Table-04May22_CRA.pdf"
+      ],
+      "phrase": "O Po-210 emite partículas alfa utilizadas em pesquisas.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Polônio",
+          "url": "https://periodic-table.rsc.org/element/84/polonium"
+        }
+      ]
+    },
+    {
+      "z": 85,
+      "symbol": "At",
+      "name": "Astato",
+      "mass": "[210]",
+      "category": "Halogênio",
+      "category_key": "halogenios",
+      "color": "#A24967",
+      "state": "Não determinado",
+      "map_row": 6,
+      "map_column": 17,
+      "illustration_description": "Célula de manipulação",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/85/astatine",
+        "https://iupac.org/wp-content/uploads/2022/07/IUPAC_Periodic_Table-04May22_CRA.pdf"
+      ],
+      "phrase": "É estudado em laboratório; sem aplicação cotidiana.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Astato",
+          "url": "https://periodic-table.rsc.org/element/85/astatine"
+        }
+      ]
+    },
+    {
+      "z": 86,
+      "symbol": "Rn",
+      "name": "Radônio",
+      "mass": "[222]",
+      "category": "Gás nobre",
+      "category_key": "grupo18",
+      "color": "#70518E",
+      "state": "Gasoso",
+      "map_row": 6,
+      "map_column": 18,
+      "illustration_description": "Casa e monitor ambiental",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/86/radon",
+        "https://iupac.org/wp-content/uploads/2022/07/IUPAC_Periodic_Table-04May22_CRA.pdf"
+      ],
+      "phrase": "É um gás radioativo que pode passar do solo ao interior de casas.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Radônio",
+          "url": "https://periodic-table.rsc.org/element/86/radon"
+        }
+      ]
+    },
+    {
+      "z": 87,
+      "symbol": "Fr",
+      "name": "Frâncio",
+      "mass": "[223]",
+      "category": "Metal alcalino",
+      "category_key": "alcalinos",
+      "color": "#A94F29",
+      "state": "Não determinado",
+      "map_row": 7,
+      "map_column": 1,
+      "illustration_description": "Armadilha de átomos",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/87/francium",
+        "https://iupac.org/wp-content/uploads/2022/07/IUPAC_Periodic_Table-04May22_CRA.pdf",
+        "https://triumf.ca/facilities-experiments/"
+      ],
+      "phrase": "Seus átomos são estudados em armadilhas de laboratório.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Frâncio",
+          "url": "https://periodic-table.rsc.org/element/87/francium"
+        },
+        {
+          "label": "TRIUMF: átomos de frâncio",
+          "url": "https://triumf.ca/facilities-experiments/"
+        }
+      ]
+    },
+    {
+      "z": 88,
+      "symbol": "Ra",
+      "name": "Rádio",
+      "mass": "[226]",
+      "category": "Metal alcalinoterroso",
+      "category_key": "alcalinoterrosos",
+      "color": "#876213",
+      "state": "Sólido",
+      "map_row": 7,
+      "map_column": 2,
+      "illustration_description": "Relógio antigo",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/88/radium",
+        "https://iupac.org/wp-content/uploads/2022/07/IUPAC_Periodic_Table-04May22_CRA.pdf"
+      ],
+      "phrase": "Uso histórico: tintas luminosas em mostradores.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Rádio",
+          "url": "https://periodic-table.rsc.org/element/88/radium"
+        }
+      ]
+    },
+    {
+      "z": 89,
+      "symbol": "Ac",
+      "name": "Actínio",
+      "mass": "[227]",
+      "category": "Actinídeo",
+      "category_key": "actinideos",
+      "color": "#805256",
+      "state": "Sólido",
+      "map_row": 9,
+      "map_column": 4,
+      "illustration_description": "Recipiente de pesquisa",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/89/actinium",
+        "https://iupac.org/wp-content/uploads/2022/07/IUPAC_Periodic_Table-04May22_CRA.pdf",
+        "https://www.energy.gov/science/ip/articles/transforming-cancer-diagnosis-and-treatment-ceriumlanthanum-134"
+      ],
+      "phrase": "O Ac-225 é estudado em terapias que usam partículas alfa.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Actínio",
+          "url": "https://periodic-table.rsc.org/element/89/actinium"
+        },
+        {
+          "label": "DOE: pesquisa com Ac-225",
+          "url": "https://www.energy.gov/science/ip/articles/transforming-cancer-diagnosis-and-treatment-ceriumlanthanum-134"
+        }
+      ]
+    },
+    {
+      "z": 90,
+      "symbol": "Th",
+      "name": "Tório",
+      "mass": "232,04 u",
+      "category": "Actinídeo",
+      "category_key": "actinideos",
+      "color": "#805256",
+      "state": "Sólido",
+      "map_row": 9,
+      "map_column": 5,
+      "illustration_description": "Lente antiga",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/90/thorium"
+      ],
+      "phrase": "Uso histórico: seu óxido foi empregado em lentes.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Tório",
+          "url": "https://periodic-table.rsc.org/element/90/thorium"
+        }
+      ]
+    },
+    {
+      "z": 91,
+      "symbol": "Pa",
+      "name": "Protactínio",
+      "mass": "231,04 u",
+      "category": "Actinídeo",
+      "category_key": "actinideos",
+      "color": "#805256",
+      "state": "Sólido",
+      "map_row": 9,
+      "map_column": 6,
+      "illustration_description": "Cabine com luvas",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/91/protactinium"
+      ],
+      "phrase": "Tem uso restrito à pesquisa científica.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Protactínio",
+          "url": "https://periodic-table.rsc.org/element/91/protactinium"
+        }
+      ]
+    },
+    {
+      "z": 92,
+      "symbol": "U",
+      "name": "Urânio",
+      "mass": "238,03 u",
+      "category": "Actinídeo",
+      "category_key": "actinideos",
+      "color": "#805256",
+      "state": "Sólido",
+      "map_row": 9,
+      "map_column": 7,
+      "illustration_description": "Pastilhas e vareta",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/92/uranium",
+        "https://www.inb.gov.br/Nossas-Atividades/Ciclo-do-combustivel-nuclear/Producao-de-Pastilha"
+      ],
+      "phrase": "Seu dióxido é usado como combustível em reatores nucleares.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Urânio",
+          "url": "https://periodic-table.rsc.org/element/92/uranium"
+        },
+        {
+          "label": "INB: pastilhas de UO₂",
+          "url": "https://www.inb.gov.br/Nossas-Atividades/Ciclo-do-combustivel-nuclear/Producao-de-Pastilha"
+        }
+      ]
+    },
+    {
+      "z": 93,
+      "symbol": "Np",
+      "name": "Netúnio",
+      "mass": "[237]",
+      "category": "Actinídeo",
+      "category_key": "actinideos",
+      "color": "#805256",
+      "state": "Sólido",
+      "map_row": 9,
+      "map_column": 8,
+      "illustration_description": "Detector de nêutrons",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/93/neptunium",
+        "https://iupac.org/wp-content/uploads/2022/07/IUPAC_Periodic_Table-04May22_CRA.pdf"
+      ],
+      "phrase": "O Np-237 pode ser usado em detectores de nêutrons.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Netúnio",
+          "url": "https://periodic-table.rsc.org/element/93/neptunium"
+        }
+      ]
+    },
+    {
+      "z": 94,
+      "symbol": "Pu",
+      "name": "Plutônio",
+      "mass": "[244]",
+      "category": "Actinídeo",
+      "category_key": "actinideos",
+      "color": "#805256",
+      "state": "Sólido",
+      "map_row": 9,
+      "map_column": 9,
+      "illustration_description": "Robô de exploração espacial",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/94/plutonium",
+        "https://iupac.org/wp-content/uploads/2022/07/IUPAC_Periodic_Table-04May22_CRA.pdf",
+        "https://science.nasa.gov/planetary-science/programs/radioisotope-power-systems/about-plutonium-238/"
+      ],
+      "phrase": "O calor do Pu-238 gera eletricidade para algumas missões espaciais.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Plutônio",
+          "url": "https://periodic-table.rsc.org/element/94/plutonium"
+        },
+        {
+          "label": "NASA: calor do Pu-238",
+          "url": "https://science.nasa.gov/planetary-science/programs/radioisotope-power-systems/about-plutonium-238/"
+        }
+      ]
+    },
+    {
+      "z": 95,
+      "symbol": "Am",
+      "name": "Amerício",
+      "mass": "[243]",
+      "category": "Actinídeo",
+      "category_key": "actinideos",
+      "color": "#805256",
+      "state": "Sólido",
+      "map_row": 9,
+      "map_column": 10,
+      "illustration_description": "Detector de fumaça",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/95/americium",
+        "https://iupac.org/wp-content/uploads/2022/07/IUPAC_Periodic_Table-04May22_CRA.pdf"
+      ],
+      "phrase": "O Am-241 está em alguns detectores de fumaça.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Amerício",
+          "url": "https://periodic-table.rsc.org/element/95/americium"
+        }
+      ]
+    },
+    {
+      "z": 96,
+      "symbol": "Cm",
+      "name": "Cúrio",
+      "mass": "[247]",
+      "category": "Actinídeo",
+      "category_key": "actinideos",
+      "color": "#805256",
+      "state": "Sólido",
+      "map_row": 9,
+      "map_column": 11,
+      "illustration_description": "Braço robótico e rocha",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/96/curium",
+        "https://science.nasa.gov/photojournal/mckittrick-rich-in-sulfur/",
+        "https://iupac.org/wp-content/uploads/2022/07/IUPAC_Periodic_Table-04May22_CRA.pdf"
+      ],
+      "phrase": "O Cm-244 ajuda a analisar a composição de rochas em Marte.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Cúrio",
+          "url": "https://periodic-table.rsc.org/element/96/curium"
+        },
+        {
+          "label": "NASA: Cm-244 e rochas de Marte",
+          "url": "https://science.nasa.gov/photojournal/mckittrick-rich-in-sulfur/"
+        }
+      ]
+    },
+    {
+      "z": 97,
+      "symbol": "Bk",
+      "name": "Berquélio",
+      "mass": "[247]",
+      "category": "Actinídeo",
+      "category_key": "actinideos",
+      "color": "#805256",
+      "state": "Sólido",
+      "map_row": 9,
+      "map_column": 12,
+      "illustration_description": "Alvo de pesquisa",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/97/berkelium",
+        "https://iupac.org/wp-content/uploads/2022/07/IUPAC_Periodic_Table-04May22_CRA.pdf",
+        "https://www.ornl.gov/news/tennessine-acknowledges-state-institutions-roles-elements-discovery"
+      ],
+      "phrase": "O Bk-249 foi usado em um alvo para produzir o tenessino.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Berquélio",
+          "url": "https://periodic-table.rsc.org/element/97/berkelium"
+        },
+        {
+          "label": "ORNL: Bk-249 e tenessino",
+          "url": "https://www.ornl.gov/news/tennessine-acknowledges-state-institutions-roles-elements-discovery"
+        }
+      ]
+    },
+    {
+      "z": 98,
+      "symbol": "Cf",
+      "name": "Califórnio",
+      "mass": "[251]",
+      "category": "Actinídeo",
+      "category_key": "actinideos",
+      "color": "#805256",
+      "state": "Sólido",
+      "map_row": 9,
+      "map_column": 13,
+      "illustration_description": "Analisador de nêutrons",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/98/californium",
+        "https://iupac.org/wp-content/uploads/2022/07/IUPAC_Periodic_Table-04May22_CRA.pdf",
+        "https://www.ornl.gov/file/x20016602020-g01568isotopesheets020821-californium-252/display"
+      ],
+      "phrase": "O Cf-252 fornece nêutrons para analisar materiais.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Califórnio",
+          "url": "https://periodic-table.rsc.org/element/98/californium"
+        },
+        {
+          "label": "ORNL: fonte de Cf-252",
+          "url": "https://www.ornl.gov/file/x20016602020-g01568isotopesheets020821-californium-252/display"
+        }
+      ]
+    },
+    {
+      "z": 99,
+      "symbol": "Es",
+      "name": "Einstênio",
+      "mass": "[252]",
+      "category": "Actinídeo",
+      "category_key": "actinideos",
+      "color": "#805256",
+      "state": "Sólido",
+      "map_row": 9,
+      "map_column": 14,
+      "illustration_description": "Microbalança de pesquisa",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/99/einsteinium",
+        "https://doi.org/10.1051/jphyscol:1979431",
+        "https://iupac.org/wp-content/uploads/2022/07/IUPAC_Periodic_Table-04May22_CRA.pdf",
+        "https://newscenter.lbl.gov/2021/02/03/discoveries-at-the-edge-of-the-periodic-table-first-ever-measurements-of-einsteinium/"
+      ],
+      "phrase": "Pequenas amostras permitem investigar suas ligações químicas.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Einstênio",
+          "url": "https://periodic-table.rsc.org/element/99/einsteinium"
+        },
+        {
+          "label": "Berkeley Lab: ligações do einstênio",
+          "url": "https://newscenter.lbl.gov/2021/02/03/discoveries-at-the-edge-of-the-periodic-table-first-ever-measurements-of-einsteinium/"
+        }
+      ]
+    },
+    {
+      "z": 100,
+      "symbol": "Fm",
+      "name": "Férmio",
+      "mass": "[257]",
+      "category": "Actinídeo",
+      "category_key": "actinideos",
+      "color": "#805256",
+      "state": "Não determinado",
+      "map_row": 9,
+      "map_column": 15,
+      "illustration_description": "Coletor de pesquisa",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/100/fermium",
+        "https://iupac.org/wp-content/uploads/2022/07/IUPAC_Periodic_Table-04May22_CRA.pdf"
+      ],
+      "phrase": "Produzido em quantidades minúsculas para pesquisa.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Férmio",
+          "url": "https://periodic-table.rsc.org/element/100/fermium"
+        }
+      ]
+    },
+    {
+      "z": 101,
+      "symbol": "Md",
+      "name": "Mendelévio",
+      "mass": "[258]",
+      "category": "Actinídeo",
+      "category_key": "actinideos",
+      "color": "#805256",
+      "state": "Não determinado",
+      "map_row": 9,
+      "map_column": 16,
+      "illustration_description": "Módulo de pesquisa",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/101/mendelevium",
+        "https://iupac.org/wp-content/uploads/2022/07/IUPAC_Periodic_Table-04May22_CRA.pdf"
+      ],
+      "phrase": "Utilizado apenas em pesquisa científica.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Mendelévio",
+          "url": "https://periodic-table.rsc.org/element/101/mendelevium"
+        }
+      ]
+    },
+    {
+      "z": 102,
+      "symbol": "No",
+      "name": "Nobélio",
+      "mass": "[259]",
+      "category": "Actinídeo",
+      "category_key": "actinideos",
+      "color": "#805256",
+      "state": "Não determinado",
+      "map_row": 9,
+      "map_column": 17,
+      "illustration_description": "Tubo de pesquisa",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/102/nobelium",
+        "https://iupac.org/wp-content/uploads/2022/07/IUPAC_Periodic_Table-04May22_CRA.pdf"
+      ],
+      "phrase": "É investigado em experimentos de laboratório.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Nobélio",
+          "url": "https://periodic-table.rsc.org/element/102/nobelium"
+        }
+      ]
+    },
+    {
+      "z": 103,
+      "symbol": "Lr",
+      "name": "Laurêncio",
+      "mass": "[262]",
+      "category": "Actinídeo",
+      "category_key": "actinideos",
+      "color": "#805256",
+      "state": "Não determinado",
+      "map_row": 9,
+      "map_column": 18,
+      "illustration_description": "Filtro de íons",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/103/lawrencium",
+        "https://iupac.org/wp-content/uploads/2022/07/IUPAC_Periodic_Table-04May22_CRA.pdf"
+      ],
+      "phrase": "Produzido para estudar os elementos mais pesados.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Laurêncio",
+          "url": "https://periodic-table.rsc.org/element/103/lawrencium"
+        }
+      ]
+    },
+    {
+      "z": 104,
+      "symbol": "Rf",
+      "name": "Rutherfórdio",
+      "mass": "[267]",
+      "category": "Metal de transição",
+      "category_key": "transicao",
+      "color": "#146B61",
+      "state": "Não determinado",
+      "map_row": 7,
+      "map_column": 4,
+      "illustration_description": "Linha de acelerador",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/104/rutherfordium",
+        "https://iupac.org/wp-content/uploads/2022/07/IUPAC_Periodic_Table-04May22_CRA.pdf"
+      ],
+      "phrase": "É produzido em aceleradores para pesquisas com átomos pesados.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Rutherfórdio",
+          "url": "https://periodic-table.rsc.org/element/104/rutherfordium"
+        }
+      ]
+    },
+    {
+      "z": 105,
+      "symbol": "Db",
+      "name": "Dúbnio",
+      "mass": "[268]",
+      "category": "Metal de transição",
+      "category_key": "transicao",
+      "color": "#146B61",
+      "state": "Não determinado",
+      "map_row": 7,
+      "map_column": 5,
+      "illustration_description": "Acelerador de íons",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/105/dubnium",
+        "https://iupac.org/wp-content/uploads/2022/07/IUPAC_Periodic_Table-04May22_CRA.pdf"
+      ],
+      "phrase": "Produzido em laboratório para pesquisa científica.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Dúbnio",
+          "url": "https://periodic-table.rsc.org/element/105/dubnium"
+        }
+      ]
+    },
+    {
+      "z": 106,
+      "symbol": "Sg",
+      "name": "Seabórgio",
+      "mass": "[269]",
+      "category": "Metal de transição",
+      "category_key": "transicao",
+      "color": "#146B61",
+      "state": "Não determinado",
+      "map_row": 7,
+      "map_column": 6,
+      "illustration_description": "Equipamento de cromatografia",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/106/seaborgium",
+        "https://iupac.org/wp-content/uploads/2022/07/IUPAC_Periodic_Table-04May22_CRA.pdf",
+        "https://www.gsi.de/en/start/news/details/2026/10/14/chemische-bindung-mit-superschwerem-element"
+      ],
+      "phrase": "Seus compostos permitem estudar ligações em átomos superpesados.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Seabórgio",
+          "url": "https://periodic-table.rsc.org/element/106/seaborgium"
+        },
+        {
+          "label": "GSI: ligações do seabórgio",
+          "url": "https://www.gsi.de/en/start/news/details/2026/10/14/chemische-bindung-mit-superschwerem-element"
+        }
+      ]
+    },
+    {
+      "z": 107,
+      "symbol": "Bh",
+      "name": "Bóhrio",
+      "mass": "[270]",
+      "category": "Metal de transição",
+      "category_key": "transicao",
+      "color": "#146B61",
+      "state": "Não determinado",
+      "map_row": 7,
+      "map_column": 7,
+      "illustration_description": "Forno de pesquisa",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/107/bohrium",
+        "https://iupac.org/wp-content/uploads/2022/07/IUPAC_Periodic_Table-04May22_CRA.pdf",
+        "https://www.nature.com/articles/35024044"
+      ],
+      "phrase": "Seus compostos são estudados em experimentos na fase gasosa.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Bóhrio",
+          "url": "https://periodic-table.rsc.org/element/107/bohrium"
+        },
+        {
+          "label": "Nature: química do bóhrio",
+          "url": "https://www.nature.com/articles/35024044"
+        }
+      ]
+    },
+    {
+      "z": 108,
+      "symbol": "Hs",
+      "name": "Hássio",
+      "mass": "[269]",
+      "category": "Metal de transição",
+      "category_key": "transicao",
+      "color": "#146B61",
+      "state": "Não determinado",
+      "map_row": 7,
+      "map_column": 8,
+      "illustration_description": "Câmara de reação",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/108/hassium",
+        "https://iupac.org/wp-content/uploads/2022/07/IUPAC_Periodic_Table-04May22_CRA.pdf"
+      ],
+      "phrase": "Sua química é investigada em poucos átomos.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Hássio",
+          "url": "https://periodic-table.rsc.org/element/108/hassium"
+        }
+      ]
+    },
+    {
+      "z": 109,
+      "symbol": "Mt",
+      "name": "Meitnério",
+      "mass": "[277]",
+      "category": "Metal de transição",
+      "category_key": "transicao",
+      "color": "#146B61",
+      "state": "Não determinado",
+      "map_row": 7,
+      "map_column": 9,
+      "illustration_description": "Manipulador de pesquisa",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/109/meitnerium",
+        "https://iupac.org/wp-content/uploads/2022/07/IUPAC_Periodic_Table-04May22_CRA.pdf"
+      ],
+      "phrase": "Feito em laboratório; sem aplicação cotidiana.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Meitnério",
+          "url": "https://periodic-table.rsc.org/element/109/meitnerium"
+        }
+      ]
+    },
+    {
+      "z": 110,
+      "symbol": "Ds",
+      "name": "Darmstádtio",
+      "mass": "[281]",
+      "category": "Metal de transição",
+      "category_key": "transicao",
+      "color": "#146B61",
+      "state": "Não determinado",
+      "map_row": 7,
+      "map_column": 10,
+      "illustration_description": "Ímã de acelerador",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/110/darmstadtium",
+        "https://iupac.org/wp-content/uploads/2022/07/IUPAC_Periodic_Table-04May22_CRA.pdf"
+      ],
+      "phrase": "Produzido para estudar núcleos muito pesados.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Darmstádtio",
+          "url": "https://periodic-table.rsc.org/element/110/darmstadtium"
+        }
+      ]
+    },
+    {
+      "z": 111,
+      "symbol": "Rg",
+      "name": "Roentgênio",
+      "mass": "[282]",
+      "category": "Metal de transição",
+      "category_key": "transicao",
+      "color": "#146B61",
+      "state": "Não determinado",
+      "map_row": 7,
+      "map_column": 11,
+      "illustration_description": "Detector e console",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/111/roentgenium",
+        "https://iupac.org/wp-content/uploads/2022/07/IUPAC_Periodic_Table-04May22_CRA.pdf"
+      ],
+      "phrase": "É estudado por meio de seu decaimento.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Roentgênio",
+          "url": "https://periodic-table.rsc.org/element/111/roentgenium"
+        }
+      ]
+    },
+    {
+      "z": 112,
+      "symbol": "Cn",
+      "name": "Copernício",
+      "mass": "[285]",
+      "category": "Outro metal",
+      "category_key": "outros_metais",
+      "color": "#326384",
+      "state": "Não determinado",
+      "map_row": 7,
+      "map_column": 12,
+      "illustration_description": "Canal de análise térmica",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/112/copernicium",
+        "https://iupac.org/wp-content/uploads/2022/07/IUPAC_Periodic_Table-04May22_CRA.pdf",
+        "https://pubmed.ncbi.nlm.nih.gov/17476264/"
+      ],
+      "phrase": "Átomos isolados são estudados sobre superfícies de ouro.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Copernício",
+          "url": "https://periodic-table.rsc.org/element/112/copernicium"
+        },
+        {
+          "label": "Nature: química do elemento 112",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/17476264/"
+        }
+      ]
+    },
+    {
+      "z": 113,
+      "symbol": "Nh",
+      "name": "Nihônio",
+      "mass": "[286]",
+      "category": "Outro metal",
+      "category_key": "outros_metais",
+      "color": "#326384",
+      "state": "Não determinado",
+      "map_row": 7,
+      "map_column": 13,
+      "illustration_description": "Transporte de átomos",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/113/nihonium",
+        "https://iupac.org/wp-content/uploads/2022/07/IUPAC_Periodic_Table-04May22_CRA.pdf",
+        "https://press.uni-mainz.de/experiments-at-gsi-fair-succeed-in-determining-properties-of-moscovium-and-nihonium/"
+      ],
+      "phrase": "Sua interação com superfícies já foi medida em laboratório.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Nihônio",
+          "url": "https://periodic-table.rsc.org/element/113/nihonium"
+        },
+        {
+          "label": "Mainz/GSI: Nh, Fl e Mc",
+          "url": "https://press.uni-mainz.de/experiments-at-gsi-fair-succeed-in-determining-properties-of-moscovium-and-nihonium/"
+        }
+      ]
+    },
+    {
+      "z": 114,
+      "symbol": "Fl",
+      "name": "Fleróvio",
+      "mass": "[290]",
+      "category": "Outro metal",
+      "category_key": "outros_metais",
+      "color": "#326384",
+      "state": "Não determinado",
+      "map_row": 7,
+      "map_column": 14,
+      "illustration_description": "Câmara de vácuo",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/114/flerovium",
+        "https://iupac.org/wp-content/uploads/2022/07/IUPAC_Periodic_Table-04May22_CRA.pdf",
+        "https://press.uni-mainz.de/experiments-at-gsi-fair-succeed-in-determining-properties-of-moscovium-and-nihonium/"
+      ],
+      "phrase": "A baixa reatividade de seus átomos é tema de pesquisa.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Fleróvio",
+          "url": "https://periodic-table.rsc.org/element/114/flerovium"
+        },
+        {
+          "label": "Mainz/GSI: Nh, Fl e Mc",
+          "url": "https://press.uni-mainz.de/experiments-at-gsi-fair-succeed-in-determining-properties-of-moscovium-and-nihonium/"
+        }
+      ]
+    },
+    {
+      "z": 115,
+      "symbol": "Mc",
+      "name": "Moscóvio",
+      "mass": "[290]",
+      "category": "Outro metal",
+      "category_key": "outros_metais",
+      "color": "#326384",
+      "state": "Não determinado",
+      "map_row": 7,
+      "map_column": 15,
+      "illustration_description": "Roda de alvos",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/115/moscovium",
+        "https://iupac.org/wp-content/uploads/2022/07/IUPAC_Periodic_Table-04May22_CRA.pdf",
+        "https://press.uni-mainz.de/experiments-at-gsi-fair-succeed-in-determining-properties-of-moscovium-and-nihonium/"
+      ],
+      "phrase": "Seus átomos já foram estudados em experimentos de química.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Moscóvio",
+          "url": "https://periodic-table.rsc.org/element/115/moscovium"
+        },
+        {
+          "label": "Mainz/GSI: Nh, Fl e Mc",
+          "url": "https://press.uni-mainz.de/experiments-at-gsi-fair-succeed-in-determining-properties-of-moscovium-and-nihonium/"
+        }
+      ]
+    },
+    {
+      "z": 116,
+      "symbol": "Lv",
+      "name": "Livermório",
+      "mass": "[293]",
+      "category": "Outro metal",
+      "category_key": "outros_metais",
+      "color": "#326384",
+      "state": "Não determinado",
+      "map_row": 7,
+      "map_column": 16,
+      "illustration_description": "Módulo de acelerador",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/116/livermorium",
+        "https://iupac.org/wp-content/uploads/2022/07/IUPAC_Periodic_Table-04May22_CRA.pdf"
+      ],
+      "phrase": "Não tem aplicação fora da pesquisa.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Livermório",
+          "url": "https://periodic-table.rsc.org/element/116/livermorium"
+        }
+      ]
+    },
+    {
+      "z": 117,
+      "symbol": "Ts",
+      "name": "Tenessino",
+      "mass": "[294]",
+      "category": "Halogênio",
+      "category_key": "halogenios",
+      "color": "#A24967",
+      "state": "Não determinado",
+      "map_row": 7,
+      "map_column": 17,
+      "illustration_description": "Dispositivo de alvos",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/117/tennessine",
+        "https://iupac.org/wp-content/uploads/2022/07/IUPAC_Periodic_Table-04May22_CRA.pdf",
+        "https://www.ornl.gov/publication/application-dual-column-method-selectively-extract-and-purify-berkelium-249-other"
+      ],
+      "phrase": "Foi produzido pela união de núcleos de cálcio e berquélio.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Tenessino",
+          "url": "https://periodic-table.rsc.org/element/117/tennessine"
+        },
+        {
+          "label": "ORNL: produção do tenessino",
+          "url": "https://www.ornl.gov/publication/application-dual-column-method-selectively-extract-and-purify-berkelium-249-other"
+        }
+      ]
+    },
+    {
+      "z": 118,
+      "symbol": "Og",
+      "name": "Oganessônio",
+      "mass": "[294]",
+      "category": "Gás nobre",
+      "category_key": "grupo18",
+      "color": "#70518E",
+      "state": "Não determinado",
+      "map_row": 7,
+      "map_column": 18,
+      "illustration_description": "Conjunto de detectores",
+      "source_urls": [
+        "https://ciaaw.org/abridged-atomic-weights.htm",
+        "https://periodic-table.rsc.org/element/118/oganesson",
+        "https://iupac.org/wp-content/uploads/2022/07/IUPAC_Periodic_Table-04May22_CRA.pdf"
+      ],
+      "phrase": "Seu estado físico ainda não foi confirmado experimentalmente.",
+      "phrase_sources": [
+        {
+          "label": "RSC: Oganessônio",
+          "url": "https://periodic-table.rsc.org/element/118/oganesson"
+        }
+      ]
+    }
+  ]
+}
