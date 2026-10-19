@@ -78,8 +78,8 @@
         const dx = (to.left + to.width / 2) - (from.left + from.width / 2);
         const dy = (to.top + to.height / 2) - (from.top + from.height / 2);
         bridgeAnimation = closingLogo.animate([
-          { transform:'translate(0,0) scale(1)', opacity:1 },
-          { transform:`translate(${dx.toFixed(1)}px,${dy.toFixed(1)}px) scale(${(to.width/from.width).toFixed(3)},${(to.height/from.height).toFixed(3)})`, opacity:0 }
+          { transform:'translate(-50%,-50%) scale(1)', opacity:1 },
+          { transform:`translate(calc(-50% + ${dx.toFixed(1)}px),calc(-50% + ${dy.toFixed(1)}px)) scale(${(to.width/from.width).toFixed(3)},${(to.height/from.height).toFixed(3)})`, opacity:0 }
         ], { duration:920, easing:'cubic-bezier(.2,.78,.2,1)', fill:'forwards' });
       }
     }
