@@ -19,7 +19,7 @@ assert.ok(script.includes('window.CordelAccess?.reduced()'),'respects stored acc
 assert.ok(script.includes("event.persisted"),'BFCache restore is safe');
 assert.ok(style.includes('prefers-reduced-motion:reduce'),'honors OS reduced-motion setting');
 assert.ok(style.includes('max-width:650px'),'mobile stage fits in viewport');
-assert.match(sw,/const CACHE='cordel-varal-v([1-9]\\d*)'/,'versioned PWA cache remains configured');
+assert.match(sw,/const CACHE='cordel-varal-v[0-9]+'/,'versioned PWA cache remains configured');
 assert.ok(fs.existsSync(path.join(root,'assets/intro/cordel-abertura-v06-web.mp4')));
 assert.equal((home.match(/<a class="tile category-/g)||[]).length,118,'periodic elements preserved');
 console.log('PASS: native video, transitions, accessible skip, responsive stage, PWA and 118 elements');
