@@ -115,7 +115,7 @@
       lastDrawing = '';
       document.querySelector('#colecao')?.classList.toggle('catalog-periodic',periodic);
       stopBreeze();
-      if (!periodic) armBreeze();
+      armBreeze();
       const viewport = document.querySelector('#colecao .catalog-viewport');
       if (viewport) {
         viewport.scrollLeft = 0;
@@ -176,13 +176,15 @@
   window.addEventListener('pageshow',schedule);
   document.fonts?.ready.then(schedule);
 
-  // Uma brisa curta a cada 30 s. Apenas papéis visíveis; ponto de suspensão fixo.
+  // Breeze in both the hanging varal and the compact periodic table.
+  // Transform-only movement keeps the element grid and suspended ropes fixed.
   const WIND_INTERVAL = 10000;
   const activeWind = new Map();
   const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
   let windTimer = null;
+  let lastWindMode = null;
   function motionBlocked() {
-    return document.hidden || grid.classList.contains('periodic') ||
+    return document.hidden ||
       motionPreference.matches || document.documentElement.classList.contains('reduce-motion') ||
       document.documentElement.classList.contains('simple-reading');
   }
@@ -194,29 +196,51 @@
   }
   function armBreeze() {
     if (windTimer !== null || motionBlocked()) return;
+    const periodic = grid.classList.contains('periodic');
+    // First periodic breeze is noticeable without becoming a continuous effect.
+    // All subsequent breezes retain the existing calm 10-second cadence.
+    const firstInMode = lastWindMode !== periodic;
+    lastWindMode = periodic;
+    const delay = periodic && firstInMode ? 2600 : WIND_INTERVAL;
     windTimer = setTimeout(() => {
       windTimer = null;
       if (motionBlocked()) return;
       blowBreeze();
       armBreeze();
-    }, WIND_INTERVAL);
+    }, delay);
   }
   function blowBreeze() {
+    const periodic = grid.classList.contains('periodic');
+    const viewport = periodic ? document.querySelector('#colecao .catalog-viewport') : null;
+    const clip = viewport?.getBoundingClientRect();
     tiles.forEach((tile, index) => {
-      if (tile.hidden || typeof tile.animate !== 'function' || tile.matches(':hover, :focus-within')) return;
+      if (tile.hidden || typeof tile.animate !== 'function' ||
+          tile.matches(':hover, :focus-within, :active') ||
+          (periodic && tile.classList.contains('unmatched'))) return;
       const rect = tile.getBoundingClientRect();
-      if (rect.bottom <= 0 || rect.top >= window.innerHeight || rect.right <= 0 || rect.left >= window.innerWidth) return;
-      const rest = parseFloat(getComputedStyle(tile).getPropertyValue('--folio-tilt')) || 0;
-      const amplitude = 1.15 + (index % 7) * .055;
+      if (rect.bottom <= 0 || rect.top >= window.innerHeight ||
+          rect.right <= 0 || rect.left >= window.innerWidth) return;
+      // Periodic view scrolls independently on narrow screens: only animate
+      // folhetos actually visible inside that clipped horizontal viewport.
+      if (clip && (rect.right <= clip.left || rect.left >= clip.right ||
+          rect.bottom <= clip.top || rect.top >= clip.bottom)) return;
+      const rest = periodic ? 0 :
+        (parseFloat(getComputedStyle(tile).getPropertyValue('--folio-tilt')) || 0);
+      // Smaller periodic cards move less than the large varal folhetos.
+      const amplitude = periodic ? .75 + (index % 5) * .105 :
+        1.15 + (index % 7) * .055;
       const frames = Array.from({length:65}, (_,i) => {
         const u = i / 64;
         const gust = Math.sin(2.5 * Math.PI * u) * Math.sin(Math.PI * u) ** 2 * Math.exp(-.6 * u);
         return {offset:u, transform:`rotate(${(rest + amplitude * gust).toFixed(4)}deg)`};
       });
+      const col = periodic ? parseInt(tile.style.getPropertyValue('--col'), 10) || 0 : 0;
+      const row = periodic ? parseInt(tile.style.getPropertyValue('--row'), 10) || 0 : 0;
       const animation = tile.animate(frames, {
-        duration:3200 + (index % 4) * 140,
-        delay:Math.min(420,Math.round(tile.offsetLeft / Math.max(1,grid.clientWidth) * 350)) + (index % 3) * 35,
-        easing:'linear', fill:'none'
+        duration:periodic ? 2900 + (index % 4) * 110 : 3200 + (index % 4) * 140,
+        delay:periodic ? col * 45 + row % 3 * 65 :
+          Math.min(420,Math.round(tile.offsetLeft / Math.max(1,grid.clientWidth) * 350)) + (index % 3) * 35,
+        easing:'linear',fill:'none'
       });
       activeWind.set(tile, animation);
       const finished = () => { if (activeWind.get(tile) === animation) activeWind.delete(tile); };
@@ -227,6 +251,7 @@
   tiles.forEach(tile => {
     const settle = () => activeWind.get(tile)?.cancel();
     tile.addEventListener('pointerenter',settle);
+    tile.addEventListener('pointerdown',settle);
     tile.addEventListener('focusin',settle);
   });
   function refreshMotion() {

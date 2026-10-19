@@ -319,3 +319,19 @@ body[data-theme=contrast] .grid.cordel-collection.periodic .periodic-central-leg
     background:Canvas;border-color:CanvasText
   }
 }
+
+/* Quiet cordel sway in the classic table. The rotation pivots on the
+   same suspension point used by the SVG rope and the wooden clothespin.
+   WAAPI handles the brief gust; no CSS layout positions are animated. */
+.grid.cordel-collection.periodic .tile{
+  transform-origin:50% -6px;
+}
+.reduce-motion .grid.cordel-collection.periodic .tile,
+.simple-reading .grid.cordel-collection.periodic .tile{
+  transform:none!important;transition:none!important;
+}
+@media(prefers-reduced-motion:reduce){
+  .grid.cordel-collection.periodic .tile{
+    transform:none!important;transition:none!important;
+  }
+}
