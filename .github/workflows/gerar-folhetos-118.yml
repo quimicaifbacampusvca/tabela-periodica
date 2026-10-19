@@ -1,0 +1,85 @@
+name: Gerar 118 folhetos A4 sem cenas complementares
+on:
+  pull_request:
+    branches:
+      - prototype/quatro-linguagens-estados-20261019
+    paths:
+      - 'assets/element-page.js'
+      - 'assets/element-page.css'
+      - 'sw.js'
+      - 'data/folhetos-impressao-manifesto.json'
+      - 'scripts/gerar-folhetos-118.mjs'
+      - 'tests/verificar-folhetos-sem-cenas.cjs'
+      - '.github/workflows/gerar-folhetos-118.yml'
+  workflow_dispatch:
+jobs:
+  gerar-pdfs:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verificar as 118 fichas e os 236 espaços
+        run: node tests/verificar-folhetos-sem-cenas.cjs
+      - name: Instalar motor para PDFs e verificação
+        run: |
+          npm install --no-save puppeteer-core@24
+          python3 -m pip install --user pypdf
+      - name: Gerar PDFs com as artes principais preservadas
+        env:
+          CHROME_BIN: /usr/bin/google-chrome
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/cordel-118-http.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill $SERVER_PID || true' EXIT
+          sleep 2
+          node scripts/gerar-folhetos-118.mjs
+      - name: Confirmar 1 página A4 por PDF e reunir o caderno
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from pypdf import PdfReader,PdfWriter
+          folder=Path('dist/folhetos')
+          paths=sorted(folder.glob('*.pdf'))
+          assert len(paths)==118, f'Esperados 118 PDFs; encontrados {len(paths)}'
+          combined=PdfWriter()
+          failures=[]
+          for p in paths:
+              r=PdfReader(str(p))
+              if len(r.pages)!=1:
+                  failures.append((p.name,len(r.pages)))
+                  continue
+              box=r.pages[0].mediabox
+              w,h=float(box.width),float(box.height)
+              if abs(w-595.28)>4 or abs(h-841.89)>4:
+                  failures.append((p.name,f'Tamanho fora do A4: {w:.1f}x{h:.1f}'))
+              combined.append(str(p))
+          assert not failures, failures
+          target=Path('dist/cordel-118-folhetos-caderno.pdf')
+          with target.open('wb') as f:combined.write(f)
+          assert len(PdfReader(str(target)).pages)==118
+          print('118 PDFs individuais com 1 página A4; caderno consolidado com 118 páginas.')
+          PY
+      - name: Disponibilizar os 118 PDFs individuais
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cordel-118-pdfs-individuais-sem-cenas
+          path: dist/folhetos/*.pdf
+          retention-days: 30
+          compression-level: 6
+      - name: Disponibilizar o caderno completo e relatório
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cordel-118-caderno-a4-e-relatorio
+          path: |
+            dist/cordel-118-folhetos-caderno.pdf
+            dist/relatorio-geracao.json
+          retention-days: 30
