@@ -226,7 +226,7 @@ body.element-page[data-palette=blueyellow] .ep-state img,body.element-page[data-
     margin:0!important;padding:0
   }
   .ep-print-sheet .ep-print-masthead{
-    display:flex;align-items:center;justify-content:space-between;
+    display:flex!important;align-items:center;justify-content:space-between;
     gap:5mm;min-width:0;border-bottom:1.3pt solid #1d3630;padding:0 1mm 1.5mm;
   }
   .ep-print-brand{display:flex;align-items:center;gap:2.5mm;min-width:0}

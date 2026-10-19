@@ -76,8 +76,8 @@
     '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
   })[ch]);
   function excerpt(text,limit){
-    const clean=String(text||'').replace(/\\s+/g,' ').trim();
-    const sentences=clean.match(/[^.!?]+[.!?](?=\\s|$)/g)||[];
+    const clean=String(text||'').replace(/\s+/g,' ').trim();
+    const sentences=clean.match(/[^.!?]+[.!?](?=\s|$)/g)||[];
     let selected='';
     for(const sentence of sentences){
       const candidate=(selected+' '+sentence.trim()).trim();
@@ -87,7 +87,7 @@
     }
     if(selected)return selected;
     if(clean.length<=limit)return clean;
-    return clean.slice(0,limit-1).replace(/\\s+\\S*$/,'')+'…';
+    return clean.slice(0,limit-1).replace(/\s+\S*$/,'')+'…';
   }
   function dataDisplay(key){
     const node=document.querySelector('[data-property="'+key+'"]');
@@ -104,7 +104,7 @@
     const family=current.series?(current.z<=71?'Série dos lantanídeos':'Série dos actinídeos'):
       ('Grupo '+String(current.group));
     const position=family+' · período '+current.period;
-    const shade=/^#[\\da-f]{6}$/i.test(current.color)?current.color:'#146b61';
+    const shade=/^#[\da-f]{6}$/i.test(current.color)?current.color:'#146b61';
     const details=[
       ['Raio atômico',dataDisplay('radius')],
       ['Eletronegatividade',dataDisplay('en')],
