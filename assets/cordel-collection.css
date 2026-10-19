@@ -138,10 +138,14 @@ body[data-palette=blueyellow] :is(.tile,.legend-category){--cat:#9c5266!importan
   display:grid;grid-template-rows:auto minmax(0,1fr) auto;
   align-self:stretch;justify-self:stretch;align-content:stretch;
   gap:.4rem;min-width:0;min-height:0;
+  /* Move the frame top onto the single existing SVG rope (8 px above the cell). */
+  margin-top:-8px;
   padding:.72rem .85rem .65rem;
   container:periodic-legend / inline-size;
   position:relative;z-index:2;
-  border:2px solid var(--ink);outline:1px solid var(--line);outline-offset:-6px;
+  /* The upper border now completes the rope where it passes behind the paper;
+     no inset outline or extra top cord is painted. */
+  border:2px solid var(--ink);border-top-color:var(--rope-ink);outline:none;
   background:var(--paper);color:var(--ink);
   font-family:CordelSans,system-ui,sans-serif;text-align:left;
 }
@@ -230,11 +234,11 @@ body[data-palette=blueyellow] :is(.tile,.legend-category){--cat:#9c5266!importan
   font-variant-numeric:tabular-nums;
 }
 body[data-theme=contrast] .grid.cordel-collection.periodic .periodic-central-legend{
-  border-color:var(--ink);outline-color:var(--ink)
+  border-color:var(--ink);border-top-color:var(--rope-ink)
 }
 @media(forced-colors:active){
   .grid.cordel-collection.periodic .periodic-central-legend{
-    background:Canvas;color:CanvasText;border-color:CanvasText;outline-color:CanvasText
+    background:Canvas;color:CanvasText;border-color:CanvasText
   }
   .periodic-central-legend .legend-category i{
     background:Canvas;border-color:CanvasText;box-shadow:none
@@ -245,8 +249,8 @@ body[data-theme=contrast] .grid.cordel-collection.periodic .periodic-central-leg
 
 /* The ropes are the same ropes drawn under the chemical folhetos.
    Here their ends visibly attach to the legend sheet at three precise
-   period heights. A full rope across the top and short hidden-behind-paper
-   joins at rows 2–3 keep all chemistry labels clear. */
+   period heights. The upper border continues the existing table rope;
+   only short attachment points are drawn at rows 2–3. */
 .periodic-central-legend .periodic-legend-cords{
   position:absolute;inset:0;z-index:4;
   display:block;pointer-events:none;overflow:visible
@@ -266,9 +270,9 @@ body[data-theme=contrast] .grid.cordel-collection.periodic .periodic-central-leg
 }
 .periodic-central-legend .periodic-legend-cord-lane::before{left:0}
 .periodic-central-legend .periodic-legend-cord-lane::after{right:0}
-.periodic-central-legend .periodic-legend-cord-lane-1::before{
-  width:100%;height:2px;opacity:.9
-}
+/* The first strand is already drawn by the table SVG and carried across the
+   legend by its aligned upper border. Keep this lane only for the pins. */
+.periodic-central-legend .periodic-legend-cord-lane-1::before,
 .periodic-central-legend .periodic-legend-cord-lane-1::after{display:none}
 .periodic-central-legend .periodic-legend-pin{
   position:absolute;top:-.57rem;left:.3rem;
