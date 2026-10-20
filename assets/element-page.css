@@ -624,70 +624,42 @@ body.element-page[data-palette=blueyellow] .ep-state img,body.element-page[data-
   }
 }
 /*
-  QUADROS HOMOLOGADOS — contrato único de impressão A4 (001, 002, 003).
-  O folheto mantém as seis faixas A4 oficiais; apenas os dois painéis aprovados
-  se dividem em: [1] título, [2] explicação HTML, [3] cena pura sem títulos.
-  As artes originais e a ilustração central NÃO são redimensionadas nem alteradas.
-  Sem CSS cumulativo por elemento; dimensões iguais para os próximos folhetos.
+  MONTAGEM INTEGRAL HOMOLOGADA — 001 Hidrogênio / 002 Hélio / 003 Lítio.
+  A arte já traz número, título e texto. O HTML só os conserva como alternativa
+  acessível, sem renderizá-los outra vez na folha. Fonte oficial e arte central
+  ficam intactas; nenhum canvas, recorte prévio ou deformação anisotrópica.
+  Grade A4: 15+8+98+65+66+14 = 266 mm; folgas de 2 mm x5 e bordas de 10 mm x2.
 */
 @media print {
   body.element-page > .ep-print-sheet.ep-print-prototype[data-print-phase="cenas-homologadas"]{
-    grid-template-rows:15mm 8mm 98mm 65mm 58mm 22mm!important;
+    grid-template-rows:15mm 8mm 98mm 65mm 66mm 14mm!important;
   }
   .ep-print-prototype[data-print-phase="cenas-homologadas"] .ep-print-story.ep-print-approved-story{
-    position:relative!important;
-    display:grid!important;
-    grid-template-columns:minmax(0,1fr)!important;
-    grid-template-rows:7.5mm 8.3mm minmax(0,1fr)!important;
-    gap:0!important;
-    padding:1.5mm!important;
-    margin:0!important;
-    min-width:0!important;min-height:0!important;
-    overflow:hidden!important;
+    display:block!important;position:relative!important;
+    height:100%!important;min-height:0!important;min-width:0!important;
+    padding:0!important;margin:0!important;gap:0!important;
     border:1pt solid var(--comic-ink)!important;
-    background:#fffaf0!important;
+    overflow:hidden!important;background:#fffaf0!important;
   }
-  .ep-print-prototype[data-print-phase="cenas-homologadas"] .ep-print-story.ep-print-approved-story > h2{
-    display:flex!important;position:static!important;
-    grid-column:1!important;grid-row:1!important;
-    align-items:center!important;justify-content:flex-start!important;
-    width:100%!important;height:100%!important;
-    min-height:0!important;max-height:none!important;
-    margin:0!important;padding:0!important;
-    font-size:8.4pt!important;line-height:1.1!important;
-    border-bottom:.5pt dashed #876c52!important;
-    clip-path:none!important;white-space:normal!important;
-    overflow:hidden!important;z-index:1!important;
-  }
+  .ep-print-prototype[data-print-phase="cenas-homologadas"] .ep-print-story.ep-print-approved-story > h2,
   .ep-print-prototype[data-print-phase="cenas-homologadas"] .ep-print-story.ep-print-approved-story > p{
-    display:block!important;position:static!important;
-    grid-column:1!important;grid-row:2!important;
-    width:100%!important;height:100%!important;
-    min-height:0!important;max-height:none!important;
-    margin:0!important;padding:1mm 0 0!important;
-    font-size:7.2pt!important;line-height:1.18!important;
-    overflow:hidden!important;overflow-wrap:break-word!important;
-    clip-path:none!important;white-space:normal!important;
-    z-index:1!important;
+    display:none!important;
   }
   .ep-print-prototype[data-print-phase="cenas-homologadas"] .ep-print-story.ep-print-approved-story .ep-print-story-art{
-    display:block!important;position:relative!important;
-    grid-column:1!important;grid-row:3!important;
-    inset:auto!important;align-self:stretch!important;
-    width:100%!important;height:100%!important;
-    min-height:0!important;max-height:none!important;
+    position:absolute!important;display:block!important;
+    inset:0!important;width:100%!important;height:100%!important;
+    max-height:none!important;min-height:0!important;
     margin:0!important;padding:0!important;border:0!important;
-    overflow:hidden!important;background:#fffaf0!important;
+    overflow:hidden!important;background:none!important;
   }
   .ep-print-prototype[data-print-phase="cenas-homologadas"] .ep-print-story.ep-print-approved-story .ep-print-story-art::before,
   .ep-print-prototype[data-print-phase="cenas-homologadas"] .ep-print-story.ep-print-approved-story .ep-print-story-art::after{
     content:none!important;
   }
   .ep-print-prototype[data-print-phase="cenas-homologadas"] .ep-print-story.ep-print-approved-story img.ep-print-approved-art{
-    position:absolute!important;inset:0!important;
     display:block!important;width:100%!important;height:100%!important;
     max-width:none!important;max-height:none!important;
-    object-fit:contain!important;object-position:center center!important;
+    object-fit:cover!important;object-position:center top!important;
     transform:none!important;
   }
 }

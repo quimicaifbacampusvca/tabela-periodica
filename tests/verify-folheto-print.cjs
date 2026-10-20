@@ -30,15 +30,16 @@ for(const [z,cls] of protos){
 }
 assert.ok(js.includes('stateDirection'),'State directions must map explicitly to four sample elements');
 assert.ok(js.includes('ep-print-scene-motif'),'Original artwork must be surrounded by graphical overlays');
-// Remontagem limpa: uma regra por quadro e métricas idênticas para 001–003.
-assert.ok(css.includes('grid-template-rows:15mm 8mm 98mm 65mm 58mm 22mm!important'),'A4: áreas científicas e quadros preservados');
-assert.ok(css.includes('grid-template-rows:7.5mm 8.3mm minmax(0,1fr)!important'),'Três regiões sem sobreposição');
-assert.ok(css.includes('object-fit:contain!important'),'Arte sem distorção');
-assert.ok(!css.includes('/* FIX 001:')&&!css.includes('/* FIX 002:')&&!css.includes('/* HOMOLOGAÇÃO EDITORIAL 1.1'),'CSS conflitante deve ser removido');
-assert.ok(js.includes('slot.replaceChildren(finalArt)'),'Área visual deve ser limpa antes de montagem');
-assert.ok(js.includes('sceneStartY'),'Recorte de arte aprovada preservado');
+// Homologação final: apenas duas artes integrais por elemento, sem HTML
+// visível duplicando numeração, títulos ou explicações já desenhadas.
+assert.ok(css.includes('grid-template-rows:15mm 8mm 98mm 65mm 66mm 14mm!important'),'Grade A4 definitiva: 66mm de quadros e 65mm de fatos');
+assert.ok(css.includes('object-fit:cover!important')&&css.includes('object-position:center top!important'),'Cena preenche a moldura sem esticar');
+assert.ok(css.includes('.ep-print-story.ep-print-approved-story > h2')&&css.includes('display:none!important'),'Texto HTML dos quadros deve desaparecer na impressão');
+assert.ok(!js.includes('sceneStartY')&&!js.includes('ctx.drawImage('),'Cortes adicionais por canvas não devem ser executados');
+assert.ok(js.includes("img.src='../../assets/folhetos/cenas/'+sceneId+'.webp'"),'Montar a própria arte original aprovada');
+assert.ok(js.includes('slot.replaceChildren(img)'),'Remover imagem residual antes de inserir a arte');
 for(const slug of ['hidrogenio','helio','litio']){
- const page=read('elementos/'+slug+'/index.html');
- assert.ok(page.includes('data-folheto-legenda-01=')&&page.includes('data-folheto-legenda-02='),'Legendas fora do HTML: '+slug);
+ const html=read('elementos/'+slug+'/index.html');
+ assert.ok(html.includes('data-folheto-cenas-aprovadas="true"'),'Elemento sem autorização de cenas: '+slug);
 }
-console.log('PASS: três quadros de cada tipo: título, texto e cena sem duplicação.');
+console.log('PASS: cenas integrais sem duplicação de número, títulos ou texto; geometria A4 oficial.');
