@@ -190,6 +190,10 @@
       sheet.dataset.printPhase='cenas-homologadas';
       for(const slot of sheet.querySelectorAll('.ep-print-story-art')){
         const panel=slot.closest('.ep-print-story');
+        // A legenda curta e editável fica no HTML. A cena de xilogravura não
+        // precisa repetir o texto já impresso na parte superior do quadro.
+        const caption=document.body.getAttribute('data-folheto-legenda-'+slot.dataset.scene.slice(-2));
+        if(caption)panel.querySelector('p').textContent=caption;
         panel.setAttribute('aria-label',panel.querySelector('h2').textContent.trim()+': '+panel.querySelector('p').textContent.trim());
         const img=document.createElement('img');
         img.className='ep-print-approved-art';img.alt='';img.decoding='sync';img.loading='eager';
