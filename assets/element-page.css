@@ -674,3 +674,55 @@ body.element-page[data-palette=blueyellow] .ep-state img,body.element-page[data-
     object-fit:contain!important;object-position:center center!important;
   }
 }
+
+/* HOMOLOGAÇÃO EDITORIAL 1.1 — corrige a sobreposição real vista na impressão.
+   O grid A4 soma 266mm + 5 lacunas de 2mm + 20mm de margens internas.
+   Diferente dos ajustes 001/002 anteriores, a área dos fatos permanece 65mm.
+   Os quadrinhos aprovados têm legenda acessível/editável e cena com corte apenas
+   da faixa ORIGINAL de texto da imagem (nunca esticar os desenhos). */
+@media print{
+  body.element-page > .ep-print-sheet.ep-print-prototype[data-print-phase="cenas-homologadas"]{
+    grid-template-rows:15mm 8mm 98mm 65mm 58mm 22mm!important;
+  }
+  .ep-print-prototype[data-print-phase="cenas-homologadas"] .ep-print-story.ep-print-approved-story{
+    position:relative!important;display:grid!important;
+    grid-template-columns:minmax(0,1fr)!important;
+    grid-template-rows:7mm auto minmax(0,1fr)!important;
+    gap:0!important;padding:2mm!important;
+    min-height:0!important;min-width:0!important;
+    border:1pt solid var(--comic-ink)!important;overflow:hidden!important;
+    background:#fffaf0!important;
+  }
+  .ep-print-prototype[data-print-phase="cenas-homologadas"] .ep-print-story.ep-print-approved-story > h2{
+    position:static!important;display:flex!important;
+    width:100%!important;height:7mm!important;max-height:7mm!important;
+    padding:0!important;margin:0!important;
+    font-size:8.5pt!important;line-height:1.1!important;
+    clip-path:none!important;overflow:visible!important;white-space:normal!important;
+    align-self:center!important;z-index:2!important;
+  }
+  .ep-print-prototype[data-print-phase="cenas-homologadas"] .ep-print-story.ep-print-approved-story > p{
+    position:static!important;display:block!important;
+    width:100%!important;height:auto!important;min-height:0!important;
+    padding:1mm 0 1.5mm!important;margin:0!important;
+    font-size:7.4pt!important;line-height:1.2!important;
+    clip-path:none!important;overflow:visible!important;white-space:normal!important;
+    z-index:2!important;
+  }
+  .ep-print-prototype[data-print-phase="cenas-homologadas"] .ep-print-story.ep-print-approved-story .ep-print-story-art{
+    grid-column:1!important;grid-row:3!important;
+    position:relative!important;inset:auto!important;
+    display:block!important;width:100%!important;height:100%!important;
+    min-height:0!important;max-height:none!important;
+    margin:0!important;padding:0!important;border:0!important;
+    overflow:hidden!important;background:transparent!important;
+    align-self:stretch!important;
+  }
+  .ep-print-prototype[data-print-phase="cenas-homologadas"] .ep-print-story.ep-print-approved-story img.ep-print-approved-art{
+    position:absolute!important;inset:0!important;display:block!important;
+    width:100%!important;height:100%!important;
+    max-width:none!important;max-height:none!important;
+    object-fit:cover!important;object-position:center bottom!important;
+    transform:none!important;
+  }
+}

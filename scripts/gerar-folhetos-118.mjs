@@ -37,6 +37,8 @@ try {
           })
         ));
       });
+      // Usar a mesma mídia da impressão real para medir a geometria A4.
+      await page.emulateMediaType('print');
       const info=await page.evaluate(()=>{
         const sheet=document.querySelector('.ep-print-sheet');
         const mainArt=sheet.querySelector('.ep-print-main-art');
@@ -61,6 +63,44 @@ try {
       assert.ok(info.approvedImagesReady,'Falha ao carregar cenas aprovadas: '+element.name);
       assert.ok(info.state.includes(element.layout),'Matriz visual incorreta: '+element.name);
       assert.ok(info.text.includes(element.name),'Nome ausente: '+element.name);
+      // Verificação de geometria, não apenas existência de elementos.
+      // Impede regressões como os quadros sobrepostos aos dados químicos.
+      if(expectedImages>0){
+        const layout=await page.evaluate(()=>{
+          const sheet=document.querySelector('.ep-print-sheet');
+          const box=el=>{
+            const r=el.getBoundingClientRect();
+            return {top:r.top,bottom:r.bottom,left:r.left,right:r.right,width:r.width,height:r.height};
+          };
+          const order=['.ep-print-feature','.ep-print-facts','.ep-print-stories','.ep-print-footer'];
+          const sections=order.map(sel=>box(sheet.querySelector(sel)));
+          const figures=[...sheet.querySelectorAll('.ep-print-story.ep-print-approved-story')].map(panel=>{
+            const h=panel.querySelector('h2'),p=panel.querySelector('p'),area=panel.querySelector('.ep-print-story-art'),img=area.querySelector('img');
+            return {panel:box(panel),heading:box(h),caption:box(p),scene:box(area),image:box(img),
+              fit:getComputedStyle(img).objectFit,originalWidth:img.naturalWidth,originalHeight:img.naturalHeight};
+          });
+          return {sections,figures};
+        });
+        const epsilon=2.5;
+        for(let i=1;i<layout.sections.length;i++){
+          assert.ok(layout.sections[i-1].bottom <= layout.sections[i].top+epsilon,
+            'Faixas A4 sobrepostas: '+element.name+' '+JSON.stringify(layout.sections));
+        }
+        for(const frame of layout.figures){
+          assert.ok(frame.heading.bottom<=frame.caption.top+epsilon,
+            'Título e legenda sobrepostos: '+element.name+' '+JSON.stringify(frame));
+          assert.ok(frame.caption.bottom<=frame.scene.top+epsilon,
+            'Texto e ilustração sobrepostos: '+element.name+' '+JSON.stringify(frame));
+          assert.ok(frame.scene.bottom<=frame.panel.bottom+epsilon,
+            'Cena ultrapassou a moldura: '+element.name+' '+JSON.stringify(frame));
+          assert.ok(frame.scene.height>45 && frame.image.height>45,
+            'Ilustração insuficiente: '+element.name+' '+JSON.stringify(frame));
+          assert.equal(frame.fit,'cover','Encaixe indevido distorce a arte: '+element.name);
+          assert.ok(frame.originalWidth>0 && frame.originalHeight>0,
+            'Cena não carregada: '+element.name);
+        }
+      }
+
       const filename=String(element.z).padStart(3,'0')+'-'+element.slug+'.pdf';
       const pdfPath=path.join(outDir,filename);
       await page.pdf({
@@ -69,6 +109,11 @@ try {
         margin:{top:0,right:0,bottom:0,left:0}
       });
       assert.ok(fs.statSync(pdfPath).size>7000,'PDF vazio: '+filename);
+      if(expectedImages>0 && element.z<=4){
+        const pngDir=path.join(root,'dist','previews');fs.mkdirSync(pngDir,{recursive:true});
+        const node=await page.$('.ep-print-sheet');
+        await node.screenshot({path:path.join(pngDir,String(element.z).padStart(3,'0')+'-'+element.slug+'-a4.png')});
+      }
       records.push({z:element.z,slug:element.slug,state:element.state,pdf:filename,size:fs.statSync(pdfPath).size});
       if(records.length%20===0)console.log('Folhetos concluídos:',records.length,'de',manifest.elements.length);
     }catch(error){
