@@ -83,9 +83,12 @@ try {
           const sections=order.map(sel=>box(sheet.querySelector(sel)));
           const figures=[...sheet.querySelectorAll('.ep-print-story.ep-print-approved-story')].map(panel=>{
             const h=panel.querySelector('h2'),p=panel.querySelector('p'),area=panel.querySelector('.ep-print-story-art'),img=area.querySelector('img');
-            return {panel:box(panel),heading:box(h),caption:box(p),scene:box(area),image:box(img),
-              fit:getComputedStyle(img).objectFit,originalWidth:img.naturalWidth,originalHeight:img.naturalHeight,
-              originalScene:img.dataset.originalScene,cropTop:Number(img.dataset.cropTop)};
+            return {panel:box(panel),scene:box(area),image:box(img),
+              headingDisplay:getComputedStyle(h).display,
+              captionDisplay:getComputedStyle(p).display,
+              fit:getComputedStyle(img).objectFit,position:getComputedStyle(img).objectPosition,
+              originalWidth:img.naturalWidth,originalHeight:img.naturalHeight,
+              originalScene:img.dataset.originalScene};
           });
           return {sections,figures};
         });
@@ -94,30 +97,25 @@ try {
           assert.ok(layout.sections[i-1].bottom <= layout.sections[i].top+epsilon,
             'Faixas A4 sobrepostas: '+element.name+' '+JSON.stringify(layout.sections));
         }
-        for(const frame of layout.figures){
-          assert.ok(frame.heading.bottom<=frame.caption.top+epsilon,
-            'Título e legenda sobrepostos: '+element.name+' '+JSON.stringify(frame));
-          assert.ok(frame.caption.bottom<=frame.scene.top+epsilon,
-            'Texto e ilustração sobrepostos: '+element.name+' '+JSON.stringify(frame));
-          assert.ok(frame.scene.bottom<=frame.panel.bottom+epsilon,
-            'Cena ultrapassou a moldura: '+element.name+' '+JSON.stringify(frame));
-          assert.ok(frame.scene.height>45 && frame.image.height>45,
-            'Ilustração insuficiente: '+element.name+' '+JSON.stringify(frame));
-          assert.equal(frame.fit,'contain','Montagem proporcional não aplicada: '+element.name);
-          // A cena preenche no mínimo 98% do retângulo útil sem achatamento.
-          const expectedAspect=1134/500;
-          const areaAspect=frame.scene.width/frame.scene.height;
-          const filled=Math.min(areaAspect/expectedAspect,expectedAspect/areaAspect);
-          assert.ok(filled>=0.98,'Cena com área útil não preenchida: '+element.name+
-            ' '+JSON.stringify({areaAspect,expectedAspect,filled}));
-          assert.equal(frame.originalWidth,1134,'Recorte de origem não aplicado: '+element.name);
-          assert.equal(frame.originalHeight,500,'Métrica do recorte divergente: '+element.name);
-          assert.ok(frame.originalScene && frame.cropTop>=200,
-            'Corte editorial ausente: '+element.name+' '+JSON.stringify(frame));
-          const ratio=frame.scene.width/frame.scene.height;
-          assert.ok(Math.abs(ratio-1134/500)<0.05,'Cena não ocupa a métrica esperada: '+element.name+' '+ratio);
-          assert.ok(frame.originalWidth>0 && frame.originalHeight>0,
-            'Cena não carregada: '+element.name);
+        assert.equal(layout.figures.length,2,'Ambos os quadros devem existir: '+element.name);
+        for(const [index,frame] of layout.figures.entries()){
+          assert.equal(frame.headingDisplay,'none','Título HTML duplicado: '+element.name);
+          assert.equal(frame.captionDisplay,'none','Legenda HTML duplicada: '+element.name);
+          assert.ok(frame.scene.top>=frame.panel.top-epsilon&&frame.scene.bottom<=frame.panel.bottom+epsilon,
+            'Ilustração fora do quadro: '+element.name+' '+JSON.stringify(frame));
+          assert.ok(Math.abs(frame.scene.width-frame.panel.width)<epsilon*2
+                    &&Math.abs(frame.scene.height-frame.panel.height)<epsilon*2,
+            'A arte deve preencher toda a área do quadro: '+element.name+' '+JSON.stringify(frame));
+          assert.ok(frame.image.width>=frame.scene.width-epsilon
+                    &&frame.image.height>=frame.scene.height-epsilon,
+            'Imagem não preenche a área da cena: '+element.name+' '+JSON.stringify(frame));
+          assert.ok(frame.scene.height>180,'Quadro menor do que a matriz editorial aprovada: '+element.name);
+          assert.equal(frame.fit,'cover','Imagem não pode ser esticada ou encaixada com margens: '+element.name);
+          assert.equal(frame.position,'50% 0%','O título da arte deve permanecer visível: '+element.name);
+          assert.ok(frame.originalWidth>700&&frame.originalHeight>600,
+            'Fonte integral não carregada: '+element.name+' '+JSON.stringify(frame));
+          assert.equal(frame.originalScene,String(element.z).padStart(3,'0')+'-'+String(index+1).padStart(2,'0'),
+            'Cena não corresponde ao quadro: '+element.name);
         }
       }
 

@@ -190,55 +190,24 @@
       sheet.dataset.printPhase='cenas-homologadas';
       for(const slot of sheet.querySelectorAll('.ep-print-story-art')){
         const panel=slot.closest('.ep-print-story');
-        // A legenda curta e editável fica no HTML. A cena de xilogravura não
-        // precisa repetir o texto já impresso na parte superior do quadro.
-        const caption=document.body.getAttribute('data-folheto-legenda-'+slot.dataset.scene.slice(-2));
-        if(caption)panel.querySelector('p').textContent=caption;
-        panel.setAttribute('aria-label',panel.querySelector('h2').textContent.trim()+': '+panel.querySelector('p').textContent.trim());
-        // Recorte técnico, sem edição da matriz aprovada:
-        // as imagens originais contêm também o cabeçalho editorial; somente
-        // a cena deve aparecer sob a legenda HTML. Todas as medidas são em px
-        // das fontes homologadas e preservam a proporção no drawImage.
-        const sceneStartY={
-          '001-01':280,'001-02':403,
-          '002-01':207,'002-02':252,
-          '003-01':300,'003-02':305
-        };
         const sceneId=slot.dataset.scene;
-        const top=sceneStartY[sceneId];
-        const finalArt=document.createElement('img');
-        finalArt.className='ep-print-approved-art';
-        finalArt.alt='';finalArt.decoding='sync';finalArt.loading='eager';
-        finalArt.addEventListener('load',()=>{
-          if(finalArt.naturalWidth>0){
-            // Nenhum conteúdo anterior pode dividir o espaço com a cena.
-            slot.replaceChildren(finalArt);
+        const caption=document.body.getAttribute('data-folheto-legenda-'+sceneId.slice(-2));
+        if(caption)panel.querySelector('p').textContent=caption;
+        // O conteúdo textual é mantido em aria-label; a impressão usa apenas
+        // a obra completa homologada, que já traz número e explicação.
+        panel.setAttribute('aria-label',panel.querySelector('h2').textContent.trim()+': '+panel.querySelector('p').textContent.trim());
+        const img=document.createElement('img');
+        img.className='ep-print-approved-art';img.alt='';
+        img.decoding='sync';img.loading='eager';
+        img.dataset.originalScene=sceneId;
+        img.addEventListener('load',()=>{
+          if(img.naturalWidth>0){
+            slot.replaceChildren(img);
             panel.classList.add('ep-print-approved-story');
           }
         },{once:true});
-        finalArt.addEventListener('error',()=>panel.removeAttribute('aria-label'),{once:true});
-        const original=new Image();
-        original.decoding='sync';
-        original.addEventListener('load',()=>{
-          if(!original.naturalWidth||!Number.isFinite(top))return;
-          const canvas=document.createElement('canvas');
-          canvas.width=1134;canvas.height=500;
-          const ctx=canvas.getContext('2d',{alpha:false});
-          if(!ctx)return;
-          const ratio=canvas.width/canvas.height;
-          const h=Math.min(original.naturalHeight-top,original.naturalWidth/ratio);
-          const w=h*ratio;
-          const x=(original.naturalWidth-w)/2;
-          if(h<=0||w<=0||x<0)return;
-          ctx.imageSmoothingEnabled=true;
-          ctx.imageSmoothingQuality='high';
-          ctx.drawImage(original,x,top,w,h,0,0,canvas.width,canvas.height);
-          finalArt.dataset.originalScene=sceneId;
-          finalArt.dataset.cropTop=String(top);
-          finalArt.src=canvas.toDataURL('image/webp',0.93);
-        },{once:true});
-        original.addEventListener('error',()=>panel.removeAttribute('aria-label'),{once:true});
-        original.src='../../assets/folhetos/cenas/'+sceneId+'.webp';
+        img.addEventListener('error',()=>panel.removeAttribute('aria-label'),{once:true});
+        img.src='../../assets/folhetos/cenas/'+sceneId+'.webp';
       }
     }
     document.body.append(sheet);
