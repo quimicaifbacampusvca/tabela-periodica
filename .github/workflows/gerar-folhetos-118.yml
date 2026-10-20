@@ -2,7 +2,7 @@ name: Gerar 118 folhetos A4 sem cenas complementares
 on:
   pull_request:
     branches:
-      - prototype/quatro-linguagens-estados-20261019
+      - tabelaifbavca
     paths:
       - 'assets/element-page.js'
       - 'assets/element-page.css'
