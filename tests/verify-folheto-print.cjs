@@ -32,4 +32,6 @@ assert.ok(js.includes('stateDirection'),'State directions must map explicitly to
 assert.ok(js.includes('ep-print-scene-motif'),'Original artwork must be surrounded by graphical overlays');
 assert.ok(css.includes('grid-template-rows:15mm 8mm 91mm 62mm 68mm 22mm'), 'Hidrogênio: moldura A4 proporcional');
 assert.ok(css.includes('object-fit:contain!important'), 'Hidrogênio: arte sem corte ou distorção');
+assert.ok(css.includes('grid-template-rows:15mm 8mm 87mm 60mm 74mm 22mm'), 'Hélio: moldura A4 proporcional');
+assert.ok(css.includes('ep-print-sheet[data-element="002"]'), 'Hélio: correção isolada da montagem');
 console.log('PASS: quatro protótipos com estilos independentes e artes originais preservadas.');
