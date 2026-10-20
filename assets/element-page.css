@@ -662,3 +662,15 @@ body.element-page[data-palette=blueyellow] .ep-state img,body.element-page[data-
     object-fit:contain!important;object-position:center center!important;
   }
 }
+
+/* FIX 002: correção independente do Hélio. As duas cenas homologadas
+   conservam seus pixels e a proporção de origem, sem cortes nem deformações. */
+@media print {
+  body.element-page > .ep-print-sheet.ep-print-prototype[data-element="002"]{
+    grid-template-rows:15mm 8mm 87mm 60mm 74mm 22mm;
+  }
+  .ep-print-sheet[data-element="002"] .ep-print-story.ep-print-approved-story img.ep-print-approved-art{
+    width:100%!important;height:100%!important;
+    object-fit:contain!important;object-position:center center!important;
+  }
+}
