@@ -104,12 +104,18 @@ try {
           assert.ok(frame.scene.height>45 && frame.image.height>45,
             'Ilustração insuficiente: '+element.name+' '+JSON.stringify(frame));
           assert.equal(frame.fit,'contain','Montagem proporcional não aplicada: '+element.name);
+          // A cena preenche no mínimo 98% do retângulo útil sem achatamento.
+          const expectedAspect=1134/500;
+          const areaAspect=frame.scene.width/frame.scene.height;
+          const filled=Math.min(areaAspect/expectedAspect,expectedAspect/areaAspect);
+          assert.ok(filled>=0.98,'Cena com área útil não preenchida: '+element.name+
+            ' '+JSON.stringify({areaAspect,expectedAspect,filled}));
           assert.equal(frame.originalWidth,1134,'Recorte de origem não aplicado: '+element.name);
           assert.equal(frame.originalHeight,500,'Métrica do recorte divergente: '+element.name);
           assert.ok(frame.originalScene && frame.cropTop>=200,
             'Corte editorial ausente: '+element.name+' '+JSON.stringify(frame));
           const ratio=frame.scene.width/frame.scene.height;
-          assert.ok(Math.abs(ratio-1134/500)<0.16,'Cena não ocupa a métrica esperada: '+element.name+' '+ratio);
+          assert.ok(Math.abs(ratio-1134/500)<0.05,'Cena não ocupa a métrica esperada: '+element.name+' '+ratio);
           assert.ok(frame.originalWidth>0 && frame.originalHeight>0,
             'Cena não carregada: '+element.name);
         }

@@ -30,13 +30,15 @@ for(const [z,cls] of protos){
 }
 assert.ok(js.includes('stateDirection'),'State directions must map explicitly to four sample elements');
 assert.ok(js.includes('ep-print-scene-motif'),'Original artwork must be surrounded by graphical overlays');
-// Contrato corrigido: fatos com 65mm, quadros com 58mm e legenda editável.
-assert.ok(css.includes('grid-template-rows:15mm 8mm 98mm 65mm 58mm 22mm!important'), 'Grade A4 sem colisão entre fatos e quadros');
-assert.ok(css.includes('object-fit:contain!important') && css.includes('object-position:center center!important'), 'Cenas recortadas mantêm proporção original sem deformação');
-for(const id of ['001-01','001-02','002-01','002-02','003-01','003-02'])assert.ok(js.includes("'"+id+"'"),'Recorte técnico ausente: '+id);
-assert.ok(js.includes('data-folheto-legenda-'), 'Legendas homologadas ficam acessíveis e editáveis');
+// Remontagem limpa: uma regra por quadro e métricas idênticas para 001–003.
+assert.ok(css.includes('grid-template-rows:15mm 8mm 98mm 65mm 58mm 22mm!important'),'A4: áreas científicas e quadros preservados');
+assert.ok(css.includes('grid-template-rows:7.5mm 8.3mm minmax(0,1fr)!important'),'Três regiões sem sobreposição');
+assert.ok(css.includes('object-fit:contain!important'),'Arte sem distorção');
+assert.ok(!css.includes('/* FIX 001:')&&!css.includes('/* FIX 002:')&&!css.includes('/* HOMOLOGAÇÃO EDITORIAL 1.1'),'CSS conflitante deve ser removido');
+assert.ok(js.includes('slot.replaceChildren(finalArt)'),'Área visual deve ser limpa antes de montagem');
+assert.ok(js.includes('sceneStartY'),'Recorte de arte aprovada preservado');
 for(const slug of ['hidrogenio','helio','litio']){
  const page=read('elementos/'+slug+'/index.html');
- assert.ok(page.includes('data-folheto-legenda-01=') && page.includes('data-folheto-legenda-02='),'Legendas curtas ausentes: '+slug);
+ assert.ok(page.includes('data-folheto-legenda-01=')&&page.includes('data-folheto-legenda-02='),'Legendas fora do HTML: '+slug);
 }
-console.log('PASS: quatro protótipos com estilos independentes e artes originais preservadas.');
+console.log('PASS: três quadros de cada tipo: título, texto e cena sem duplicação.');
