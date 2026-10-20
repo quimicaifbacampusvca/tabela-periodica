@@ -30,4 +30,6 @@ for(const [z,cls] of protos){
 }
 assert.ok(js.includes('stateDirection'),'State directions must map explicitly to four sample elements');
 assert.ok(js.includes('ep-print-scene-motif'),'Original artwork must be surrounded by graphical overlays');
+assert.ok(css.includes('grid-template-rows:15mm 8mm 91mm 62mm 68mm 22mm'), 'Hidrogênio: moldura A4 proporcional');
+assert.ok(css.includes('object-fit:contain!important'), 'Hidrogênio: arte sem corte ou distorção');
 console.log('PASS: quatro protótipos com estilos independentes e artes originais preservadas.');
