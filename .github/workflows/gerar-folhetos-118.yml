@@ -1,9 +1,11 @@
-name: Gerar 118 folhetos A4 sem cenas complementares
+name: Gerar 118 folhetos A4 com cenas homologadas
 on:
   pull_request:
     branches:
       - tabelaifbavca
     paths:
+      - 'assets/folhetos/cenas/**'
+      - 'elementos/**/index.html'
       - 'assets/element-page.js'
       - 'assets/element-page.css'
       - 'sw.js'
@@ -23,13 +25,13 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Verificar as 118 fichas e os 236 espaços
+      - name: Verificar as 118 fichas e cenas homologadas
         run: node tests/verificar-folhetos-sem-cenas.cjs
       - name: Instalar motor para PDFs e verificação
         run: |
           npm install --no-save puppeteer-core@24
           python3 -m pip install --user pypdf
-      - name: Gerar PDFs com as artes principais preservadas
+      - name: Gerar PDFs com artes principais preservadas e quadros aprovados
         env:
           CHROME_BIN: /usr/bin/google-chrome
         shell: bash

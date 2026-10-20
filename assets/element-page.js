@@ -184,6 +184,21 @@
         <p><strong>Fontes e leitura:</strong> CIAAW, IUPAC, NIST e referências científicas detalhadas na ficha digital. Valores sem incerteza informada não são medidas exatas. O estado indicado refere-se à substância simples.</p>
         <div class="ep-print-signature"><span>IFBA · Campus Vitória da Conquista</span><span>Folheto ${String(current.z).padStart(3,'0')}</span></div>
       </footer>`;
+    // Cada elemento homologado ativa somente suas duas cenas, já com os textos
+    // editoriais integrados. Os outros 114 elementos preservam a estrutura vazia.
+    if(document.body.dataset.folhetoCenasAprovadas==='true'){
+      sheet.dataset.printPhase='cenas-homologadas';
+      for(const slot of sheet.querySelectorAll('.ep-print-story-art')){
+        const panel=slot.closest('.ep-print-story');
+        panel.setAttribute('aria-label',panel.querySelector('h2').textContent.trim()+': '+panel.querySelector('p').textContent.trim());
+        const img=document.createElement('img');
+        img.className='ep-print-approved-art';img.alt='';img.decoding='sync';img.loading='eager';
+        img.addEventListener('load',()=>{if(img.naturalWidth>0)panel.classList.add('ep-print-approved-story');});
+        img.addEventListener('error',()=>{img.remove();panel.removeAttribute('aria-label');});
+        img.src='../../assets/folhetos/cenas/'+slot.dataset.scene+'.webp';
+        slot.append(img);
+      }
+    }
     document.body.append(sheet);
     return sheet;
   }

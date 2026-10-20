@@ -623,3 +623,29 @@ body.element-page[data-palette=blueyellow] .ep-state img,body.element-page[data-
     font-size:9.6pt!important;
   }
 }
+/* Montagem dos dois quadros editoriais homologados, sem duplicar a legenda
+   que já está incorporada à própria arte. A ilustração central é intocada. */
+@media print{
+  .ep-print-sheet .ep-print-story.ep-print-approved-story{
+    position:relative!important;display:block!important;padding:0!important;
+    margin:0!important;overflow:hidden!important;min-width:0!important;min-height:0!important;
+  }
+  .ep-print-sheet .ep-print-story.ep-print-approved-story > h2,
+  .ep-print-sheet .ep-print-story.ep-print-approved-story > p{
+    position:absolute!important;width:1px!important;height:1px!important;
+    padding:0!important;margin:-1px!important;overflow:hidden!important;
+    clip-path:inset(50%)!important;white-space:nowrap!important;
+  }
+  .ep-print-sheet .ep-print-story.ep-print-approved-story .ep-print-story-art{
+    display:block!important;position:absolute!important;inset:0!important;
+    margin:0!important;padding:0!important;border:0!important;
+    width:100%!important;height:100%!important;max-height:none!important;min-height:0!important;
+    overflow:hidden!important;background:none!important;
+  }
+  .ep-print-sheet .ep-print-story.ep-print-approved-story .ep-print-story-art::before,
+  .ep-print-sheet .ep-print-story.ep-print-approved-story .ep-print-story-art::after{content:none!important}
+  .ep-print-sheet .ep-print-story.ep-print-approved-story img.ep-print-approved-art{
+    display:block!important;width:100%!important;height:100%!important;
+    max-width:none!important;max-height:none!important;object-fit:fill!important;
+  }
+}
