@@ -22,3 +22,12 @@ for(const fragment of ['function makePrintSheet()',"const printSheet=makePrintSh
 for(const fragment of ['@page{size:A4 portrait;margin:0}','height:296mm!important','body.element-page > :not(.ep-print-sheet){display:none!important}','display:flex!important;align-items:center','.ep-print-comic-tag','.ep-print-bubble','.ep-print-art-panel','.ep-print-property-grid','.ep-print-signature'])assert.ok(css.includes(fragment),'missing CSS: '+fragment);
 assert.ok(sw.includes("cordel-varal-v18-print"));
 console.log('PASS: 118 elementos, modelo A4, valores, arte, quadrinhos, referências e impressão independente.');
+
+const protos=new Map([[1,'ep-print-gas'],[6,'ep-print-solid'],[35,'ep-print-liquid'],[115,'ep-print-unknown']]);
+for(const [z,cls] of protos){
+ const el=elements.find(e=>e.z===z);assert.ok(el,'Missing prototype '+z);
+ assert.ok(css.includes('.'+cls),'Missing state art direction '+cls);
+}
+assert.ok(js.includes('stateDirection'),'State directions must map explicitly to four sample elements');
+assert.ok(js.includes('ep-print-scene-motif'),'Original artwork must be surrounded by graphical overlays');
+console.log('PASS: quatro protótipos com estilos independentes e artes originais preservadas.');
