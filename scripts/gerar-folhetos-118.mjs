@@ -21,7 +21,7 @@ try {
       const url=baseUrl+'/elementos/'+encodeURIComponent(element.slug)+'/';
       const response=await page.goto(url,{waitUntil:'load',timeout:30000});
       assert.equal(response?.status(),200,'Página não encontrada: '+url);
-      await page.waitForSelector('.ep-print-sheet[data-print-phase="estrutura-sem-cenas"]',{timeout:15000});
+      await page.waitForSelector('.ep-print-sheet',{timeout:15000});
       await page.evaluate(async()=>{
         await document.fonts.ready;
         const sheet=document.querySelector('.ep-print-sheet');
@@ -30,6 +30,12 @@ try {
           art.addEventListener('load',resolve,{once:true});
           art.addEventListener('error',()=>reject(new Error('Falha ao carregar arte principal')),{once:true});
         });
+        await Promise.all([...sheet.querySelectorAll('.ep-print-approved-art')].map(img=>
+          img.complete?Promise.resolve():new Promise((resolve,reject)=>{
+            img.addEventListener('load',resolve,{once:true});
+            img.addEventListener('error',()=>reject(new Error('Falha ao carregar quadro aprovado')),{once:true});
+          })
+        ));
       });
       const info=await page.evaluate(()=>{
         const sheet=document.querySelector('.ep-print-sheet');
@@ -41,13 +47,18 @@ try {
           allSlots:sheet.querySelectorAll('.ep-print-story-art').length,
           text:sheet.textContent.trim(),
           phase:sheet.dataset.printPhase,
-          imageCount:sheet.querySelectorAll('.ep-print-story img').length
+          imageCount:sheet.querySelectorAll('.ep-print-story img').length,
+          approvedCount:sheet.querySelectorAll('.ep-print-approved-story').length,
+          approvedImagesReady:[...sheet.querySelectorAll('.ep-print-approved-art')].every(img=>img.complete&&img.naturalWidth>0)
         };
       });
       assert.ok(info.mainArtExists,'Arte principal ausente: '+element.name);
       assert.equal(info.allSlots,2,'Esperados dois quadros: '+element.name);
-      assert.equal(info.emptySlots,2,'Há arte prematura num quadro: '+element.name);
-      assert.equal(info.imageCount,0,'Há imagem inferior prematura: '+element.name);
+      const expectedImages=element.panels.filter(p=>p.status==='aprovada').length;
+      assert.equal(info.emptySlots,2-expectedImages,'Contagem de espaços vazios incorreta: '+element.name);
+      assert.equal(info.imageCount,expectedImages,'Número de cenas aprovadas divergente: '+element.name);
+      assert.equal(info.approvedCount,expectedImages,'Cenas não foram montadas: '+element.name);
+      assert.ok(info.approvedImagesReady,'Falha ao carregar cenas aprovadas: '+element.name);
       assert.ok(info.state.includes(element.layout),'Matriz visual incorreta: '+element.name);
       assert.ok(info.text.includes(element.name),'Nome ausente: '+element.name);
       const filename=String(element.z).padStart(3,'0')+'-'+element.slug+'.pdf';
@@ -69,4 +80,4 @@ try {
 fs.writeFileSync(path.join(root,'dist','relatorio-geracao.json'),JSON.stringify({count:records.length,failures:failed,files:records},null,2));
 assert.equal(failed.length,0,'Alguns folhetos falharam: '+JSON.stringify(failed.slice(0,5)));
 assert.equal(records.length,118,'Nem todos os 118 folhetos foram gerados');
-console.log('SUCESSO: 118 folhetos A4, com duas cenas vazias em cada um.');
+console.log('SUCESSO: 118 folhetos A4, com cenas homologadas progressivamente.');
