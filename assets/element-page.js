@@ -211,7 +211,8 @@
         finalArt.alt='';finalArt.decoding='sync';finalArt.loading='eager';
         finalArt.addEventListener('load',()=>{
           if(finalArt.naturalWidth>0){
-            slot.append(finalArt);
+            // Nenhum conteúdo anterior pode dividir o espaço com a cena.
+            slot.replaceChildren(finalArt);
             panel.classList.add('ep-print-approved-story');
           }
         },{once:true});

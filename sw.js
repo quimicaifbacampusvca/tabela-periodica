@@ -1,4 +1,4 @@
-const CACHE='cordel-varal-v22-cenas-001-003';
+const CACHE='cordel-varal-v23-remontagem-quadros';
 const ROOT=new URL('./',self.location.href).href;
 // Critical UI files must be revalidated online, not served indefinitely from
 // an older app-shell cache. Offline fallback keeps the PWA usable.
