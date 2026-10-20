@@ -19,5 +19,5 @@ assert.match(css, /\.grid\.cordel-collection\.periodic \.tile \.folio-mass\{[\s\
 assert.match(css, /\.letter-spacing \.grid\.cordel-collection\.periodic\{[\s\S]*?--periodic-cell-min:7\.7rem/, 'letter-spacing preferences must have a wider grid');
 assert.match(css, /\.catalog-viewport\{[\s\S]*?overflow-x:auto/, 'horizontal scroll must be retained');
 assert.ok(!html.includes('Role a tabela horizontalmente; os resultados da busca permanecem em sua posição.'),'old lengthy mobile message removed');
-assert.match(sw, /const CACHE='cordel-varal-v18'/, 'PWA cache version must be bumped');
+assert.match(sw, /const CACHE='cordel-varal-v20-folhetos-mobile'/, 'PWA cache must include the consolidated mobile update');
 console.log('PASS: 118 positions, names, scientific masses, readable mobile widths, scroll, accessibility and PWA.');

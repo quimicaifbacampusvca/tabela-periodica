@@ -1,0 +1,47 @@
+name: Verificar Folheto A4
+on:
+  pull_request:
+    branches: [tabelaifbavca, feat/folheto-editorial-a4-uma-pagina]
+    paths:
+      - 'assets/element-page.js'
+      - 'assets/element-page.css'
+      - 'sw.js'
+      - 'tests/verify-folheto-print.cjs'
+      - '.github/workflows/verify-folheto-print.yml'
+jobs:
+  verify-print:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verificar conteúdo dos 118 folhetos
+        run: node tests/verify-folheto-print.cjs
+      - name: Imprimir A4 no Chromium e verificar página única
+        shell: bash
+        run: |
+          set -euo pipefail
+          CHROME="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || true)"
+          test -n "$CHROME" || { echo 'Chrome indisponível no runner'; exit 1; }
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/cordel-http.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill $SERVER_PID || true' EXIT
+          sleep 2
+          for SLUG in hidrogenio carbono bromo moscovio; do
+            OUT="$RUNNER_TEMP/folheto-${SLUG}.pdf"
+            "$CHROME" --headless --no-sandbox --disable-gpu --disable-dev-shm-usage --no-pdf-header-footer --virtual-time-budget=5500 --print-to-pdf="$OUT" "http://127.0.0.1:8765/elementos/$SLUG/"
+            test -s "$OUT"
+            PAGES="$(node -e 'const fs=require("fs");const pdf=fs.readFileSync(process.argv[1],"latin1");process.stdout.write(String((pdf.match(/[/]Type[ ]*[/]Page(?!s)/g)||[]).length))' "$OUT")"
+            echo "$SLUG: $PAGES página(s)"
+            test "$PAGES" = '1' || { echo "A impressão de $SLUG rompe o A4"; exit 1; }
+          done
+      - name: Disponibilizar amostras em PDF para revisão visual
+        uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: folhetos-quatro-estados
+          path: ${{ runner.temp }}/folheto-*.pdf
+          retention-days: 14
