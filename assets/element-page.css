@@ -726,3 +726,17 @@ body.element-page[data-palette=blueyellow] .ep-state img,body.element-page[data-
     transform:none!important;
   }
 }
+
+/* CENAS HOMOLOGADAS 001-003 — a folha A4 define a moldura.
+   Cada desenho é recortado proporcionalmente no carregamento, mantendo a
+   fonte aprovada intacta. Nenhuma legenda impressa fica dentro da imagem. */
+@media print{
+  .ep-print-prototype[data-print-phase="cenas-homologadas"]
+  .ep-print-story.ep-print-approved-story img.ep-print-approved-art{
+    display:block!important;
+    width:100%!important;height:100%!important;
+    object-fit:contain!important;object-position:center center!important;
+    background:#fffaf0!important;
+    transform:none!important;
+  }
+}
