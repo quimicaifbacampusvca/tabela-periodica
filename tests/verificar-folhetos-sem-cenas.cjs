@@ -20,15 +20,8 @@ for(const element of files.elements){
   assert.equal(element.panels.length,2);
   for(const [n,scene] of element.panels.entries()){
     assert.equal(scene.id,String(n+1).padStart(2,'0'));
-    if(scene.status==='aprovada'){
-      assert.equal(scene.image,scene.expectedAsset,'Caminho de arte incorreto');
-      assert.ok(fs.existsSync(scene.image),'Imagem aprovada ausente: '+scene.image);
-      assert.ok(fs.statSync(scene.image).size>3000,'Imagem com tamanho inválido');
-      assert.ok(fs.readFileSync('elementos/'+element.slug+'/index.html','utf8').includes('data-folheto-cenas-aprovadas="true"'),'Folheto sem marcação de aprovação');
-    }else{
-      assert.equal(scene.image,null,'Arte não homologada não deve existir');
-      assert.equal(scene.status,'a_criar_individualmente');
-    }
+    assert.equal(scene.image,null,'Arte ainda não deveria existir');
+    assert.equal(scene.status,'a_criar_individualmente');
     assert.equal(scene.scene,String(element.z).padStart(3,'0')+'-'+scene.id);
   }
   distribution[element.state]=(distribution[element.state]||0)+1;
@@ -40,4 +33,4 @@ assert.ok(css.includes('ep-print-story-art:empty'));
 assert.ok(css.includes('@page{size:A4 portrait;margin:0}'));
 assert.ok(css.includes('height:296mm!important'));
 for(const state of Object.values(states))assert.ok(css.includes('.'+state));
-console.log('PASS: 118 folhas, quadros homologados verificados, 4 matrizes, A4.');
+console.log('PASS: 118 folhas, 236 espaços de arte vazios, 4 matrizes, A4.');

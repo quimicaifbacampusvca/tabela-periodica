@@ -37,17 +37,17 @@
           "id": "01",
           "title": "No cotidiano",
           "scene": "001-01",
-          "image": "assets/folhetos/cenas/001-01.webp",
+          "image": null,
           "expectedAsset": "assets/folhetos/cenas/001-01.webp",
-          "status": "aprovada"
+          "status": "a_criar_individualmente"
         },
         {
           "id": "02",
           "title": "Da origem à obtenção",
           "scene": "001-02",
-          "image": "assets/folhetos/cenas/001-02.webp",
+          "image": null,
           "expectedAsset": "assets/folhetos/cenas/001-02.webp",
-          "status": "aprovada"
+          "status": "a_criar_individualmente"
         }
       ]
     },
@@ -66,17 +66,17 @@
           "id": "01",
           "title": "No cotidiano",
           "scene": "002-01",
-          "image": "assets/folhetos/cenas/002-01.webp",
+          "image": null,
           "expectedAsset": "assets/folhetos/cenas/002-01.webp",
-          "status": "aprovada"
+          "status": "a_criar_individualmente"
         },
         {
           "id": "02",
           "title": "Da origem à obtenção",
           "scene": "002-02",
-          "image": "assets/folhetos/cenas/002-02.webp",
+          "image": null,
           "expectedAsset": "assets/folhetos/cenas/002-02.webp",
-          "status": "aprovada"
+          "status": "a_criar_individualmente"
         }
       ]
     },
@@ -95,17 +95,17 @@
           "id": "01",
           "title": "No cotidiano",
           "scene": "003-01",
-          "image": "assets/folhetos/cenas/003-01.webp",
+          "image": null,
           "expectedAsset": "assets/folhetos/cenas/003-01.webp",
-          "status": "aprovada"
+          "status": "a_criar_individualmente"
         },
         {
           "id": "02",
           "title": "Da origem à obtenção",
           "scene": "003-02",
-          "image": "assets/folhetos/cenas/003-02.webp",
+          "image": null,
           "expectedAsset": "assets/folhetos/cenas/003-02.webp",
-          "status": "aprovada"
+          "status": "a_criar_individualmente"
         }
       ]
     },

@@ -30,16 +30,4 @@ for(const [z,cls] of protos){
 }
 assert.ok(js.includes('stateDirection'),'State directions must map explicitly to four sample elements');
 assert.ok(js.includes('ep-print-scene-motif'),'Original artwork must be surrounded by graphical overlays');
-// Homologação final: apenas duas artes integrais por elemento, sem HTML
-// visível duplicando numeração, títulos ou explicações já desenhadas.
-assert.ok(css.includes('grid-template-rows:15mm 8mm 98mm 65mm 66mm 14mm!important'),'Grade A4 definitiva: 66mm de quadros e 65mm de fatos');
-assert.ok(css.includes('object-fit:cover!important')&&css.includes('object-position:center top!important'),'Cena preenche a moldura sem esticar');
-assert.ok(css.includes('.ep-print-story.ep-print-approved-story > h2')&&css.includes('display:none!important'),'Texto HTML dos quadros deve desaparecer na impressão');
-assert.ok(!js.includes('sceneStartY')&&!js.includes('ctx.drawImage('),'Cortes adicionais por canvas não devem ser executados');
-assert.ok(js.includes("img.src='../../assets/folhetos/cenas/'+sceneId+'.webp'"),'Montar a própria arte original aprovada');
-assert.ok(js.includes('slot.replaceChildren(img)'),'Remover imagem residual antes de inserir a arte');
-for(const slug of ['hidrogenio','helio','litio']){
- const html=read('elementos/'+slug+'/index.html');
- assert.ok(html.includes('data-folheto-cenas-aprovadas="true"'),'Elemento sem autorização de cenas: '+slug);
-}
-console.log('PASS: cenas integrais sem duplicação de número, títulos ou texto; geometria A4 oficial.');
+console.log('PASS: quatro protótipos com estilos independentes e artes originais preservadas.');

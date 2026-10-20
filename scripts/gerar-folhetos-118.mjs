@@ -21,7 +21,7 @@ try {
       const url=baseUrl+'/elementos/'+encodeURIComponent(element.slug)+'/';
       const response=await page.goto(url,{waitUntil:'load',timeout:30000});
       assert.equal(response?.status(),200,'Página não encontrada: '+url);
-      await page.waitForSelector('.ep-print-sheet',{timeout:15000});
+      await page.waitForSelector('.ep-print-sheet[data-print-phase="estrutura-sem-cenas"]',{timeout:15000});
       await page.evaluate(async()=>{
         await document.fonts.ready;
         const sheet=document.querySelector('.ep-print-sheet');
@@ -30,22 +30,7 @@ try {
           art.addEventListener('load',resolve,{once:true});
           art.addEventListener('error',()=>reject(new Error('Falha ao carregar arte principal')),{once:true});
         });
-        await Promise.all([...sheet.querySelectorAll('.ep-print-approved-art')].map(img=>
-          img.complete?Promise.resolve():new Promise((resolve,reject)=>{
-            img.addEventListener('load',resolve,{once:true});
-            img.addEventListener('error',()=>reject(new Error('Falha ao carregar quadro aprovado')),{once:true});
-          })
-        ));
       });
-      // A cena é montada de modo assíncrono a partir do arquivo original.
-      // Esperar o recorte efetivamente aparecer impede PDFs com quadros vazios.
-      await page.waitForFunction(()=>{
-        const sheet=document.querySelector('.ep-print-sheet');
-        const required=document.body.dataset.folhetoCenasAprovadas==='true'?2:0;
-        return !!sheet && sheet.querySelectorAll('.ep-print-approved-story').length===required;
-      },{timeout:20000});
-      // Usar a mesma mídia da impressão real para medir a geometria A4.
-      await page.emulateMediaType('print');
       const info=await page.evaluate(()=>{
         const sheet=document.querySelector('.ep-print-sheet');
         const mainArt=sheet.querySelector('.ep-print-main-art');
@@ -56,69 +41,15 @@ try {
           allSlots:sheet.querySelectorAll('.ep-print-story-art').length,
           text:sheet.textContent.trim(),
           phase:sheet.dataset.printPhase,
-          imageCount:sheet.querySelectorAll('.ep-print-story img').length,
-          approvedCount:sheet.querySelectorAll('.ep-print-approved-story').length,
-          approvedImagesReady:[...sheet.querySelectorAll('.ep-print-approved-art')].every(img=>img.complete&&img.naturalWidth>0)
+          imageCount:sheet.querySelectorAll('.ep-print-story img').length
         };
       });
       assert.ok(info.mainArtExists,'Arte principal ausente: '+element.name);
       assert.equal(info.allSlots,2,'Esperados dois quadros: '+element.name);
-      const expectedImages=element.panels.filter(p=>p.status==='aprovada').length;
-      assert.equal(info.emptySlots,2-expectedImages,'Contagem de espaços vazios incorreta: '+element.name);
-      assert.equal(info.imageCount,expectedImages,'Número de cenas aprovadas divergente: '+element.name);
-      assert.equal(info.approvedCount,expectedImages,'Cenas não foram montadas: '+element.name);
-      assert.ok(info.approvedImagesReady,'Falha ao carregar cenas aprovadas: '+element.name);
+      assert.equal(info.emptySlots,2,'Há arte prematura num quadro: '+element.name);
+      assert.equal(info.imageCount,0,'Há imagem inferior prematura: '+element.name);
       assert.ok(info.state.includes(element.layout),'Matriz visual incorreta: '+element.name);
       assert.ok(info.text.includes(element.name),'Nome ausente: '+element.name);
-      // Verificação de geometria, não apenas existência de elementos.
-      // Impede regressões como os quadros sobrepostos aos dados químicos.
-      if(expectedImages>0){
-        const layout=await page.evaluate(()=>{
-          const sheet=document.querySelector('.ep-print-sheet');
-          const box=el=>{
-            const r=el.getBoundingClientRect();
-            return {top:r.top,bottom:r.bottom,left:r.left,right:r.right,width:r.width,height:r.height};
-          };
-          const order=['.ep-print-feature','.ep-print-facts','.ep-print-stories','.ep-print-footer'];
-          const sections=order.map(sel=>box(sheet.querySelector(sel)));
-          const figures=[...sheet.querySelectorAll('.ep-print-story.ep-print-approved-story')].map(panel=>{
-            const h=panel.querySelector('h2'),p=panel.querySelector('p'),area=panel.querySelector('.ep-print-story-art'),img=area.querySelector('img');
-            return {panel:box(panel),scene:box(area),image:box(img),
-              headingDisplay:getComputedStyle(h).display,
-              captionDisplay:getComputedStyle(p).display,
-              fit:getComputedStyle(img).objectFit,position:getComputedStyle(img).objectPosition,
-              originalWidth:img.naturalWidth,originalHeight:img.naturalHeight,
-              originalScene:img.dataset.originalScene};
-          });
-          return {sections,figures};
-        });
-        const epsilon=2.5;
-        for(let i=1;i<layout.sections.length;i++){
-          assert.ok(layout.sections[i-1].bottom <= layout.sections[i].top+epsilon,
-            'Faixas A4 sobrepostas: '+element.name+' '+JSON.stringify(layout.sections));
-        }
-        assert.equal(layout.figures.length,2,'Ambos os quadros devem existir: '+element.name);
-        for(const [index,frame] of layout.figures.entries()){
-          assert.equal(frame.headingDisplay,'none','Título HTML duplicado: '+element.name);
-          assert.equal(frame.captionDisplay,'none','Legenda HTML duplicada: '+element.name);
-          assert.ok(frame.scene.top>=frame.panel.top-epsilon&&frame.scene.bottom<=frame.panel.bottom+epsilon,
-            'Ilustração fora do quadro: '+element.name+' '+JSON.stringify(frame));
-          assert.ok(Math.abs(frame.scene.width-frame.panel.width)<epsilon*2
-                    &&Math.abs(frame.scene.height-frame.panel.height)<epsilon*2,
-            'A arte deve preencher toda a área do quadro: '+element.name+' '+JSON.stringify(frame));
-          assert.ok(frame.image.width>=frame.scene.width-epsilon
-                    &&frame.image.height>=frame.scene.height-epsilon,
-            'Imagem não preenche a área da cena: '+element.name+' '+JSON.stringify(frame));
-          assert.ok(frame.scene.height>180,'Quadro menor do que a matriz editorial aprovada: '+element.name);
-          assert.equal(frame.fit,'cover','Imagem não pode ser esticada ou encaixada com margens: '+element.name);
-          assert.equal(frame.position,'50% 0%','O título da arte deve permanecer visível: '+element.name);
-          assert.ok(frame.originalWidth>700&&frame.originalHeight>600,
-            'Fonte integral não carregada: '+element.name+' '+JSON.stringify(frame));
-          assert.equal(frame.originalScene,String(element.z).padStart(3,'0')+'-'+String(index+1).padStart(2,'0'),
-            'Cena não corresponde ao quadro: '+element.name);
-        }
-      }
-
       const filename=String(element.z).padStart(3,'0')+'-'+element.slug+'.pdf';
       const pdfPath=path.join(outDir,filename);
       await page.pdf({
@@ -127,11 +58,6 @@ try {
         margin:{top:0,right:0,bottom:0,left:0}
       });
       assert.ok(fs.statSync(pdfPath).size>7000,'PDF vazio: '+filename);
-      if(expectedImages>0 && element.z<=4){
-        const pngDir=path.join(root,'dist','previews');fs.mkdirSync(pngDir,{recursive:true});
-        const node=await page.$('.ep-print-sheet');
-        await node.screenshot({path:path.join(pngDir,String(element.z).padStart(3,'0')+'-'+element.slug+'-a4.png')});
-      }
       records.push({z:element.z,slug:element.slug,state:element.state,pdf:filename,size:fs.statSync(pdfPath).size});
       if(records.length%20===0)console.log('Folhetos concluídos:',records.length,'de',manifest.elements.length);
     }catch(error){
@@ -143,4 +69,4 @@ try {
 fs.writeFileSync(path.join(root,'dist','relatorio-geracao.json'),JSON.stringify({count:records.length,failures:failed,files:records},null,2));
 assert.equal(failed.length,0,'Alguns folhetos falharam: '+JSON.stringify(failed.slice(0,5)));
 assert.equal(records.length,118,'Nem todos os 118 folhetos foram gerados');
-console.log('SUCESSO: 118 folhetos A4, com cenas homologadas progressivamente.');
+console.log('SUCESSO: 118 folhetos A4, com duas cenas vazias em cada um.');
