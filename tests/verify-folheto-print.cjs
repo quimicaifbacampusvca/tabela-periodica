@@ -32,9 +32,10 @@ assert.ok(js.includes('stateDirection'),'State directions must map explicitly to
 assert.ok(js.includes('ep-print-scene-motif'),'Original artwork must be surrounded by graphical overlays');
 // Contrato corrigido: fatos com 65mm, quadros com 58mm e legenda editável.
 assert.ok(css.includes('grid-template-rows:15mm 8mm 98mm 65mm 58mm 22mm!important'), 'Grade A4 sem colisão entre fatos e quadros');
-assert.ok(css.includes('object-fit:cover!important') && css.includes('object-position:center bottom!important'), 'Ilustrações mantêm proporção original');
+assert.ok(css.includes('object-fit:contain!important') && css.includes('object-position:center center!important'), 'Cenas recortadas mantêm proporção original sem deformação');
+for(const id of ['001-01','001-02','002-01','002-02','003-01','003-02'])assert.ok(js.includes("'"+id+"'"),'Recorte técnico ausente: '+id);
 assert.ok(js.includes('data-folheto-legenda-'), 'Legendas homologadas ficam acessíveis e editáveis');
-for(const slug of ['hidrogenio','helio']){
+for(const slug of ['hidrogenio','helio','litio']){
  const page=read('elementos/'+slug+'/index.html');
  assert.ok(page.includes('data-folheto-legenda-01=') && page.includes('data-folheto-legenda-02='),'Legendas curtas ausentes: '+slug);
 }

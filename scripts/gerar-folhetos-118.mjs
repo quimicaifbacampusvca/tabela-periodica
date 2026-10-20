@@ -37,6 +37,13 @@ try {
           })
         ));
       });
+      // A cena é montada de modo assíncrono a partir do arquivo original.
+      // Esperar o recorte efetivamente aparecer impede PDFs com quadros vazios.
+      await page.waitForFunction(()=>{
+        const sheet=document.querySelector('.ep-print-sheet');
+        const required=document.body.dataset.folhetoCenasAprovadas==='true'?2:0;
+        return !!sheet && sheet.querySelectorAll('.ep-print-approved-story').length===required;
+      },{timeout:20000});
       // Usar a mesma mídia da impressão real para medir a geometria A4.
       await page.emulateMediaType('print');
       const info=await page.evaluate(()=>{
@@ -77,7 +84,8 @@ try {
           const figures=[...sheet.querySelectorAll('.ep-print-story.ep-print-approved-story')].map(panel=>{
             const h=panel.querySelector('h2'),p=panel.querySelector('p'),area=panel.querySelector('.ep-print-story-art'),img=area.querySelector('img');
             return {panel:box(panel),heading:box(h),caption:box(p),scene:box(area),image:box(img),
-              fit:getComputedStyle(img).objectFit,originalWidth:img.naturalWidth,originalHeight:img.naturalHeight};
+              fit:getComputedStyle(img).objectFit,originalWidth:img.naturalWidth,originalHeight:img.naturalHeight,
+              originalScene:img.dataset.originalScene,cropTop:Number(img.dataset.cropTop)};
           });
           return {sections,figures};
         });
@@ -95,7 +103,13 @@ try {
             'Cena ultrapassou a moldura: '+element.name+' '+JSON.stringify(frame));
           assert.ok(frame.scene.height>45 && frame.image.height>45,
             'Ilustração insuficiente: '+element.name+' '+JSON.stringify(frame));
-          assert.equal(frame.fit,'cover','Encaixe indevido distorce a arte: '+element.name);
+          assert.equal(frame.fit,'contain','Montagem proporcional não aplicada: '+element.name);
+          assert.equal(frame.originalWidth,1134,'Recorte de origem não aplicado: '+element.name);
+          assert.equal(frame.originalHeight,500,'Métrica do recorte divergente: '+element.name);
+          assert.ok(frame.originalScene && frame.cropTop>=200,
+            'Corte editorial ausente: '+element.name+' '+JSON.stringify(frame));
+          const ratio=frame.scene.width/frame.scene.height;
+          assert.ok(Math.abs(ratio-1134/500)<0.16,'Cena não ocupa a métrica esperada: '+element.name+' '+ratio);
           assert.ok(frame.originalWidth>0 && frame.originalHeight>0,
             'Cena não carregada: '+element.name);
         }
