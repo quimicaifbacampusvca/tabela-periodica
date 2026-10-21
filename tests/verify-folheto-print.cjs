@@ -100,7 +100,7 @@ assert.ok(berylliumHtml.includes('data-folheto-piloto="berilio"'),'Piloto Beríl
 assert.ok(js.includes("current.z===4 && document.body.dataset.folhetoPiloto==='berilio'"),'Montagem do Berílio ausente');
 assert.ok(css.includes('data-element="004"'),'Moldura A4 do Berílio ausente');
 assert.ok(js.includes('fit=b004-arte-aprovada-v1'),'Berílio precisa invalidar cache anterior');
-assert.ok(sw.includes("const CACHE='cordel-varal-v34-berilio-004-quadros-aprovados'"),'SW precisa atualizar cache do Berílio');
+assert.ok(sw.includes('assets/folhetos/cenas/004-01.webp'),'SW precisa preservar cache do Berílio');
 const manifestBe=JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(e=>e.z===4);
 assert.ok(manifestBe,'Manifesto Berílio ausente');
 for(const i of ['01','02']){
@@ -113,4 +113,26 @@ for(const i of ['01','02']){
   assert.ok(file.length>200000,'Berílio '+i+': arte incompleta');
   assert.equal(file.toString('ascii',0,4),'RIFF','Berílio WebP inválido');
   assert.equal(file.toString('ascii',8,12),'WEBP','Berílio WebP inválido');
+}
+
+
+// PILOTO 006 — Carbono: duas vinhetas do conjunto aprovado, divididas sem redesenho.
+const carbonHtml=read('elementos/carbono/index.html');
+assert.ok(carbonHtml.includes('data-folheto-piloto="carbono"'),'Piloto Carbono não ativado');
+assert.ok(js.includes("current.z===6 && document.body.dataset.folhetoPiloto==='carbono'"),'Montagem do Carbono ausente');
+assert.ok(css.includes('data-element="006"'),'Moldura A4 do Carbono ausente');
+assert.ok(js.includes('fit=c006-arte-aprovada-v1'),'Carbono precisa invalidar cache anterior');
+assert.ok(sw.includes("const CACHE='cordel-varal-v35-carbono-006-quadros-aprovados'"),'SW precisa invalidar cache do Carbono');
+const manifestC=JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(e=>e.z===6);
+assert.ok(manifestC,'Manifesto Carbono ausente');
+for(const i of ['01','02']){
+  const expected='assets/folhetos/cenas/006-'+i+'.webp';
+  const panel=manifestC.panels.find(p=>p.id===i);
+  assert.equal(panel.image,expected,'Manifesto Carbono '+i+' sem arquivo aprovado');
+  assert.equal(panel.status,'aprovada','Manifesto Carbono '+i+' não aprovado');
+  assert.ok(sw.includes(expected),'Carbono '+i+' fora do cache');
+  const file=fs.readFileSync(path.join(root,expected));
+  assert.ok(file.length>200000,'Carbono '+i+': arte incompleta');
+  assert.equal(file.toString('ascii',0,4),'RIFF','Carbono WebP inválido');
+  assert.equal(file.toString('ascii',8,12),'WEBP','Carbono WebP inválido');
 }
