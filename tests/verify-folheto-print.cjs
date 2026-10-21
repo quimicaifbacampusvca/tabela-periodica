@@ -46,3 +46,11 @@ assert.ok(css.includes('column-gap:2mm!important'),'Quadros devem ter o espaço 
 assert.ok(!css.includes('Ajuste localizado de alinhamento, Lítio (003)'),'Remover remendo de alinhamento óptico antigo');
 assert.ok(css.includes('grid-template-columns:repeat(2,minmax(0,1fr))!important'),'Quadros devem compartilhar largura exata');
 assert.ok(!css.includes('transform:translateX(.55%) scaleX(.995)!important'),'Quadro 02 sem deslocamento artificial');
+
+// PILOTO 001 — Hidrogênio: artes completas com a mesma geometria homologada do Lítio.
+const hydroHtml=read('elementos/hidrogenio/index.html');
+assert.ok(hydroHtml.includes('data-folheto-piloto="hidrogenio"'),'Piloto Hidrogênio não ativado');
+assert.ok(js.includes("current.z===1 && document.body.dataset.folhetoPiloto==='hidrogenio'"),'JS do piloto 001 ausente');
+assert.ok(css.includes('data-element="001"'),'CSS da moldura do piloto 001 ausente');
+assert.ok(js.includes('fit=full-border-h001-v1'),'Cache da arte 001 não foi invalidado');
+assert.ok(sw.includes('cordel-varal-v29-hidrogenio-001-integro'),'SW precisa atualizar imagens 001');

@@ -184,6 +184,31 @@
         <p><strong>Fontes e leitura:</strong> CIAAW, IUPAC, NIST e referências científicas detalhadas na ficha digital. Valores sem incerteza informada não são medidas exatas. O estado indicado refere-se à substância simples.</p>
         <div class="ep-print-signature"><span>IFBA · Campus Vitória da Conquista</span><span>Folheto ${String(current.z).padStart(3,'0')}</span></div>
       </footer>`;
+    // PILOTO 001 — Hidrogênio: somente as duas artes integrais previamente aprovadas.
+    // Os textos HTML permanecem acessíveis, mas não são duplicados no folheto.
+    if(current.z===1 && document.body.dataset.folhetoPiloto==='hidrogenio'){
+      sheet.dataset.printPhase='piloto-quadros-integrais';
+      const captions=[
+        'No cotidiano: o hidrogênio participa da composição da água e de inúmeras substâncias orgânicas.',
+        'Da origem à obtenção: reforma a vapor do metano ou eletrólise da água; hidrogênio verde por eletrólise com energia renovável.'
+      ];
+      for(const [i,slot] of [...sheet.querySelectorAll('.ep-print-story-art')].entries()){
+        const panel=slot.closest('.ep-print-story');
+        panel.setAttribute('aria-label',captions[i]);
+        const figure=document.createElement('img');
+        figure.className='ep-print-approved-art';
+        figure.alt='';
+        figure.loading='eager';figure.decoding='sync';
+        figure.src='../../assets/folhetos/cenas/001-0'+(i+1)+'.webp?fit=full-border-h001-v1';
+        figure.addEventListener('load',()=>{
+          if(figure.naturalWidth>0){
+            slot.replaceChildren(figure);
+            panel.dataset.sceneReady='true';
+          }
+        },{once:true});
+        figure.addEventListener('error',()=>{panel.dataset.sceneError='true';},{once:true});
+      }
+    }
     // PILOTO 003 — Lítio: os dois quadrinhos são artes editoriais completas.
     // Não sobrepor numerador, título ou legenda HTML; preservá-los apenas em
     // texto acessível. Nenhuma outra ficha é modificada por esta experiência.

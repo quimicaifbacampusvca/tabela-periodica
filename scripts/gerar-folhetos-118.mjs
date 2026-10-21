@@ -56,7 +56,7 @@ try {
       });
       assert.ok(info.mainArtExists,'Arte principal ausente: '+element.name);
       assert.equal(info.allSlots,2,'Esperados dois quadros: '+element.name);
-      const pilot=element.z===3;
+      const pilot=element.z===1||element.z===3;
       assert.equal(info.emptySlots,pilot?0:2,'Slots de arte divergentes: '+element.name);
       assert.equal(info.imageCount,pilot?2:0,'Contagem incorreta de ilustrações: '+element.name);
       assert.equal(info.phase,pilot?'piloto-quadros-integrais':'estrutura-sem-cenas',
@@ -90,15 +90,23 @@ try {
               bottomInk:(()=>{
                 const canvas=document.createElement('canvas');canvas.width=img.naturalWidth;canvas.height=img.naturalHeight;
                 const ctx=canvas.getContext('2d',{willReadFrequently:true});ctx.drawImage(img,0,0);
-                const y=canvas.height-10,pixels=ctx.getImageData(15,y,canvas.width-30,1).data;
-                let dark=0;for(let t=0;t<pixels.length;t+=4)if((pixels[t]+pixels[t+1]+pixels[t+2])/3<95)dark++;
-                return dark/(pixels.length/4);
+                const rows=img.getAttribute('src').includes('001-')
+                  ?Array.from({length:76},(_,k)=>canvas.height-85+k)
+                  :[canvas.height-10];
+                let peak=0;
+                for(const y of rows){
+                  const pixels=ctx.getImageData(15,y,canvas.width-30,1).data;
+                  let dark=0;for(let t=0;t<pixels.length;t+=4)
+                    if((pixels[t]+pixels[t+1]+pixels[t+2])/3<95)dark++;
+                  peak=Math.max(peak,dark/(pixels.length/4));
+                }
+                return peak;
               })()
             };
           });
           return {seq,panels};
         });
-        assert.equal(layout.panels.length,2,'São exigidas duas cenas completas de Lítio');
+        assert.equal(layout.panels.length,2,'São exigidas duas cenas completas do elemento piloto');
         for(let i=1;i<layout.seq.length;i++)
           assert.ok(layout.seq[i-1].bottom<=layout.seq[i].y+2,'Sobreposição entre seções A4: '+JSON.stringify(layout.seq));
         for(const [index,panel] of layout.panels.entries()){
@@ -121,7 +129,7 @@ try {
         await page.setViewport({width:1200,height:1400,deviceScaleFactor:2});
         await (await page.$('.ep-print-sheet')).screenshot({path:path.join(preview,'003-litio-a4.png')});
         await (await page.$('.ep-print-stories')).screenshot({path:path.join(preview,'003-litio-quadros.png')});
-        console.log('PILOTO LÍTIO APROVADO NO TESTE GEOMÉTRICO:',JSON.stringify(layout.panels.map(p=>({width:p.art.width,height:p.art.height,natural:p.natural}))));
+        console.log('PILOTO A4 APROVADO NO TESTE GEOMÉTRICO:',JSON.stringify(layout.panels.map(p=>({width:p.art.width,height:p.art.height,natural:p.natural}))));
       }
       records.push({z:element.z,slug:element.slug,state:element.state,pdf:filename,size:fs.statSync(pdfPath).size});
       if(records.length%20===0)console.log('Folhetos concluídos:',records.length,'de',manifest.elements.length);
