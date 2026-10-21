@@ -39,7 +39,7 @@ assert.ok(css.includes('grid-template-rows:15mm 8mm 96mm 65mm 67.5mm 14.5mm!impo
 assert.ok(css.includes('object-fit:contain!important'),'Pilot must not distort/crop art');
 assert.ok(css.includes('1104x810 na impressão'),'Quadros devem usar fonte integral com proporção real');
 assert.ok(js.includes('fit=full-border-v2'),'Lítio precisa invalidar os recortes antigos');
-assert.ok(sw.includes('cordel-varal-v28-litio-bordas-integrais'),'PWA deve invalidar cache de cenas antigas');
+assert.ok(sw.includes('assets/folhetos/cenas/003-02.webp'),'PWA deve invalidar cache de cenas antigas');
 assert.ok(js.includes('003-0'),'Two approved originals are required');
 assert.ok(css.includes('column-gap:2mm!important'),'Quadros devem ter o espaço reduzido da referência aprovada');
 
@@ -53,7 +53,7 @@ assert.ok(hydroHtml.includes('data-folheto-piloto="hidrogenio"'),'Piloto Hidrog�
 assert.ok(js.includes("current.z===1 && document.body.dataset.folhetoPiloto==='hidrogenio'"),'JS do piloto 001 ausente');
 assert.ok(css.includes('data-element="001"'),'CSS da moldura do piloto 001 ausente');
 assert.ok(js.includes('fit=full-border-h001-v1'),'Cache da arte 001 não foi invalidado');
-assert.ok(sw.includes('cordel-varal-v31-hidrogenio-001-borda-direita-completa'),'SW precisa atualizar imagens 001');
+assert.ok(sw.includes('assets/folhetos/cenas/001-02.webp'),'SW precisa atualizar imagens 001');
 
 // Regressão: fonte aprovada integral, sem mascarar lateral direita ou deformar o quadro.
 assert.ok(!css.includes('transform:scaleY(.922)!important'),'Quadro 02 não deve ser comprimido no CSS');
@@ -71,7 +71,7 @@ assert.ok(heliumHtml.includes('data-folheto-piloto="helio"'),'Piloto Hélio não
 assert.ok(js.includes("current.z===2 && document.body.dataset.folhetoPiloto==='helio'"),'Montagem do Hélio ausente');
 assert.ok(css.includes('data-element="002"'),'Moldura A4 do Hélio ausente');
 assert.ok(js.includes('fit=he002-bordas-integrais-v1'),'Hélio precisa evitar o cache anterior');
-assert.ok(sw.includes('cordel-varal-v32-helio-002-quadros-integrais'),'Cache de cenas do Hélio não atualizado');
+assert.ok(sw.includes('assets/folhetos/cenas/002-02.webp'),'Cache de cenas do Hélio não atualizado');
 for(const i of ['01','02']){
   const file=fs.readFileSync(path.join(root,'assets/folhetos/cenas/002-'+i+'.webp'));
   assert.ok(file.length>150000,'Arte 002-'+i+' incompleta');
@@ -85,10 +85,32 @@ assert.ok(boronHtml.includes('data-folheto-piloto="boro"'),'Piloto Boro não ati
 assert.ok(js.includes("current.z===5 && document.body.dataset.folhetoPiloto==='boro'"),'Montagem do Boro ausente');
 assert.ok(css.includes('data-element="005"'),'Moldura A4 do Boro ausente');
 assert.ok(js.includes('fit=b005-arte-aprovada-v1'),'Boro precisa invalidar cache anterior');
-assert.ok(sw.includes('cordel-varal-v33-boro-005-quadros-aprovados'),'SW precisa invalidar cache do Boro');
+assert.ok(sw.includes('assets/folhetos/cenas/005-02.webp'),'SW precisa invalidar cache do Boro');
 for(const i of ['01','02']){
   const file=fs.readFileSync(path.join(root,'assets/folhetos/cenas/005-'+i+'.webp'));
   assert.ok(file.length>200000,'Boro 005-'+i+': arte incompleta');
   assert.equal(file.toString('ascii',0,4),'RIFF','Boro WebP inválido');
   assert.equal(file.toString('ascii',8,12),'WEBP','Boro WebP inválido');
+}
+
+
+// PILOTO 004 — Berílio: duas ilustrações integrais aprovadas; sem legendas HTML sobrepostas.
+const berylliumHtml=read('elementos/berilio/index.html');
+assert.ok(berylliumHtml.includes('data-folheto-piloto="berilio"'),'Piloto Berílio não ativado');
+assert.ok(js.includes("current.z===4 && document.body.dataset.folhetoPiloto==='berilio'"),'Montagem do Berílio ausente');
+assert.ok(css.includes('data-element="004"'),'Moldura A4 do Berílio ausente');
+assert.ok(js.includes('fit=b004-arte-aprovada-v1'),'Berílio precisa invalidar cache anterior');
+assert.ok(sw.includes("const CACHE='cordel-varal-v34-berilio-004-quadros-aprovados'"),'SW precisa atualizar cache do Berílio');
+const manifestBe=JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(e=>e.z===4);
+assert.ok(manifestBe,'Manifesto Berílio ausente');
+for(const i of ['01','02']){
+  const expected='assets/folhetos/cenas/004-'+i+'.webp';
+  const panel=manifestBe.panels.find(p=>p.id===i);
+  assert.equal(panel.image,expected,'Manifesto Berílio '+i+' não aponta para arte aprovada');
+  assert.equal(panel.status,'aprovada','Manifesto Berílio '+i+' sem homologação');
+  assert.ok(sw.includes(expected),'Imagem Berílio '+i+' fora do cache offline');
+  const file=fs.readFileSync(path.join(root,expected));
+  assert.ok(file.length>200000,'Berílio '+i+': arte incompleta');
+  assert.equal(file.toString('ascii',0,4),'RIFF','Berílio WebP inválido');
+  assert.equal(file.toString('ascii',8,12),'WEBP','Berílio WebP inválido');
 }
