@@ -53,4 +53,9 @@ assert.ok(hydroHtml.includes('data-folheto-piloto="hidrogenio"'),'Piloto Hidrog�
 assert.ok(js.includes("current.z===1 && document.body.dataset.folhetoPiloto==='hidrogenio'"),'JS do piloto 001 ausente');
 assert.ok(css.includes('data-element="001"'),'CSS da moldura do piloto 001 ausente');
 assert.ok(js.includes('fit=full-border-h001-v1'),'Cache da arte 001 não foi invalidado');
-assert.ok(sw.includes('cordel-varal-v29-hidrogenio-001-integro'),'SW precisa atualizar imagens 001');
+assert.ok(sw.includes('cordel-varal-v30-hidrogenio-quadro02-alinhado'),'SW precisa atualizar imagens 001');
+
+// Regressão: o enquadramento do quadro 02 não pode ultrapassar a altura do 01.
+assert.ok(css.includes('transform:scaleY(.922)!important'),'Hidrogênio 001: falta normalização vertical do quadro 02');
+assert.ok(css.includes('.ep-print-story:nth-child(2) .ep-print-approved-art'),'Ajuste deve afetar apenas a segunda vinheta');
+assert.ok(css.includes('data-element="001"'),'Ajuste deve permanecer isolado ao elemento 001');

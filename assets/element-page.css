@@ -712,3 +712,17 @@ body.element-page[data-palette=blueyellow] .ep-state img,body.element-page[data-
     transform:none!important;
   }
 }
+
+/* Hidrogênio 001 — correção óptica localizada da segunda vinheta.
+ * No asset original 02, a moldura começava ~30 px antes e terminava ~31 px
+ * depois da primeira. A normalização vertical conserva todo o conteúdo,
+ * mantendo a borda superior e inferior alinhadas na impressão A4.
+ * Esta regra não se aplica ao quadro 01 nem ao Lítio homologado.
+ */
+@media print {
+  .ep-print-sheet[data-element="001"][data-print-phase="piloto-quadros-integrais"]
+  .ep-print-story:nth-child(2) .ep-print-approved-art {
+    transform:scaleY(.922)!important;
+    transform-origin:center center!important;
+  }
+}
