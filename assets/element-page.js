@@ -199,7 +199,7 @@
         figure.className='ep-print-approved-art';
         figure.alt='';
         figure.loading='eager';figure.decoding='sync';
-        figure.src='../../assets/folhetos/cenas/001-0'+(i+1)+'.webp?fit=full-border-h001-v1';
+        figure.src='../../assets/folhetos/cenas/001-0'+(i+1)+'.webp?fit='+(i===1?'full-border-h001-v2-right-intact':'full-border-h001-v1');
         figure.addEventListener('load',()=>{
           if(figure.naturalWidth>0){
             slot.replaceChildren(figure);

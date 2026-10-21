@@ -53,9 +53,13 @@ assert.ok(hydroHtml.includes('data-folheto-piloto="hidrogenio"'),'Piloto Hidrog�
 assert.ok(js.includes("current.z===1 && document.body.dataset.folhetoPiloto==='hidrogenio'"),'JS do piloto 001 ausente');
 assert.ok(css.includes('data-element="001"'),'CSS da moldura do piloto 001 ausente');
 assert.ok(js.includes('fit=full-border-h001-v1'),'Cache da arte 001 não foi invalidado');
-assert.ok(sw.includes('cordel-varal-v30-hidrogenio-quadro02-alinhado'),'SW precisa atualizar imagens 001');
+assert.ok(sw.includes('cordel-varal-v31-hidrogenio-001-borda-direita-completa'),'SW precisa atualizar imagens 001');
 
-// Regressão: o enquadramento do quadro 02 não pode ultrapassar a altura do 01.
-assert.ok(css.includes('transform:scaleY(.922)!important'),'Hidrogênio 001: falta normalização vertical do quadro 02');
-assert.ok(css.includes('.ep-print-story:nth-child(2) .ep-print-approved-art'),'Ajuste deve afetar apenas a segunda vinheta');
-assert.ok(css.includes('data-element="001"'),'Ajuste deve permanecer isolado ao elemento 001');
+// Regressão: fonte aprovada integral, sem mascarar lateral direita ou deformar o quadro.
+assert.ok(!css.includes('transform:scaleY(.922)!important'),'Quadro 02 não deve ser comprimido no CSS');
+assert.ok(js.includes('full-border-h001-v2-right-intact'),'Quadro 02 deve invalidar o cache do recorte incompleto');
+assert.ok(js.includes("i===1?'full-border-h001-v2-right-intact':'full-border-h001-v1'"),'Quadro 01 precisa manter o arquivo homologado');
+const rightArt=fs.readFileSync(path.join(root,'assets/folhetos/cenas/001-02.webp'));
+assert.ok(rightArt.length>120000,'Quadro 02 deve conter raster integral revisado');
+assert.equal(rightArt.toString('ascii',0,4),'RIFF','O arquivo de arte deve ser WebP válido');
+assert.equal(rightArt.toString('ascii',8,12),'WEBP','O arquivo de arte deve ser WebP válido');
