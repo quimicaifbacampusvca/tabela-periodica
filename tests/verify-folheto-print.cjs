@@ -78,3 +78,17 @@ for(const i of ['01','02']){
   assert.equal(file.toString('ascii',0,4),'RIFF','WebP Hélio inválido');
   assert.equal(file.toString('ascii',8,12),'WEBP','WebP Hélio inválido');
 }
+
+// PILOTO 005 — Boro: usar somente as duas artes aprovadas com quatro bordas.
+const boronHtml=read('elementos/boro/index.html');
+assert.ok(boronHtml.includes('data-folheto-piloto="boro"'),'Piloto Boro não ativado');
+assert.ok(js.includes("current.z===5 && document.body.dataset.folhetoPiloto==='boro'"),'Montagem do Boro ausente');
+assert.ok(css.includes('data-element="005"'),'Moldura A4 do Boro ausente');
+assert.ok(js.includes('fit=b005-arte-aprovada-v1'),'Boro precisa invalidar cache anterior');
+assert.ok(sw.includes('cordel-varal-v33-boro-005-quadros-aprovados'),'SW precisa invalidar cache do Boro');
+for(const i of ['01','02']){
+  const file=fs.readFileSync(path.join(root,'assets/folhetos/cenas/005-'+i+'.webp'));
+  assert.ok(file.length>200000,'Boro 005-'+i+': arte incompleta');
+  assert.equal(file.toString('ascii',0,4),'RIFF','Boro WebP inválido');
+  assert.equal(file.toString('ascii',8,12),'WEBP','Boro WebP inválido');
+}

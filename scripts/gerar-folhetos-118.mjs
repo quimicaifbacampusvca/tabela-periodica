@@ -56,7 +56,7 @@ try {
       });
       assert.ok(info.mainArtExists,'Arte principal ausente: '+element.name);
       assert.equal(info.allSlots,2,'Esperados dois quadros: '+element.name);
-      const pilot=element.z===1||element.z===2||element.z===3;
+      const pilot=[1,2,3,5].includes(element.z);
       assert.equal(info.emptySlots,pilot?0:2,'Slots de arte divergentes: '+element.name);
       assert.equal(info.imageCount,pilot?2:0,'Contagem incorreta de ilustrações: '+element.name);
       assert.equal(info.phase,pilot?'piloto-quadros-integrais':'estrutura-sem-cenas',
@@ -90,7 +90,7 @@ try {
               bottomInk:(()=>{
                 const canvas=document.createElement('canvas');canvas.width=img.naturalWidth;canvas.height=img.naturalHeight;
                 const ctx=canvas.getContext('2d',{willReadFrequently:true});ctx.drawImage(img,0,0);
-                const rows=(img.getAttribute('src').includes('001-')||img.getAttribute('src').includes('002-'))
+                const rows=(img.getAttribute('src').includes('001-')||img.getAttribute('src').includes('002-')||img.getAttribute('src').includes('005-'))
                   ?Array.from({length:76},(_,k)=>canvas.height-85+k)
                   :[canvas.height-10];
                 let peak=0;
