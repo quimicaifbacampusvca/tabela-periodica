@@ -281,6 +281,30 @@
         figure.addEventListener('error',()=>{panel.dataset.sceneError='true';},{once:true});
       }
     }
+    // PILOTO 007 — Nitrogênio: quadros 01 e 02 aprovados; arte original integral e texto sem duplicação.
+    if(current.z===7 && document.body.dataset.folhetoPiloto==='nitrogenio'){
+      sheet.dataset.printPhase='piloto-quadros-integrais';
+      const captions=[
+        'No cotidiano: o nitrogênio participa do ar e de fertilizantes, é utilizado em embalagens de alimentos e, na forma líquida, em aplicações de resfriamento.',
+        'Da origem à obtenção: o nitrogênio gasoso é separado do ar por liquefação e destilação fracionada industriais.'
+      ];
+      for(const [i,slot] of [...sheet.querySelectorAll('.ep-print-story-art')].entries()){
+        const panel=slot.closest('.ep-print-story');
+        panel.setAttribute('aria-label',captions[i]);
+        const figure=document.createElement('img');
+        figure.className='ep-print-approved-art';
+        figure.alt='';
+        figure.loading='eager';figure.decoding='sync';
+        figure.src='../../assets/folhetos/cenas/007-0'+(i+1)+'.webp?fit=n007-arte-aprovada-v1';
+        figure.addEventListener('load',()=>{
+          if(figure.naturalWidth>0){
+            slot.replaceChildren(figure);
+            panel.dataset.sceneReady='true';
+          }
+        },{once:true});
+        figure.addEventListener('error',()=>{panel.dataset.sceneError='true';},{once:true});
+      }
+    }
     // PILOTO 005 — Boro: quadros 01 e 02 aprovados; arte original integral e texto sem duplicação.
     if(current.z===5 && document.body.dataset.folhetoPiloto==='boro'){
       sheet.dataset.printPhase='piloto-quadros-integrais';

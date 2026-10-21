@@ -122,7 +122,7 @@ assert.ok(carbonHtml.includes('data-folheto-piloto="carbono"'),'Piloto Carbono n
 assert.ok(js.includes("current.z===6 && document.body.dataset.folhetoPiloto==='carbono'"),'Montagem do Carbono ausente');
 assert.ok(css.includes('data-element="006"'),'Moldura A4 do Carbono ausente');
 assert.ok(js.includes('fit=c006-arte-aprovada-v1'),'Carbono precisa invalidar cache anterior');
-assert.ok(sw.includes("const CACHE='cordel-varal-v35-carbono-006-quadros-aprovados'"),'SW precisa invalidar cache do Carbono');
+assert.ok(sw.includes('assets/folhetos/cenas/006-01.webp'),'SW precisa preservar cache do Carbono');
 const manifestC=JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(e=>e.z===6);
 assert.ok(manifestC,'Manifesto Carbono ausente');
 for(const i of ['01','02']){
@@ -135,4 +135,26 @@ for(const i of ['01','02']){
   assert.ok(file.length>200000,'Carbono '+i+': arte incompleta');
   assert.equal(file.toString('ascii',0,4),'RIFF','Carbono WebP inválido');
   assert.equal(file.toString('ascii',8,12),'WEBP','Carbono WebP inválido');
+}
+
+
+// PILOTO 007 — Nitrogênio: duas artes aprovadas preservando os quadros integrais.
+const nitrogenHtml=read('elementos/nitrogenio/index.html');
+assert.ok(nitrogenHtml.includes('data-folheto-piloto="nitrogenio"'),'Piloto Nitrogênio não ativado');
+assert.ok(js.includes("current.z===7 && document.body.dataset.folhetoPiloto==='nitrogenio'"),'Montagem do Nitrogênio ausente');
+assert.ok(css.includes('data-element="007"'),'Moldura A4 do Nitrogênio ausente');
+assert.ok(js.includes('fit=n007-arte-aprovada-v1'),'Nitrogênio precisa invalidar cache');
+assert.ok(sw.includes("const CACHE='cordel-varal-v36-nitrogenio-007-quadros-aprovados'"),'SW precisa atualizar cache do Nitrogênio');
+const manifestN=JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(e=>e.z===7);
+assert.ok(manifestN,'Manifesto Nitrogênio ausente');
+for(const i of ['01','02']){
+  const asset='assets/folhetos/cenas/007-'+i+'.webp';
+  const panel=manifestN.panels.find(p=>p.id===i);
+  assert.equal(panel.image,asset,'Manifesto Nitrogênio '+i+' sem a arte aprovada');
+  assert.equal(panel.status,'aprovada','Manifesto Nitrogênio '+i+' sem aprovação');
+  assert.ok(sw.includes(asset),'Nitrogênio '+i+' fora do cache offline');
+  const img=fs.readFileSync(path.join(root,asset));
+  assert.ok(img.length>200000,'Nitrogênio '+i+': arte incompleta');
+  assert.equal(img.toString('ascii',0,4),'RIFF','Nitrogênio WebP inválido');
+  assert.equal(img.toString('ascii',8,12),'WEBP','Nitrogênio WebP inválido');
 }
