@@ -628,14 +628,14 @@ body.element-page[data-palette=blueyellow] .ep-state img,body.element-page[data-
  * Modelo aprovado: cada quadrinho é UMA imagem integral com numeral, título,
  * texto e cena. O elemento principal e os dados químicos NÃO mudam.
  *
- * Grade fechada A4: 15+8+96+65+69+13 = 266 mm.
+ * Grade fechada A4: 15+8+96+65+67,5+14,5 = 266 mm.
  * Margens internas 20 mm + 5 intervalos de 2 mm = 296 mm.
- * Área dos quadros: 92 mm x 69 mm, com proporção de 1,333.
- * Arte fonte com moldura completa: 468x351 e 465x351, sem recorte inferior.
+ * Área dos quadros: 92 mm x 67,5 mm, com proporção de 1,363.
+ * Fonte integral da página aprovada: 475x349 e 478x349; 1104x810 na impressão.
  */
 @media print {
   body.element-page > .ep-print-sheet.ep-print-prototype[data-element="003"][data-print-phase="piloto-quadros-integrais"]{
-    grid-template-rows:15mm 8mm 96mm 65mm 69mm 13mm!important;
+    grid-template-rows:15mm 8mm 96mm 65mm 67.5mm 14.5mm!important;
   }
   .ep-print-sheet[data-element="003"][data-print-phase="piloto-quadros-integrais"] .ep-print-stories{
     display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
@@ -669,40 +669,5 @@ body.element-page[data-palette=blueyellow] .ep-state img,body.element-page[data-
     object-fit:contain!important;object-position:center center!important;
     image-rendering:auto!important;
     transform:none!important;
-  }
-}
-/* Artes 003 preparadas em 1104×828 px, proporção 4:3 correspondente aos
-   92×69 mm de cada slot A4. O arquivo já contém margem de segurança mínima
-   para que a borda inferior e os laterais permaneçam totalmente visíveis. */
-
-/*
- * Ajuste localizado de alinhamento, Lítio (003).
- * As duas molduras têm exatamente 92×69mm e o mesmo top/bottom; o ajuste
- * óptico do painel 02 compensa a margem assimétrica que veio da matriz
- * raster original, sem modificar os textos, arte principal ou folha A4.
- */
-@media print {
-  .ep-print-sheet[data-element="003"][data-print-phase="piloto-quadros-integrais"] .ep-print-stories{
-    width:100%!important;height:100%!important;
-    display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
-    align-items:stretch!important;justify-items:stretch!important;
-    column-gap:2mm!important;row-gap:0!important;
-  }
-  .ep-print-sheet[data-element="003"][data-print-phase="piloto-quadros-integrais"] .ep-print-story{
-    width:100%!important;height:100%!important;min-width:0!important;
-    box-sizing:border-box!important;
-  }
-  .ep-print-sheet[data-element="003"][data-print-phase="piloto-quadros-integrais"] .ep-print-story-art{
-    inset:0!important;overflow:visible!important;
-  }
-  .ep-print-sheet[data-element="003"][data-print-phase="piloto-quadros-integrais"] .ep-print-approved-art{
-    display:block!important;vertical-align:top!important;
-    width:100%!important;height:100%!important;
-    object-fit:contain!important;object-position:center center!important;
-    margin:0!important;border:0!important;
-  }
-  .ep-print-sheet[data-element="003"][data-print-phase="piloto-quadros-integrais"] .ep-print-story:nth-child(2) .ep-print-approved-art{
-    transform:translateX(.55%) scaleX(.995)!important;
-    transform-origin:center center!important;
   }
 }

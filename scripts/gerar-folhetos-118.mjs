@@ -84,7 +84,16 @@ try {
               text:getComputedStyle(panel.querySelector('p')).display,
               fit:getComputedStyle(img).objectFit,
               natural:[img.naturalWidth,img.naturalHeight],
-              source:img.getAttribute('src')
+              source:img.getAttribute('src'),
+              // Conteúdo da ARTE: validar também o fechamento inferior real.
+              // Só medir a caixa HTML não detecta um recorte no próprio WebP.
+              bottomInk:(()=>{
+                const canvas=document.createElement('canvas');canvas.width=img.naturalWidth;canvas.height=img.naturalHeight;
+                const ctx=canvas.getContext('2d',{willReadFrequently:true});ctx.drawImage(img,0,0);
+                const y=canvas.height-10,pixels=ctx.getImageData(15,y,canvas.width-30,1).data;
+                let dark=0;for(let t=0;t<pixels.length;t+=4)if((pixels[t]+pixels[t+1]+pixels[t+2])/3<95)dark++;
+                return dark/(pixels.length/4);
+              })()
             };
           });
           return {seq,panels};
@@ -96,14 +105,15 @@ try {
           assert.equal(panel.heading,'none','Título HTML duplicado no quadro');
           assert.equal(panel.text,'none','Legenda HTML duplicada no quadro');
           assert.equal(panel.fit,'contain','A arte não pode sofrer estiramento nem corte');
-          assert.deepEqual(panel.natural,[1104,828],
-            'Arte deve estar preparada exatamente para os 92×69 mm do quadro, sem corte');
-          assert.ok(panel.natural[0]>=1104&&panel.natural[1]>=828,'Imagem redimensionada não carregou');
+          assert.ok(panel.bottomInk>0.85,'Moldura inferior ausente ou cortada: '+JSON.stringify(panel));
+          assert.deepEqual(panel.natural,[1104,810],
+            'Arte deve estar preparada exatamente para os 92×67,5 mm do quadro, sem corte');
+          assert.ok(panel.natural[0]>=1104&&panel.natural[1]>=810,'Imagem redimensionada não carregou');
           assert.ok(Math.abs(panel.panel.width-panel.art.width)<2&&Math.abs(panel.panel.height-panel.art.height)<2,
             'A imagem não ocupa o quadro inteiro: '+JSON.stringify(panel));
           const printedRatio=panel.art.width/panel.art.height;
           const originalRatio=panel.natural[0]/panel.natural[1];
-          assert.ok(Math.abs(printedRatio-originalRatio)<0.025,
+          assert.ok(Math.abs(printedRatio-originalRatio)<0.008,
             'Proporção da moldura incompatível com a arte 4:3: '+JSON.stringify(panel));
         }
         const preview=path.join(root,'dist','previews');

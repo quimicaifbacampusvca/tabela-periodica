@@ -35,14 +35,14 @@ console.log('PASS: quatro protótipos com estilos independentes e artes originai
 const lithHtml=read('elementos/litio/index.html');
 assert.ok(lithHtml.includes('data-folheto-piloto="litio"'),'Ativação do piloto ausente');
 assert.ok(js.includes("current.z===3 && document.body.dataset.folhetoPiloto==='litio'"),'Pilot must be isolated to Lítio');
-assert.ok(css.includes('grid-template-rows:15mm 8mm 96mm 65mm 69mm 13mm!important'),'A4 pilot grid changed');
+assert.ok(css.includes('grid-template-rows:15mm 8mm 96mm 65mm 67.5mm 14.5mm!important'),'A4 pilot grid changed');
 assert.ok(css.includes('object-fit:contain!important'),'Pilot must not distort/crop art');
-assert.ok(css.includes('1104×828 px'),'Lítio precisa de fonte 4:3 pronta para o slot');
-assert.ok(js.includes('fit=4x3-v1'),'Lítio deve evitar cena antiga no cache');
-assert.ok(sw.includes('cordel-varal-v26-litio-encaixe-exato'),'PWA deve invalidar cache de cenas antigas');
+assert.ok(css.includes('1104x810 na impressão'),'Quadros devem usar fonte integral com proporção real');
+assert.ok(js.includes('fit=full-border-v2'),'Lítio precisa invalidar os recortes antigos');
+assert.ok(sw.includes('cordel-varal-v28-litio-bordas-integrais'),'PWA deve invalidar cache de cenas antigas');
 assert.ok(js.includes('003-0'),'Two approved originals are required');
 assert.ok(css.includes('column-gap:2mm!important'),'Quadros devem ter o espaço reduzido da referência aprovada');
 
-assert.ok(css.includes('Ajuste localizado de alinhamento, Lítio (003)'),'Lítio deve conter correção isolada do alinhamento');
+assert.ok(!css.includes('Ajuste localizado de alinhamento, Lítio (003)'),'Remover remendo de alinhamento óptico antigo');
 assert.ok(css.includes('grid-template-columns:repeat(2,minmax(0,1fr))!important'),'Quadros devem compartilhar largura exata');
-assert.ok(css.includes('transform:translateX(.55%) scaleX(.995)!important'),'Margem óptica assimétrica do quadro 02');
+assert.ok(!css.includes('transform:translateX(.55%) scaleX(.995)!important'),'Quadro 02 sem deslocamento artificial');
