@@ -1,9 +1,11 @@
-name: Gerar 118 folhetos A4 sem cenas complementares
+name: Testar folheto A4 piloto do Lítio
 on:
   pull_request:
     branches:
       - tabelaifbavca
     paths:
+      - 'assets/folhetos/cenas/**'
+      - 'elementos/litio/index.html'
       - 'assets/element-page.js'
       - 'assets/element-page.css'
       - 'sw.js'
@@ -23,13 +25,13 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Verificar as 118 fichas e os 236 espaços
+      - name: Verificar piloto do Lítio e demais 117 fichas
         run: node tests/verificar-folhetos-sem-cenas.cjs
       - name: Instalar motor para PDFs e verificação
         run: |
           npm install --no-save puppeteer-core@24
           python3 -m pip install --user pypdf
-      - name: Gerar PDFs com as artes principais preservadas
+      - name: Testar Chromium e gerar PDFs sem alterar artes principais
         env:
           CHROME_BIN: /usr/bin/google-chrome
         shell: bash
@@ -66,6 +68,15 @@ jobs:
           assert len(PdfReader(str(target)).pages)==118
           print('118 PDFs individuais com 1 página A4; caderno consolidado com 118 páginas.')
           PY
+      - name: Disponibilizar capturas de teste do Chromium
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: piloto-litio-003-capturas-chromium
+          path: |
+            dist/previews/003-litio-a4.png
+            dist/previews/003-litio-quadros.png
+          retention-days: 30
       - name: Disponibilizar os 118 PDFs individuais
         if: success()
         uses: actions/upload-artifact@v4
