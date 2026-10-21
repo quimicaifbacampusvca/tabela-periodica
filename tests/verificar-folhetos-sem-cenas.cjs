@@ -20,8 +20,15 @@ for(const element of files.elements){
   assert.equal(element.panels.length,2);
   for(const [n,scene] of element.panels.entries()){
     assert.equal(scene.id,String(n+1).padStart(2,'0'));
-    assert.equal(scene.image,null,'Arte ainda não deveria existir');
-    assert.equal(scene.status,'a_criar_individualmente');
+    if(element.z===3){
+      assert.equal(scene.status,'aprovada','Lítio deve ter quadros homologados');
+      assert.equal(scene.image,scene.expectedAsset,'Imagem diferente da aprovada');
+      assert.ok(fs.existsSync(scene.image),'Imagem ausente: '+scene.image);
+      assert.ok(fs.statSync(scene.image).size>3000,'Imagem corrompida: '+scene.image);
+    }else{
+      assert.equal(scene.image,null,'Outros 117 elementos devem continuar vazios');
+      assert.equal(scene.status,'a_criar_individualmente');
+    }
     assert.equal(scene.scene,String(element.z).padStart(3,'0')+'-'+scene.id);
   }
   distribution[element.state]=(distribution[element.state]||0)+1;
@@ -33,4 +40,4 @@ assert.ok(css.includes('ep-print-story-art:empty'));
 assert.ok(css.includes('@page{size:A4 portrait;margin:0}'));
 assert.ok(css.includes('height:296mm!important'));
 for(const state of Object.values(states))assert.ok(css.includes('.'+state));
-console.log('PASS: 118 folhas, 236 espaços de arte vazios, 4 matrizes, A4.');
+console.log('PASS: 118 folhas, 2 quadros piloto em Lítio e 234 espaços vazios, 4 matrizes, A4.');

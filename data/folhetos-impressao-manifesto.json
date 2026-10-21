@@ -95,17 +95,17 @@
           "id": "01",
           "title": "No cotidiano",
           "scene": "003-01",
-          "image": null,
+          "image": "assets/folhetos/cenas/003-01.webp",
           "expectedAsset": "assets/folhetos/cenas/003-01.webp",
-          "status": "a_criar_individualmente"
+          "status": "aprovada"
         },
         {
           "id": "02",
           "title": "Da origem à obtenção",
           "scene": "003-02",
-          "image": null,
+          "image": "assets/folhetos/cenas/003-02.webp",
           "expectedAsset": "assets/folhetos/cenas/003-02.webp",
-          "status": "a_criar_individualmente"
+          "status": "aprovada"
         }
       ]
     },

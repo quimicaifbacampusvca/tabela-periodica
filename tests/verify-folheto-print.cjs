@@ -31,3 +31,11 @@ for(const [z,cls] of protos){
 assert.ok(js.includes('stateDirection'),'State directions must map explicitly to four sample elements');
 assert.ok(js.includes('ep-print-scene-motif'),'Original artwork must be surrounded by graphical overlays');
 console.log('PASS: quatro protótipos com estilos independentes e artes originais preservadas.');
+
+const lithHtml=read('elementos/litio/index.html');
+assert.ok(lithHtml.includes('data-folheto-piloto="litio"'),'Ativação do piloto ausente');
+assert.ok(js.includes("current.z===3 && document.body.dataset.folhetoPiloto==='litio'"),'Pilot must be isolated to Lítio');
+assert.ok(css.includes('grid-template-rows:15mm 8mm 96mm 65mm 69mm 13mm!important'),'A4 pilot grid changed');
+assert.ok(css.includes('object-fit:contain!important'),'Pilot must not distort/crop art');
+assert.ok(js.includes('003-0'),'Two approved originals are required');
+assert.ok(css.includes('column-gap:2mm!important'),'Quadros devem ter o espaço reduzido da referência aprovada');

@@ -184,6 +184,32 @@
         <p><strong>Fontes e leitura:</strong> CIAAW, IUPAC, NIST e referências científicas detalhadas na ficha digital. Valores sem incerteza informada não são medidas exatas. O estado indicado refere-se à substância simples.</p>
         <div class="ep-print-signature"><span>IFBA · Campus Vitória da Conquista</span><span>Folheto ${String(current.z).padStart(3,'0')}</span></div>
       </footer>`;
+    // PILOTO 003 — Lítio: os dois quadrinhos são artes editoriais completas.
+    // Não sobrepor numerador, título ou legenda HTML; preservá-los apenas em
+    // texto acessível. Nenhuma outra ficha é modificada por esta experiência.
+    if(current.z===3 && document.body.dataset.folhetoPiloto==='litio'){
+      sheet.dataset.printPhase='piloto-quadros-integrais';
+      const captions=[
+        'No cotidiano: o lítio é usado em baterias recarregáveis de celulares, notebooks, ferramentas elétricas e veículos elétricos.',
+        'Da origem à obtenção: é obtido principalmente de minerais presentes em salmouras e rochas, como o espodumênio, em minas a céu aberto e em depósitos de salmouras.'
+      ];
+      for(const [i,slot] of [...sheet.querySelectorAll('.ep-print-story-art')].entries()){
+        const panel=slot.closest('.ep-print-story');
+        panel.setAttribute('aria-label',captions[i]);
+        const figure=document.createElement('img');
+        figure.className='ep-print-approved-art';
+        figure.alt='';
+        figure.loading='eager';figure.decoding='sync';
+        figure.src='../../assets/folhetos/cenas/003-0'+(i+1)+'.webp';
+        figure.addEventListener('load',()=>{
+          if(figure.naturalWidth>0){
+            slot.replaceChildren(figure);
+            panel.dataset.sceneReady='true';
+          }
+        },{once:true});
+        figure.addEventListener('error',()=>{panel.dataset.sceneError='true';},{once:true});
+      }
+    }
     document.body.append(sheet);
     return sheet;
   }
