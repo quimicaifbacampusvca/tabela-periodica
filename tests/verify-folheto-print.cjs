@@ -144,7 +144,7 @@ assert.ok(nitrogenHtml.includes('data-folheto-piloto="nitrogenio"'),'Piloto Nitr
 assert.ok(js.includes("current.z===7 && document.body.dataset.folhetoPiloto==='nitrogenio'"),'Montagem do Nitrogênio ausente');
 assert.ok(css.includes('data-element="007"'),'Moldura A4 do Nitrogênio ausente');
 assert.ok(js.includes('fit=n007-arte-aprovada-v1'),'Nitrogênio precisa invalidar cache');
-assert.ok(sw.includes("const CACHE='cordel-varal-v36-nitrogenio-007-quadros-aprovados'"),'SW precisa atualizar cache do Nitrogênio');
+assert.ok(sw.includes('assets/folhetos/cenas/007-01.webp'),'SW precisa preservar cache do Nitrogênio');
 const manifestN=JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(e=>e.z===7);
 assert.ok(manifestN,'Manifesto Nitrogênio ausente');
 for(const i of ['01','02']){
@@ -157,4 +157,26 @@ for(const i of ['01','02']){
   assert.ok(img.length>200000,'Nitrogênio '+i+': arte incompleta');
   assert.equal(img.toString('ascii',0,4),'RIFF','Nitrogênio WebP inválido');
   assert.equal(img.toString('ascii',8,12),'WEBP','Nitrogênio WebP inválido');
+}
+
+
+// PILOTO 008 — Oxigênio: duas artes aprovadas preservadas sem cortar as bordas.
+const oxygenHtml=read('elementos/oxigenio/index.html');
+assert.ok(oxygenHtml.includes('data-folheto-piloto="oxigenio"'),'Piloto Oxigênio não ativado');
+assert.ok(js.includes("current.z===8 && document.body.dataset.folhetoPiloto==='oxigenio'"),'Montagem do Oxigênio ausente');
+assert.ok(css.includes('data-element="008"'),'Moldura A4 do Oxigênio ausente');
+assert.ok(js.includes('fit=o008-arte-aprovada-v1'),'Oxigênio precisa invalidar cache');
+assert.ok(sw.includes("const CACHE='cordel-varal-v37-oxigenio-008-quadros-aprovados'"),'SW precisa atualizar cache do Oxigênio');
+const manifestO=JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(e=>e.z===8);
+assert.ok(manifestO,'Manifesto Oxigênio ausente');
+for(const i of ['01','02']){
+  const asset='assets/folhetos/cenas/008-'+i+'.webp';
+  const panel=manifestO.panels.find(p=>p.id===i);
+  assert.equal(panel.image,asset,'Manifesto Oxigênio '+i+' sem arte aprovada');
+  assert.equal(panel.status,'aprovada','Manifesto Oxigênio '+i+' sem aprovação');
+  assert.ok(sw.includes(asset),'Oxigênio '+i+' fora do cache offline');
+  const img=fs.readFileSync(path.join(root,asset));
+  assert.ok(img.length>200000,'Oxigênio '+i+': arte incompleta');
+  assert.equal(img.toString('ascii',0,4),'RIFF','Oxigênio WebP inválido');
+  assert.equal(img.toString('ascii',8,12),'WEBP','Oxigênio WebP inválido');
 }

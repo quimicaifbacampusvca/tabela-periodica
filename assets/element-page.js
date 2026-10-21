@@ -305,6 +305,30 @@
         figure.addEventListener('error',()=>{panel.dataset.sceneError='true';},{once:true});
       }
     }
+    // PILOTO 008 — Oxigênio: quadros 01 e 02 aprovados; arte original integral e texto sem duplicação.
+    if(current.z===8 && document.body.dataset.folhetoPiloto==='oxigenio'){
+      sheet.dataset.printPhase='piloto-quadros-integrais';
+      const captions=[
+        'No cotidiano: o oxigênio molecular participa da respiração de muitos seres vivos e é utilizado na assistência médica; compostos de oxigênio aparecem na água e em outros materiais.',
+        'Da origem à obtenção: o gás oxigênio pode ser separado industrialmente do ar por liquefação e destilação fracionada.'
+      ];
+      for(const [i,slot] of [...sheet.querySelectorAll('.ep-print-story-art')].entries()){
+        const panel=slot.closest('.ep-print-story');
+        panel.setAttribute('aria-label',captions[i]);
+        const figure=document.createElement('img');
+        figure.className='ep-print-approved-art';
+        figure.alt='';
+        figure.loading='eager';figure.decoding='sync';
+        figure.src='../../assets/folhetos/cenas/008-0'+(i+1)+'.webp?fit=o008-arte-aprovada-v1';
+        figure.addEventListener('load',()=>{
+          if(figure.naturalWidth>0){
+            slot.replaceChildren(figure);
+            panel.dataset.sceneReady='true';
+          }
+        },{once:true});
+        figure.addEventListener('error',()=>{panel.dataset.sceneError='true';},{once:true});
+      }
+    }
     // PILOTO 005 — Boro: quadros 01 e 02 aprovados; arte original integral e texto sem duplicação.
     if(current.z===5 && document.body.dataset.folhetoPiloto==='boro'){
       sheet.dataset.printPhase='piloto-quadros-integrais';
