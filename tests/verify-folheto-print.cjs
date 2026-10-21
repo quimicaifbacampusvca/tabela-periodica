@@ -37,5 +37,8 @@ assert.ok(lithHtml.includes('data-folheto-piloto="litio"'),'Ativação do piloto
 assert.ok(js.includes("current.z===3 && document.body.dataset.folhetoPiloto==='litio'"),'Pilot must be isolated to Lítio');
 assert.ok(css.includes('grid-template-rows:15mm 8mm 96mm 65mm 69mm 13mm!important'),'A4 pilot grid changed');
 assert.ok(css.includes('object-fit:contain!important'),'Pilot must not distort/crop art');
+assert.ok(css.includes('1104×828 px'),'Lítio precisa de fonte 4:3 pronta para o slot');
+assert.ok(js.includes('fit=4x3-v1'),'Lítio deve evitar cena antiga no cache');
+assert.ok(sw.includes('cordel-varal-v26-litio-encaixe-exato'),'PWA deve invalidar cache de cenas antigas');
 assert.ok(js.includes('003-0'),'Two approved originals are required');
 assert.ok(css.includes('column-gap:2mm!important'),'Quadros devem ter o espaço reduzido da referência aprovada');

@@ -665,6 +665,10 @@ body.element-page[data-palette=blueyellow] .ep-state img,body.element-page[data-
     display:block!important;width:100%!important;height:100%!important;
     max-width:none!important;max-height:none!important;
     object-fit:contain!important;object-position:center center!important;
+    image-rendering:auto!important;
     transform:none!important;
   }
 }
+/* Artes 003 preparadas em 1104×828 px, proporção 4:3 correspondente aos
+   92×69 mm de cada slot A4. O arquivo já contém margem de segurança mínima
+   para que a borda inferior e os laterais permaneçam totalmente visíveis. */

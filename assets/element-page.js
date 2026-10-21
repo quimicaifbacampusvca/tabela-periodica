@@ -200,7 +200,7 @@
         figure.className='ep-print-approved-art';
         figure.alt='';
         figure.loading='eager';figure.decoding='sync';
-        figure.src='../../assets/folhetos/cenas/003-0'+(i+1)+'.webp';
+        figure.src='../../assets/folhetos/cenas/003-0'+(i+1)+'.webp?fit=4x3-v1';
         figure.addEventListener('load',()=>{
           if(figure.naturalWidth>0){
             slot.replaceChildren(figure);

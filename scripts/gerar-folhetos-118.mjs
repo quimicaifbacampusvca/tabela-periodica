@@ -96,15 +96,15 @@ try {
           assert.equal(panel.heading,'none','Título HTML duplicado no quadro');
           assert.equal(panel.text,'none','Legenda HTML duplicada no quadro');
           assert.equal(panel.fit,'contain','A arte não pode sofrer estiramento nem corte');
-          assert.deepEqual(panel.natural,index===0?[468,351]:[465,351],
-            'Arte deve vir diretamente da referência aprovada, com a moldura fechada');
-          assert.ok(panel.natural[0]>=460&&panel.natural[1]>=351,'Fonte aprovada não foi carregada');
+          assert.deepEqual(panel.natural,[1104,828],
+            'Arte deve estar preparada exatamente para os 92×69 mm do quadro, sem corte');
+          assert.ok(panel.natural[0]>=1104&&panel.natural[1]>=828,'Imagem redimensionada não carregou');
           assert.ok(Math.abs(panel.panel.width-panel.art.width)<2&&Math.abs(panel.panel.height-panel.art.height)<2,
             'A imagem não ocupa o quadro inteiro: '+JSON.stringify(panel));
           const printedRatio=panel.art.width/panel.art.height;
           const originalRatio=panel.natural[0]/panel.natural[1];
           assert.ok(Math.abs(printedRatio-originalRatio)<0.025,
-            'Proporção da moldura incompatível com a arte aprovada: '+JSON.stringify(panel));
+            'Proporção da moldura incompatível com a arte 4:3: '+JSON.stringify(panel));
         }
         const preview=path.join(root,'dist','previews');
         fs.mkdirSync(preview,{recursive:true});
