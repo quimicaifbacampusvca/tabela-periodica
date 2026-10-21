@@ -63,3 +63,18 @@ const rightArt=fs.readFileSync(path.join(root,'assets/folhetos/cenas/001-02.webp
 assert.ok(rightArt.length>120000,'Quadro 02 deve conter raster integral revisado');
 assert.equal(rightArt.toString('ascii',0,4),'RIFF','O arquivo de arte deve ser WebP válido');
 assert.equal(rightArt.toString('ascii',8,12),'WEBP','O arquivo de arte deve ser WebP válido');
+
+
+// PILOTO 002 — Hélio: somente as artes editoriais aprovadas e molduras completas.
+const heliumHtml=read('elementos/helio/index.html');
+assert.ok(heliumHtml.includes('data-folheto-piloto="helio"'),'Piloto Hélio não ativado');
+assert.ok(js.includes("current.z===2 && document.body.dataset.folhetoPiloto==='helio'"),'Montagem do Hélio ausente');
+assert.ok(css.includes('data-element="002"'),'Moldura A4 do Hélio ausente');
+assert.ok(js.includes('fit=he002-bordas-integrais-v1'),'Hélio precisa evitar o cache anterior');
+assert.ok(sw.includes('cordel-varal-v32-helio-002-quadros-integrais'),'Cache de cenas do Hélio não atualizado');
+for(const i of ['01','02']){
+  const file=fs.readFileSync(path.join(root,'assets/folhetos/cenas/002-'+i+'.webp'));
+  assert.ok(file.length>150000,'Arte 002-'+i+' incompleta');
+  assert.equal(file.toString('ascii',0,4),'RIFF','WebP Hélio inválido');
+  assert.equal(file.toString('ascii',8,12),'WEBP','WebP Hélio inválido');
+}

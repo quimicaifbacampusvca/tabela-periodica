@@ -56,7 +56,7 @@ try {
       });
       assert.ok(info.mainArtExists,'Arte principal ausente: '+element.name);
       assert.equal(info.allSlots,2,'Esperados dois quadros: '+element.name);
-      const pilot=element.z===1||element.z===3;
+      const pilot=element.z===1||element.z===2||element.z===3;
       assert.equal(info.emptySlots,pilot?0:2,'Slots de arte divergentes: '+element.name);
       assert.equal(info.imageCount,pilot?2:0,'Contagem incorreta de ilustrações: '+element.name);
       assert.equal(info.phase,pilot?'piloto-quadros-integrais':'estrutura-sem-cenas',
@@ -90,7 +90,7 @@ try {
               bottomInk:(()=>{
                 const canvas=document.createElement('canvas');canvas.width=img.naturalWidth;canvas.height=img.naturalHeight;
                 const ctx=canvas.getContext('2d',{willReadFrequently:true});ctx.drawImage(img,0,0);
-                const rows=img.getAttribute('src').includes('001-')
+                const rows=(img.getAttribute('src').includes('001-')||img.getAttribute('src').includes('002-'))
                   ?Array.from({length:76},(_,k)=>canvas.height-85+k)
                   :[canvas.height-10];
                 let peak=0;
@@ -127,8 +127,8 @@ try {
         const preview=path.join(root,'dist','previews');
         fs.mkdirSync(preview,{recursive:true});
         await page.setViewport({width:1200,height:1400,deviceScaleFactor:2});
-        await (await page.$('.ep-print-sheet')).screenshot({path:path.join(preview,'003-litio-a4.png')});
-        await (await page.$('.ep-print-stories')).screenshot({path:path.join(preview,'003-litio-quadros.png')});
+        await (await page.$('.ep-print-sheet')).screenshot({path:path.join(preview,String(element.z).padStart(3,'0')+'-'+element.slug+'-a4.png')});
+        await (await page.$('.ep-print-stories')).screenshot({path:path.join(preview,String(element.z).padStart(3,'0')+'-'+element.slug+'-quadros.png')});
         console.log('PILOTO A4 APROVADO NO TESTE GEOMÉTRICO:',JSON.stringify(layout.panels.map(p=>({width:p.art.width,height:p.art.height,natural:p.natural}))));
       }
       records.push({z:element.z,slug:element.slug,state:element.state,pdf:filename,size:fs.statSync(pdfPath).size});

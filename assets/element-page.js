@@ -209,6 +209,30 @@
         figure.addEventListener('error',()=>{panel.dataset.sceneError='true';},{once:true});
       }
     }
+    // PILOTO 002 — Hélio: duas artes aprovadas completas, sem títulos HTML duplicados.
+    if(current.z===2 && document.body.dataset.folhetoPiloto==='helio'){
+      sheet.dataset.printPhase='piloto-quadros-integrais';
+      const captions=[
+        'No cotidiano: o hélio é menos denso que o ar e tem baixa reatividade química.',
+        'Da origem à obtenção: o hélio é separado de algumas reservas de gás natural e purificado industrialmente.'
+      ];
+      for(const [i,slot] of [...sheet.querySelectorAll('.ep-print-story-art')].entries()){
+        const panel=slot.closest('.ep-print-story');
+        panel.setAttribute('aria-label',captions[i]);
+        const figure=document.createElement('img');
+        figure.className='ep-print-approved-art';
+        figure.alt='';
+        figure.loading='eager';figure.decoding='sync';
+        figure.src='../../assets/folhetos/cenas/002-0'+(i+1)+'.webp?fit=he002-bordas-integrais-v1';
+        figure.addEventListener('load',()=>{
+          if(figure.naturalWidth>0){
+            slot.replaceChildren(figure);
+            panel.dataset.sceneReady='true';
+          }
+        },{once:true});
+        figure.addEventListener('error',()=>{panel.dataset.sceneError='true';},{once:true});
+      }
+    }
     // PILOTO 003 — Lítio: os dois quadrinhos são artes editoriais completas.
     // Não sobrepor numerador, título ou legenda HTML; preservá-los apenas em
     // texto acessível. Nenhuma outra ficha é modificada por esta experiência.
