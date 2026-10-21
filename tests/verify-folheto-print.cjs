@@ -180,3 +180,20 @@ for(const i of ['01','02']){
   assert.equal(img.toString('ascii',0,4),'RIFF','Oxigênio WebP inválido');
   assert.equal(img.toString('ascii',8,12),'WEBP','Oxigênio WebP inválido');
 }
+
+
+// HOMOLOGAÇÃO 001 — Hidrogênio: registro editorial aprovado de ambas as artes.
+const hydrogenManifest=JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(e=>e.z===1);
+assert.ok(hydrogenManifest,'Manifesto Hidrogênio ausente');
+for(const i of ['01','02']){
+  const asset='assets/folhetos/cenas/001-'+i+'.webp';
+  const panel=hydrogenManifest.panels.find(p=>p.id===i);
+  assert.ok(panel,'Quadro Hidrogênio '+i+' ausente');
+  assert.equal(panel.image,asset,'Manifesto Hidrogênio '+i+' não aponta para a arte aprovada');
+  assert.equal(panel.status,'aprovada','Manifesto Hidrogênio '+i+' não homologado');
+  assert.ok(sw.includes(asset),'Arte Hidrogênio '+i+' não cadastrada no cache offline');
+  const file=fs.readFileSync(path.join(root,asset));
+  assert.ok(file.length>100000,'Arte Hidrogênio '+i+' incompleta');
+  assert.equal(file.toString('ascii',0,4),'RIFF','Arte Hidrogênio '+i+' não é WebP');
+  assert.equal(file.toString('ascii',8,12),'WEBP','Arte Hidrogênio '+i+' não é WebP');
+}
