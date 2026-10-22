@@ -271,7 +271,7 @@ assert.ok(magnesiumHtml.includes('data-folheto-piloto="magnesio"'),'Piloto Magn�
 assert.ok(js.includes("current.z===12 && document.body.dataset.folhetoPiloto==='magnesio'"),'Montagem do Magnésio ausente');
 assert.ok(css.includes('data-element="012"'),'Moldura A4 do Magnésio ausente');
 assert.ok(js.includes('fit=mg012-arte-aprovada-v1'),'Cache de Magnésio não invalidado');
-assert.ok(sw.includes("const CACHE='cordel-varal-v41-magnesio-012-quadros-aprovados'"),'SW precisa atualizar a versão do Magnésio');
+assert.ok(sw.includes('assets/folhetos/cenas/012-01.webp'),'SW precisa preservar cache do Magnésio');
 const manifestMg=JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(e=>e.z===12);
 assert.ok(manifestMg,'Manifesto Magnésio ausente');
 for(const i of ['01','02']){
@@ -284,4 +284,26 @@ for(const i of ['01','02']){
   assert.ok(img.length>200000,'Magnésio '+i+': arte incompleta');
   assert.equal(img.toString('ascii',0,4),'RIFF','Magnésio '+i+' WebP inválido');
   assert.equal(img.toString('ascii',8,12),'WEBP','Magnésio '+i+' WebP inválido');
+}
+
+
+// PILOTO 013 — Alumínio: artes aprovadas, sem alterar a vinheta principal.
+const aluminumHtml=read('elementos/aluminio/index.html');
+assert.ok(aluminumHtml.includes('data-folheto-piloto="aluminio"'),'Piloto Alumínio não ativado');
+assert.ok(js.includes("current.z===13 && document.body.dataset.folhetoPiloto==='aluminio'"),'Montagem do Alumínio ausente');
+assert.ok(css.includes('data-element="013"'),'Moldura A4 do Alumínio ausente');
+assert.ok(js.includes('fit=al013-arte-aprovada-v1'),'Cache das artes do Alumínio não invalidado');
+assert.ok(sw.includes("const CACHE='cordel-varal-v42-aluminio-013-quadros-aprovados'"),'SW precisa atualizar a versão do Alumínio');
+const manifestAl=JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(e=>e.z===13);
+assert.ok(manifestAl,'Manifesto Alumínio ausente');
+for(const i of ['01','02']){
+  const asset='assets/folhetos/cenas/013-'+i+'.webp';
+  const panel=manifestAl.panels.find(p=>p.id===i);
+  assert.equal(panel.image,asset,'Manifesto Alumínio '+i+' sem arte aprovada');
+  assert.equal(panel.status,'aprovada','Manifesto Alumínio '+i+' sem homologação');
+  assert.ok(sw.includes(asset),'Alumínio '+i+' fora do cache offline');
+  const img=fs.readFileSync(path.join(root,asset));
+  assert.ok(img.length>200000,'Alumínio '+i+': arte incompleta');
+  assert.equal(img.toString('ascii',0,4),'RIFF','Alumínio '+i+' WebP inválido');
+  assert.equal(img.toString('ascii',8,12),'WEBP','Alumínio '+i+' WebP inválido');
 }
