@@ -166,7 +166,7 @@ assert.ok(oxygenHtml.includes('data-folheto-piloto="oxigenio"'),'Piloto Oxigêni
 assert.ok(js.includes("current.z===8 && document.body.dataset.folhetoPiloto==='oxigenio'"),'Montagem do Oxigênio ausente');
 assert.ok(css.includes('data-element="008"'),'Moldura A4 do Oxigênio ausente');
 assert.ok(js.includes('fit=o008-arte-aprovada-v1'),'Oxigênio precisa invalidar cache');
-assert.ok(sw.includes("const CACHE='cordel-varal-v37-oxigenio-008-quadros-aprovados'"),'SW precisa atualizar cache do Oxigênio');
+assert.ok(sw.includes('assets/folhetos/cenas/008-01.webp'),'SW precisa preservar cache do Oxigênio');
 const manifestO=JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(e=>e.z===8);
 assert.ok(manifestO,'Manifesto Oxigênio ausente');
 for(const i of ['01','02']){
@@ -196,4 +196,26 @@ for(const i of ['01','02']){
   assert.ok(file.length>100000,'Arte Hidrogênio '+i+' incompleta');
   assert.equal(file.toString('ascii',0,4),'RIFF','Arte Hidrogênio '+i+' não é WebP');
   assert.equal(file.toString('ascii',8,12),'WEBP','Arte Hidrogênio '+i+' não é WebP');
+}
+
+
+// PILOTO 009 — Flúor: duas vinhetas da segunda versão editorial aprovada.
+const fluorHtml=read('elementos/fluor/index.html');
+assert.ok(fluorHtml.includes('data-folheto-piloto="fluor"'),'Piloto Flúor não ativado');
+assert.ok(js.includes("current.z===9 && document.body.dataset.folhetoPiloto==='fluor'"),'Montagem do Flúor ausente');
+assert.ok(css.includes('data-element="009"'),'Moldura A4 do Flúor ausente');
+assert.ok(js.includes('fit=f009-arte-aprovada-v2'),'Flúor precisa invalidar cache anterior');
+assert.ok(sw.includes("const CACHE='cordel-varal-v38-fluor-009-quadros-aprovados'"),'SW precisa invalidar cache do Flúor');
+const manifestF=JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(e=>e.z===9);
+assert.ok(manifestF,'Manifesto Flúor ausente');
+for(const i of ['01','02']){
+  const asset='assets/folhetos/cenas/009-'+i+'.webp';
+  const panel=manifestF.panels.find(p=>p.id===i);
+  assert.equal(panel.image,asset,'Manifesto Flúor '+i+' não aponta para arte aprovada');
+  assert.equal(panel.status,'aprovada','Manifesto Flúor '+i+' sem aprovação');
+  assert.ok(sw.includes(asset),'Flúor '+i+' fora do cache offline');
+  const img=fs.readFileSync(path.join(root,asset));
+  assert.ok(img.length>200000,'Flúor '+i+': arte incompleta');
+  assert.equal(img.toString('ascii',0,4),'RIFF','Flúor '+i+' WebP inválido');
+  assert.equal(img.toString('ascii',8,12),'WEBP','Flúor '+i+' WebP inválido');
 }
