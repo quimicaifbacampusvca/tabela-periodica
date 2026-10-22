@@ -449,6 +449,30 @@
         figure.addEventListener('error',()=>{panel.dataset.sceneError='true';},{once:true});
       }
     }
+    // PILOTO 015 — Fósforo: quadros aprovados separadamente, arte original integral.
+    if(current.z===15 && document.body.dataset.folhetoPiloto==='fosforo'){
+      sheet.dataset.printPhase='piloto-quadros-integrais';
+      const captions=[
+        'No cotidiano: fósforo vermelho na faixa de atrito de caixas de fósforos de segurança; compostos fosfatados em fertilizantes e organismos vivos.',
+        'Da origem à obtenção: rochas fosfatadas como apatita são processadas para produzir ácido fosfórico e fosfatos utilizados em fertilizantes e outros materiais.'
+      ];
+      for(const [i,slot] of [...sheet.querySelectorAll('.ep-print-story-art')].entries()){
+        const panel=slot.closest('.ep-print-story');
+        panel.setAttribute('aria-label',captions[i]);
+        const figure=document.createElement('img');
+        figure.className='ep-print-approved-art';
+        figure.alt='';
+        figure.loading='eager';figure.decoding='sync';
+        figure.src='../../assets/folhetos/cenas/015-0'+(i+1)+'.webp?fit=p015-aprovado-v1';
+        figure.addEventListener('load',()=>{
+          if(figure.naturalWidth>0){
+            slot.replaceChildren(figure);
+            panel.dataset.sceneReady='true';
+          }
+        },{once:true});
+        figure.addEventListener('error',()=>{panel.dataset.sceneError='true';},{once:true});
+      }
+    }
     // PILOTO 014 — Silício: quadros 01 e 02 aprovados; arte original integral e texto sem duplicação.
     if(current.z===14 && document.body.dataset.folhetoPiloto==='silicio'){
       sheet.dataset.printPhase='piloto-quadros-integrais';

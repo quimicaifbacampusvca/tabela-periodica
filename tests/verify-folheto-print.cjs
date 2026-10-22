@@ -351,3 +351,31 @@ for(const id of ['01','02']){
   assert.equal(actual,siliconHashes[id],'Quadro Silício '+id+': arte aprovada com moldura completa foi substituída');
   assert.equal(f.toString('ascii',12,16),'VP8 ','Silício '+id+': formato WebP inesperado');
 }
+
+// PILOTO 015 — Fósforo: quadros aprovados preservados e disponíveis offline.
+const phosphorusHtml=read('elementos/fosforo/index.html');
+assert.ok(phosphorusHtml.includes('data-folheto-piloto="fosforo"'),'Piloto Fósforo não ativado');
+assert.ok(js.includes("current.z===15 && document.body.dataset.folhetoPiloto==='fosforo'"),'Montagem do Fósforo ausente');
+assert.ok(css.includes('data-element="015"'),'Moldura A4 do Fósforo ausente');
+assert.ok(js.includes('fit=p015-aprovado-v1'),'Cache das artes do Fósforo não invalidado');
+assert.ok(sw.includes("cordel-varal-v46-fosforo-015-quadros-aprovados"),'PWA deve atualizar para o Fósforo');
+const manifestP=JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(e=>e.z===15);
+assert.ok(manifestP,'Manifesto Fósforo ausente');
+const phosphorusHashes={
+  '01':'6baf374c17d37ea68b4904ba33b8267f6b649da90ef2cb5315487b3747553065',
+  '02':'1bb524362a01105009ff4e5a2f95d690574aac11350a95c3c26405d7faa5b2e4'
+};
+const phosphorusCrypto=require('node:crypto');
+for(const id of ['01','02']){
+  const asset='assets/folhetos/cenas/015-'+id+'.webp';
+  const panel=manifestP.panels.find(p=>p.id===id);
+  assert.equal(panel.image,asset,'Manifesto Fósforo '+id+' sem arte aprovada');
+  assert.equal(panel.expectedAsset,asset,'Manifesto Fósforo '+id+' sem asset esperado');
+  assert.equal(panel.status,'aprovada','Manifesto Fósforo '+id+' sem homologação');
+  assert.ok(sw.includes(asset),'Fósforo '+id+' fora do cache offline');
+  const buf=fs.readFileSync(path.join(root,asset));
+  assert.ok(buf.length>200000,'Fósforo '+id+': arte incompleta');
+  assert.equal(buf.toString('ascii',0,4),'RIFF','Fósforo '+id+' WebP inválido');
+  assert.equal(buf.toString('ascii',8,12),'WEBP','Fósforo '+id+' WebP inválido');
+  assert.equal(phosphorusCrypto.createHash('sha256').update(buf).digest('hex'),phosphorusHashes[id],'Fósforo '+id+': arte aprovada alterada');
+}
