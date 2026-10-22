@@ -314,22 +314,29 @@ const siliconHtml=read('elementos/silicio/index.html');
 assert.ok(siliconHtml.includes('data-folheto-piloto="silicio"'),'Piloto Silício não ativado');
 assert.ok(js.includes("current.z===14 && document.body.dataset.folhetoPiloto==='silicio'"),'Montagem do Silício ausente');
 assert.ok(css.includes('data-element="014"'),'Moldura A4 do Silício ausente');
-assert.ok(js.includes('fit=si014-moldura-completa-v2'),'Cache das artes do Silício não invalidado');
-assert.ok(sw.includes("const CACHE='cordel-varal-v44-silicio-014-molduras-completas'"),'SW precisa atualizar a versão do Silício');
+assert.ok(js.includes('fit=si014-sem-fundo-v3'),'Cache das artes do Silício não invalidado');
+assert.ok(sw.includes("const CACHE='cordel-varal-v45-silicio-014-sem-fundo-externo'"),'SW precisa atualizar a versão do Silício');
 const manifestSi=JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(e=>e.z===14);
 assert.ok(manifestSi,'Manifesto Silício ausente');
 for(const i of ['01','02']){
-  const asset='assets/folhetos/cenas/014-'+i+'.webp';
+  const asset='assets/folhetos/cenas/014-'+i+'.svg';
   const panel=manifestSi.panels.find(p=>p.id===i);
-  assert.equal(panel.image,asset,'Manifesto Silício '+i+' sem arte aprovada');
+  assert.equal(panel.image,asset,'Manifesto Silício '+i+' sem arte recortada');
+  assert.equal(panel.expectedAsset,asset,'Manifesto Silício '+i+' sem arquivo esperado');
   assert.equal(panel.status,'aprovada','Manifesto Silício '+i+' sem homologação');
   assert.ok(sw.includes(asset),'Silício '+i+' fora do cache offline');
-  const img=fs.readFileSync(path.join(root,asset));
-  assert.ok(img.length>200000,'Silício '+i+': arte incompleta');
-  assert.equal(img.toString('ascii',0,4),'RIFF','Silício '+i+' WebP inválido');
-  assert.equal(img.toString('ascii',8,12),'WEBP','Silício '+i+' WebP inválido');
+  const svg=fs.readFileSync(path.join(root,asset),'utf8');
+  assert.ok(svg.startsWith('<svg xmlns="http://www.w3.org/2000/svg"'),'Silício '+i+': SVG inválido');
+  assert.ok(svg.includes('viewBox="0 0 1104 810"'),'Silício '+i+': dimensões lógicas alteradas');
+  assert.ok(svg.includes('clipPath id="limite-da-moldura"'),'Silício '+i+': máscara ausente');
+  assert.ok(svg.includes('rect x="57" y="16" width="989" height="780"'),'Silício '+i+': área externa não mascarada');
+  const prefix='href="data:image/webp;base64,';
+  const begin=svg.indexOf(prefix);
+  const finish=svg.indexOf('"',begin+prefix.length);
+  assert.ok(begin>=0&&finish>begin,'Silício '+i+': arte integral não incorporada');
+  const original=fs.readFileSync(path.join(root,'assets/folhetos/cenas/014-'+i+'.webp'));
+  assert.deepEqual(Buffer.from(svg.slice(begin+prefix.length,finish),'base64'),original,'Silício '+i+': original aprovado foi redesenhado');
 }
-
 
 // REGRESSÃO 014 — a extração anterior cortava a borda inferior dos dois quadros.
 // SHA-256 fixa a versão de 1104 × 810 px reconstruída do pôster original completo.
