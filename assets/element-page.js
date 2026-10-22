@@ -449,6 +449,30 @@
         figure.addEventListener('error',()=>{panel.dataset.sceneError='true';},{once:true});
       }
     }
+    // PILOTO 018 — Argônio: quadros 01 e 02 aprovados, arte integral sem margem extra.
+    if(current.z===18 && document.body.dataset.folhetoPiloto==='argonio'){
+      sheet.dataset.printPhase='piloto-quadros-integrais';
+      const captions=[
+        'No cotidiano: o argônio, gás nobre pouco reativo, é utilizado como gás de proteção na soldagem e também em algumas lâmpadas e janelas de vidro duplo.',
+        'Da origem à obtenção: presente em cerca de 0,93% do ar atmosférico, o argônio é obtido industrialmente por separação criogênica do ar.'
+      ];
+      for(const [i,slot] of [...sheet.querySelectorAll('.ep-print-story-art')].entries()){
+        const panel=slot.closest('.ep-print-story');
+        panel.setAttribute('aria-label',captions[i]);
+        const figure=document.createElement('img');
+        figure.className='ep-print-approved-art';
+        figure.alt='';
+        figure.loading='eager';figure.decoding='sync';
+        figure.src='../../assets/folhetos/cenas/018-0'+(i+1)+'.webp?fit=ar018-integral-v1';
+        figure.addEventListener('load',()=>{
+          if(figure.naturalWidth>0){
+            slot.replaceChildren(figure);
+            panel.dataset.sceneReady='true';
+          }
+        },{once:true});
+        figure.addEventListener('error',()=>{panel.dataset.sceneError='true';},{once:true});
+      }
+    }
     // PILOTO 017 — Cloro: quadros 01 e 02 aprovados em artes independentes.
     if(current.z===17 && document.body.dataset.folhetoPiloto==='cloro'){
       sheet.dataset.printPhase='piloto-quadros-integrais';

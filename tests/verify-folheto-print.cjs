@@ -445,3 +445,35 @@ for(const id of ['01','02']){
   assert.equal(img.readUInt16LE(28)&0x3fff,810,'Cloro '+id+': altura fora do padrão');
   assert.equal(chlorineCrypto.createHash('sha256').update(img).digest('hex'),chlorineHashes[id],'Cloro '+id+' difere da arte aprovada');
 }
+
+// PILOTO 018 — Argônio: vinhetas integrais, encaixe A4 e conteúdo aprovado.
+const argonPage=read('elementos/argonio/index.html');
+assert.ok(argonPage.includes('data-folheto-piloto="argonio"'),'Piloto Argônio não ativado');
+assert.ok(js.includes("current.z===18 && document.body.dataset.folhetoPiloto==='argonio'"),'Montagem Argônio ausente');
+assert.ok(css.includes('data-element="018"'),'Argônio sem encaixe editorial A4');
+assert.ok(js.includes('fit=ar018-integral-v1'),'Argônio sem invalidação de imagem');
+assert.ok(sw.includes('cordel-varal-v50-argonio-018-quadros-aprovados'),'PWA Argônio não versionado');
+const manifestAr=JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(e=>e.z===18);
+assert.ok(manifestAr&&manifestAr.panels.length===2,'Manifesto Argônio incompleto');
+const argonHashes={
+  '01':'8e8bf2dd171b4afff988878ea66dcc53a2ffc7a5a8d82d27874d2b4dd390c2c4',
+  '02':'063d9cf78d96fe982b709cb321d6f4bf58da58993eb6ef7f823ff37d719fdd44'
+};
+const argonCrypto=require('node:crypto');
+for(const id of ['01','02']){
+  const asset='assets/folhetos/cenas/018-'+id+'.webp';
+  const panel=manifestAr.panels.find(p=>p.id===id);
+  assert.ok(panel,'Quadro Argônio '+id+' ausente');
+  assert.equal(panel.image,asset,'Arte do Argônio '+id+' não integrada');
+  assert.equal(panel.expectedAsset,asset,'Referência Argônio '+id+' incorreta');
+  assert.equal(panel.status,'aprovada','Argônio '+id+' não aprovado no manifesto');
+  assert.ok(sw.includes(asset),'Argônio '+id+' fora do PWA offline');
+  const img=fs.readFileSync(path.join(root,asset));
+  assert.ok(img.length>200000,'Argônio '+id+' tem arte incompleta');
+  assert.equal(img.toString('ascii',0,4),'RIFF','Argônio '+id+' sem RIFF');
+  assert.equal(img.toString('ascii',8,12),'WEBP','Argônio '+id+' não é WebP');
+  assert.equal(img.toString('ascii',12,16),'VP8 ','Argônio '+id+' não pode ter laterais transparentes');
+  assert.equal(img.readUInt16LE(26)&0x3fff,1104,'Argônio '+id+' largura alterada');
+  assert.equal(img.readUInt16LE(28)&0x3fff,810,'Argônio '+id+' altura alterada');
+  assert.equal(argonCrypto.createHash('sha256').update(img).digest('hex'),argonHashes[id],'Argônio '+id+' difere do quadro aprovado');
+}
