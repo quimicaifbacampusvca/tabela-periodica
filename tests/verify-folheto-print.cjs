@@ -411,3 +411,37 @@ for(const id of ['01','02']){
   assert.equal(img.readUInt16LE(28)&0x3fff,810,'Enxofre '+id+' altura não homologada');
   assert.equal(sulfurCrypto.createHash('sha256').update(img).digest('hex'),sulfurHashes[id],'Enxofre '+id+': arte aprovada foi alterada');
 }
+
+
+// PILOTO 017 — Cloro: artes aprovadas, molduras completas, canvas sem distorção.
+const chlorineHtml=read('elementos/cloro/index.html');
+assert.ok(chlorineHtml.includes('data-folheto-piloto="cloro"'),'Piloto Cloro não ativado');
+assert.ok(js.includes("current.z===17 && document.body.dataset.folhetoPiloto==='cloro'"),'Montagem Cloro ausente');
+assert.ok(css.includes('data-element="017"'),'Encaixe A4 do Cloro ausente');
+assert.ok(js.includes('fit=cl017-aprovado-v1'),'Cloro sem invalidação de cache');
+assert.ok(sw.includes("cordel-varal-v48-cloro-017-quadros-aprovados"),'Service worker do Cloro não versionado');
+const manifestCl=JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(e=>e.z===17);
+assert.ok(manifestCl&&manifestCl.panels.length===2,'Manifesto Cloro incompleto');
+const chlorineHashes={
+  '01':'4c67ebc9b9f301f78a9cfecc7f26440f8ecb27adef8c0622acead57123320929',
+  '02':'2bd026007856dc642776e3fe53e61b27c339d7a6778ce61f1ec844b620cd1749'
+};
+const chlorineCrypto=require('node:crypto');
+for(const id of ['01','02']){
+  const asset='assets/folhetos/cenas/017-'+id+'.webp';
+  const panel=manifestCl.panels.find(p=>p.id===id);
+  assert.ok(panel,'Quadro Cloro '+id+' não consta do manifesto');
+  assert.equal(panel.image,asset,'Imagem Cloro '+id+' ausente no manifesto');
+  assert.equal(panel.expectedAsset,asset,'Imagem Cloro '+id+' com destino incorreto');
+  assert.equal(panel.status,'aprovada','Quadro Cloro '+id+' não marcado como aprovado');
+  assert.ok(sw.includes(asset),'Quadro Cloro '+id+' fora do cache offline');
+  const img=fs.readFileSync(path.join(root,asset));
+  assert.ok(img.length>200000,'Quadro Cloro '+id+': imagem incompleta');
+  assert.equal(img.toString('ascii',0,4),'RIFF','Cloro '+id+' RIFF inválido');
+  assert.equal(img.toString('ascii',8,12),'WEBP','Cloro '+id+' WebP inválido');
+  assert.equal(img.toString('ascii',12,16),'VP8X','Cloro '+id+' precisa conservar transparência sem fundo externo');
+  assert.equal(img.readUIntLE(24,3)+1,1104,'Cloro '+id+' largura alterada');
+  assert.equal(img.readUIntLE(27,3)+1,810,'Cloro '+id+' altura alterada');
+  assert.ok((img[20]&16)!==0,'Cloro '+id+' perdeu a transparência das laterais');
+  assert.equal(chlorineCrypto.createHash('sha256').update(img).digest('hex'),chlorineHashes[id],'Cloro '+id+' difere da arte aprovada');
+}

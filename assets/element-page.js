@@ -449,6 +449,30 @@
         figure.addEventListener('error',()=>{panel.dataset.sceneError='true';},{once:true});
       }
     }
+    // PILOTO 017 — Cloro: quadros 01 e 02 aprovados em artes independentes.
+    if(current.z===17 && document.body.dataset.folhetoPiloto==='cloro'){
+      sheet.dataset.printPhase='piloto-quadros-integrais';
+      const captions=[
+        'No cotidiano: o tratamento de água e produtos como água sanitária utilizam compostos de cloro para reduzir microrganismos; produtos domésticos não contêm gás cloro livre.',
+        'Da origem à obtenção: a eletrólise de uma solução aquosa de cloreto de sódio produz cloro, hidrogênio e hidróxido de sódio em processo industrial.'
+      ];
+      for(const [i,slot] of [...sheet.querySelectorAll('.ep-print-story-art')].entries()){
+        const panel=slot.closest('.ep-print-story');
+        panel.setAttribute('aria-label',captions[i]);
+        const figure=document.createElement('img');
+        figure.className='ep-print-approved-art';
+        figure.alt='';
+        figure.loading='eager';figure.decoding='sync';
+        figure.src='../../assets/folhetos/cenas/017-0'+(i+1)+'.webp?fit=cl017-aprovado-v1';
+        figure.addEventListener('load',()=>{
+          if(figure.naturalWidth>0){
+            slot.replaceChildren(figure);
+            panel.dataset.sceneReady='true';
+          }
+        },{once:true});
+        figure.addEventListener('error',()=>{panel.dataset.sceneError='true';},{once:true});
+      }
+    }
     // PILOTO 016 — Enxofre: quadros 01 e 02 aprovados em vinhetas integrais.
     if(current.z===16 && document.body.dataset.folhetoPiloto==='enxofre'){
       sheet.dataset.printPhase='piloto-quadros-integrais';
