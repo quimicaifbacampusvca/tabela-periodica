@@ -1102,3 +1102,46 @@ body.element-page[data-palette=blueyellow] .ep-state img,body.element-page[data-
 }
 
 
+
+/* PILOTO 012 — Magnésio: quadros aprovados conforme o encaixe A4 homologado no Lítio.
+   Artes aprovadas em 1104 × 810 px, sem corte, sobreposição ou deformação. */
+@media print {
+  body.element-page > .ep-print-sheet.ep-print-prototype[data-element="012"][data-print-phase="piloto-quadros-integrais"]{
+    grid-template-rows:15mm 8mm 96mm 65mm 67.5mm 14.5mm!important;
+  }
+  .ep-print-sheet[data-element="012"][data-print-phase="piloto-quadros-integrais"] .ep-print-stories{
+    display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    align-items:stretch!important;justify-items:stretch!important;
+    column-gap:2mm!important;gap:2mm!important;
+  }
+  .ep-print-sheet[data-element="012"][data-print-phase="piloto-quadros-integrais"] .ep-print-story{
+    display:block!important;position:relative!important;
+    padding:0!important;margin:0!important;gap:0!important;
+    border:0!important;min-width:0!important;min-height:0!important;
+    height:100%!important;overflow:visible!important;background:#fffaf0!important;
+  }
+  .ep-print-sheet[data-element="012"][data-print-phase="piloto-quadros-integrais"] .ep-print-story > h2,
+  .ep-print-sheet[data-element="012"][data-print-phase="piloto-quadros-integrais"] .ep-print-story > p{
+    display:none!important;
+  }
+  .ep-print-sheet[data-element="012"][data-print-phase="piloto-quadros-integrais"] .ep-print-story-art{
+    position:absolute!important;display:block!important;inset:0!important;
+    width:100%!important;height:100%!important;min-height:0!important;
+    max-height:none!important;margin:0!important;padding:0!important;
+    border:0!important;overflow:hidden!important;
+    background:#fffaf0!important;
+  }
+  .ep-print-sheet[data-element="012"][data-print-phase="piloto-quadros-integrais"] .ep-print-story-art::before,
+  .ep-print-sheet[data-element="012"][data-print-phase="piloto-quadros-integrais"] .ep-print-story-art::after{
+    content:none!important;
+  }
+  .ep-print-sheet[data-element="012"][data-print-phase="piloto-quadros-integrais"] .ep-print-approved-art{
+    display:block!important;width:100%!important;height:100%!important;
+    max-width:none!important;max-height:none!important;
+    object-fit:contain!important;object-position:center center!important;
+    image-rendering:auto!important;
+    transform:none!important;
+  }
+}
+
+

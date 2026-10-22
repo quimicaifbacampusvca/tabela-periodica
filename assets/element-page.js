@@ -401,6 +401,30 @@
         figure.addEventListener('error',()=>{panel.dataset.sceneError='true';},{once:true});
       }
     }
+    // PILOTO 012 — Magnésio: quadros 01 e 02 aprovados; arte original integral e texto sem duplicação.
+    if(current.z===12 && document.body.dataset.folhetoPiloto==='magnesio'){
+      sheet.dataset.printPhase='piloto-quadros-integrais';
+      const captions=[
+        'No cotidiano: o magnésio participa de compostos presentes em alimentos, antiácidos e suplementos, e também integra ligas metálicas leves utilizadas em alguns produtos.',
+        'Da origem à obtenção: o magnésio metálico pode ser obtido de minerais como magnesita e dolomita ou de sais de água do mar, por rotas industriais de redução ou eletrólise.'
+      ];
+      for(const [i,slot] of [...sheet.querySelectorAll('.ep-print-story-art')].entries()){
+        const panel=slot.closest('.ep-print-story');
+        panel.setAttribute('aria-label',captions[i]);
+        const figure=document.createElement('img');
+        figure.className='ep-print-approved-art';
+        figure.alt='';
+        figure.loading='eager';figure.decoding='sync';
+        figure.src='../../assets/folhetos/cenas/012-0'+(i+1)+'.webp?fit=mg012-arte-aprovada-v1';
+        figure.addEventListener('load',()=>{
+          if(figure.naturalWidth>0){
+            slot.replaceChildren(figure);
+            panel.dataset.sceneReady='true';
+          }
+        },{once:true});
+        figure.addEventListener('error',()=>{panel.dataset.sceneError='true';},{once:true});
+      }
+    }
     // PILOTO 005 — Boro: quadros 01 e 02 aprovados; arte original integral e texto sem duplicação.
     if(current.z===5 && document.body.dataset.folhetoPiloto==='boro'){
       sheet.dataset.printPhase='piloto-quadros-integrais';
