@@ -477,3 +477,35 @@ for(const id of ['01','02']){
   assert.equal(img.readUInt16LE(28)&0x3fff,810,'Argônio '+id+' altura alterada');
   assert.equal(argonCrypto.createHash('sha256').update(img).digest('hex'),argonHashes[id],'Argônio '+id+' difere do quadro aprovado');
 }
+
+// PILOTO 019 — Potássio: artes aprovadas, montagem A4 e regressão das bordas.
+const potassiumPage=read('elementos/potassio/index.html');
+assert.ok(potassiumPage.includes('data-folheto-piloto="potassio"'),'Piloto Potássio não ativado');
+assert.ok(js.includes("current.z===19 && document.body.dataset.folhetoPiloto==='potassio'"),'Montagem Potássio ausente');
+assert.ok(css.includes('data-element="019"'),'Potássio sem encaixe A4');
+assert.ok(js.includes('fit=k019-quadro-integral-v1'),'Cache das artes de Potássio não invalidado');
+assert.ok(sw.includes('cordel-varal-v51-potassio-019-quadros-aprovados'),'PWA Potássio não versionado');
+const manifestK=JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(e=>e.z===19);
+assert.ok(manifestK&&manifestK.panels.length===2,'Manifesto Potássio incompleto');
+const potassiumHashes={
+  '01':'57436b2aae2b1acce1d4c1e7697dc7892185b386a95513aa18db1ce3942e1d6d',
+  '02':'4f089693e8f26c8f578b6af1a2dfdd47ed38aa10b870a642df71366d76754e34'
+};
+const potassiumCrypto=require('node:crypto');
+for(const id of ['01','02']){
+  const asset='assets/folhetos/cenas/019-'+id+'.webp';
+  const panel=manifestK.panels.find(p=>p.id===id);
+  assert.ok(panel,'Quadro Potássio '+id+' ausente do manifesto');
+  assert.equal(panel.image,asset,'Quadro Potássio '+id+' sem arte');
+  assert.equal(panel.expectedAsset,asset,'Quadro Potássio '+id+' com referência incorreta');
+  assert.equal(panel.status,'aprovada','Quadro Potássio '+id+' não aprovado');
+  assert.ok(sw.includes(asset),'Quadro Potássio '+id+' fora do cache offline');
+  const img=fs.readFileSync(path.join(root,asset));
+  assert.ok(img.length>200000,'Quadro Potássio '+id+': arte incompleta');
+  assert.equal(img.toString('ascii',0,4),'RIFF','Quadro Potássio '+id+': RIFF ausente');
+  assert.equal(img.toString('ascii',8,12),'WEBP','Quadro Potássio '+id+': WebP inválido');
+  assert.equal(img.toString('ascii',12,16),'VP8 ','Quadro Potássio '+id+': não deve haver transparência');
+  assert.equal(img.readUInt16LE(26)&0x3fff,1104,'Quadro Potássio '+id+': largura diferente de 1104');
+  assert.equal(img.readUInt16LE(28)&0x3fff,810,'Quadro Potássio '+id+': altura diferente de 810');
+  assert.equal(potassiumCrypto.createHash('sha256').update(img).digest('hex'),potassiumHashes[id],'Quadro Potássio '+id+': arquivo difere da arte aprovada');
+}

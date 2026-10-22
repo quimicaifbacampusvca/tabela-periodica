@@ -449,6 +449,30 @@
         figure.addEventListener('error',()=>{panel.dataset.sceneError='true';},{once:true});
       }
     }
+    // PILOTO 019 — Potássio: quadros 01 e 02 aprovados, integrais e sem margens extras.
+    if(current.z===19 && document.body.dataset.folhetoPiloto==='potassio'){
+      sheet.dataset.printPhase='piloto-quadros-integrais';
+      const captions=[
+        'No cotidiano: o potássio aparece como íons K+ nos seres vivos e em alimentos; compostos potássicos são utilizados em fertilizantes.',
+        'Da origem à obtenção: minerais como silvita e carnalita fornecem sais de potássio, obtidos por mineração e processamento industrial para uso em fertilizantes.'
+      ];
+      for(const [i,slot] of [...sheet.querySelectorAll('.ep-print-story-art')].entries()){
+        const panel=slot.closest('.ep-print-story');
+        panel.setAttribute('aria-label',captions[i]);
+        const figure=document.createElement('img');
+        figure.className='ep-print-approved-art';
+        figure.alt='';
+        figure.loading='eager';figure.decoding='sync';
+        figure.src='../../assets/folhetos/cenas/019-0'+(i+1)+'.webp?fit=k019-quadro-integral-v1';
+        figure.addEventListener('load',()=>{
+          if(figure.naturalWidth>0){
+            slot.replaceChildren(figure);
+            panel.dataset.sceneReady='true';
+          }
+        },{once:true});
+        figure.addEventListener('error',()=>{panel.dataset.sceneError='true';},{once:true});
+      }
+    }
     // PILOTO 018 — Argônio: quadros 01 e 02 aprovados, arte integral sem margem extra.
     if(current.z===18 && document.body.dataset.folhetoPiloto==='argonio'){
       sheet.dataset.printPhase='piloto-quadros-integrais';
