@@ -449,6 +449,30 @@
         figure.addEventListener('error',()=>{panel.dataset.sceneError='true';},{once:true});
       }
     }
+    // PILOTO 014 — Silício: quadros 01 e 02 aprovados; arte original integral e texto sem duplicação.
+    if(current.z===14 && document.body.dataset.folhetoPiloto==='silicio'){
+      sheet.dataset.printPhase='piloto-quadros-integrais';
+      const captions=[
+        'No cotidiano: o silício purificado é utilizado em microchips e células solares; vidros e cerâmicas podem conter compostos como sílica e silicatos, que não são silício elementar.',
+        'Da origem à obtenção: a sílica, SiO2, presente no quartzo, é reduzida com carbono em forno elétrico para produzir silício metalúrgico, que pode ser posteriormente purificado para aplicações eletrônicas.'
+      ];
+      for(const [i,slot] of [...sheet.querySelectorAll('.ep-print-story-art')].entries()){
+        const panel=slot.closest('.ep-print-story');
+        panel.setAttribute('aria-label',captions[i]);
+        const figure=document.createElement('img');
+        figure.className='ep-print-approved-art';
+        figure.alt='';
+        figure.loading='eager';figure.decoding='sync';
+        figure.src='../../assets/folhetos/cenas/014-0'+(i+1)+'.webp?fit=si014-arte-aprovada-v1';
+        figure.addEventListener('load',()=>{
+          if(figure.naturalWidth>0){
+            slot.replaceChildren(figure);
+            panel.dataset.sceneReady='true';
+          }
+        },{once:true});
+        figure.addEventListener('error',()=>{panel.dataset.sceneError='true';},{once:true});
+      }
+    }
     // PILOTO 005 — Boro: quadros 01 e 02 aprovados; arte original integral e texto sem duplicação.
     if(current.z===5 && document.body.dataset.folhetoPiloto==='boro'){
       sheet.dataset.printPhase='piloto-quadros-integrais';

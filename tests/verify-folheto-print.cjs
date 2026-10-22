@@ -293,7 +293,7 @@ assert.ok(aluminumHtml.includes('data-folheto-piloto="aluminio"'),'Piloto Alumí
 assert.ok(js.includes("current.z===13 && document.body.dataset.folhetoPiloto==='aluminio'"),'Montagem do Alumínio ausente');
 assert.ok(css.includes('data-element="013"'),'Moldura A4 do Alumínio ausente');
 assert.ok(js.includes('fit=al013-arte-aprovada-v1'),'Cache das artes do Alumínio não invalidado');
-assert.ok(sw.includes("const CACHE='cordel-varal-v42-aluminio-013-quadros-aprovados'"),'SW precisa atualizar a versão do Alumínio');
+assert.ok(sw.includes('assets/folhetos/cenas/013-01.webp'),'SW precisa preservar cache do Alumínio');
 const manifestAl=JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(e=>e.z===13);
 assert.ok(manifestAl,'Manifesto Alumínio ausente');
 for(const i of ['01','02']){
@@ -306,4 +306,26 @@ for(const i of ['01','02']){
   assert.ok(img.length>200000,'Alumínio '+i+': arte incompleta');
   assert.equal(img.toString('ascii',0,4),'RIFF','Alumínio '+i+' WebP inválido');
   assert.equal(img.toString('ascii',8,12),'WEBP','Alumínio '+i+' WebP inválido');
+}
+
+
+// PILOTO 014 — Silício: duas artes aprovadas, mantendo a arte principal oficial.
+const siliconHtml=read('elementos/silicio/index.html');
+assert.ok(siliconHtml.includes('data-folheto-piloto="silicio"'),'Piloto Silício não ativado');
+assert.ok(js.includes("current.z===14 && document.body.dataset.folhetoPiloto==='silicio'"),'Montagem do Silício ausente');
+assert.ok(css.includes('data-element="014"'),'Moldura A4 do Silício ausente');
+assert.ok(js.includes('fit=si014-arte-aprovada-v1'),'Cache das artes do Silício não invalidado');
+assert.ok(sw.includes("const CACHE='cordel-varal-v43-silicio-014-quadros-aprovados'"),'SW precisa atualizar a versão do Silício');
+const manifestSi=JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(e=>e.z===14);
+assert.ok(manifestSi,'Manifesto Silício ausente');
+for(const i of ['01','02']){
+  const asset='assets/folhetos/cenas/014-'+i+'.webp';
+  const panel=manifestSi.panels.find(p=>p.id===i);
+  assert.equal(panel.image,asset,'Manifesto Silício '+i+' sem arte aprovada');
+  assert.equal(panel.status,'aprovada','Manifesto Silício '+i+' sem homologação');
+  assert.ok(sw.includes(asset),'Silício '+i+' fora do cache offline');
+  const img=fs.readFileSync(path.join(root,asset));
+  assert.ok(img.length>200000,'Silício '+i+': arte incompleta');
+  assert.equal(img.toString('ascii',0,4),'RIFF','Silício '+i+' WebP inválido');
+  assert.equal(img.toString('ascii',8,12),'WEBP','Silício '+i+' WebP inválido');
 }
