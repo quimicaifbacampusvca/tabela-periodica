@@ -463,7 +463,7 @@
         figure.className='ep-print-approved-art';
         figure.alt='';
         figure.loading='eager';figure.decoding='sync';
-        figure.src='../../assets/folhetos/cenas/017-0'+(i+1)+'.webp?fit=cl017-aprovado-v1';
+        figure.src='../../assets/folhetos/cenas/017-0'+(i+1)+'.webp?fit=cl017-preenchimento-integral-v2';
         figure.addEventListener('load',()=>{
           if(figure.naturalWidth>0){
             slot.replaceChildren(figure);

@@ -418,13 +418,13 @@ const chlorineHtml=read('elementos/cloro/index.html');
 assert.ok(chlorineHtml.includes('data-folheto-piloto="cloro"'),'Piloto Cloro não ativado');
 assert.ok(js.includes("current.z===17 && document.body.dataset.folhetoPiloto==='cloro'"),'Montagem Cloro ausente');
 assert.ok(css.includes('data-element="017"'),'Encaixe A4 do Cloro ausente');
-assert.ok(js.includes('fit=cl017-aprovado-v1'),'Cloro sem invalidação de cache');
-assert.ok(sw.includes("cordel-varal-v48-cloro-017-quadros-aprovados"),'Service worker do Cloro não versionado');
+assert.ok(js.includes('fit=cl017-preenchimento-integral-v2'),'Cloro sem invalidação de cache');
+assert.ok(sw.includes("cordel-varal-v49-cloro-017-preenchimento-integral"),'Service worker do Cloro não versionado');
 const manifestCl=JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(e=>e.z===17);
 assert.ok(manifestCl&&manifestCl.panels.length===2,'Manifesto Cloro incompleto');
 const chlorineHashes={
-  '01':'4c67ebc9b9f301f78a9cfecc7f26440f8ecb27adef8c0622acead57123320929',
-  '02':'2bd026007856dc642776e3fe53e61b27c339d7a6778ce61f1ec844b620cd1749'
+  '01':'bf02bf6965d6afba25d4f3e700f30ffc8a183be124b496ff4681dc6522d0837e',
+  '02':'71001895d68da61633adfff0db4c5a04dc0ebbadb69b0a9db9f56f12b3085664'
 };
 const chlorineCrypto=require('node:crypto');
 for(const id of ['01','02']){
@@ -439,9 +439,9 @@ for(const id of ['01','02']){
   assert.ok(img.length>200000,'Quadro Cloro '+id+': imagem incompleta');
   assert.equal(img.toString('ascii',0,4),'RIFF','Cloro '+id+' RIFF inválido');
   assert.equal(img.toString('ascii',8,12),'WEBP','Cloro '+id+' WebP inválido');
-  assert.equal(img.toString('ascii',12,16),'VP8X','Cloro '+id+' precisa conservar transparência sem fundo externo');
-  assert.equal(img.readUIntLE(24,3)+1,1104,'Cloro '+id+' largura alterada');
-  assert.equal(img.readUIntLE(27,3)+1,810,'Cloro '+id+' altura alterada');
-  assert.ok((img[20]&16)!==0,'Cloro '+id+' perdeu a transparência das laterais');
+  // O quadro deve ocupar toda a área, sem canal alfa nem laterais transparentes.
+  assert.equal(img.toString('ascii',12,16),'VP8 ','Cloro '+id+': quadro com transparência ou formato inesperado');
+  assert.equal(img.readUInt16LE(26)&0x3fff,1104,'Cloro '+id+': largura fora do padrão');
+  assert.equal(img.readUInt16LE(28)&0x3fff,810,'Cloro '+id+': altura fora do padrão');
   assert.equal(chlorineCrypto.createHash('sha256').update(img).digest('hex'),chlorineHashes[id],'Cloro '+id+' difere da arte aprovada');
 }
