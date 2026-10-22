@@ -314,8 +314,8 @@ const siliconHtml=read('elementos/silicio/index.html');
 assert.ok(siliconHtml.includes('data-folheto-piloto="silicio"'),'Piloto Silício não ativado');
 assert.ok(js.includes("current.z===14 && document.body.dataset.folhetoPiloto==='silicio'"),'Montagem do Silício ausente');
 assert.ok(css.includes('data-element="014"'),'Moldura A4 do Silício ausente');
-assert.ok(js.includes('fit=si014-arte-aprovada-v1'),'Cache das artes do Silício não invalidado');
-assert.ok(sw.includes("const CACHE='cordel-varal-v43-silicio-014-quadros-aprovados'"),'SW precisa atualizar a versão do Silício');
+assert.ok(js.includes('fit=si014-moldura-completa-v2'),'Cache das artes do Silício não invalidado');
+assert.ok(sw.includes("const CACHE='cordel-varal-v44-silicio-014-molduras-completas'"),'SW precisa atualizar a versão do Silício');
 const manifestSi=JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(e=>e.z===14);
 assert.ok(manifestSi,'Manifesto Silício ausente');
 for(const i of ['01','02']){
@@ -328,4 +328,19 @@ for(const i of ['01','02']){
   assert.ok(img.length>200000,'Silício '+i+': arte incompleta');
   assert.equal(img.toString('ascii',0,4),'RIFF','Silício '+i+' WebP inválido');
   assert.equal(img.toString('ascii',8,12),'WEBP','Silício '+i+' WebP inválido');
+}
+
+
+// REGRESSÃO 014 — a extração anterior cortava a borda inferior dos dois quadros.
+// SHA-256 fixa a versão de 1104 × 810 px reconstruída do pôster original completo.
+const siliconCrypto=require('node:crypto');
+const siliconHashes={
+  '01':'ba018f44eb97ef71d6d554e2302e6310a229646a51fbfb64ee1e8454a9155bbe',
+  '02':'011fbc33874fdba197976b287a1ed634a3ef77356646801120c9b79f72ff10a3'
+};
+for(const id of ['01','02']){
+  const f=fs.readFileSync(path.join(root,'assets/folhetos/cenas/014-'+id+'.webp'));
+  const actual=siliconCrypto.createHash('sha256').update(f).digest('hex');
+  assert.equal(actual,siliconHashes[id],'Quadro Silício '+id+': arte aprovada com moldura completa foi substituída');
+  assert.equal(f.toString('ascii',12,16),'VP8 ','Silício '+id+': formato WebP inesperado');
 }
