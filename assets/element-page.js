@@ -449,6 +449,30 @@
         figure.addEventListener('error',()=>{panel.dataset.sceneError='true';},{once:true});
       }
     }
+    // PILOTO 016 — Enxofre: quadros 01 e 02 aprovados em vinhetas integrais.
+    if(current.z===16 && document.body.dataset.folhetoPiloto==='enxofre'){
+      sheet.dataset.printPhase='piloto-quadros-integrais';
+      const captions=[
+        'No cotidiano: o enxofre é empregado na vulcanização da borracha, melhorando resistência e elasticidade, e na produção industrial de ácido sulfúrico.',
+        'Da origem à obtenção: o sulfeto de hidrogênio presente no processamento de petróleo e gás natural é convertido em enxofre elementar pelo processo Claus.'
+      ];
+      for(const [i,slot] of [...sheet.querySelectorAll('.ep-print-story-art')].entries()){
+        const panel=slot.closest('.ep-print-story');
+        panel.setAttribute('aria-label',captions[i]);
+        const figure=document.createElement('img');
+        figure.className='ep-print-approved-art';
+        figure.alt='';
+        figure.loading='eager';figure.decoding='sync';
+        figure.src='../../assets/folhetos/cenas/016-0'+(i+1)+'.webp?fit=s016-aprovado-v1';
+        figure.addEventListener('load',()=>{
+          if(figure.naturalWidth>0){
+            slot.replaceChildren(figure);
+            panel.dataset.sceneReady='true';
+          }
+        },{once:true});
+        figure.addEventListener('error',()=>{panel.dataset.sceneError='true';},{once:true});
+      }
+    }
     // PILOTO 015 — Fósforo: quadros aprovados separadamente, arte original integral.
     if(current.z===15 && document.body.dataset.folhetoPiloto==='fosforo'){
       sheet.dataset.printPhase='piloto-quadros-integrais';

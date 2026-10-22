@@ -379,3 +379,35 @@ for(const id of ['01','02']){
   assert.equal(buf.toString('ascii',8,12),'WEBP','Fósforo '+id+' WebP inválido');
   assert.equal(phosphorusCrypto.createHash('sha256').update(buf).digest('hex'),phosphorusHashes[id],'Fósforo '+id+': arte aprovada alterada');
 }
+
+
+// PILOTO 016 — Enxofre: vinhetas integrais, encaixe A4 e regressão de arquivos aprovados.
+const sulfurHtml=read('elementos/enxofre/index.html');
+assert.ok(sulfurHtml.includes('data-folheto-piloto="enxofre"'),'Piloto Enxofre não ativado');
+assert.ok(js.includes("current.z===16 && document.body.dataset.folhetoPiloto==='enxofre'"),'Montagem do Enxofre ausente');
+assert.ok(css.includes('data-element="016"'),'Moldura A4 do Enxofre ausente');
+assert.ok(js.includes('fit=s016-aprovado-v1'),'Invalidação de cache do Enxofre ausente');
+assert.ok(sw.includes("cordel-varal-v47-enxofre-016-quadros-aprovados"),'PWA precisa atualizar para o Enxofre');
+const manifestS=JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(e=>e.z===16);
+assert.ok(manifestS,'Manifesto do Enxofre ausente');
+const sulfurHashes={
+  '01':'66d9ce523b2eb7a11779056b4760f4376497d05eb32c8593cf248860e252367e',
+  '02':'6bb1d83a78dcecb19b7300b04b2b1b6fbe02c64fad8f1c24bfb58ab8a3f665dc'
+};
+const sulfurCrypto=require('node:crypto');
+for(const id of ['01','02']){
+  const asset='assets/folhetos/cenas/016-'+id+'.webp';
+  const panel=manifestS.panels.find(p=>p.id===id);
+  assert.equal(panel.image,asset,'Manifesto Enxofre '+id+' sem arte aprovada');
+  assert.equal(panel.expectedAsset,asset,'Manifesto Enxofre '+id+' sem arquivo esperado');
+  assert.equal(panel.status,'aprovada','Manifesto Enxofre '+id+' sem status aprovado');
+  assert.ok(sw.includes(asset),'Enxofre '+id+' fora do cache offline');
+  const img=fs.readFileSync(path.join(root,asset));
+  assert.ok(img.length>200000,'Enxofre '+id+': arte incompleta');
+  assert.equal(img.toString('ascii',0,4),'RIFF','Enxofre '+id+' RIFF ausente');
+  assert.equal(img.toString('ascii',8,12),'WEBP','Enxofre '+id+' formato inválido');
+  assert.equal(img.toString('ascii',12,16),'VP8 ','Enxofre '+id+' não é WebP com perdas');
+  assert.equal(img.readUInt16LE(26)&0x3fff,1104,'Enxofre '+id+' largura não homologada');
+  assert.equal(img.readUInt16LE(28)&0x3fff,810,'Enxofre '+id+' altura não homologada');
+  assert.equal(sulfurCrypto.createHash('sha256').update(img).digest('hex'),sulfurHashes[id],'Enxofre '+id+': arte aprovada foi alterada');
+}
