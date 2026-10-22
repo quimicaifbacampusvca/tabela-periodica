@@ -377,6 +377,30 @@
         figure.addEventListener('error',()=>{panel.dataset.sceneError='true';},{once:true});
       }
     }
+    // PILOTO 011 — Sódio: quadros 01 e 02 aprovados; arte original integral e texto sem duplicação.
+    if(current.z===11 && document.body.dataset.folhetoPiloto==='sodio'){
+      sheet.dataset.printPhase='piloto-quadros-integrais';
+      const captions=[
+        'No cotidiano: o sal de cozinha contém sódio na forma de íons Na+ no cloreto de sódio, NaCl; não se trata de sódio metálico.',
+        'Da origem à obtenção: o sódio metálico é produzido industrialmente pela eletrólise de cloreto de sódio fundido, com formação separada de cloro gasoso.'
+      ];
+      for(const [i,slot] of [...sheet.querySelectorAll('.ep-print-story-art')].entries()){
+        const panel=slot.closest('.ep-print-story');
+        panel.setAttribute('aria-label',captions[i]);
+        const figure=document.createElement('img');
+        figure.className='ep-print-approved-art';
+        figure.alt='';
+        figure.loading='eager';figure.decoding='sync';
+        figure.src='../../assets/folhetos/cenas/011-0'+(i+1)+'.webp?fit=na011-arte-aprovada-v1';
+        figure.addEventListener('load',()=>{
+          if(figure.naturalWidth>0){
+            slot.replaceChildren(figure);
+            panel.dataset.sceneReady='true';
+          }
+        },{once:true});
+        figure.addEventListener('error',()=>{panel.dataset.sceneError='true';},{once:true});
+      }
+    }
     // PILOTO 005 — Boro: quadros 01 e 02 aprovados; arte original integral e texto sem duplicação.
     if(current.z===5 && document.body.dataset.folhetoPiloto==='boro'){
       sheet.dataset.printPhase='piloto-quadros-integrais';

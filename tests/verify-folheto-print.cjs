@@ -227,7 +227,7 @@ assert.ok(neonHtml.includes('data-folheto-piloto="neonio"'),'Piloto Neônio não
 assert.ok(js.includes("current.z===10 && document.body.dataset.folhetoPiloto==='neonio'"),'Montagem do Neônio ausente');
 assert.ok(css.includes('data-element="010"'),'Moldura A4 do Neônio ausente');
 assert.ok(js.includes('fit=ne010-arte-aprovada-v1'),'Cache das artes do Neônio não invalidado');
-assert.ok(sw.includes("const CACHE='cordel-varal-v39-neonio-010-quadros-aprovados'"),'SW precisa atualizar versão do Neônio');
+assert.ok(sw.includes('assets/folhetos/cenas/010-01.webp'),'SW precisa preservar cache do Neônio');
 const manifestNe=JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(e=>e.z===10);
 assert.ok(manifestNe,'Manifesto Neônio ausente');
 for(const i of ['01','02']){
@@ -240,4 +240,26 @@ for(const i of ['01','02']){
   assert.ok(img.length>200000,'Arte Neônio '+i+': arquivo incompleto');
   assert.equal(img.toString('ascii',0,4),'RIFF','Neônio '+i+' WebP inválido');
   assert.equal(img.toString('ascii',8,12),'WEBP','Neônio '+i+' WebP inválido');
+}
+
+
+// PILOTO 011 — Sódio: duas artes aprovadas, sem confundir Na+ com sódio metálico.
+const sodiumHtml=read('elementos/sodio/index.html');
+assert.ok(sodiumHtml.includes('data-folheto-piloto="sodio"'),'Piloto Sódio não ativado');
+assert.ok(js.includes("current.z===11 && document.body.dataset.folhetoPiloto==='sodio'"),'Montagem do Sódio ausente');
+assert.ok(css.includes('data-element="011"'),'Moldura A4 do Sódio ausente');
+assert.ok(js.includes('fit=na011-arte-aprovada-v1'),'Cache das artes do Sódio não invalidado');
+assert.ok(sw.includes("const CACHE='cordel-varal-v40-sodio-011-quadros-aprovados'"),'SW precisa atualizar versão do Sódio');
+const manifestNa=JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(e=>e.z===11);
+assert.ok(manifestNa,'Manifesto Sódio ausente');
+for(const i of ['01','02']){
+  const asset='assets/folhetos/cenas/011-'+i+'.webp';
+  const panel=manifestNa.panels.find(p=>p.id===i);
+  assert.equal(panel.image,asset,'Manifesto Sódio '+i+' sem arte aprovada');
+  assert.equal(panel.status,'aprovada','Manifesto Sódio '+i+' sem homologação');
+  assert.ok(sw.includes(asset),'Arte Sódio '+i+' fora do cache offline');
+  const img=fs.readFileSync(path.join(root,asset));
+  assert.ok(img.length>200000,'Arte Sódio '+i+': arquivo incompleto');
+  assert.equal(img.toString('ascii',0,4),'RIFF','Sódio '+i+' WebP inválido');
+  assert.equal(img.toString('ascii',8,12),'WEBP','Sódio '+i+' WebP inválido');
 }
