@@ -205,7 +205,7 @@ assert.ok(fluorHtml.includes('data-folheto-piloto="fluor"'),'Piloto Flúor não 
 assert.ok(js.includes("current.z===9 && document.body.dataset.folhetoPiloto==='fluor'"),'Montagem do Flúor ausente');
 assert.ok(css.includes('data-element="009"'),'Moldura A4 do Flúor ausente');
 assert.ok(js.includes('fit=f009-arte-aprovada-v2'),'Flúor precisa invalidar cache anterior');
-assert.ok(sw.includes("const CACHE='cordel-varal-v38-fluor-009-quadros-aprovados'"),'SW precisa invalidar cache do Flúor');
+assert.ok(sw.includes('assets/folhetos/cenas/009-01.webp'),'SW precisa preservar cache do Flúor');
 const manifestF=JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(e=>e.z===9);
 assert.ok(manifestF,'Manifesto Flúor ausente');
 for(const i of ['01','02']){
@@ -218,4 +218,26 @@ for(const i of ['01','02']){
   assert.ok(img.length>200000,'Flúor '+i+': arte incompleta');
   assert.equal(img.toString('ascii',0,4),'RIFF','Flúor '+i+' WebP inválido');
   assert.equal(img.toString('ascii',8,12),'WEBP','Flúor '+i+' WebP inválido');
+}
+
+
+// PILOTO 010 — Neônio: duas cenas originais completas, visual dos gasosos.
+const neonHtml=read('elementos/neonio/index.html');
+assert.ok(neonHtml.includes('data-folheto-piloto="neonio"'),'Piloto Neônio não ativado');
+assert.ok(js.includes("current.z===10 && document.body.dataset.folhetoPiloto==='neonio'"),'Montagem do Neônio ausente');
+assert.ok(css.includes('data-element="010"'),'Moldura A4 do Neônio ausente');
+assert.ok(js.includes('fit=ne010-arte-aprovada-v1'),'Cache das artes do Neônio não invalidado');
+assert.ok(sw.includes("const CACHE='cordel-varal-v39-neonio-010-quadros-aprovados'"),'SW precisa atualizar versão do Neônio');
+const manifestNe=JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(e=>e.z===10);
+assert.ok(manifestNe,'Manifesto Neônio ausente');
+for(const i of ['01','02']){
+  const asset='assets/folhetos/cenas/010-'+i+'.webp';
+  const panel=manifestNe.panels.find(p=>p.id===i);
+  assert.equal(panel.image,asset,'Manifesto Neônio '+i+' sem arte aprovada');
+  assert.equal(panel.status,'aprovada','Manifesto Neônio '+i+' sem homologação');
+  assert.ok(sw.includes(asset),'Arte Neônio '+i+' fora do cache offline');
+  const img=fs.readFileSync(path.join(root,asset));
+  assert.ok(img.length>200000,'Arte Neônio '+i+': arquivo incompleto');
+  assert.equal(img.toString('ascii',0,4),'RIFF','Neônio '+i+' WebP inválido');
+  assert.equal(img.toString('ascii',8,12),'WEBP','Neônio '+i+' WebP inválido');
 }
