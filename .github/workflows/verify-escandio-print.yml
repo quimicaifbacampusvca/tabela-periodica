@@ -28,12 +28,12 @@ jobs:
           CHROME_BIN: /usr/bin/google-chrome
         run: |
           set -euo pipefail
-          node tests/verify-folheto-print.cjs
           python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/cordel-a4-http.log 2>&1 &
           SERVER_PID=$!
           trap 'kill "$SERVER_PID" || true' EXIT
           sleep 2
           node tests/verify-escandio-print.mjs
+          node tests/verify-folheto-print.cjs
       - name: Verificar que o PDF tem exatamente uma página A4
         run: |
           set -euo pipefail

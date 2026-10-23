@@ -52,7 +52,7 @@ const hydroHtml=read('elementos/hidrogenio/index.html');
 assert.ok(hydroHtml.includes('data-folheto-piloto="hidrogenio"'),'Piloto Hidrogênio não ativado');
 assert.ok(js.includes("current.z===1 && document.body.dataset.folhetoPiloto==='hidrogenio'"),'JS do piloto 001 ausente');
 assert.ok(css.includes('data-element="001"'),'CSS da moldura do piloto 001 ausente');
-assert.ok(js.includes('fit=full-border-h001-v1'),'Cache da arte 001 não foi invalidado');
+assert.ok(js.includes("'full-border-h001-v1'"),'Cache da arte 001 não foi invalidado');
 assert.ok(sw.includes('assets/folhetos/cenas/001-02.webp'),'SW precisa atualizar imagens 001');
 
 // Regressão: fonte aprovada integral, sem mascarar lateral direita ou deformar o quadro.
