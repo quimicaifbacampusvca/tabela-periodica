@@ -449,6 +449,30 @@
         figure.addEventListener('error',()=>{panel.dataset.sceneError='true';},{once:true});
       }
     }
+    // PILOTO 020 — Cálcio: quadros aprovados, molduras integrais, sem margens adicionais.
+    if(current.z===20 && document.body.dataset.folhetoPiloto==='calcio'){
+      sheet.dataset.printPhase='piloto-quadros-integrais';
+      const captions=[
+        'No cotidiano: o cálcio, presente em alimentos como laticínios, verduras e feijões, participa da formação de ossos e dentes e de funções neuromusculares.',
+        'Da origem à obtenção: compostos de cálcio presentes em calcário, mármore e dolomita são extraídos e processados para produzir cal, cimento e corretivos do solo.'
+      ];
+      for(const [i,slot] of [...sheet.querySelectorAll('.ep-print-story-art')].entries()){
+        const panel=slot.closest('.ep-print-story');
+        panel.setAttribute('aria-label',captions[i]);
+        const figure=document.createElement('img');
+        figure.className='ep-print-approved-art';
+        figure.alt='';
+        figure.loading='eager';figure.decoding='sync';
+        figure.src='../../assets/folhetos/cenas/020-0'+(i+1)+'.webp?fit=ca020-aprovado-integral-v1';
+        figure.addEventListener('load',()=>{
+          if(figure.naturalWidth>0){
+            slot.replaceChildren(figure);
+            panel.dataset.sceneReady='true';
+          }
+        },{once:true});
+        figure.addEventListener('error',()=>{panel.dataset.sceneError='true';},{once:true});
+      }
+    }
     // PILOTO 019 — Potássio: quadros 01 e 02 aprovados, integrais e sem margens extras.
     if(current.z===19 && document.body.dataset.folhetoPiloto==='potassio'){
       sheet.dataset.printPhase='piloto-quadros-integrais';

@@ -509,3 +509,35 @@ for(const id of ['01','02']){
   assert.equal(img.readUInt16LE(28)&0x3fff,810,'Quadro Potássio '+id+': altura diferente de 810');
   assert.equal(potassiumCrypto.createHash('sha256').update(img).digest('hex'),potassiumHashes[id],'Quadro Potássio '+id+': arquivo difere da arte aprovada');
 }
+
+// PILOTO 020 — Cálcio: imagens aprovadas, impressão A4 e verificação de integridade.
+const calciumPage=read('elementos/calcio/index.html');
+assert.ok(calciumPage.includes('data-folheto-piloto="calcio"'),'Piloto do Cálcio não ativado');
+assert.ok(js.includes("current.z===20 && document.body.dataset.folhetoPiloto==='calcio'"),'Montagem do Cálcio não encontrada');
+assert.ok(css.includes('data-element="020"'),'Cálcio sem estilo A4');
+assert.ok(js.includes('fit=ca020-aprovado-integral-v1'),'Invalidação do cache dos quadros do Cálcio ausente');
+assert.ok(sw.includes('cordel-varal-v52-calcio-020-quadros-aprovados'),'Cache PWA do Cálcio não atualizado');
+const manifestCa=JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(e=>e.z===20);
+assert.ok(manifestCa && manifestCa.panels.length===2,'Manifesto do Cálcio incompleto');
+const calciumHashes={
+  '01':'ed1ca0dde23501915d85fdda99f4594c442f267de125ee0cc47b01ac15aab6b9',
+  '02':'75df80f3305e669dc89baf07e36c2277534e80ba87f64ef3a462dcad865ddb0f'
+};
+const calciumCrypto=require('node:crypto');
+for(const id of ['01','02']){
+  const asset='assets/folhetos/cenas/020-'+id+'.webp';
+  const panel=manifestCa.panels.find(p=>p.id===id);
+  assert.ok(panel,'Quadro do Cálcio '+id+' não consta do manifesto');
+  assert.equal(panel.image,asset,'Quadro do Cálcio '+id+' sem arte aprovada');
+  assert.equal(panel.expectedAsset,asset,'Quadro do Cálcio '+id+' com destino divergente');
+  assert.equal(panel.status,'aprovada','Quadro do Cálcio '+id+' não está aprovado');
+  assert.ok(sw.includes(asset),'Quadro do Cálcio '+id+' fora do cache offline');
+  const img=fs.readFileSync(path.join(root,asset));
+  assert.ok(img.length>200000,'Quadro do Cálcio '+id+' tem tamanho incompleto');
+  assert.equal(img.toString('ascii',0,4),'RIFF','Quadro do Cálcio '+id+' não é RIFF');
+  assert.equal(img.toString('ascii',8,12),'WEBP','Quadro do Cálcio '+id+' não é WebP');
+  assert.equal(img.toString('ascii',12,16),'VP8 ','Quadro do Cálcio '+id+' contém transparência ou formato inesperado');
+  assert.equal(img.readUInt16LE(26)&0x3fff,1104,'Quadro do Cálcio '+id+' com largura fora do padrão');
+  assert.equal(img.readUInt16LE(28)&0x3fff,810,'Quadro do Cálcio '+id+' com altura fora do padrão');
+  assert.equal(calciumCrypto.createHash('sha256').update(img).digest('hex'),calciumHashes[id],'Arte aprovada do Cálcio '+id+' alterada');
+}
