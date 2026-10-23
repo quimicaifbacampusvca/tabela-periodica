@@ -449,6 +449,30 @@
         figure.addEventListener('error',()=>{panel.dataset.sceneError='true';},{once:true});
       }
     }
+    // PILOTO 021 — Escândio: quadros aprovados com Moldura A — Xilogravura orgânica.
+    if(current.z===21 && document.body.dataset.folhetoPiloto==='escandio'){
+      sheet.dataset.printPhase='piloto-quadros-integrais';
+      const captions=[
+        'No cotidiano: pequenas adições de escândio a ligas de alumínio podem produzir componentes leves e resistentes em bicicletas e equipamentos especializados.',
+        'Da origem à obtenção: o escândio pode ser recuperado como subproduto mineral; purifica-se até obter óxido Sc2O3 e, por redução posterior, escândio metálico.'
+      ];
+      for(const [i,slot] of [...sheet.querySelectorAll('.ep-print-story-art')].entries()){
+        const panel=slot.closest('.ep-print-story');
+        panel.setAttribute('aria-label',captions[i]);
+        const figure=document.createElement('img');
+        figure.className='ep-print-approved-art';
+        figure.alt='';
+        figure.loading='eager';figure.decoding='sync';
+        figure.src='../../assets/folhetos/cenas/021-0'+(i+1)+'.webp?fit=sc021-moldura-a-v1';
+        figure.addEventListener('load',()=>{
+          if(figure.naturalWidth>0){
+            slot.replaceChildren(figure);
+            panel.dataset.sceneReady='true';
+          }
+        },{once:true});
+        figure.addEventListener('error',()=>{panel.dataset.sceneError='true';},{once:true});
+      }
+    }
     // PILOTO 020 — Cálcio: quadros aprovados, molduras integrais, sem margens adicionais.
     if(current.z===20 && document.body.dataset.folhetoPiloto==='calcio'){
       sheet.dataset.printPhase='piloto-quadros-integrais';

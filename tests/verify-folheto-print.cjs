@@ -541,3 +541,35 @@ for(const id of ['01','02']){
   assert.equal(img.readUInt16LE(28)&0x3fff,810,'Quadro do Cálcio '+id+' com altura fora do padrão');
   assert.equal(calciumCrypto.createHash('sha256').update(img).digest('hex'),calciumHashes[id],'Arte aprovada do Cálcio '+id+' alterada');
 }
+
+// PILOTO 021 — Escândio: quadros integrais da Moldura A em impressão A4.
+const scandiumHtml=read('elementos/escandio/index.html');
+assert.ok(scandiumHtml.includes('data-folheto-piloto="escandio"'),'Piloto Escândio ausente na página');
+assert.ok(js.includes("current.z===21 && document.body.dataset.folhetoPiloto==='escandio'"),'Montagem do Escândio ausente');
+assert.ok(js.includes('fit=sc021-moldura-a-v1'),'Cache visual do Escândio não atualizado');
+assert.ok(css.includes('data-element="021"')&&css.includes('piloto-quadros-integrais'),'Escândio sem encaixe de impressão A4');
+assert.ok(sw.includes('cordel-varal-v53-escandio-021-moldura-a'),'PWA ainda usa cache anterior');
+const manifestSc=JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(e=>e.z===21);
+assert.ok(manifestSc&&manifestSc.panels.length===2,'Manifesto do Escândio incompleto');
+const scandiumHashes={
+  '01':'ffd145ce3d86d09bddf0b0982fa19236c3815cb1138fefcf9c8c8011a196767e',
+  '02':'90bd4f73ffde0662211fc921b21b785608514c8d22173097eb542b0b119ffbfd'
+};
+const scandiumCrypto=require('node:crypto');
+for(const id of ['01','02']){
+  const asset='assets/folhetos/cenas/021-'+id+'.webp';
+  const panel=manifestSc.panels.find(p=>p.id===id);
+  assert.ok(panel,'Quadro Escândio '+id+' ausente');
+  assert.equal(panel.image,asset,'Quadro Escândio '+id+' não está integrado');
+  assert.equal(panel.expectedAsset,asset,'Destino Escândio '+id+' incorreto');
+  assert.equal(panel.status,'aprovada','Escândio '+id+' não aprovado no manifesto');
+  assert.ok(sw.includes(asset),'Quadro Escândio '+id+' fora do cache offline');
+  const img=fs.readFileSync(path.join(root,asset));
+  assert.ok(img.length>200000,'Quadro Escândio '+id+': arquivo incompleto');
+  assert.equal(img.toString('ascii',0,4),'RIFF','Escândio '+id+': RIFF ausente');
+  assert.equal(img.toString('ascii',8,12),'WEBP','Escândio '+id+': WebP inválido');
+  assert.equal(img.toString('ascii',12,16),'VP8 ','Escândio '+id+': não pode ter transparência lateral');
+  assert.equal(img.readUInt16LE(26)&0x3fff,1104,'Escândio '+id+': largura fora de 1104');
+  assert.equal(img.readUInt16LE(28)&0x3fff,810,'Escândio '+id+': altura fora de 810');
+  assert.equal(scandiumCrypto.createHash('sha256').update(img).digest('hex'),scandiumHashes[id],'Escândio '+id+': arte aprovada alterada');
+}
