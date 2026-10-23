@@ -449,6 +449,30 @@
         figure.addEventListener('error',()=>{panel.dataset.sceneError='true';},{once:true});
       }
     }
+    // PILOTO 023 — Vanádio: artes aprovadas com Moldura A orgânica.
+    if(current.z===22 && document.body.dataset.folhetoPiloto==='vanadio'){
+      sheet.dataset.printPhase='piloto-quadros-integrais';
+      const captions=[
+        'No cotidiano: o vanádio é usado em ligas metálicas, especialmente aços para ferramentas, molas e peças que exigem maior resistência.',
+        'Da origem à obtenção: o vanádio pode ser recuperado de minérios e de escórias siderúrgicas e processado para obtenção de ferrovanádio utilizado na produção de aços.'
+      ];
+      for(const [i,slot] of [...sheet.querySelectorAll('.ep-print-story-art')].entries()){
+        const panel=slot.closest('.ep-print-story');
+        panel.setAttribute('aria-label',captions[i]);
+        const figure=document.createElement('img');
+        figure.className='ep-print-approved-art';
+        figure.alt='';
+        figure.loading='eager';figure.decoding='sync';
+        figure.src='../../assets/folhetos/cenas/023-0'+(i+1)+'.webp?fit=v023-moldura-a-v1';
+        figure.addEventListener('load',()=>{
+          if(figure.naturalWidth>0){
+            slot.replaceChildren(figure);
+            panel.dataset.sceneReady='true';
+          }
+        },{once:true});
+        figure.addEventListener('error',()=>{panel.dataset.sceneError='true';},{once:true});
+      }
+    }
     // PILOTO 022 — Titânio: artes aprovadas com Moldura A orgânica.
     if(current.z===22 && document.body.dataset.folhetoPiloto==='titanio'){
       sheet.dataset.printPhase='piloto-quadros-integrais';

@@ -581,7 +581,7 @@ assert.ok(titaniumHtml.includes('data-folheto-piloto="titanio"'),'Piloto Titâni
 assert.ok(js.includes("current.z===22 && document.body.dataset.folhetoPiloto==='titanio'"),'Montagem do Titânio ausente');
 assert.ok(js.includes('fit=ti022-moldura-a-v1'),'Versão visual do Titânio não invalidada');
 assert.ok(css.includes('data-element="022"')&&css.includes('piloto-quadros-integrais'),'Titânio sem encaixe A4');
-assert.ok(sw.includes('cordel-varal-v54-titanio-022-moldura-a'),'PWA sem versão do Titânio');
+assert.ok(sw.includes('assets/folhetos/cenas/022-01.webp')&&sw.includes('assets/folhetos/cenas/022-02.webp'),'PWA perdeu as artes do Titânio');
 const manifestTi=JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(e=>e.z===22);
 assert.ok(manifestTi&&manifestTi.panels.length===2,'Manifesto do Titânio incompleto');
 const titaniumHashes={
@@ -605,4 +605,34 @@ for(const id of ['01','02']){
   assert.equal(img.readUInt16LE(26)&0x3fff,1104,'Quadro Titânio '+id+': largura fora do padrão');
   assert.equal(img.readUInt16LE(28)&0x3fff,810,'Quadro Titânio '+id+': altura fora do padrão');
   assert.equal(titaniumCrypto.createHash('sha256').update(img).digest('hex'),titaniumHashes[id],'Quadro Titânio '+id+': imagem diverge da arte aprovada');
+}
+
+
+// PILOTO 023 — Vanádio: confirmação dos dois quadros aprovados na impressão A4.
+const vanadiumHtml=read('elementos/vanadio/index.html');
+assert.ok(vanadiumHtml.includes('data-folheto-piloto="vanadio"'),'Piloto Vanádio ausente');
+assert.ok(js.includes("current.z===23 && document.body.dataset.folhetoPiloto==='vanadio'"),'Montagem do Vanádio ausente');
+assert.ok(js.includes('fit=v023-moldura-a-v1'),'Cache visual do Vanádio não invalidado');
+assert.ok(css.includes('data-element="023"')&&css.includes('object-fit:contain!important'),'Vanádio sem encaixe A4 integral');
+assert.ok(sw.includes('cordel-varal-v55-vanadio-023-moldura-a'),'Cache PWA do Vanádio não atualizado');
+const manifestV=JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(e=>e.z===23);
+assert.ok(manifestV&&manifestV.panels.length===2,'Manifesto do Vanádio incompleto');
+const vanadiumHashes={'01':'cff3cdad3dd50b414a5599fb9be0d5af6979fa89e47ceb7ecc999b83f3a4eabc','02':'b85874b9e1ba759de08c256162fe82f20cb6871c61a08368a2aa87ed0f4d2efd'};
+const vanadiumCrypto=require('node:crypto');
+for(const id of ['01','02']){
+  const asset='assets/folhetos/cenas/023-'+id+'.webp';
+  const panel=manifestV.panels.find(p=>p.id===id);
+  assert.ok(panel,'Quadro Vanádio '+id+' ausente');
+  assert.equal(panel.image,asset,'Quadro Vanádio '+id+' não integrado');
+  assert.equal(panel.expectedAsset,asset,'Destino Vanádio '+id+' incorreto');
+  assert.equal(panel.status,'aprovada','Quadro Vanádio '+id+' não aprovado');
+  assert.ok(sw.includes(asset),'Vanádio '+id+' ausente do cache offline');
+  const img=fs.readFileSync(path.join(root,asset));
+  assert.ok(img.length>200000,'Quadro Vanádio '+id+': arquivo incompleto');
+  assert.equal(img.toString('ascii',0,4),'RIFF','Quadro Vanádio '+id+': RIFF inválido');
+  assert.equal(img.toString('ascii',8,12),'WEBP','Quadro Vanádio '+id+': WebP inválido');
+  assert.equal(img.toString('ascii',12,16),'VP8 ','Quadro Vanádio '+id+': canal alfa não permitido');
+  assert.equal(img.readUInt16LE(26)&0x3fff,1104,'Quadro Vanádio '+id+': largura incorreta');
+  assert.equal(img.readUInt16LE(28)&0x3fff,810,'Quadro Vanádio '+id+': altura incorreta');
+  assert.equal(vanadiumCrypto.createHash('sha256').update(img).digest('hex'),vanadiumHashes[id],'Quadro Vanádio '+id+': arte alterada');
 }
