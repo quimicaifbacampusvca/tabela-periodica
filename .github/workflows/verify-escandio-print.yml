@@ -1,0 +1,49 @@
+name: Verificar impressão A4 Escândio 021
+on:
+  push:
+    branches: [tabelaifbavca]
+    paths:
+      - 'assets/folhetos/cenas/021-*.webp'
+      - 'assets/element-page.js'
+      - 'assets/element-page.css'
+      - 'elementos/escandio/index.html'
+      - 'tests/verify-escandio-print.mjs'
+      - '.github/workflows/verify-escandio-print.yml'
+  workflow_dispatch:
+jobs:
+  render-a4:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Instalar dependência do navegador
+        run: npm install --no-save puppeteer-core@24
+      - name: Validar conteúdo dos folhetos e renderizar Escândio em Chromium
+        env:
+          CHROME_BIN: /usr/bin/google-chrome
+        run: |
+          set -euo pipefail
+          node tests/verify-folheto-print.cjs
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/cordel-a4-http.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID" || true' EXIT
+          sleep 2
+          node tests/verify-escandio-print.mjs
+      - name: Verificar que o PDF tem exatamente uma página A4
+        run: |
+          set -euo pipefail
+          pdfinfo dist/qa/escandio-021/escandio-021-a4.pdf | grep -E '^Pages:[[:space:]]+1$'
+          pdfinfo dist/qa/escandio-021/escandio-021-a4.pdf | grep -E '^Page size:.*595\..*841\..*pts.*A4'
+          pdftoppm -f 1 -singlefile -scale-to 1200 -png dist/qa/escandio-021/escandio-021-a4.pdf dist/qa/escandio-021/folheto-renderizado
+      - name: Arquivar PDF, imagem impressa e relatório para homologação
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: escandio-021-a4-impresso
+          path: dist/qa/escandio-021/
+          retention-days: 30
