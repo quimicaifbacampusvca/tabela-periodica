@@ -450,7 +450,7 @@
       }
     }
     // PILOTO 023 — Vanádio: artes aprovadas com Moldura A orgânica.
-    if(current.z===22 && document.body.dataset.folhetoPiloto==='vanadio'){
+    if(current.z===23 && document.body.dataset.folhetoPiloto==='vanadio'){
       sheet.dataset.printPhase='piloto-quadros-integrais';
       const captions=[
         'No cotidiano: o vanádio é usado em ligas metálicas, especialmente aços para ferramentas, molas e peças que exigem maior resistência.',
