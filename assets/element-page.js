@@ -449,6 +449,30 @@
         figure.addEventListener('error',()=>{panel.dataset.sceneError='true';},{once:true});
       }
     }
+    // PILOTO 022 — Titânio: artes aprovadas com Moldura A orgânica.
+    if(current.z===22 && document.body.dataset.folhetoPiloto==='titanio'){
+      sheet.dataset.printPhase='piloto-quadros-integrais';
+      const captions=[
+        'No cotidiano: titânio metálico em implantes e componentes resistentes à corrosão; dióxido de titânio TiO2 em pigmentos brancos.',
+        'Da origem à obtenção: ilmenita e rutilo são extraídos, beneficiados e processados para produzir dióxido de titânio TiO2 destinado a pigmentos.'
+      ];
+      for(const [i,slot] of [...sheet.querySelectorAll('.ep-print-story-art')].entries()){
+        const panel=slot.closest('.ep-print-story');
+        panel.setAttribute('aria-label',captions[i]);
+        const figure=document.createElement('img');
+        figure.className='ep-print-approved-art';
+        figure.alt='';
+        figure.loading='eager';figure.decoding='sync';
+        figure.src='../../assets/folhetos/cenas/022-0'+(i+1)+'.webp?fit=ti022-moldura-a-v1';
+        figure.addEventListener('load',()=>{
+          if(figure.naturalWidth>0){
+            slot.replaceChildren(figure);
+            panel.dataset.sceneReady='true';
+          }
+        },{once:true});
+        figure.addEventListener('error',()=>{panel.dataset.sceneError='true';},{once:true});
+      }
+    }
     // PILOTO 021 — Escândio: quadros aprovados com Moldura A — Xilogravura orgânica.
     if(current.z===21 && document.body.dataset.folhetoPiloto==='escandio'){
       sheet.dataset.printPhase='piloto-quadros-integrais';

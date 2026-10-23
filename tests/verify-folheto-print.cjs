@@ -573,3 +573,36 @@ for(const id of ['01','02']){
   assert.equal(img.readUInt16LE(28)&0x3fff,810,'Escândio '+id+': altura fora de 810');
   assert.equal(scandiumCrypto.createHash('sha256').update(img).digest('hex'),scandiumHashes[id],'Escândio '+id+': arte aprovada alterada');
 }
+
+
+// PILOTO 022 — Titânio: quadros da Moldura A em impressão A4.
+const titaniumHtml=read('elementos/titanio/index.html');
+assert.ok(titaniumHtml.includes('data-folheto-piloto="titanio"'),'Piloto Titânio ausente da página');
+assert.ok(js.includes("current.z===22 && document.body.dataset.folhetoPiloto==='titanio'"),'Montagem do Titânio ausente');
+assert.ok(js.includes('fit=ti022-moldura-a-v1'),'Versão visual do Titânio não invalidada');
+assert.ok(css.includes('data-element="022"')&&css.includes('piloto-quadros-integrais'),'Titânio sem encaixe A4');
+assert.ok(sw.includes('cordel-varal-v54-titanio-022-moldura-a'),'PWA sem versão do Titânio');
+const manifestTi=JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(e=>e.z===22);
+assert.ok(manifestTi&&manifestTi.panels.length===2,'Manifesto do Titânio incompleto');
+const titaniumHashes={
+  '01':'9db6342df6a41bf9ab448a5ada981191aa1a9e3a896cb720995324bc21f8eb7f',
+  '02':'21628c9fa8e12f709b0ad05d9e9d8a24c441da24974ceea00718efb5457bc1fb'
+};
+const titaniumCrypto=require('node:crypto');
+for(const id of ['01','02']){
+  const asset='assets/folhetos/cenas/022-'+id+'.webp';
+  const panel=manifestTi.panels.find(p=>p.id===id);
+  assert.ok(panel,'Quadro Titânio '+id+' ausente');
+  assert.equal(panel.image,asset,'Quadro Titânio '+id+' não integrado');
+  assert.equal(panel.expectedAsset,asset,'Destino Titânio '+id+' incorreto');
+  assert.equal(panel.status,'aprovada','Quadro Titânio '+id+' não aprovado');
+  assert.ok(sw.includes(asset),'Titânio '+id+' ausente do cache offline');
+  const img=fs.readFileSync(path.join(root,asset));
+  assert.ok(img.length>200000,'Quadro Titânio '+id+': arquivo incompleto');
+  assert.equal(img.toString('ascii',0,4),'RIFF','Quadro Titânio '+id+': RIFF inválido');
+  assert.equal(img.toString('ascii',8,12),'WEBP','Quadro Titânio '+id+': WebP inválido');
+  assert.equal(img.toString('ascii',12,16),'VP8 ','Quadro Titânio '+id+': canal alfa não permitido');
+  assert.equal(img.readUInt16LE(26)&0x3fff,1104,'Quadro Titânio '+id+': largura fora do padrão');
+  assert.equal(img.readUInt16LE(28)&0x3fff,810,'Quadro Titânio '+id+': altura fora do padrão');
+  assert.equal(titaniumCrypto.createHash('sha256').update(img).digest('hex'),titaniumHashes[id],'Quadro Titânio '+id+': imagem diverge da arte aprovada');
+}
