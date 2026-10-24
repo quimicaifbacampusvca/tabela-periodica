@@ -449,6 +449,30 @@
         figure.addEventListener('error',()=>{panel.dataset.sceneError='true';},{once:true});
       }
     }
+    // PILOTO 028 — Níquel: artes aprovadas com Moldura A orgânica.
+    if(current.z===28 && document.body.dataset.folhetoPiloto==='niquel'){
+      sheet.dataset.printPhase='piloto-quadros-integrais';
+      const captions=[
+        'No cotidiano: níquel presente em aços inoxidáveis e outras ligas metálicas, em revestimentos contra corrosão, moedas, determinados tipos de baterias e utensílios.',
+        'Da origem à obtenção: níquel extraído de minérios sulfetados e lateríticos, com beneficiamento e processamento metalúrgico ou hidrometalúrgico para obtenção do metal.'
+      ];
+      for(const [i,slot] of [...sheet.querySelectorAll('.ep-print-story-art')].entries()){
+        const panel=slot.closest('.ep-print-story');
+        panel.setAttribute('aria-label',captions[i]);
+        const figure=document.createElement('img');
+        figure.className='ep-print-approved-art';
+        figure.alt='';
+        figure.loading='eager';figure.decoding='sync';
+        figure.src='../../assets/folhetos/cenas/028-0'+(i+1)+'.webp?fit=ni028-moldura-discreta-v1';
+        figure.addEventListener('load',()=>{
+          if(figure.naturalWidth>0){
+            slot.replaceChildren(figure);
+            panel.dataset.sceneReady='true';
+          }
+        },{once:true});
+        figure.addEventListener('error',()=>{panel.dataset.sceneError='true';},{once:true});
+      }
+    }
     // PILOTO 027 — Cobalto: artes aprovadas com Moldura A orgânica.
     if(current.z===27 && document.body.dataset.folhetoPiloto==='cobalto'){
       sheet.dataset.printPhase='piloto-quadros-integrais';

@@ -734,7 +734,7 @@ assert.ok(cobaltHtml.includes('data-folheto-piloto="cobalto"'),'Piloto Cobalto a
 assert.ok(js.includes("current.z===27 && document.body.dataset.folhetoPiloto==='cobalto'"),'Montagem do Cobalto ausente');
 assert.ok(js.includes('fit=co027-moldura-discreta-v1'),'Cache visual do Cobalto não atualizado');
 assert.ok(css.includes('data-element="027"')&&css.includes('object-fit:contain!important'),'Cobalto sem encaixe A4 integral');
-assert.ok(sw.includes('cordel-varal-v60-quadros-024-025-dimensoes'),'Cache PWA não atualizado');
+assert.ok(sw.includes('assets/folhetos/cenas/027-01.webp')&&sw.includes('assets/folhetos/cenas/027-02.webp'),'Os quadros do Cobalto devem permanecer no cache offline');
 const manifestCo=JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(e=>e.z===27);
 assert.ok(manifestCo&&manifestCo.panels.length===2,'Manifesto Cobalto incompleto');
 const cobaltHashes={'01':'d63989b8280e1bd5efacf636b54fe23756ba59324694c2e134773dc8e0855252','02':'e30d596e8295057c3fcd2e9c1ad1eb35f08f0b7ec4275b56b3cb84af0bd9bb65'};
