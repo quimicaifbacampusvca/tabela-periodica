@@ -449,6 +449,30 @@
         figure.addEventListener('error',()=>{panel.dataset.sceneError='true';},{once:true});
       }
     }
+    // PILOTO 030 — Zinco: quadros 01 e 02 aprovados, arte integral.
+    if(current.z===30 && document.body.dataset.folhetoPiloto==='zinco'){
+      sheet.dataset.printPhase='piloto-quadros-integrais';
+      const captions=[
+        'No cotidiano: o zinco protege o aço da corrosão por galvanização, integra ligas como o latão, participa de pilhas e está presente em compostos usados em cosméticos; também é um nutriente essencial.',
+        'Da origem à obtenção: esfalerita, smithsonita e hemimorfita são fontes minerais de zinco; após mineração e beneficiamento, processos de extração e refino produzem zinco metálico, também recuperável por reciclagem.'
+      ];
+      for(const [i,slot] of [...sheet.querySelectorAll('.ep-print-story-art')].entries()){
+        const panel=slot.closest('.ep-print-story');
+        panel.setAttribute('aria-label',captions[i]);
+        const figure=document.createElement('img');
+        figure.className='ep-print-approved-art';
+        figure.alt='';
+        figure.loading='eager';figure.decoding='sync';
+        figure.src='../../assets/folhetos/cenas/030-0'+(i+1)+'.webp?fit=zn030-quadros-integrais-v2';
+        figure.addEventListener('load',()=>{
+          if(figure.naturalWidth===1104 && figure.naturalHeight===810){
+            slot.replaceChildren(figure);
+            panel.dataset.sceneReady='true';
+          }
+        },{once:true});
+        figure.addEventListener('error',()=>{panel.dataset.sceneError='true';},{once:true});
+      }
+    }
     // PILOTO 029 — Cobre: quadros 01 e 02 aprovados, arte integral.
     if(current.z===29 && document.body.dataset.folhetoPiloto==='cobre'){
       sheet.dataset.printPhase='piloto-quadros-integrais';
