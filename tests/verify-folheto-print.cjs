@@ -315,7 +315,7 @@ assert.ok(siliconHtml.includes('data-folheto-piloto="silicio"'),'Piloto Silício
 assert.ok(js.includes("current.z===14 && document.body.dataset.folhetoPiloto==='silicio'"),'Montagem do Silício ausente');
 assert.ok(css.includes('data-element="014"'),'Moldura A4 do Silício ausente');
 assert.ok(js.includes('fit=si014-sem-fundo-v3'),'Cache das artes do Silício não invalidado');
-assert.ok(sw.includes("const CACHE='cordel-varal-v45-silicio-014-sem-fundo-externo'"),'SW precisa atualizar a versão do Silício');
+assert.ok(sw.includes('assets/folhetos/cenas/014-01.webp'),'Quadro 014 deve permanecer no cache PWA após atualizações');
 const manifestSi=JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(e=>e.z===14);
 assert.ok(manifestSi,'Manifesto Silício ausente');
 for(const i of ['01','02']){
@@ -358,7 +358,7 @@ assert.ok(phosphorusHtml.includes('data-folheto-piloto="fosforo"'),'Piloto Fósf
 assert.ok(js.includes("current.z===15 && document.body.dataset.folhetoPiloto==='fosforo'"),'Montagem do Fósforo ausente');
 assert.ok(css.includes('data-element="015"'),'Moldura A4 do Fósforo ausente');
 assert.ok(js.includes('fit=p015-aprovado-v1'),'Cache das artes do Fósforo não invalidado');
-assert.ok(sw.includes("cordel-varal-v46-fosforo-015-quadros-aprovados"),'PWA deve atualizar para o Fósforo');
+assert.ok(sw.includes('assets/folhetos/cenas/015-01.webp'),'Quadro 015 deve permanecer no cache PWA após atualizações');
 const manifestP=JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(e=>e.z===15);
 assert.ok(manifestP,'Manifesto Fósforo ausente');
 const phosphorusHashes={
@@ -387,7 +387,7 @@ assert.ok(sulfurHtml.includes('data-folheto-piloto="enxofre"'),'Piloto Enxofre n
 assert.ok(js.includes("current.z===16 && document.body.dataset.folhetoPiloto==='enxofre'"),'Montagem do Enxofre ausente');
 assert.ok(css.includes('data-element="016"'),'Moldura A4 do Enxofre ausente');
 assert.ok(js.includes('fit=s016-aprovado-v1'),'Invalidação de cache do Enxofre ausente');
-assert.ok(sw.includes("cordel-varal-v47-enxofre-016-quadros-aprovados"),'PWA precisa atualizar para o Enxofre');
+assert.ok(sw.includes('assets/folhetos/cenas/016-01.webp'),'Quadro 016 deve permanecer no cache PWA após atualizações');
 const manifestS=JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(e=>e.z===16);
 assert.ok(manifestS,'Manifesto do Enxofre ausente');
 const sulfurHashes={
@@ -419,7 +419,7 @@ assert.ok(chlorineHtml.includes('data-folheto-piloto="cloro"'),'Piloto Cloro nã
 assert.ok(js.includes("current.z===17 && document.body.dataset.folhetoPiloto==='cloro'"),'Montagem Cloro ausente');
 assert.ok(css.includes('data-element="017"'),'Encaixe A4 do Cloro ausente');
 assert.ok(js.includes('fit=cl017-preenchimento-integral-v2'),'Cloro sem invalidação de cache');
-assert.ok(sw.includes("cordel-varal-v49-cloro-017-preenchimento-integral"),'Service worker do Cloro não versionado');
+assert.ok(sw.includes('assets/folhetos/cenas/017-01.webp'),'Quadro 017 deve permanecer no cache PWA após atualizações');
 const manifestCl=JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(e=>e.z===17);
 assert.ok(manifestCl&&manifestCl.panels.length===2,'Manifesto Cloro incompleto');
 const chlorineHashes={
@@ -452,7 +452,7 @@ assert.ok(argonPage.includes('data-folheto-piloto="argonio"'),'Piloto Argônio n
 assert.ok(js.includes("current.z===18 && document.body.dataset.folhetoPiloto==='argonio'"),'Montagem Argônio ausente');
 assert.ok(css.includes('data-element="018"'),'Argônio sem encaixe editorial A4');
 assert.ok(js.includes('fit=ar018-integral-v1'),'Argônio sem invalidação de imagem');
-assert.ok(sw.includes('cordel-varal-v50-argonio-018-quadros-aprovados'),'PWA Argônio não versionado');
+assert.ok(sw.includes('assets/folhetos/cenas/018-01.webp'),'Quadro 018 deve permanecer no cache PWA após atualizações');
 const manifestAr=JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(e=>e.z===18);
 assert.ok(manifestAr&&manifestAr.panels.length===2,'Manifesto Argônio incompleto');
 const argonHashes={
@@ -484,7 +484,7 @@ assert.ok(potassiumPage.includes('data-folheto-piloto="potassio"'),'Piloto Potá
 assert.ok(js.includes("current.z===19 && document.body.dataset.folhetoPiloto==='potassio'"),'Montagem Potássio ausente');
 assert.ok(css.includes('data-element="019"'),'Potássio sem encaixe A4');
 assert.ok(js.includes('fit=k019-quadro-integral-v1'),'Cache das artes de Potássio não invalidado');
-assert.ok(sw.includes('cordel-varal-v51-potassio-019-quadros-aprovados'),'PWA Potássio não versionado');
+assert.ok(sw.includes('assets/folhetos/cenas/019-01.webp'),'Quadro 019 deve permanecer no cache PWA após atualizações');
 const manifestK=JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(e=>e.z===19);
 assert.ok(manifestK&&manifestK.panels.length===2,'Manifesto Potássio incompleto');
 const potassiumHashes={
@@ -516,7 +516,7 @@ assert.ok(calciumPage.includes('data-folheto-piloto="calcio"'),'Piloto do Cálci
 assert.ok(js.includes("current.z===20 && document.body.dataset.folhetoPiloto==='calcio'"),'Montagem do Cálcio não encontrada');
 assert.ok(css.includes('data-element="020"'),'Cálcio sem estilo A4');
 assert.ok(js.includes('fit=ca020-aprovado-integral-v1'),'Invalidação do cache dos quadros do Cálcio ausente');
-assert.ok(sw.includes('cordel-varal-v52-calcio-020-quadros-aprovados'),'Cache PWA do Cálcio não atualizado');
+assert.ok(sw.includes('assets/folhetos/cenas/020-01.webp'),'Quadro 020 deve permanecer no cache PWA após atualizações');
 const manifestCa=JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(e=>e.z===20);
 assert.ok(manifestCa && manifestCa.panels.length===2,'Manifesto do Cálcio incompleto');
 const calciumHashes={
@@ -548,7 +548,7 @@ assert.ok(scandiumHtml.includes('data-folheto-piloto="escandio"'),'Piloto Escân
 assert.ok(js.includes("current.z===21 && document.body.dataset.folhetoPiloto==='escandio'"),'Montagem do Escândio ausente');
 assert.ok(js.includes('fit=sc021-moldura-a-v1'),'Cache visual do Escândio não atualizado');
 assert.ok(css.includes('data-element="021"')&&css.includes('piloto-quadros-integrais'),'Escândio sem encaixe de impressão A4');
-assert.ok(sw.includes('cordel-varal-v53-escandio-021-moldura-a'),'PWA ainda usa cache anterior');
+assert.ok(sw.includes('assets/folhetos/cenas/021-01.webp'),'Quadro 021 deve permanecer no cache PWA após atualizações');
 const manifestSc=JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(e=>e.z===21);
 assert.ok(manifestSc&&manifestSc.panels.length===2,'Manifesto do Escândio incompleto');
 const scandiumHashes={
@@ -614,7 +614,7 @@ assert.ok(vanadiumHtml.includes('data-folheto-piloto="vanadio"'),'Piloto Vanádi
 assert.ok(js.includes("current.z===23 && document.body.dataset.folhetoPiloto==='vanadio'"),'Montagem do Vanádio ausente');
 assert.ok(js.includes('fit=v023-moldura-a-v1'),'Cache visual do Vanádio não invalidado');
 assert.ok(css.includes('data-element="023"')&&css.includes('object-fit:contain!important'),'Vanádio sem encaixe A4 integral');
-assert.ok(sw.includes('cordel-varal-v55-vanadio-023-moldura-a'),'Cache PWA do Vanádio não atualizado');
+assert.ok(sw.includes('assets/folhetos/cenas/023-01.webp'),'Quadro 023 deve permanecer no cache PWA após atualizações');
 const manifestV=JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(e=>e.z===23);
 assert.ok(manifestV&&manifestV.panels.length===2,'Manifesto do Vanádio incompleto');
 const vanadiumHashes={'01':'cff3cdad3dd50b414a5599fb9be0d5af6979fa89e47ceb7ecc999b83f3a4eabc','02':'b85874b9e1ba759de08c256162fe82f20cb6871c61a08368a2aa87ed0f4d2efd'};
@@ -635,4 +635,34 @@ for(const id of ['01','02']){
   assert.equal(img.readUInt16LE(26)&0x3fff,1104,'Quadro Vanádio '+id+': largura incorreta');
   assert.equal(img.readUInt16LE(28)&0x3fff,810,'Quadro Vanádio '+id+': altura incorreta');
   assert.equal(vanadiumCrypto.createHash('sha256').update(img).digest('hex'),vanadiumHashes[id],'Quadro Vanádio '+id+': arte alterada');
+}
+
+
+// PILOTO 024 — Cromo: quadros aprovados e íntegros em impressão A4.
+const chromiumHtml=read('elementos/cromo/index.html');
+assert.ok(chromiumHtml.includes('data-folheto-piloto="cromo"'),'Piloto Cromo ausente');
+assert.ok(js.includes("current.z===24 && document.body.dataset.folhetoPiloto==='cromo'"),'Montagem do Cromo ausente');
+assert.ok(js.includes('fit=cr024-moldura-leve-v1'),'Cache visual do Cromo não invalidado');
+assert.ok(css.includes('data-element="024"')&&css.includes('object-fit:contain!important'),'Cromo sem encaixe A4 integral');
+assert.ok(sw.includes('cordel-varal-v56-cromo-024-moldura-leve'),'PWA não atualizado para Cromo');
+const manifestCr=JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(e=>e.z===24);
+assert.ok(manifestCr&&manifestCr.panels.length===2,'Manifesto do Cromo incompleto');
+const chromiumHashes={'01':'7d7c837f22419d0926abf9d1dade78655e638853b07b18339e9ceb512a3ed541','02':'2ae2866fbee4d0cc9ab1319140aaaed1d358195de34ff08150a27c7267673d2a'};
+const chromiumCrypto=require('node:crypto');
+for(const id of ['01','02']){
+ const asset='assets/folhetos/cenas/024-'+id+'.webp';
+ const panel=manifestCr.panels.find(p=>p.id===id);
+ assert.ok(panel,'Quadro Cromo '+id+' ausente');
+ assert.equal(panel.image,asset,'Quadro Cromo '+id+' não integrado');
+ assert.equal(panel.expectedAsset,asset,'Destino Cromo '+id+' incorreto');
+ assert.equal(panel.status,'aprovada','Quadro Cromo '+id+' não aprovado');
+ assert.ok(sw.includes(asset),'Cromo '+id+' fora do cache offline');
+ const img=fs.readFileSync(path.join(root,asset));
+ assert.ok(img.length>200000,'Quadro Cromo '+id+': incompleto');
+ assert.equal(img.toString('ascii',0,4),'RIFF','Cromo '+id+' sem RIFF');
+ assert.equal(img.toString('ascii',8,12),'WEBP','Cromo '+id+' sem WEBP');
+ assert.equal(img.toString('ascii',12,16),'VP8 ','Cromo '+id+' com alfa/transparência');
+ assert.equal(img.readUInt16LE(26)&0x3fff,1104,'Cromo '+id+' largura incorreta');
+ assert.equal(img.readUInt16LE(28)&0x3fff,810,'Cromo '+id+' altura incorreta');
+ assert.equal(chromiumCrypto.createHash('sha256').update(img).digest('hex'),chromiumHashes[id],'Cromo '+id+': arte foi alterada');
 }

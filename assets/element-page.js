@@ -449,6 +449,30 @@
         figure.addEventListener('error',()=>{panel.dataset.sceneError='true';},{once:true});
       }
     }
+    // PILOTO 024 — Cromo: artes aprovadas com Moldura A orgânica.
+    if(current.z===24 && document.body.dataset.folhetoPiloto==='cromo'){
+      sheet.dataset.printPhase='piloto-quadros-integrais';
+      const captions=[
+        'No cotidiano: o cromo é utilizado em revestimentos e ligas, incluindo aço inoxidável, conferindo resistência à corrosão a diversas peças e utensílios.',
+        'Da origem à obtenção: a cromita é extraída e beneficiada; o processamento metalúrgico pode produzir ferrocromo, utilizado na fabricação de aços inoxidáveis.'
+      ];
+      for(const [i,slot] of [...sheet.querySelectorAll('.ep-print-story-art')].entries()){
+        const panel=slot.closest('.ep-print-story');
+        panel.setAttribute('aria-label',captions[i]);
+        const figure=document.createElement('img');
+        figure.className='ep-print-approved-art';
+        figure.alt='';
+        figure.loading='eager';figure.decoding='sync';
+        figure.src='../../assets/folhetos/cenas/024-0'+(i+1)+'.webp?fit=cr024-moldura-leve-v1';
+        figure.addEventListener('load',()=>{
+          if(figure.naturalWidth>0){
+            slot.replaceChildren(figure);
+            panel.dataset.sceneReady='true';
+          }
+        },{once:true});
+        figure.addEventListener('error',()=>{panel.dataset.sceneError='true';},{once:true});
+      }
+    }
     // PILOTO 023 — Vanádio: artes aprovadas com Moldura A orgânica.
     if(current.z===23 && document.body.dataset.folhetoPiloto==='vanadio'){
       sheet.dataset.printPhase='piloto-quadros-integrais';
