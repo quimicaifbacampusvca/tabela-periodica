@@ -642,12 +642,12 @@ for(const id of ['01','02']){
 const chromiumHtml=read('elementos/cromo/index.html');
 assert.ok(chromiumHtml.includes('data-folheto-piloto="cromo"'),'Piloto Cromo ausente');
 assert.ok(js.includes("current.z===24 && document.body.dataset.folhetoPiloto==='cromo'"),'Montagem do Cromo ausente');
-assert.ok(js.includes('fit=cr024-no-nome-v2'),'Cache visual do Cromo não invalidado');
+assert.ok(js.includes('fit=cr024-sem-nome-dimensoes-v3'),'Cache visual do Cromo não invalidado');
 assert.ok(css.includes('data-element="024"')&&css.includes('object-fit:contain!important'),'Cromo sem encaixe A4 integral');
 assert.ok(sw.includes('assets/folhetos/cenas/024-01.webp')&&sw.includes('assets/folhetos/cenas/024-02.webp'),'Quadros Cromo devem continuar no cache');
 const manifestCr=JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(e=>e.z===24);
 assert.ok(manifestCr&&manifestCr.panels.length===2,'Manifesto do Cromo incompleto');
-const chromiumHashes={'01':'ca00f0e3687cde3e54ea8d06034c041702e4749576ed96956a59b050f6fff065','02':'2ae2866fbee4d0cc9ab1319140aaaed1d358195de34ff08150a27c7267673d2a'};
+const chromiumHashes={'01':'ed8254f15b88b5fd7c8216db1943fe5973e6a023b50a868ee23ed92dc2815347','02':'2ae2866fbee4d0cc9ab1319140aaaed1d358195de34ff08150a27c7267673d2a'};
 const chromiumCrypto=require('node:crypto');
 for(const id of ['01','02']){
  const asset='assets/folhetos/cenas/024-'+id+'.webp';
@@ -672,12 +672,12 @@ for(const id of ['01','02']){
 const manganeseHtml=read('elementos/manganes/index.html');
 assert.ok(manganeseHtml.includes('data-folheto-piloto="manganes"'),'Piloto Manganês ausente');
 assert.ok(js.includes("current.z===25 && document.body.dataset.folhetoPiloto==='manganes'"),'Montagem do Manganês ausente');
-assert.ok(js.includes('fit=mn025-no-nome-v2'),'Cache visual Manganês não invalidado');
+assert.ok(js.includes('fit=mn025-sem-nome-dimensoes-v3'),'Cache visual Manganês não invalidado');
 assert.ok(css.includes('data-element="025"')&&css.includes('object-fit:contain!important'),'Manganês sem encaixe A4');
 assert.ok(sw.includes('assets/folhetos/cenas/025-01.webp')&&sw.includes('assets/folhetos/cenas/025-02.webp'),'Quadros Manganês devem continuar no cache offline');
 const manifestMn=JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(e=>e.z===25);
 assert.ok(manifestMn&&manifestMn.panels.length===2,'Manifesto Manganês incompleto');
-const manganeseHashes={'01':'446fed36fc4c7b4cfa7f611e3b1fe255bee4a0fae08432ecf9cf2f8c585afcf5','02':'d5a707f66b727022dd5a70c8c7d9c805af7da89b34249b8b954db89d41136ab7'};
+const manganeseHashes={'01':'8c621b69b5860b2df270ba995c0396411a393dbcb46daf9b545efffd0966d206','02':'d5a707f66b727022dd5a70c8c7d9c805af7da89b34249b8b954db89d41136ab7'};
 const manganeseCrypto=require('node:crypto');
 for(const id of ['01','02']){
  const asset='assets/folhetos/cenas/025-'+id+'.webp';
@@ -734,7 +734,7 @@ assert.ok(cobaltHtml.includes('data-folheto-piloto="cobalto"'),'Piloto Cobalto a
 assert.ok(js.includes("current.z===27 && document.body.dataset.folhetoPiloto==='cobalto'"),'Montagem do Cobalto ausente');
 assert.ok(js.includes('fit=co027-moldura-discreta-v1'),'Cache visual do Cobalto não atualizado');
 assert.ok(css.includes('data-element="027"')&&css.includes('object-fit:contain!important'),'Cobalto sem encaixe A4 integral');
-assert.ok(sw.includes('cordel-varal-v59-cobalto-027-e-revisoes-024-025'),'Cache PWA não atualizado');
+assert.ok(sw.includes('cordel-varal-v60-quadros-024-025-dimensoes'),'Cache PWA não atualizado');
 const manifestCo=JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(e=>e.z===27);
 assert.ok(manifestCo&&manifestCo.panels.length===2,'Manifesto Cobalto incompleto');
 const cobaltHashes={'01':'d63989b8280e1bd5efacf636b54fe23756ba59324694c2e134773dc8e0855252','02':'e30d596e8295057c3fcd2e9c1ad1eb35f08f0b7ec4275b56b3cb84af0bd9bb65'};

@@ -511,7 +511,7 @@
         figure.className='ep-print-approved-art';
         figure.alt='';
         figure.loading='eager';figure.decoding='sync';
-        figure.src='../../assets/folhetos/cenas/025-0'+(i+1)+'.webp?fit=mn025-no-nome-v2';
+        figure.src='../../assets/folhetos/cenas/025-0'+(i+1)+'.webp?fit=mn025-sem-nome-dimensoes-v3';
         figure.addEventListener('load',()=>{
           if(figure.naturalWidth>0){
             slot.replaceChildren(figure);
@@ -535,7 +535,7 @@
         figure.className='ep-print-approved-art';
         figure.alt='';
         figure.loading='eager';figure.decoding='sync';
-        figure.src='../../assets/folhetos/cenas/024-0'+(i+1)+'.webp?fit=cr024-no-nome-v2';
+        figure.src='../../assets/folhetos/cenas/024-0'+(i+1)+'.webp?fit=cr024-sem-nome-dimensoes-v3';
         figure.addEventListener('load',()=>{
           if(figure.naturalWidth>0){
             slot.replaceChildren(figure);
