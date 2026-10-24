@@ -449,17 +449,21 @@
         figure.addEventListener('error',()=>{panel.dataset.sceneError='true';},{once:true});
       }
     }
-    // PILOTO 029 — Cobre: somente quadro 01 aprovado, quadro 02 ainda pendente.
+    // PILOTO 029 — Cobre: quadros 01 e 02 aprovados, arte integral.
     if(current.z===29 && document.body.dataset.folhetoPiloto==='cobre'){
-      sheet.dataset.printPhase='piloto-quadro01-aprovado';
-      const slot=sheet.querySelector('.ep-print-story-art[data-scene="029-01"]');
-      if(slot){
+      sheet.dataset.printPhase='piloto-quadros-integrais';
+      const captions=[
+        'No cotidiano: o cobre é utilizado em fios e cabos elétricos, componentes eletrônicos, tubulações, ligas metálicas e utensílios.',
+        'Da origem à obtenção: minérios de cobre, como calcopirita, malaquita e cuprita, são extraídos e beneficiados, passando por processos de separação, fundição e refino; o cobre também pode ser reciclado.'
+      ];
+      for(const [i,slot] of [...sheet.querySelectorAll('.ep-print-story-art')].entries()){
         const panel=slot.closest('.ep-print-story');
-        panel.setAttribute('aria-label','No cotidiano: cobre utilizado em cabos elétricos, componentes eletrônicos, tubulações, utensílios e ligas metálicas.');
+        panel.setAttribute('aria-label',captions[i]);
         const figure=document.createElement('img');
         figure.className='ep-print-approved-art';
-        figure.alt='';figure.loading='eager';figure.decoding='sync';
-        figure.src='../../assets/folhetos/cenas/029-01.webp?fit=cu029-quadro01-v1';
+        figure.alt='';
+        figure.loading='eager';figure.decoding='sync';
+        figure.src='../../assets/folhetos/cenas/029-0'+(i+1)+'.webp?fit=cu029-quadros-integrais-v2';
         figure.addEventListener('load',()=>{
           if(figure.naturalWidth===1104 && figure.naturalHeight===810){
             slot.replaceChildren(figure);
