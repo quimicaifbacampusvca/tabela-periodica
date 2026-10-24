@@ -449,6 +449,56 @@
         figure.addEventListener('error',()=>{panel.dataset.sceneError='true';},{once:true});
       }
     }
+
+    // PACOTE 031–035 — preparação segura: só ativa quadros após carregar
+    // as duas artes integrais já incorporadas ao repositório.
+    const queuedApprovals={
+      31:{slug:'galio',captions:[
+        'No cotidiano: compostos de gálio, como GaN e GaAs, são empregados em LEDs, lasers e componentes eletrônicos.',
+        'Da origem à obtenção: gálio recuperado como subproduto do processamento de bauxita e de minérios de zinco, seguido de purificação.'
+      ]},
+      32:{slug:'germanio',captions:[
+        'No cotidiano: germânio e seus compostos em óptica infravermelha, semicondutores e fibras ópticas.',
+        'Da origem à obtenção: germânio recuperado de correntes de processamento de minérios de zinco e de outros materiais, seguido de purificação.'
+      ]},
+      34:{slug:'selenio',captions:[
+        'No cotidiano: selênio presente em materiais tecnológicos e como micronutriente; distinguir selênio e seus compostos.',
+        'Da origem à obtenção: recuperação de selênio a partir de lamas anódicas do refino eletrolítico de cobre.'
+      ]},
+      35:{slug:'bromo',captions:[
+        'No cotidiano: brometo de prata em materiais fotográficos tradicionais, diferente do bromo molecular.',
+        'Da origem à obtenção: bromo obtido de brometos presentes em salmouras por oxidação, separação e purificação.'
+      ]}
+    };
+    const approval=queuedApprovals[current.z];
+    if(approval && document.body.dataset.folhetoPiloto===approval.slug){
+      const slots=[...sheet.querySelectorAll('.ep-print-story-art')];
+      if(slots.length===2){
+        const staged=[null,null];
+        approval.captions.forEach((caption,i)=>{
+          const figure=document.createElement('img');
+          figure.className='ep-print-approved-art';
+          figure.alt='';
+          figure.loading='eager';
+          figure.decoding='sync';
+          figure.addEventListener('load',()=>{
+            if(figure.naturalWidth!==1104 || figure.naturalHeight!==810)return;
+            staged[i]=figure;
+            if(staged.every(Boolean)){
+              slots.forEach((slot,j)=>{
+                slot.replaceChildren(staged[j]);
+                const panel=slot.closest('.ep-print-story');
+                panel.setAttribute('aria-label',approval.captions[j]);
+                panel.dataset.sceneReady='true';
+              });
+              sheet.dataset.printPhase='piloto-quadros-integrais';
+            }
+          },{once:true});
+          figure.src='../../assets/folhetos/cenas/'
+            +String(current.z).padStart(3,'0')+'-0'+(i+1)+'.webp?fit=approved-031-035';
+        });
+      }
+    }
     // PILOTO 030 — Zinco: quadros 01 e 02 aprovados, arte integral.
     if(current.z===30 && document.body.dataset.folhetoPiloto==='zinco'){
       sheet.dataset.printPhase='piloto-quadros-integrais';
