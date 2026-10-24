@@ -449,6 +449,26 @@
         figure.addEventListener('error',()=>{panel.dataset.sceneError='true';},{once:true});
       }
     }
+    // PILOTO 029 — Cobre: somente quadro 01 aprovado, quadro 02 ainda pendente.
+    if(current.z===29 && document.body.dataset.folhetoPiloto==='cobre'){
+      sheet.dataset.printPhase='piloto-quadro01-aprovado';
+      const slot=sheet.querySelector('.ep-print-story-art[data-scene="029-01"]');
+      if(slot){
+        const panel=slot.closest('.ep-print-story');
+        panel.setAttribute('aria-label','No cotidiano: cobre utilizado em cabos elétricos, componentes eletrônicos, tubulações, utensílios e ligas metálicas.');
+        const figure=document.createElement('img');
+        figure.className='ep-print-approved-art';
+        figure.alt='';figure.loading='eager';figure.decoding='sync';
+        figure.src='../../assets/folhetos/cenas/029-01.webp?fit=cu029-quadro01-v1';
+        figure.addEventListener('load',()=>{
+          if(figure.naturalWidth===1104 && figure.naturalHeight===810){
+            slot.replaceChildren(figure);
+            panel.dataset.sceneReady='true';
+          }
+        },{once:true});
+        figure.addEventListener('error',()=>{panel.dataset.sceneError='true';},{once:true});
+      }
+    }
     // PILOTO 028 — Níquel: artes aprovadas com Moldura A orgânica.
     if(current.z===28 && document.body.dataset.folhetoPiloto==='niquel'){
       sheet.dataset.printPhase='piloto-quadros-integrais';
