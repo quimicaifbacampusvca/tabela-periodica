@@ -40,7 +40,7 @@ jobs:
         run: |
           set -euo pipefail
           pdfinfo dist/qa/cromo-024/cromo-024-a4.pdf | grep -E '^Pages:[[:space:]]+1$'
-          pdfinfo dist/qa/cromo-024/cromo-024-a4.pdf | grep -E '^Page size:.*595\..*841\..*pts.*A4'
+          pdfinfo dist/qa/cromo-024/cromo-024-a4.pdf | awk '/^Page size:/ {w=$3+0;h=$5+0;if(w>=594&&w<=597&&h>=840&&h<=844) valid=1} END {exit !valid}'
           pdftoppm -f 1 -singlefile -scale-to 1200 -png dist/qa/cromo-024/cromo-024-a4.pdf dist/qa/cromo-024/folheto-renderizado
       - name: Arquivar PDF, imagem impressa e relatório para homologação
         uses: actions/upload-artifact@v4

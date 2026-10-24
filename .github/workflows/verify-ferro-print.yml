@@ -1,0 +1,51 @@
+name: Verificar impressão A4 Ferro 026
+on:
+  push:
+    branches: [tabelaifbavca]
+    paths:
+      - 'assets/folhetos/cenas/026-*.webp'
+      - 'assets/element-page.js'
+      - 'assets/element-page.css'
+      - 'elementos/ferro/index.html'
+      - 'tests/verify-ferro-print.mjs'
+      - '.github/workflows/verify-ferro-print.yml'
+  workflow_dispatch:
+jobs:
+  render-a4:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Instalar dependência do navegador
+        run: npm install --no-save puppeteer-core@24
+      - name: Validar conteúdo dos folhetos e renderizar Ferro em Chromium
+        env:
+          CHROME_BIN: /usr/bin/google-chrome
+        run: |
+          set -euo pipefail
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/cordel-a4-http.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID" || true' EXIT
+          sleep 2
+          node tests/verify-ferro-print.mjs
+          node tests/verify-folheto-print.cjs
+      - name: Instalar ferramentas de inspeção PDF
+        run: sudo apt-get update -qq && sudo apt-get install -y --no-install-recommends poppler-utils
+      - name: Verificar que o PDF tem exatamente uma página A4
+        run: |
+          set -euo pipefail
+          pdfinfo dist/qa/ferro-026/ferro-026-a4.pdf | grep -E '^Pages:[[:space:]]+1$'
+          pdfinfo dist/qa/ferro-026/ferro-026-a4.pdf | awk '/^Page size:/ {w=$3+0;h=$5+0;if(w>=594&&w<=597&&h>=840&&h<=844) valid=1} END {exit !valid}'
+          pdftoppm -f 1 -singlefile -scale-to 1200 -png dist/qa/ferro-026/ferro-026-a4.pdf dist/qa/ferro-026/folheto-renderizado
+      - name: Arquivar PDF, imagem impressa e relatório para homologação
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ferro-026-a4-impresso
+          path: dist/qa/ferro-026/
+          retention-days: 30

@@ -674,7 +674,7 @@ assert.ok(manganeseHtml.includes('data-folheto-piloto="manganes"'),'Piloto Manga
 assert.ok(js.includes("current.z===25 && document.body.dataset.folhetoPiloto==='manganes'"),'Montagem do Manganês ausente');
 assert.ok(js.includes('fit=mn025-moldura-discreta-v1'),'Cache visual Manganês não invalidado');
 assert.ok(css.includes('data-element="025"')&&css.includes('object-fit:contain!important'),'Manganês sem encaixe A4');
-assert.ok(sw.includes('cordel-varal-v57-manganes-025-moldura-discreta'),'Cache PWA não atualizado para Manganês');
+assert.ok(sw.includes('assets/folhetos/cenas/025-01.webp')&&sw.includes('assets/folhetos/cenas/025-02.webp'),'Quadros Manganês devem continuar no cache offline');
 const manifestMn=JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(e=>e.z===25);
 assert.ok(manifestMn&&manifestMn.panels.length===2,'Manifesto Manganês incompleto');
 const manganeseHashes={'01':'a7ae8207b3589f7b53df7fe20f0ca122dacdd445a23b4e6e7ca1efabeba8cb61','02':'d5a707f66b727022dd5a70c8c7d9c805af7da89b34249b8b954db89d41136ab7'};
@@ -695,4 +695,34 @@ for(const id of ['01','02']){
  assert.equal(img.readUInt16LE(26)&0x3fff,1104,'Largura inválida Manganês '+id);
  assert.equal(img.readUInt16LE(28)&0x3fff,810,'Altura inválida Manganês '+id);
  assert.equal(manganeseCrypto.createHash('sha256').update(img).digest('hex'),manganeseHashes[id],'Manganês '+id+' mudou depois de aprovação');
+}
+
+
+// PILOTO 026 — Ferro: quadros 01 e 02 aprovados, encaixe integral A4.
+const ironHtml=read('elementos/ferro/index.html');
+assert.ok(ironHtml.includes('data-folheto-piloto="ferro"'),'Piloto Ferro ausente');
+assert.ok(js.includes("current.z===26 && document.body.dataset.folhetoPiloto==='ferro'"),'Montagem Ferro ausente');
+assert.ok(js.includes('fit=fe026-moldura-discreta-v1'),'Ferro: cache visual não atualizado');
+assert.ok(css.includes('data-element="026"')&&css.includes('object-fit:contain!important'),'Ferro sem encaixe A4');
+assert.ok(sw.includes('cordel-varal-v58-ferro-026-moldura-discreta'),'PWA não atualizado para Ferro');
+const manifestFe=JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(e=>e.z===26);
+assert.ok(manifestFe&&manifestFe.panels.length===2,'Ferro: manifesto incompleto');
+const ironHashes={'01':'8631885d78995d408ca96a86b3ae8db856a4323253e464e08c67eb5a80b13939','02':'e4d60b60754b3457fe2590239c55d4f0e3af9f509ea63e8f5e48ce4542fc5537'};
+const ironCrypto=require('node:crypto');
+for(const id of ['01','02']){
+ const asset='assets/folhetos/cenas/026-'+id+'.webp';
+ const panel=manifestFe.panels.find(p=>p.id===id);
+ assert.ok(panel,'Quadro Ferro '+id+' ausente');
+ assert.equal(panel.image,asset,'Quadro Ferro '+id+' não integrado');
+ assert.equal(panel.expectedAsset,asset,'Destino Ferro '+id+' incorreto');
+ assert.equal(panel.status,'aprovada','Quadro Ferro '+id+' não aprovado');
+ assert.ok(sw.includes(asset),'Quadro Ferro '+id+' fora do PWA');
+ const img=fs.readFileSync(path.join(root,asset));
+ assert.ok(img.length>250000,'Quadro Ferro '+id+' incompleto');
+ assert.equal(img.toString('ascii',0,4),'RIFF','Ferro '+id+' sem RIFF');
+ assert.equal(img.toString('ascii',8,12),'WEBP','Ferro '+id+' sem WEBP');
+ assert.equal(img.toString('ascii',12,16),'VP8 ','Ferro '+id+' com transparência');
+ assert.equal(img.readUInt16LE(26)&0x3fff,1104,'Largura Ferro '+id+' inválida');
+ assert.equal(img.readUInt16LE(28)&0x3fff,810,'Altura Ferro '+id+' inválida');
+ assert.equal(ironCrypto.createHash('sha256').update(img).digest('hex'),ironHashes[id],'Ferro '+id+' diverge da arte aprovada');
 }

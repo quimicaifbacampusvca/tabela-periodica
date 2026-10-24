@@ -449,6 +449,30 @@
         figure.addEventListener('error',()=>{panel.dataset.sceneError='true';},{once:true});
       }
     }
+    // PILOTO 026 — Ferro: artes aprovadas com Moldura A orgânica.
+    if(current.z===26 && document.body.dataset.folhetoPiloto==='ferro'){
+      sheet.dataset.printPhase='piloto-quadros-integrais';
+      const captions=[
+        'No cotidiano: ferro e aços em infraestrutura, pontes, trilhos, construções, ferramentas, veículos, utensílios e eletrodomésticos.',
+        'Da origem à obtenção: minérios de ferro como hematita e magnetita são extraídos e beneficiados; o alto-forno produz ferro-gusa, refinado para obter aço.'
+      ];
+      for(const [i,slot] of [...sheet.querySelectorAll('.ep-print-story-art')].entries()){
+        const panel=slot.closest('.ep-print-story');
+        panel.setAttribute('aria-label',captions[i]);
+        const figure=document.createElement('img');
+        figure.className='ep-print-approved-art';
+        figure.alt='';
+        figure.loading='eager';figure.decoding='sync';
+        figure.src='../../assets/folhetos/cenas/026-0'+(i+1)+'.webp?fit=fe026-moldura-discreta-v1';
+        figure.addEventListener('load',()=>{
+          if(figure.naturalWidth>0){
+            slot.replaceChildren(figure);
+            panel.dataset.sceneReady='true';
+          }
+        },{once:true});
+        figure.addEventListener('error',()=>{panel.dataset.sceneError='true';},{once:true});
+      }
+    }
     // PILOTO 025 — Manganês: artes aprovadas com Moldura A orgânica.
     if(current.z===25 && document.body.dataset.folhetoPiloto==='manganes'){
       sheet.dataset.printPhase='piloto-quadros-integrais';
