@@ -642,12 +642,12 @@ for(const id of ['01','02']){
 const chromiumHtml=read('elementos/cromo/index.html');
 assert.ok(chromiumHtml.includes('data-folheto-piloto="cromo"'),'Piloto Cromo ausente');
 assert.ok(js.includes("current.z===24 && document.body.dataset.folhetoPiloto==='cromo'"),'Montagem do Cromo ausente');
-assert.ok(js.includes('fit=cr024-moldura-leve-v1'),'Cache visual do Cromo não invalidado');
+assert.ok(js.includes('fit=cr024-no-nome-v2'),'Cache visual do Cromo não invalidado');
 assert.ok(css.includes('data-element="024"')&&css.includes('object-fit:contain!important'),'Cromo sem encaixe A4 integral');
 assert.ok(sw.includes('assets/folhetos/cenas/024-01.webp')&&sw.includes('assets/folhetos/cenas/024-02.webp'),'Quadros Cromo devem continuar no cache');
 const manifestCr=JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(e=>e.z===24);
 assert.ok(manifestCr&&manifestCr.panels.length===2,'Manifesto do Cromo incompleto');
-const chromiumHashes={'01':'7d7c837f22419d0926abf9d1dade78655e638853b07b18339e9ceb512a3ed541','02':'2ae2866fbee4d0cc9ab1319140aaaed1d358195de34ff08150a27c7267673d2a'};
+const chromiumHashes={'01':'ca00f0e3687cde3e54ea8d06034c041702e4749576ed96956a59b050f6fff065','02':'2ae2866fbee4d0cc9ab1319140aaaed1d358195de34ff08150a27c7267673d2a'};
 const chromiumCrypto=require('node:crypto');
 for(const id of ['01','02']){
  const asset='assets/folhetos/cenas/024-'+id+'.webp';
@@ -672,12 +672,12 @@ for(const id of ['01','02']){
 const manganeseHtml=read('elementos/manganes/index.html');
 assert.ok(manganeseHtml.includes('data-folheto-piloto="manganes"'),'Piloto Manganês ausente');
 assert.ok(js.includes("current.z===25 && document.body.dataset.folhetoPiloto==='manganes'"),'Montagem do Manganês ausente');
-assert.ok(js.includes('fit=mn025-moldura-discreta-v1'),'Cache visual Manganês não invalidado');
+assert.ok(js.includes('fit=mn025-no-nome-v2'),'Cache visual Manganês não invalidado');
 assert.ok(css.includes('data-element="025"')&&css.includes('object-fit:contain!important'),'Manganês sem encaixe A4');
 assert.ok(sw.includes('assets/folhetos/cenas/025-01.webp')&&sw.includes('assets/folhetos/cenas/025-02.webp'),'Quadros Manganês devem continuar no cache offline');
 const manifestMn=JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(e=>e.z===25);
 assert.ok(manifestMn&&manifestMn.panels.length===2,'Manifesto Manganês incompleto');
-const manganeseHashes={'01':'a7ae8207b3589f7b53df7fe20f0ca122dacdd445a23b4e6e7ca1efabeba8cb61','02':'d5a707f66b727022dd5a70c8c7d9c805af7da89b34249b8b954db89d41136ab7'};
+const manganeseHashes={'01':'446fed36fc4c7b4cfa7f611e3b1fe255bee4a0fae08432ecf9cf2f8c585afcf5','02':'d5a707f66b727022dd5a70c8c7d9c805af7da89b34249b8b954db89d41136ab7'};
 const manganeseCrypto=require('node:crypto');
 for(const id of ['01','02']){
  const asset='assets/folhetos/cenas/025-'+id+'.webp';
@@ -704,7 +704,7 @@ assert.ok(ironHtml.includes('data-folheto-piloto="ferro"'),'Piloto Ferro ausente
 assert.ok(js.includes("current.z===26 && document.body.dataset.folhetoPiloto==='ferro'"),'Montagem Ferro ausente');
 assert.ok(js.includes('fit=fe026-moldura-discreta-v1'),'Ferro: cache visual não atualizado');
 assert.ok(css.includes('data-element="026"')&&css.includes('object-fit:contain!important'),'Ferro sem encaixe A4');
-assert.ok(sw.includes('cordel-varal-v58-ferro-026-moldura-discreta'),'PWA não atualizado para Ferro');
+assert.ok(sw.includes('assets/folhetos/cenas/026-01.webp')&&sw.includes('assets/folhetos/cenas/026-02.webp'),'Quadros Ferro devem continuar disponíveis no PWA');
 const manifestFe=JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(e=>e.z===26);
 assert.ok(manifestFe&&manifestFe.panels.length===2,'Ferro: manifesto incompleto');
 const ironHashes={'01':'8631885d78995d408ca96a86b3ae8db856a4323253e464e08c67eb5a80b13939','02':'e4d60b60754b3457fe2590239c55d4f0e3af9f509ea63e8f5e48ce4542fc5537'};
@@ -725,4 +725,34 @@ for(const id of ['01','02']){
  assert.equal(img.readUInt16LE(26)&0x3fff,1104,'Largura Ferro '+id+' inválida');
  assert.equal(img.readUInt16LE(28)&0x3fff,810,'Altura Ferro '+id+' inválida');
  assert.equal(ironCrypto.createHash('sha256').update(img).digest('hex'),ironHashes[id],'Ferro '+id+' diverge da arte aprovada');
+}
+
+
+// PILOTO 027 — Cobalto: cenas aprovadas + correções editoriais de Cromo/Manganês.
+const cobaltHtml=read('elementos/cobalto/index.html');
+assert.ok(cobaltHtml.includes('data-folheto-piloto="cobalto"'),'Piloto Cobalto ausente');
+assert.ok(js.includes("current.z===27 && document.body.dataset.folhetoPiloto==='cobalto'"),'Montagem do Cobalto ausente');
+assert.ok(js.includes('fit=co027-moldura-discreta-v1'),'Cache visual do Cobalto não atualizado');
+assert.ok(css.includes('data-element="027"')&&css.includes('object-fit:contain!important'),'Cobalto sem encaixe A4 integral');
+assert.ok(sw.includes('cordel-varal-v59-cobalto-027-e-revisoes-024-025'),'Cache PWA não atualizado');
+const manifestCo=JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(e=>e.z===27);
+assert.ok(manifestCo&&manifestCo.panels.length===2,'Manifesto Cobalto incompleto');
+const cobaltHashes={'01':'d63989b8280e1bd5efacf636b54fe23756ba59324694c2e134773dc8e0855252','02':'e30d596e8295057c3fcd2e9c1ad1eb35f08f0b7ec4275b56b3cb84af0bd9bb65'};
+const cobaltCrypto=require('node:crypto');
+for(const id of ['01','02']){
+ const asset='assets/folhetos/cenas/027-'+id+'.webp';
+ const panel=manifestCo.panels.find(p=>p.id===id);
+ assert.ok(panel,'Quadro Cobalto '+id+' ausente');
+ assert.equal(panel.image,asset,'Quadro Cobalto '+id+' não integrado');
+ assert.equal(panel.expectedAsset,asset,'Destino Cobalto '+id+' incorreto');
+ assert.equal(panel.status,'aprovada','Quadro Cobalto '+id+' não aprovado');
+ assert.ok(sw.includes(asset),'Cobalto '+id+' fora do cache offline');
+ const img=fs.readFileSync(path.join(root,asset));
+ assert.ok(img.length>300000,'Quadro Cobalto '+id+' incompleto');
+ assert.equal(img.toString('ascii',0,4),'RIFF','RIFF Cobalto '+id);
+ assert.equal(img.toString('ascii',8,12),'WEBP','WEBP Cobalto '+id);
+ assert.equal(img.toString('ascii',12,16),'VP8 ','Cobalto '+id+' possui transparência');
+ assert.equal(img.readUInt16LE(26)&0x3fff,1104,'Largura inválida Cobalto '+id);
+ assert.equal(img.readUInt16LE(28)&0x3fff,810,'Altura inválida Cobalto '+id);
+ assert.equal(cobaltCrypto.createHash('sha256').update(img).digest('hex'),cobaltHashes[id],'Cobalto '+id+' alterado após aprovação');
 }

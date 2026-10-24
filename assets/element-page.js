@@ -449,6 +449,30 @@
         figure.addEventListener('error',()=>{panel.dataset.sceneError='true';},{once:true});
       }
     }
+    // PILOTO 027 — Cobalto: artes aprovadas com Moldura A orgânica.
+    if(current.z===27 && document.body.dataset.folhetoPiloto==='cobalto'){
+      sheet.dataset.printPhase='piloto-quadros-integrais';
+      const captions=[
+        'No cotidiano: compostos de cobalto em determinadas baterias recarregáveis e pigmentos; cobalto também participa de superligas e outras aplicações industriais.',
+        'Da origem à obtenção: recuperação do cobalto de minérios associados ao níquel e cobre, seguida de beneficiamento e refino para obter cobalto metálico ou sais.'
+      ];
+      for(const [i,slot] of [...sheet.querySelectorAll('.ep-print-story-art')].entries()){
+        const panel=slot.closest('.ep-print-story');
+        panel.setAttribute('aria-label',captions[i]);
+        const figure=document.createElement('img');
+        figure.className='ep-print-approved-art';
+        figure.alt='';
+        figure.loading='eager';figure.decoding='sync';
+        figure.src='../../assets/folhetos/cenas/027-0'+(i+1)+'.webp?fit=co027-moldura-discreta-v1';
+        figure.addEventListener('load',()=>{
+          if(figure.naturalWidth>0){
+            slot.replaceChildren(figure);
+            panel.dataset.sceneReady='true';
+          }
+        },{once:true});
+        figure.addEventListener('error',()=>{panel.dataset.sceneError='true';},{once:true});
+      }
+    }
     // PILOTO 026 — Ferro: artes aprovadas com Moldura A orgânica.
     if(current.z===26 && document.body.dataset.folhetoPiloto==='ferro'){
       sheet.dataset.printPhase='piloto-quadros-integrais';
@@ -487,7 +511,7 @@
         figure.className='ep-print-approved-art';
         figure.alt='';
         figure.loading='eager';figure.decoding='sync';
-        figure.src='../../assets/folhetos/cenas/025-0'+(i+1)+'.webp?fit=mn025-moldura-discreta-v1';
+        figure.src='../../assets/folhetos/cenas/025-0'+(i+1)+'.webp?fit=mn025-no-nome-v2';
         figure.addEventListener('load',()=>{
           if(figure.naturalWidth>0){
             slot.replaceChildren(figure);
@@ -511,7 +535,7 @@
         figure.className='ep-print-approved-art';
         figure.alt='';
         figure.loading='eager';figure.decoding='sync';
-        figure.src='../../assets/folhetos/cenas/024-0'+(i+1)+'.webp?fit=cr024-moldura-leve-v1';
+        figure.src='../../assets/folhetos/cenas/024-0'+(i+1)+'.webp?fit=cr024-no-nome-v2';
         figure.addEventListener('load',()=>{
           if(figure.naturalWidth>0){
             slot.replaceChildren(figure);
