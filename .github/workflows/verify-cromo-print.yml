@@ -34,6 +34,8 @@ jobs:
           sleep 2
           node tests/verify-cromo-print.mjs
           node tests/verify-folheto-print.cjs
+      - name: Instalar ferramentas de inspeção PDF
+        run: sudo apt-get update -qq && sudo apt-get install -y --no-install-recommends poppler-utils
       - name: Verificar que o PDF tem exatamente uma página A4
         run: |
           set -euo pipefail

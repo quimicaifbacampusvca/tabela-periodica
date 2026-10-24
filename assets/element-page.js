@@ -449,6 +449,30 @@
         figure.addEventListener('error',()=>{panel.dataset.sceneError='true';},{once:true});
       }
     }
+    // PILOTO 025 — Manganês: artes aprovadas com Moldura A orgânica.
+    if(current.z===25 && document.body.dataset.folhetoPiloto==='manganes'){
+      sheet.dataset.printPhase='piloto-quadros-integrais';
+      const captions=[
+        'No cotidiano: o manganês participa da fabricação de ligas de aço; o dióxido de manganês é usado em pilhas e alguns compostos de manganês em fertilizantes.',
+        'Da origem à obtenção: minérios de manganês, como a pirolusita, são extraídos, beneficiados e processados para produzir manganês metálico ou ligas como ferromanganês.'
+      ];
+      for(const [i,slot] of [...sheet.querySelectorAll('.ep-print-story-art')].entries()){
+        const panel=slot.closest('.ep-print-story');
+        panel.setAttribute('aria-label',captions[i]);
+        const figure=document.createElement('img');
+        figure.className='ep-print-approved-art';
+        figure.alt='';
+        figure.loading='eager';figure.decoding='sync';
+        figure.src='../../assets/folhetos/cenas/025-0'+(i+1)+'.webp?fit=mn025-moldura-discreta-v1';
+        figure.addEventListener('load',()=>{
+          if(figure.naturalWidth>0){
+            slot.replaceChildren(figure);
+            panel.dataset.sceneReady='true';
+          }
+        },{once:true});
+        figure.addEventListener('error',()=>{panel.dataset.sceneError='true';},{once:true});
+      }
+    }
     // PILOTO 024 — Cromo: artes aprovadas com Moldura A orgânica.
     if(current.z===24 && document.body.dataset.folhetoPiloto==='cromo'){
       sheet.dataset.printPhase='piloto-quadros-integrais';

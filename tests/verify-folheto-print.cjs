@@ -644,7 +644,7 @@ assert.ok(chromiumHtml.includes('data-folheto-piloto="cromo"'),'Piloto Cromo aus
 assert.ok(js.includes("current.z===24 && document.body.dataset.folhetoPiloto==='cromo'"),'Montagem do Cromo ausente');
 assert.ok(js.includes('fit=cr024-moldura-leve-v1'),'Cache visual do Cromo não invalidado');
 assert.ok(css.includes('data-element="024"')&&css.includes('object-fit:contain!important'),'Cromo sem encaixe A4 integral');
-assert.ok(sw.includes('cordel-varal-v56-cromo-024-moldura-leve'),'PWA não atualizado para Cromo');
+assert.ok(sw.includes('assets/folhetos/cenas/024-01.webp')&&sw.includes('assets/folhetos/cenas/024-02.webp'),'Quadros Cromo devem continuar no cache');
 const manifestCr=JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(e=>e.z===24);
 assert.ok(manifestCr&&manifestCr.panels.length===2,'Manifesto do Cromo incompleto');
 const chromiumHashes={'01':'7d7c837f22419d0926abf9d1dade78655e638853b07b18339e9ceb512a3ed541','02':'2ae2866fbee4d0cc9ab1319140aaaed1d358195de34ff08150a27c7267673d2a'};
@@ -665,4 +665,34 @@ for(const id of ['01','02']){
  assert.equal(img.readUInt16LE(26)&0x3fff,1104,'Cromo '+id+' largura incorreta');
  assert.equal(img.readUInt16LE(28)&0x3fff,810,'Cromo '+id+' altura incorreta');
  assert.equal(chromiumCrypto.createHash('sha256').update(img).digest('hex'),chromiumHashes[id],'Cromo '+id+': arte foi alterada');
+}
+
+
+// PILOTO 025 — Manganês: quadros homologados em A4.
+const manganeseHtml=read('elementos/manganes/index.html');
+assert.ok(manganeseHtml.includes('data-folheto-piloto="manganes"'),'Piloto Manganês ausente');
+assert.ok(js.includes("current.z===25 && document.body.dataset.folhetoPiloto==='manganes'"),'Montagem do Manganês ausente');
+assert.ok(js.includes('fit=mn025-moldura-discreta-v1'),'Cache visual Manganês não invalidado');
+assert.ok(css.includes('data-element="025"')&&css.includes('object-fit:contain!important'),'Manganês sem encaixe A4');
+assert.ok(sw.includes('cordel-varal-v57-manganes-025-moldura-discreta'),'Cache PWA não atualizado para Manganês');
+const manifestMn=JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(e=>e.z===25);
+assert.ok(manifestMn&&manifestMn.panels.length===2,'Manifesto Manganês incompleto');
+const manganeseHashes={'01':'a7ae8207b3589f7b53df7fe20f0ca122dacdd445a23b4e6e7ca1efabeba8cb61','02':'d5a707f66b727022dd5a70c8c7d9c805af7da89b34249b8b954db89d41136ab7'};
+const manganeseCrypto=require('node:crypto');
+for(const id of ['01','02']){
+ const asset='assets/folhetos/cenas/025-'+id+'.webp';
+ const panel=manifestMn.panels.find(p=>p.id===id);
+ assert.ok(panel,'Quadro Manganês '+id+' ausente');
+ assert.equal(panel.image,asset,'Quadro Manganês '+id+' não integrado');
+ assert.equal(panel.expectedAsset,asset,'Destino Manganês '+id+' incorreto');
+ assert.equal(panel.status,'aprovada','Quadro Manganês '+id+' não aprovado');
+ assert.ok(sw.includes(asset),'Manganês '+id+' fora do cache offline');
+ const img=fs.readFileSync(path.join(root,asset));
+ assert.ok(img.length>200000,'Quadro Manganês '+id+' incompleto');
+ assert.equal(img.toString('ascii',0,4),'RIFF','RIFF Manganês '+id);
+ assert.equal(img.toString('ascii',8,12),'WEBP','WEBP Manganês '+id);
+ assert.equal(img.toString('ascii',12,16),'VP8 ','Manganês '+id+' contém transparência');
+ assert.equal(img.readUInt16LE(26)&0x3fff,1104,'Largura inválida Manganês '+id);
+ assert.equal(img.readUInt16LE(28)&0x3fff,810,'Altura inválida Manganês '+id);
+ assert.equal(manganeseCrypto.createHash('sha256').update(img).digest('hex'),manganeseHashes[id],'Manganês '+id+' mudou depois de aprovação');
 }
