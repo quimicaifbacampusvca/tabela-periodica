@@ -20,7 +20,7 @@ jobs:
           node-version: '22'
       - run: npm install --no-save playwright
       - run: npx playwright install --with-deps chromium
-      - name: Conferir 83 folhetos e 166 quadros
+      - name: Conferir 84 folhetos e 168 quadros
         run: |
           python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/cordel-http.log 2>&1 &
           node tests/verify-series-036-118.cjs
@@ -31,7 +31,7 @@ jobs:
           from pathlib import Path
           from pypdf import PdfReader
           files=list(Path('dist/series-review').glob('*.pdf'))
-          assert len(files)==83
+          assert len(files)==84
           for f in files:
               r=PdfReader(f)
               assert len(r.pages)==1, f

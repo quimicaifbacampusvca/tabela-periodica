@@ -452,7 +452,7 @@
 
     // PACOTE 031–035 — preparação segura: só ativa quadros após carregar
     // as duas artes integrais já incorporadas ao repositório.
-    if(current.z>=36 && current.z<=118){
+    if(current.z===33 || (current.z>=36 && current.z<=118)){
       const slots=[...sheet.querySelectorAll('.ep-print-story-art')];
       if(slots.length===2){
         const staged=[null,null];
