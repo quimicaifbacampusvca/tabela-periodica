@@ -1,7 +1,7 @@
 name: Verificar quadros 036 a 118
 on:
   push:
-    branches: [tabelaifbavca]
+    branches: [construção]
     paths:
       - 'assets/folhetos/cenas/**'
       - 'assets/element-page.*'

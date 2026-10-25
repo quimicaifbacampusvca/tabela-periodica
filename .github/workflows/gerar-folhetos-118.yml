@@ -2,7 +2,7 @@ name: Testar folheto A4 piloto do Lítio
 on:
   pull_request:
     branches:
-      - tabelaifbavca
+      - construção
     paths:
       - 'assets/folhetos/cenas/**'
       - 'elementos/litio/index.html'

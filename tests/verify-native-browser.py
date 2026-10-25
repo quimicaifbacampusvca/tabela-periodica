@@ -1,9 +1,11 @@
 """Safari through Apple safaridriver; stock Firefox stable/ESR through geckodriver."""
 
-import os, json, time, traceback, platform
+import os, json, time, traceback, platform, signal
 from pathlib import Path
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+from selenium.common.exceptions import ElementNotInteractableException
 from selenium.webdriver.support.ui import WebDriverWait, Select
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -69,6 +71,7 @@ def click(selector):
     if el.tag_name == "input" and el.get_attribute("type") == "checkbox":
         el = el.find_element(By.XPATH, "ancestor::label[1]")
     WebDriverWait(driver, 20).until(lambda _: el.is_displayed() and el.is_enabled())
+    js("arguments[0].scrollIntoView({block: 'center', inline: 'nearest'});", el)
     el.click()
 
 
@@ -81,10 +84,17 @@ def select(selector, value):
     options = [
         option for option in menu.options if option.get_attribute("value") == value
     ]
-    if options:
-        options[0].click()
-    else:
-        menu.select_by_visible_text(value)
+    option = options[0] if options else next(o for o in menu.options if o.text == value)
+    el = driver.find_element(By.CSS_SELECTOR, selector)
+    js("arguments[0].scrollIntoView({block: 'center'});", el)
+    try:
+        option.click()
+    except ElementNotInteractableException:
+        el.send_keys(Keys.HOME)
+        for _ in range(menu.options.index(option)):
+            el.send_keys(Keys.ARROW_DOWN)
+        el.send_keys(Keys.TAB)
+    WebDriverWait(driver, 10).until(lambda _: option.is_selected())
 
 
 def view():
@@ -95,7 +105,16 @@ def view():
 
 try:
     if kind == "safari":
-        driver = webdriver.Safari()
+
+        def startup_timeout(signum, frame):
+            raise TimeoutError("Safari native driver did not start within 120 seconds")
+
+        signal.signal(signal.SIGALRM, startup_timeout)
+        signal.alarm(120)
+        try:
+            driver = webdriver.Safari()
+        finally:
+            signal.alarm(0)
     else:
         options = webdriver.FirefoxOptions()
         options.add_argument("-headless")

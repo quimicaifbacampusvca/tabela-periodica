@@ -7,6 +7,16 @@ const read = (p) => fs.readFileSync(path.join(root, p), 'utf8');
 const js = read('assets/element-page.js');
 const css = read('assets/element-page.css');
 const sw = read('sw.js');
+// These are source contracts, complemented by actual A4 rendering tests.
+// Formatting whitespace and equivalent quotes must not invalidate them.
+const sourceSpelling = (text) =>
+  text
+    .replace(/\s+/g, '')
+    .replace(/;}/g, '}')
+    .replace(/["']/g, '"')
+    .replace(/\b0\.(\d)/g, '.$1');
+const containsSource = (source, fragment) =>
+  sourceSpelling(source).includes(sourceSpelling(fragment));
 const elements = JSON.parse(read('assets/elementos-fichas.json'));
 new Function(js);
 new Function(sw);
@@ -28,7 +38,7 @@ for (const fragment of [
   'current.predictedConfig',
   'current.series',
 ])
-  assert.ok(js.includes(fragment), 'missing JS: ' + fragment);
+  assert.ok(containsSource(js, fragment), 'missing JS: ' + fragment);
 for (const fragment of [
   '@page{size:A4 portrait;margin:0}',
   'height:296mm!important',
@@ -40,8 +50,12 @@ for (const fragment of [
   '.ep-print-property-grid',
   '.ep-print-signature',
 ])
-  assert.ok(css.includes(fragment), 'missing CSS: ' + fragment);
-assert.match(sw, /const CACHE='cordel-varal-v[0-9]+(?:-[a-z0-9]+)*'/, 'versioned PWA cache');
+  assert.ok(containsSource(css, fragment), 'missing CSS: ' + fragment);
+assert.match(
+  sw,
+  /const\s+CACHE\s*=\s*['"]cordel-varal-v[0-9]+(?:-[a-z0-9]+)*['"]/,
+  'versioned PWA cache',
+);
 console.log(
   'PASS: 118 elementos, modelo A4, valores, arte, quadrinhos, referências e impressão independente.',
 );
@@ -55,14 +69,14 @@ const protos = new Map([
 for (const [z, cls] of protos) {
   const el = elements.find((e) => e.z === z);
   assert.ok(el, 'Missing prototype ' + z);
-  assert.ok(css.includes('.' + cls), 'Missing state art direction ' + cls);
+  assert.ok(containsSource(css, '.' + cls), 'Missing state art direction ' + cls);
 }
 assert.ok(
-  js.includes('stateDirection'),
+  containsSource(js, 'stateDirection'),
   'State directions must map explicitly to four sample elements',
 );
 assert.ok(
-  js.includes('ep-print-scene-motif'),
+  containsSource(js, 'ep-print-scene-motif'),
   'Original artwork must be surrounded by graphical overlays',
 );
 console.log('PASS: quatro protótipos com estilos independentes e artes originais preservadas.');
@@ -70,39 +84,39 @@ console.log('PASS: quatro protótipos com estilos independentes e artes originai
 const lithHtml = read('elementos/litio/index.html');
 assert.ok(lithHtml.includes('data-folheto-piloto="litio"'), 'Ativação do piloto ausente');
 assert.ok(
-  js.includes("current.z===3 && document.body.dataset.folhetoPiloto==='litio'"),
+  containsSource(js, "current.z===3 && document.body.dataset.folhetoPiloto==='litio'"),
   'Pilot must be isolated to Lítio',
 );
 assert.ok(
-  css.includes('grid-template-rows:15mm 8mm 96mm 65mm 67.5mm 14.5mm!important'),
+  containsSource(css, 'grid-template-rows:15mm 8mm 96mm 65mm 67.5mm 14.5mm!important'),
   'A4 pilot grid changed',
 );
-assert.ok(css.includes('object-fit:contain!important'), 'Pilot must not distort/crop art');
+assert.ok(containsSource(css, 'object-fit:contain!important'), 'Pilot must not distort/crop art');
 assert.ok(
-  css.includes('1104x810 na impressão'),
+  containsSource(css, '1104x810 na impressão'),
   'Quadros devem usar fonte integral com proporção real',
 );
-assert.ok(js.includes('fit=full-border-v2'), 'Lítio precisa invalidar os recortes antigos');
+assert.ok(containsSource(js, 'fit=full-border-v2'), 'Lítio precisa invalidar os recortes antigos');
 assert.ok(
   sw.includes('assets/folhetos/cenas/003-02.webp'),
   'PWA deve invalidar cache de cenas antigas',
 );
-assert.ok(js.includes('003-0'), 'Two approved originals are required');
+assert.ok(containsSource(js, '003-0'), 'Two approved originals are required');
 assert.ok(
-  css.includes('column-gap:2mm!important'),
+  containsSource(css, 'column-gap:2mm!important'),
   'Quadros devem ter o espaço reduzido da referência aprovada',
 );
 
 assert.ok(
-  !css.includes('Ajuste localizado de alinhamento, Lítio (003)'),
+  !containsSource(css, 'Ajuste localizado de alinhamento, Lítio (003)'),
   'Remover remendo de alinhamento óptico antigo',
 );
 assert.ok(
-  css.includes('grid-template-columns:repeat(2,minmax(0,1fr))!important'),
+  containsSource(css, 'grid-template-columns:repeat(2,minmax(0,1fr))!important'),
   'Quadros devem compartilhar largura exata',
 );
 assert.ok(
-  !css.includes('transform:translateX(.55%) scaleX(.995)!important'),
+  !containsSource(css, 'transform:translateX(.55%) scaleX(.995)!important'),
   'Quadro 02 sem deslocamento artificial',
 );
 
@@ -110,24 +124,24 @@ assert.ok(
 const hydroHtml = read('elementos/hidrogenio/index.html');
 assert.ok(hydroHtml.includes('data-folheto-piloto="hidrogenio"'), 'Piloto Hidrogênio não ativado');
 assert.ok(
-  js.includes("current.z===1 && document.body.dataset.folhetoPiloto==='hidrogenio'"),
+  containsSource(js, "current.z===1 && document.body.dataset.folhetoPiloto==='hidrogenio'"),
   'JS do piloto 001 ausente',
 );
-assert.ok(css.includes('data-element="001"'), 'CSS da moldura do piloto 001 ausente');
-assert.ok(js.includes("'full-border-h001-v1'"), 'Cache da arte 001 não foi invalidado');
+assert.ok(containsSource(css, 'data-element="001"'), 'CSS da moldura do piloto 001 ausente');
+assert.ok(containsSource(js, "'full-border-h001-v1'"), 'Cache da arte 001 não foi invalidado');
 assert.ok(sw.includes('assets/folhetos/cenas/001-02.webp'), 'SW precisa atualizar imagens 001');
 
 // Regressão: fonte aprovada integral, sem mascarar lateral direita ou deformar o quadro.
 assert.ok(
-  !css.includes('transform:scaleY(.922)!important'),
+  !containsSource(css, 'transform:scaleY(.922)!important'),
   'Quadro 02 não deve ser comprimido no CSS',
 );
 assert.ok(
-  js.includes('full-border-h001-v2-right-intact'),
+  containsSource(js, 'full-border-h001-v2-right-intact'),
   'Quadro 02 deve invalidar o cache do recorte incompleto',
 );
 assert.ok(
-  js.includes("i===1?'full-border-h001-v2-right-intact':'full-border-h001-v1'"),
+  containsSource(js, "i===1?'full-border-h001-v2-right-intact':'full-border-h001-v1'"),
   'Quadro 01 precisa manter o arquivo homologado',
 );
 const rightArt = fs.readFileSync(path.join(root, 'assets/folhetos/cenas/001-02.webp'));
@@ -139,11 +153,14 @@ assert.equal(rightArt.toString('ascii', 8, 12), 'WEBP', 'O arquivo de arte deve 
 const heliumHtml = read('elementos/helio/index.html');
 assert.ok(heliumHtml.includes('data-folheto-piloto="helio"'), 'Piloto Hélio não ativado');
 assert.ok(
-  js.includes("current.z===2 && document.body.dataset.folhetoPiloto==='helio'"),
+  containsSource(js, "current.z===2 && document.body.dataset.folhetoPiloto==='helio'"),
   'Montagem do Hélio ausente',
 );
-assert.ok(css.includes('data-element="002"'), 'Moldura A4 do Hélio ausente');
-assert.ok(js.includes('fit=he002-bordas-integrais-v1'), 'Hélio precisa evitar o cache anterior');
+assert.ok(containsSource(css, 'data-element="002"'), 'Moldura A4 do Hélio ausente');
+assert.ok(
+  containsSource(js, 'fit=he002-bordas-integrais-v1'),
+  'Hélio precisa evitar o cache anterior',
+);
 assert.ok(
   sw.includes('assets/folhetos/cenas/002-02.webp'),
   'Cache de cenas do Hélio não atualizado',
@@ -159,11 +176,11 @@ for (const i of ['01', '02']) {
 const boronHtml = read('elementos/boro/index.html');
 assert.ok(boronHtml.includes('data-folheto-piloto="boro"'), 'Piloto Boro não ativado');
 assert.ok(
-  js.includes("current.z===5 && document.body.dataset.folhetoPiloto==='boro'"),
+  containsSource(js, "current.z===5 && document.body.dataset.folhetoPiloto==='boro'"),
   'Montagem do Boro ausente',
 );
-assert.ok(css.includes('data-element="005"'), 'Moldura A4 do Boro ausente');
-assert.ok(js.includes('fit=b005-arte-aprovada-v1'), 'Boro precisa invalidar cache anterior');
+assert.ok(containsSource(css, 'data-element="005"'), 'Moldura A4 do Boro ausente');
+assert.ok(containsSource(js, 'fit=b005-arte-aprovada-v1'), 'Boro precisa invalidar cache anterior');
 assert.ok(sw.includes('assets/folhetos/cenas/005-02.webp'), 'SW precisa invalidar cache do Boro');
 for (const i of ['01', '02']) {
   const file = fs.readFileSync(path.join(root, 'assets/folhetos/cenas/005-' + i + '.webp'));
@@ -176,11 +193,14 @@ for (const i of ['01', '02']) {
 const berylliumHtml = read('elementos/berilio/index.html');
 assert.ok(berylliumHtml.includes('data-folheto-piloto="berilio"'), 'Piloto Berílio não ativado');
 assert.ok(
-  js.includes("current.z===4 && document.body.dataset.folhetoPiloto==='berilio'"),
+  containsSource(js, "current.z===4 && document.body.dataset.folhetoPiloto==='berilio'"),
   'Montagem do Berílio ausente',
 );
-assert.ok(css.includes('data-element="004"'), 'Moldura A4 do Berílio ausente');
-assert.ok(js.includes('fit=b004-arte-aprovada-v1'), 'Berílio precisa invalidar cache anterior');
+assert.ok(containsSource(css, 'data-element="004"'), 'Moldura A4 do Berílio ausente');
+assert.ok(
+  containsSource(js, 'fit=b004-arte-aprovada-v1'),
+  'Berílio precisa invalidar cache anterior',
+);
 assert.ok(
   sw.includes('assets/folhetos/cenas/004-01.webp'),
   'SW precisa preservar cache do Berílio',
@@ -205,11 +225,14 @@ for (const i of ['01', '02']) {
 const carbonHtml = read('elementos/carbono/index.html');
 assert.ok(carbonHtml.includes('data-folheto-piloto="carbono"'), 'Piloto Carbono não ativado');
 assert.ok(
-  js.includes("current.z===6 && document.body.dataset.folhetoPiloto==='carbono'"),
+  containsSource(js, "current.z===6 && document.body.dataset.folhetoPiloto==='carbono'"),
   'Montagem do Carbono ausente',
 );
-assert.ok(css.includes('data-element="006"'), 'Moldura A4 do Carbono ausente');
-assert.ok(js.includes('fit=c006-arte-aprovada-v1'), 'Carbono precisa invalidar cache anterior');
+assert.ok(containsSource(css, 'data-element="006"'), 'Moldura A4 do Carbono ausente');
+assert.ok(
+  containsSource(js, 'fit=c006-arte-aprovada-v1'),
+  'Carbono precisa invalidar cache anterior',
+);
 assert.ok(
   sw.includes('assets/folhetos/cenas/006-01.webp'),
   'SW precisa preservar cache do Carbono',
@@ -237,11 +260,11 @@ assert.ok(
   'Piloto Nitrogênio não ativado',
 );
 assert.ok(
-  js.includes("current.z===7 && document.body.dataset.folhetoPiloto==='nitrogenio'"),
+  containsSource(js, "current.z===7 && document.body.dataset.folhetoPiloto==='nitrogenio'"),
   'Montagem do Nitrogênio ausente',
 );
-assert.ok(css.includes('data-element="007"'), 'Moldura A4 do Nitrogênio ausente');
-assert.ok(js.includes('fit=n007-arte-aprovada-v1'), 'Nitrogênio precisa invalidar cache');
+assert.ok(containsSource(css, 'data-element="007"'), 'Moldura A4 do Nitrogênio ausente');
+assert.ok(containsSource(js, 'fit=n007-arte-aprovada-v1'), 'Nitrogênio precisa invalidar cache');
 assert.ok(
   sw.includes('assets/folhetos/cenas/007-01.webp'),
   'SW precisa preservar cache do Nitrogênio',
@@ -266,11 +289,11 @@ for (const i of ['01', '02']) {
 const oxygenHtml = read('elementos/oxigenio/index.html');
 assert.ok(oxygenHtml.includes('data-folheto-piloto="oxigenio"'), 'Piloto Oxigênio não ativado');
 assert.ok(
-  js.includes("current.z===8 && document.body.dataset.folhetoPiloto==='oxigenio'"),
+  containsSource(js, "current.z===8 && document.body.dataset.folhetoPiloto==='oxigenio'"),
   'Montagem do Oxigênio ausente',
 );
-assert.ok(css.includes('data-element="008"'), 'Moldura A4 do Oxigênio ausente');
-assert.ok(js.includes('fit=o008-arte-aprovada-v1'), 'Oxigênio precisa invalidar cache');
+assert.ok(containsSource(css, 'data-element="008"'), 'Moldura A4 do Oxigênio ausente');
+assert.ok(containsSource(js, 'fit=o008-arte-aprovada-v1'), 'Oxigênio precisa invalidar cache');
 assert.ok(
   sw.includes('assets/folhetos/cenas/008-01.webp'),
   'SW precisa preservar cache do Oxigênio',
@@ -317,11 +340,14 @@ for (const i of ['01', '02']) {
 const fluorHtml = read('elementos/fluor/index.html');
 assert.ok(fluorHtml.includes('data-folheto-piloto="fluor"'), 'Piloto Flúor não ativado');
 assert.ok(
-  js.includes("current.z===9 && document.body.dataset.folhetoPiloto==='fluor'"),
+  containsSource(js, "current.z===9 && document.body.dataset.folhetoPiloto==='fluor'"),
   'Montagem do Flúor ausente',
 );
-assert.ok(css.includes('data-element="009"'), 'Moldura A4 do Flúor ausente');
-assert.ok(js.includes('fit=f009-arte-aprovada-v2'), 'Flúor precisa invalidar cache anterior');
+assert.ok(containsSource(css, 'data-element="009"'), 'Moldura A4 do Flúor ausente');
+assert.ok(
+  containsSource(js, 'fit=f009-arte-aprovada-v2'),
+  'Flúor precisa invalidar cache anterior',
+);
 assert.ok(sw.includes('assets/folhetos/cenas/009-01.webp'), 'SW precisa preservar cache do Flúor');
 const manifestF = JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(
   (e) => e.z === 9,
@@ -343,11 +369,14 @@ for (const i of ['01', '02']) {
 const neonHtml = read('elementos/neonio/index.html');
 assert.ok(neonHtml.includes('data-folheto-piloto="neonio"'), 'Piloto Neônio não ativado');
 assert.ok(
-  js.includes("current.z===10 && document.body.dataset.folhetoPiloto==='neonio'"),
+  containsSource(js, "current.z===10 && document.body.dataset.folhetoPiloto==='neonio'"),
   'Montagem do Neônio ausente',
 );
-assert.ok(css.includes('data-element="010"'), 'Moldura A4 do Neônio ausente');
-assert.ok(js.includes('fit=ne010-arte-aprovada-v1'), 'Cache das artes do Neônio não invalidado');
+assert.ok(containsSource(css, 'data-element="010"'), 'Moldura A4 do Neônio ausente');
+assert.ok(
+  containsSource(js, 'fit=ne010-arte-aprovada-v1'),
+  'Cache das artes do Neônio não invalidado',
+);
 assert.ok(sw.includes('assets/folhetos/cenas/010-01.webp'), 'SW precisa preservar cache do Neônio');
 const manifestNe = JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(
   (e) => e.z === 10,
@@ -369,11 +398,14 @@ for (const i of ['01', '02']) {
 const sodiumHtml = read('elementos/sodio/index.html');
 assert.ok(sodiumHtml.includes('data-folheto-piloto="sodio"'), 'Piloto Sódio não ativado');
 assert.ok(
-  js.includes("current.z===11 && document.body.dataset.folhetoPiloto==='sodio'"),
+  containsSource(js, "current.z===11 && document.body.dataset.folhetoPiloto==='sodio'"),
   'Montagem do Sódio ausente',
 );
-assert.ok(css.includes('data-element="011"'), 'Moldura A4 do Sódio ausente');
-assert.ok(js.includes('fit=na011-arte-aprovada-v1'), 'Cache das artes do Sódio não invalidado');
+assert.ok(containsSource(css, 'data-element="011"'), 'Moldura A4 do Sódio ausente');
+assert.ok(
+  containsSource(js, 'fit=na011-arte-aprovada-v1'),
+  'Cache das artes do Sódio não invalidado',
+);
 assert.ok(sw.includes('assets/folhetos/cenas/011-01.webp'), 'SW precisa preservar cache do Sódio');
 const manifestNa = JSON.parse(read('data/folhetos-impressao-manifesto.json')).elements.find(
   (e) => e.z === 11,
@@ -395,11 +427,11 @@ for (const i of ['01', '02']) {
 const magnesiumHtml = read('elementos/magnesio/index.html');
 assert.ok(magnesiumHtml.includes('data-folheto-piloto="magnesio"'), 'Piloto Magnésio não ativado');
 assert.ok(
-  js.includes("current.z===12 && document.body.dataset.folhetoPiloto==='magnesio'"),
+  containsSource(js, "current.z===12 && document.body.dataset.folhetoPiloto==='magnesio'"),
   'Montagem do Magnésio ausente',
 );
-assert.ok(css.includes('data-element="012"'), 'Moldura A4 do Magnésio ausente');
-assert.ok(js.includes('fit=mg012-arte-aprovada-v1'), 'Cache de Magnésio não invalidado');
+assert.ok(containsSource(css, 'data-element="012"'), 'Moldura A4 do Magnésio ausente');
+assert.ok(containsSource(js, 'fit=mg012-arte-aprovada-v1'), 'Cache de Magnésio não invalidado');
 assert.ok(
   sw.includes('assets/folhetos/cenas/012-01.webp'),
   'SW precisa preservar cache do Magnésio',
@@ -424,11 +456,14 @@ for (const i of ['01', '02']) {
 const aluminumHtml = read('elementos/aluminio/index.html');
 assert.ok(aluminumHtml.includes('data-folheto-piloto="aluminio"'), 'Piloto Alumínio não ativado');
 assert.ok(
-  js.includes("current.z===13 && document.body.dataset.folhetoPiloto==='aluminio'"),
+  containsSource(js, "current.z===13 && document.body.dataset.folhetoPiloto==='aluminio'"),
   'Montagem do Alumínio ausente',
 );
-assert.ok(css.includes('data-element="013"'), 'Moldura A4 do Alumínio ausente');
-assert.ok(js.includes('fit=al013-arte-aprovada-v1'), 'Cache das artes do Alumínio não invalidado');
+assert.ok(containsSource(css, 'data-element="013"'), 'Moldura A4 do Alumínio ausente');
+assert.ok(
+  containsSource(js, 'fit=al013-arte-aprovada-v1'),
+  'Cache das artes do Alumínio não invalidado',
+);
 assert.ok(
   sw.includes('assets/folhetos/cenas/013-01.webp'),
   'SW precisa preservar cache do Alumínio',
@@ -453,11 +488,14 @@ for (const i of ['01', '02']) {
 const siliconHtml = read('elementos/silicio/index.html');
 assert.ok(siliconHtml.includes('data-folheto-piloto="silicio"'), 'Piloto Silício não ativado');
 assert.ok(
-  js.includes("current.z===14 && document.body.dataset.folhetoPiloto==='silicio'"),
+  containsSource(js, "current.z===14 && document.body.dataset.folhetoPiloto==='silicio'"),
   'Montagem do Silício ausente',
 );
-assert.ok(css.includes('data-element="014"'), 'Moldura A4 do Silício ausente');
-assert.ok(js.includes('fit=si014-sem-fundo-v3'), 'Cache das artes do Silício não invalidado');
+assert.ok(containsSource(css, 'data-element="014"'), 'Moldura A4 do Silício ausente');
+assert.ok(
+  containsSource(js, 'fit=si014-sem-fundo-v3'),
+  'Cache das artes do Silício não invalidado',
+);
 assert.ok(
   sw.includes('assets/folhetos/cenas/014-01.webp'),
   'Quadro 014 deve permanecer no cache PWA após atualizações',
@@ -521,11 +559,11 @@ for (const id of ['01', '02']) {
 const phosphorusHtml = read('elementos/fosforo/index.html');
 assert.ok(phosphorusHtml.includes('data-folheto-piloto="fosforo"'), 'Piloto Fósforo não ativado');
 assert.ok(
-  js.includes("current.z===15 && document.body.dataset.folhetoPiloto==='fosforo'"),
+  containsSource(js, "current.z===15 && document.body.dataset.folhetoPiloto==='fosforo'"),
   'Montagem do Fósforo ausente',
 );
-assert.ok(css.includes('data-element="015"'), 'Moldura A4 do Fósforo ausente');
-assert.ok(js.includes('fit=p015-aprovado-v1'), 'Cache das artes do Fósforo não invalidado');
+assert.ok(containsSource(css, 'data-element="015"'), 'Moldura A4 do Fósforo ausente');
+assert.ok(containsSource(js, 'fit=p015-aprovado-v1'), 'Cache das artes do Fósforo não invalidado');
 assert.ok(
   sw.includes('assets/folhetos/cenas/015-01.webp'),
   'Quadro 015 deve permanecer no cache PWA após atualizações',
@@ -561,11 +599,11 @@ for (const id of ['01', '02']) {
 const sulfurHtml = read('elementos/enxofre/index.html');
 assert.ok(sulfurHtml.includes('data-folheto-piloto="enxofre"'), 'Piloto Enxofre não ativado');
 assert.ok(
-  js.includes("current.z===16 && document.body.dataset.folhetoPiloto==='enxofre'"),
+  containsSource(js, "current.z===16 && document.body.dataset.folhetoPiloto==='enxofre'"),
   'Montagem do Enxofre ausente',
 );
-assert.ok(css.includes('data-element="016"'), 'Moldura A4 do Enxofre ausente');
-assert.ok(js.includes('fit=s016-aprovado-v1'), 'Invalidação de cache do Enxofre ausente');
+assert.ok(containsSource(css, 'data-element="016"'), 'Moldura A4 do Enxofre ausente');
+assert.ok(containsSource(js, 'fit=s016-aprovado-v1'), 'Invalidação de cache do Enxofre ausente');
 assert.ok(
   sw.includes('assets/folhetos/cenas/016-01.webp'),
   'Quadro 016 deve permanecer no cache PWA após atualizações',
@@ -604,11 +642,14 @@ for (const id of ['01', '02']) {
 const chlorineHtml = read('elementos/cloro/index.html');
 assert.ok(chlorineHtml.includes('data-folheto-piloto="cloro"'), 'Piloto Cloro não ativado');
 assert.ok(
-  js.includes("current.z===17 && document.body.dataset.folhetoPiloto==='cloro'"),
+  containsSource(js, "current.z===17 && document.body.dataset.folhetoPiloto==='cloro'"),
   'Montagem Cloro ausente',
 );
-assert.ok(css.includes('data-element="017"'), 'Encaixe A4 do Cloro ausente');
-assert.ok(js.includes('fit=cl017-preenchimento-integral-v2'), 'Cloro sem invalidação de cache');
+assert.ok(containsSource(css, 'data-element="017"'), 'Encaixe A4 do Cloro ausente');
+assert.ok(
+  containsSource(js, 'fit=cl017-preenchimento-integral-v2'),
+  'Cloro sem invalidação de cache',
+);
 assert.ok(
   sw.includes('assets/folhetos/cenas/017-01.webp'),
   'Quadro 017 deve permanecer no cache PWA após atualizações',
@@ -653,11 +694,11 @@ for (const id of ['01', '02']) {
 const argonPage = read('elementos/argonio/index.html');
 assert.ok(argonPage.includes('data-folheto-piloto="argonio"'), 'Piloto Argônio não ativado');
 assert.ok(
-  js.includes("current.z===18 && document.body.dataset.folhetoPiloto==='argonio'"),
+  containsSource(js, "current.z===18 && document.body.dataset.folhetoPiloto==='argonio'"),
   'Montagem Argônio ausente',
 );
-assert.ok(css.includes('data-element="018"'), 'Argônio sem encaixe editorial A4');
-assert.ok(js.includes('fit=ar018-integral-v1'), 'Argônio sem invalidação de imagem');
+assert.ok(containsSource(css, 'data-element="018"'), 'Argônio sem encaixe editorial A4');
+assert.ok(containsSource(js, 'fit=ar018-integral-v1'), 'Argônio sem invalidação de imagem');
 assert.ok(
   sw.includes('assets/folhetos/cenas/018-01.webp'),
   'Quadro 018 deve permanecer no cache PWA após atualizações',
@@ -701,11 +742,14 @@ for (const id of ['01', '02']) {
 const potassiumPage = read('elementos/potassio/index.html');
 assert.ok(potassiumPage.includes('data-folheto-piloto="potassio"'), 'Piloto Potássio não ativado');
 assert.ok(
-  js.includes("current.z===19 && document.body.dataset.folhetoPiloto==='potassio'"),
+  containsSource(js, "current.z===19 && document.body.dataset.folhetoPiloto==='potassio'"),
   'Montagem Potássio ausente',
 );
-assert.ok(css.includes('data-element="019"'), 'Potássio sem encaixe A4');
-assert.ok(js.includes('fit=k019-quadro-integral-v1'), 'Cache das artes de Potássio não invalidado');
+assert.ok(containsSource(css, 'data-element="019"'), 'Potássio sem encaixe A4');
+assert.ok(
+  containsSource(js, 'fit=k019-quadro-integral-v1'),
+  'Cache das artes de Potássio não invalidado',
+);
 assert.ok(
   sw.includes('assets/folhetos/cenas/019-01.webp'),
   'Quadro 019 deve permanecer no cache PWA após atualizações',
@@ -757,12 +801,12 @@ for (const id of ['01', '02']) {
 const calciumPage = read('elementos/calcio/index.html');
 assert.ok(calciumPage.includes('data-folheto-piloto="calcio"'), 'Piloto do Cálcio não ativado');
 assert.ok(
-  js.includes("current.z===20 && document.body.dataset.folhetoPiloto==='calcio'"),
+  containsSource(js, "current.z===20 && document.body.dataset.folhetoPiloto==='calcio'"),
   'Montagem do Cálcio não encontrada',
 );
-assert.ok(css.includes('data-element="020"'), 'Cálcio sem estilo A4');
+assert.ok(containsSource(css, 'data-element="020"'), 'Cálcio sem estilo A4');
 assert.ok(
-  js.includes('fit=ca020-aprovado-integral-v1'),
+  containsSource(js, 'fit=ca020-aprovado-integral-v1'),
   'Invalidação do cache dos quadros do Cálcio ausente',
 );
 assert.ok(
@@ -819,12 +863,12 @@ assert.ok(
   'Piloto Escândio ausente na página',
 );
 assert.ok(
-  js.includes("current.z===21 && document.body.dataset.folhetoPiloto==='escandio'"),
+  containsSource(js, "current.z===21 && document.body.dataset.folhetoPiloto==='escandio'"),
   'Montagem do Escândio ausente',
 );
-assert.ok(js.includes('fit=sc021-moldura-a-v1'), 'Cache visual do Escândio não atualizado');
+assert.ok(containsSource(js, 'fit=sc021-moldura-a-v1'), 'Cache visual do Escândio não atualizado');
 assert.ok(
-  css.includes('data-element="021"') && css.includes('piloto-quadros-integrais'),
+  containsSource(css, 'data-element="021"') && containsSource(css, 'piloto-quadros-integrais'),
   'Escândio sem encaixe de impressão A4',
 );
 assert.ok(
@@ -873,12 +917,12 @@ assert.ok(
   'Piloto Titânio ausente da página',
 );
 assert.ok(
-  js.includes("current.z===22 && document.body.dataset.folhetoPiloto==='titanio'"),
+  containsSource(js, "current.z===22 && document.body.dataset.folhetoPiloto==='titanio'"),
   'Montagem do Titânio ausente',
 );
-assert.ok(js.includes('fit=ti022-moldura-a-v1'), 'Versão visual do Titânio não invalidada');
+assert.ok(containsSource(js, 'fit=ti022-moldura-a-v1'), 'Versão visual do Titânio não invalidada');
 assert.ok(
-  css.includes('data-element="022"') && css.includes('piloto-quadros-integrais'),
+  containsSource(css, 'data-element="022"') && containsSource(css, 'piloto-quadros-integrais'),
   'Titânio sem encaixe A4',
 );
 assert.ok(
@@ -933,12 +977,12 @@ for (const id of ['01', '02']) {
 const vanadiumHtml = read('elementos/vanadio/index.html');
 assert.ok(vanadiumHtml.includes('data-folheto-piloto="vanadio"'), 'Piloto Vanádio ausente');
 assert.ok(
-  js.includes("current.z===23 && document.body.dataset.folhetoPiloto==='vanadio'"),
+  containsSource(js, "current.z===23 && document.body.dataset.folhetoPiloto==='vanadio'"),
   'Montagem do Vanádio ausente',
 );
-assert.ok(js.includes('fit=v023-moldura-a-v1'), 'Cache visual do Vanádio não invalidado');
+assert.ok(containsSource(js, 'fit=v023-moldura-a-v1'), 'Cache visual do Vanádio não invalidado');
 assert.ok(
-  css.includes('data-element="023"') && css.includes('object-fit:contain!important'),
+  containsSource(css, 'data-element="023"') && containsSource(css, 'object-fit:contain!important'),
   'Vanádio sem encaixe A4 integral',
 );
 assert.ok(
@@ -984,12 +1028,15 @@ for (const id of ['01', '02']) {
 const chromiumHtml = read('elementos/cromo/index.html');
 assert.ok(chromiumHtml.includes('data-folheto-piloto="cromo"'), 'Piloto Cromo ausente');
 assert.ok(
-  js.includes("current.z===24 && document.body.dataset.folhetoPiloto==='cromo'"),
+  containsSource(js, "current.z===24 && document.body.dataset.folhetoPiloto==='cromo'"),
   'Montagem do Cromo ausente',
 );
-assert.ok(js.includes('fit=cr024-sem-nome-dimensoes-v3'), 'Cache visual do Cromo não invalidado');
 assert.ok(
-  css.includes('data-element="024"') && css.includes('object-fit:contain!important'),
+  containsSource(js, 'fit=cr024-sem-nome-dimensoes-v3'),
+  'Cache visual do Cromo não invalidado',
+);
+assert.ok(
+  containsSource(css, 'data-element="024"') && containsSource(css, 'object-fit:contain!important'),
   'Cromo sem encaixe A4 integral',
 );
 assert.ok(
@@ -1032,12 +1079,15 @@ for (const id of ['01', '02']) {
 const manganeseHtml = read('elementos/manganes/index.html');
 assert.ok(manganeseHtml.includes('data-folheto-piloto="manganes"'), 'Piloto Manganês ausente');
 assert.ok(
-  js.includes("current.z===25 && document.body.dataset.folhetoPiloto==='manganes'"),
+  containsSource(js, "current.z===25 && document.body.dataset.folhetoPiloto==='manganes'"),
   'Montagem do Manganês ausente',
 );
-assert.ok(js.includes('fit=mn025-sem-nome-dimensoes-v3'), 'Cache visual Manganês não invalidado');
 assert.ok(
-  css.includes('data-element="025"') && css.includes('object-fit:contain!important'),
+  containsSource(js, 'fit=mn025-sem-nome-dimensoes-v3'),
+  'Cache visual Manganês não invalidado',
+);
+assert.ok(
+  containsSource(css, 'data-element="025"') && containsSource(css, 'object-fit:contain!important'),
   'Manganês sem encaixe A4',
 );
 assert.ok(
@@ -1080,12 +1130,15 @@ for (const id of ['01', '02']) {
 const ironHtml = read('elementos/ferro/index.html');
 assert.ok(ironHtml.includes('data-folheto-piloto="ferro"'), 'Piloto Ferro ausente');
 assert.ok(
-  js.includes("current.z===26 && document.body.dataset.folhetoPiloto==='ferro'"),
+  containsSource(js, "current.z===26 && document.body.dataset.folhetoPiloto==='ferro'"),
   'Montagem Ferro ausente',
 );
-assert.ok(js.includes('fit=fe026-moldura-discreta-v1'), 'Ferro: cache visual não atualizado');
 assert.ok(
-  css.includes('data-element="026"') && css.includes('object-fit:contain!important'),
+  containsSource(js, 'fit=fe026-moldura-discreta-v1'),
+  'Ferro: cache visual não atualizado',
+);
+assert.ok(
+  containsSource(css, 'data-element="026"') && containsSource(css, 'object-fit:contain!important'),
   'Ferro sem encaixe A4',
 );
 assert.ok(
@@ -1128,12 +1181,15 @@ for (const id of ['01', '02']) {
 const cobaltHtml = read('elementos/cobalto/index.html');
 assert.ok(cobaltHtml.includes('data-folheto-piloto="cobalto"'), 'Piloto Cobalto ausente');
 assert.ok(
-  js.includes("current.z===27 && document.body.dataset.folhetoPiloto==='cobalto'"),
+  containsSource(js, "current.z===27 && document.body.dataset.folhetoPiloto==='cobalto'"),
   'Montagem do Cobalto ausente',
 );
-assert.ok(js.includes('fit=co027-moldura-discreta-v1'), 'Cache visual do Cobalto não atualizado');
 assert.ok(
-  css.includes('data-element="027"') && css.includes('object-fit:contain!important'),
+  containsSource(js, 'fit=co027-moldura-discreta-v1'),
+  'Cache visual do Cobalto não atualizado',
+);
+assert.ok(
+  containsSource(css, 'data-element="027"') && containsSource(css, 'object-fit:contain!important'),
   'Cobalto sem encaixe A4 integral',
 );
 assert.ok(

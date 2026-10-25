@@ -1,7 +1,7 @@
 name: Verificar Folheto A4
 on:
   pull_request:
-    branches: [tabelaifbavca, feat/folheto-editorial-a4-uma-pagina]
+    branches: [construção, feat/folheto-editorial-a4-uma-pagina]
     paths:
       - 'assets/element-page.js'
       - 'assets/element-page.css'

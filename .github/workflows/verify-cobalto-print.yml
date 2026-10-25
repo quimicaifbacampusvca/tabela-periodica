@@ -1,7 +1,7 @@
 name: Verificar impressão A4 Cobalto 027
 on:
   push:
-    branches: [tabelaifbavca]
+    branches: [construção]
     paths:
       - 'assets/folhetos/cenas/027-*.webp'
       - 'assets/element-page.js'

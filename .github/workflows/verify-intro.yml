@@ -1,7 +1,7 @@
 name: Verificar abertura Cordel
 on:
   pull_request:
-    branches: [tabelaifbavca]
+    branches: [construção]
     paths:
       - 'assets/book-intro.js'
       - 'assets/book-intro.css'

@@ -1,7 +1,7 @@
 name: Compatibilidade e retrocompatibilidade
 on:
   push:
-    branches: [tabelaifbavca]
+    branches: [construção]
     paths: ['tests/verify-browser-compat.cjs', 'tests/verify-native-browser.py', 'tests/verify-home-mobile.cjs', '.github/workflows/verify-browser-compat.yml']
   workflow_dispatch:
 permissions:
@@ -32,7 +32,7 @@ jobs:
           BROWSER_CHANNEL: ${{ matrix.channel }}
           COMPAT_ID: ${{ matrix.target }}
         run: |
-          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/compat-http.log 2>&1 &
+          python3 tests/compat-server.py 8765 --bind 127.0.0.1 >/tmp/compat-http.log 2>&1 &
           for attempt in $(seq 1 40); do curl -fsS http://127.0.0.1:8765/ >/dev/null && break; sleep 0.25; done
           node tests/verify-browser-compat.cjs
       - uses: actions/upload-artifact@v4
@@ -66,7 +66,7 @@ jobs:
           COMPAT_ID: historical-${{ matrix.pw }}-${{ matrix.engine }}
           PLAYWRIGHT_BROWSERS_PATH: /ms-playwright
         run: |
-          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/compat-http.log 2>&1 &
+          python3 tests/compat-server.py 8765 --bind 127.0.0.1 >/tmp/compat-http.log 2>&1 &
           for attempt in $(seq 1 40); do curl -fsS http://127.0.0.1:8765/ >/dev/null && break; sleep 0.25; done
           node tests/verify-browser-compat.cjs
       - uses: actions/upload-artifact@v4
@@ -84,7 +84,7 @@ jobs:
       - run: npx playwright install webkit
       - env: { BROWSER_ENGINE: webkit, COMPAT_ID: webkit-macos }
         run: |
-          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/compat-http.log 2>&1 &
+          python3 tests/compat-server.py 8765 --bind 127.0.0.1 >/tmp/compat-http.log 2>&1 &
           for attempt in $(seq 1 40); do curl -fsS http://127.0.0.1:8765/ >/dev/null && break; sleep 0.25; done
           node tests/verify-browser-compat.cjs
       - uses: actions/upload-artifact@v4
@@ -110,7 +110,7 @@ jobs:
           sleep 2
       - env: { NATIVE_BROWSER: safari, COMPAT_ID: 'safari-${{ matrix.os }}' }
         run: |
-          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/compat-http.log 2>&1 &
+          python3 tests/compat-server.py 8765 --bind 127.0.0.1 >/tmp/compat-http.log 2>&1 &
           for attempt in $(seq 1 40); do curl -fsS http://127.0.0.1:8765/ >/dev/null && break; sleep 0.25; done
           python3 tests/verify-native-browser.py
       - uses: actions/upload-artifact@v4
@@ -138,7 +138,7 @@ jobs:
           /tmp/firefox-official/firefox --version
       - env: { NATIVE_BROWSER: firefox, FIREFOX_BINARY: /tmp/firefox-official/firefox, COMPAT_ID: 'firefox-official-${{ matrix.channel }}' }
         run: |
-          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/compat-http.log 2>&1 &
+          python3 tests/compat-server.py 8765 --bind 127.0.0.1 >/tmp/compat-http.log 2>&1 &
           for attempt in $(seq 1 40); do curl -fsS http://127.0.0.1:8765/ >/dev/null && break; sleep 0.25; done
           python3 tests/verify-native-browser.py
       - uses: actions/upload-artifact@v4

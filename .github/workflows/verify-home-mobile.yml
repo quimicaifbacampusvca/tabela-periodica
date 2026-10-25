@@ -1,7 +1,7 @@
 name: Verificar página inicial e abertura
 on:
   push:
-    branches: [tabelaifbavca]
+    branches: [construção]
     paths:
       - 'index.html'
       - 'sw.js'
@@ -31,6 +31,7 @@ jobs:
           python3 scripts/validate-elements.py
           python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/cordel-home.log 2>&1 &
           node tests/verify-home-mobile.cjs
+          node tests/verify-element-menu.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:

@@ -168,6 +168,10 @@ async function context(options = {}) {
         for (const m of models) {
           const r = await p.goto(base + '/elementos/' + m.slug + '/', { waitUntil: 'load' });
           assert.equal(r.status(), 200, m.slug);
+          assert.equal(await p.locator('header details.home-menu').count(), 1, m.slug);
+          assert.equal(await p.locator('header nav > a, header nav > button').count(), 0, m.slug);
+          assert.equal(await p.locator('header .install-open').count(), 1, m.slug);
+          assert.equal(await p.locator('header #appearance-open').count(), 1, m.slug);
           await p.waitForFunction(
             () =>
               document.querySelectorAll('.ep-print-story-art img').length === 2 &&
@@ -299,7 +303,12 @@ async function context(options = {}) {
           236,
           'All 236 approved panels must be cached before an unvisited element is opened offline',
         );
-        await c.setOffline(true);
+        const outage = await fetch(base + '/__compat-network/offline', { method: 'POST' });
+        assert.equal(outage.status, 204, 'Test server must support real transport outage');
+        await assert.rejects(
+          fetch(base + '/__compat-network/probe'),
+          'Network negative control must fail',
+        );
         await p.goto(base + '/elementos/francio/', { waitUntil: 'networkidle' });
         assert.equal(await p.locator('.ep-cover').count(), 1);
         await p.waitForFunction(
@@ -318,8 +327,13 @@ async function context(options = {}) {
         );
         await p.goto(base, { waitUntil: 'networkidle' });
         assert.equal(await p.locator('a.tile').count(), 118);
-        return { cache: ready };
+        return {
+          cache: ready,
+          method:
+            'Origin closes network connections; negative control fails; service worker serves unvisited folheto',
+        };
       } finally {
+        await fetch(base + '/__compat-network/online', { method: 'POST' });
         await c.close();
       }
     });

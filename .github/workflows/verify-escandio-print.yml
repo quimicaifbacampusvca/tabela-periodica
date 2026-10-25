@@ -1,7 +1,7 @@
 name: Verificar impressão A4 Escândio 021
 on:
   push:
-    branches: [tabelaifbavca]
+    branches: [construção]
     paths:
       - 'assets/folhetos/cenas/021-*.webp'
       - 'assets/element-page.js'

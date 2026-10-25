@@ -1,5 +1,6 @@
 const playwright = require('playwright');
 const engine = process.env.BROWSER_ENGINE || 'chromium';
+const base = process.env.SITE_BASE || 'http://127.0.0.1:8765';
 const output = process.env.COMPAT_HOME_DIR || 'dist/home-review';
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
@@ -22,7 +23,7 @@ const fs = require('node:fs');
       });
       const errors = [];
       page.on('pageerror', (e) => errors.push(String(e)));
-      await page.goto('http://127.0.0.1:8765/', { waitUntil: 'networkidle' });
+      await page.goto(base + '/', { waitUntil: 'networkidle' });
       await page.evaluate(() => document.fonts.ready);
       assert.equal(await page.locator('a.tile').count(), 118);
       assert.equal(await page.locator('.hq-open,#hq-edition,#hq-radius-data').count(), 0);
@@ -157,7 +158,7 @@ const fs = require('node:fs');
       await demo.addInitScript((value) => {
         Math.random = () => value;
       }, random);
-      await demo.goto('http://127.0.0.1:8765/', { waitUntil: 'networkidle' });
+      await demo.goto(base + '/', { waitUntil: 'networkidle' });
       await demo.locator('[data-view=periodic]').click();
       const sample = demo.locator('.legend-example');
       await demo.waitForFunction(() => !!document.querySelector('.legend-example').dataset.element);
@@ -194,7 +195,7 @@ const fs = require('node:fs');
       await demo.close();
     }
     const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
-    await page.goto('http://127.0.0.1:8765/');
+    await page.goto(base + '/');
     const video = page.locator('.approved-intro-video');
     await page.waitForFunction(
       () => {
