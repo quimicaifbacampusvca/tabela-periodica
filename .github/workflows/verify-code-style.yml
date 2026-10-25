@@ -15,6 +15,7 @@ on:
       - '.github/workflows/verify-code-style.yml'
   pull_request:
     branches: [construção]
+  workflow_dispatch:
 permissions:
   contents: read
 jobs:

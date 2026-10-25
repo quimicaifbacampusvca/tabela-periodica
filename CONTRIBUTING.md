@@ -45,7 +45,7 @@ As fichas são produzidas por `scripts/build-elements.py`. Depois de regenerá-l
 
 ## Testes de compatibilidade
 
-Consulte `.github/workflows/verify-browser-compat.yml`. Os relatórios registram as versões efetivamente executadas e distinguem Safari nativo, WebKit automatizado, navegadores comerciais e builds históricos de motores. Um teste em WebKit não deve ser declarado como teste em todas as versões do Safari.
+Consulte `.github/workflows/verify-browser-compat.yml` para os motores e `.github/workflows/verify-native-browser.yml` para Safari e Firefox oficiais. Os relatórios registram as versões efetivamente executadas e distinguem Safari nativo, WebKit automatizado, navegadores comerciais e builds históricos de motores. Um teste em WebKit não deve ser declarado como teste em todas as versões do Safari.
 
 ## Organização das branches
 
