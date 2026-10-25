@@ -339,7 +339,7 @@
   let windTimer = null;
   let lastWindMode = null;
   function motionBlocked() {
-    return document.querySelector('#colecao.hq-active') || document.hidden ||
+    return document.hidden ||
       motionPreference.matches || document.documentElement.classList.contains('reduce-motion') ||
       document.documentElement.classList.contains('simple-reading');
   }
@@ -413,7 +413,6 @@
     if (motionBlocked()) stopBreeze(); else armBreeze();
   }
   document.addEventListener('visibilitychange',refreshMotion);
-  document.addEventListener('cordel:hqchange',refreshMotion);
   window.addEventListener('pagehide',stopBreeze);
   window.addEventListener('pageshow',refreshMotion);
   motionPreference.addEventListener?.('change',refreshMotion);

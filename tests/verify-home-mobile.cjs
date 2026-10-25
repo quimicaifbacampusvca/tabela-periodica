@@ -11,6 +11,10 @@ const fs=require('node:fs');
    await page.goto('http://127.0.0.1:8765/',{waitUntil:'networkidle'});
    await page.evaluate(()=>document.fonts.ready);
    assert.equal(await page.locator('a.tile').count(),118);
+   assert.equal(await page.locator('.hq-open,#hq-edition,#hq-radius-data').count(),0);
+   assert.equal(await page.locator('script[src*="hq-layout"],link[href*="hq-layout"]').count(),0);
+   assert(await page.locator('.periodic-legend-ifba-mark').evaluate(e=>e.parentElement.tagName!=='BUTTON'));
+
    for(const z of [85,87,100,101,102,103]){
     const tile=page.locator('a.tile[data-search^="'+z+' "]');
     assert.equal(await tile.locator('.folio-state strong').textContent(),'Sólido');
