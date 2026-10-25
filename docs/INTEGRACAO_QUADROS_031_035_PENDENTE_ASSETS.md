@@ -1,20 +1,25 @@
-# Pacote 031–035 — integração preparada
+# Integração 031–035 — etapa publicada
 
-Esta alteração prepara o CSS e JavaScript para os quadros 01 e 02 dos elementos 031 (Gálio), 032 (Germânio), 034 (Selênio) e 035 (Bromo).
-**Não constitui publicação das imagens**: os respectivos arquivos binários ainda não integram este commit.
+Atualização deste pacote após transferência das artes originais aprovadas, sem recorte ou reilustração.
 
-Arquivos esperados:
-- `assets/folhetos/cenas/031-01.webp` e `031-02.webp`
-- `assets/folhetos/cenas/032-01.webp` e `032-02.webp`
-- `assets/folhetos/cenas/034-01.webp` e `034-02.webp`
-- `assets/folhetos/cenas/035-01.webp` e `035-02.webp`
+## Ativos no folheto impresso
 
-O carregamento de imagens está intencionalmente inativo até ser definido `data-folheto-piloto` nas páginas individuais. Quando ativado, o JavaScript só troca o conteúdo de impressão se **ambas** as imagens tiverem exatamente 1104 × 810 px.
+- 031 — Gálio: `031-01.webp` e `031-02.webp`, ambos 1104 × 810 px.
+- 035 — Bromo: `035-01.webp` e `035-02.webp`, ambos 1104 × 810 px.
 
-Antes da ativação:
-1. Transferir os oito WebP sem substituir artes anteriores.
-2. Revisar a correção científica de legenda de `032-02` e texto de `034-01`. Em particular, não chamar a germanita de principal fonte industrial de Ge, nem manter o termo incorreto presente no parágrafo de Se.
-3. Atualizar `data/folhetos-impressao-manifesto.json`, os atributos de cada HTML e a versão do cache PWA.
-4. Conferir o folheto impresso A4 de uma página, em especial molduras e cortes.
+As páginas ativadas definem `data-folheto-piloto` e usam o encaixe integral A4 homologado. O JavaScript só substitui a área dos quadros após o carregamento **dos dois arquivos** com as dimensões previstas. Os títulos HTML redundantes permanecem ocultos apenas nessa modalidade de impressão.
 
-O quadro `033-01` (Arsênio) foi descartado; `033-02` fica separado para revisão do rótulo científico. Não integrar Arsênio até as duas artes estarem homologadas.
+## Arquivos presentes mas não ativados
+
+- `032-01.webp`: primeira arte do Germânio.
+- `034-02.webp`: segunda arte do Selênio.
+
+Pares incompletos continuam na montagem anterior até correção das pendências científicas e inclusão dos seus complementos.
+
+## Pendências científicas/editoriais
+
+- `032-02`: a arte original chama germanita de fonte principal industrial de Ge; requer correção antes da publicação.
+- `034-01`: arte contém um erro de texto; requer revisão.
+- `033-01`: arte descartada. `033-02`: pendente de correção da classificação de arsênio, sem ativação no site.
+
+Não substituir arbitrariamente artes já aprovadas. Conferir visualmente `/elementos/galio/` e `/elementos/bromo/` na função de impressão A4, após atualização do PWA.
