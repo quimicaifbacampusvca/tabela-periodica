@@ -215,6 +215,13 @@
         ey = y2 - bounds.top;
       const c1 = { x: sx + dx * 0.3 + nx, y: sy + dy * 0.3 + ny };
       const c2 = { x: ex - dx * 0.26 + nx * 0.7, y: ey - dy * 0.26 + ny * 0.7 };
+      // The lower label approaches the mass from below, with an upward tip.
+      // Preserve the carved outline and both anchors while mirroring its bend.
+      if (label.dataset.pointsTo === 'example-mass') {
+        c1.y = sy + dy * 0.3 - ny;
+        c2.x = ex;
+        c2.y = ey + Math.max(12, bend * 1.6);
+      }
       const sample = (t) => {
         const u = 1 - t;
         const x = u * u * u * sx + 3 * u * u * t * c1.x + 3 * u * t * t * c2.x + t * t * t * ex;
