@@ -1,0 +1,45 @@
+name: Verificar quadros 036 a 118
+on:
+  push:
+    branches: [tabelaifbavca]
+    paths:
+      - 'assets/folhetos/cenas/**'
+      - 'assets/element-page.*'
+      - 'data/folhetos-impressao-manifesto.json'
+      - 'tests/verify-series-036-118.cjs'
+      - '.github/workflows/verify-series-036-118.yml'
+  workflow_dispatch:
+jobs:
+  print-series:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-save playwright
+      - run: npx playwright install --with-deps chromium
+      - name: Conferir 83 folhetos e 166 quadros
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/cordel-http.log 2>&1 &
+          node tests/verify-series-036-118.cjs
+      - name: Conferir uma página A4 por folheto
+        run: |
+          pip install pypdf
+          python3 - <<'PY'
+          from pathlib import Path
+          from pypdf import PdfReader
+          files=list(Path('dist/series-review').glob('*.pdf'))
+          assert len(files)==83
+          for f in files:
+              r=PdfReader(f)
+              assert len(r.pages)==1, f
+              b=r.pages[0].mediabox
+              assert abs(float(b.width)-595.28)<4 and abs(float(b.height)-841.89)<4, f
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: verificacao-quadros-036-118
+          path: dist/series-review

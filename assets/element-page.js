@@ -452,6 +452,31 @@
 
     // PACOTE 031–035 — preparação segura: só ativa quadros após carregar
     // as duas artes integrais já incorporadas ao repositório.
+    if(current.z>=36 && current.z<=118){
+      const slots=[...sheet.querySelectorAll('.ep-print-story-art')];
+      if(slots.length===2){
+        const staged=[null,null];
+        slots.forEach((slot,i)=>{
+          const figure=document.createElement('img');
+          figure.className='ep-print-approved-art';
+          figure.alt=''; figure.loading='eager'; figure.decoding='sync';
+          figure.addEventListener('load',()=>{
+            if(figure.naturalWidth!==1104 || figure.naturalHeight!==810)return;
+            staged[i]=figure;
+            if(staged.every(Boolean)){
+              slots.forEach((target,j)=>{
+                target.replaceChildren(staged[j]);
+                target.closest('.ep-print-story').dataset.sceneReady='true';
+              });
+              sheet.classList.add('ep-print-approved-series');
+              sheet.dataset.printPhase='piloto-quadros-integrais';
+            }
+          },{once:true});
+          figure.addEventListener('error',()=>{slot.closest('.ep-print-story').dataset.sceneError='true';},{once:true});
+          figure.src='../../assets/folhetos/cenas/'+String(current.z).padStart(3,'0')+'-0'+(i+1)+'.webp?fit=approved-036-118-v1';
+        });
+      }
+    }
     const queuedApprovals={
       31:{slug:'galio',captions:[
         'No cotidiano: compostos de gálio, como GaN e GaAs, são empregados em LEDs, lasers e componentes eletrônicos.',
