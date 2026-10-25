@@ -1,0 +1,21 @@
+{
+  "name": "cordel-dos-elementos-development",
+  "private": true,
+  "description": "Ferramentas de escrita e verificação do código; o site continua estático.",
+  "scripts": {
+    "format": "prettier --write \"**/*.{html,js,mjs,cjs,css}\" && node scripts/format-json-preserve.cjs",
+    "format:check": "prettier --check \"**/*.{html,js,mjs,cjs,css}\"",
+    "generate:elements": "python3 scripts/build-elements.py && npm run format",
+    "verify:elements": "python3 scripts/validate-elements.py",
+    "preservation:snapshot": "node scripts/verify-source-preservation.cjs snapshot",
+    "preservation:check": "node scripts/verify-source-preservation.cjs check"
+  },
+  "devDependencies": {
+    "acorn": "8.15.0",
+    "parse5": "7.3.0",
+    "postcss": "8.5.6",
+    "postcss-selector-parser": "6.1.2",
+    "postcss-value-parser": "4.2.0",
+    "prettier": "3.6.2"
+  }
+}

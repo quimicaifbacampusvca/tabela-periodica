@@ -11,7 +11,7 @@
   ropes.setAttribute('aria-hidden', 'true');
   ropes.setAttribute('focusable', 'false');
   ropes.setAttribute('preserveAspectRatio', 'none');
-  tiles.forEach(tile => {
+  tiles.forEach((tile) => {
     // Periodic view exposes the scientific mass already present in each folheto.
     const pin = document.createElement('span');
     pin.className = 'folio-pin folio-decoration';
@@ -27,21 +27,29 @@
     grid.appendChild(label);
     return label;
   }
-  for (let group = 1; group <= 18; group++) tableLabel('periodic-group', String(group), group + 1, 1);
-  for (let period = 1; period <= 7; period++) tableLabel('periodic-period', String(period), 1, period + 1);
+  for (let group = 1; group <= 18; group++)
+    tableLabel('periodic-group', String(group), group + 1, 1);
+  for (let period = 1; period <= 7; period++)
+    tableLabel('periodic-period', String(period), 1, period + 1);
   tableLabel('periodic-series', 'Lantanídeos', 2, 10, 2);
   tableLabel('periodic-series', 'Actinídeos', 2, 11, 2);
-  for (const [range, names, row] of [['57–71', 'La–Lu', 7], ['89–103', 'Ac–Lr', 8]]) {
+  for (const [range, names, row] of [
+    ['57–71', 'La–Lu', 7],
+    ['89–103', 'Ac–Lr', 8],
+  ]) {
     const marker = tableLabel('periodic-series-marker', '', 4, row);
-    const numbers = document.createElement('small'); numbers.textContent = range;
-    const symbols = document.createElement('strong'); symbols.textContent = names;
-    marker.appendChild(numbers); marker.appendChild(symbols);
+    const numbers = document.createElement('small');
+    numbers.textContent = range;
+    const symbols = document.createElement('strong');
+    symbols.textContent = names;
+    marker.appendChild(numbers);
+    marker.appendChild(symbols);
   }
   // Native graphic reconstructed from the approved Drive legend.
   // Chemical groups 4–11; periods 1–3. The grid has one extra header row/column.
   const legend = document.createElement('section');
   legend.className = 'periodic-only periodic-central-legend';
-  legend.setAttribute('aria-labelledby','periodic-legend-heading');
+  legend.setAttribute('aria-labelledby', 'periodic-legend-heading');
   legend.innerHTML = `
     <header class="periodic-legend-heading">
       
@@ -128,7 +136,7 @@
 
   let previousExample = null;
   function chooseCardExample() {
-    const choices = tiles.filter(tile => tile !== previousExample);
+    const choices = tiles.filter((tile) => tile !== previousExample);
     const tile = choices[Math.floor(Math.random() * choices.length)];
     previousExample = tile;
     const example = cardMap.querySelector('.legend-example');
@@ -144,10 +152,16 @@
     example.querySelector('.example-name').textContent = name;
     example.querySelector('.example-mass').textContent = mass;
     const image = example.querySelector('.example-state');
-    image.src = icon.src; image.alt = state + ', ' + tile.dataset.category;
+    image.src = icon.src;
+    image.alt = state + ', ' + tile.dataset.category;
     const isotope = mass.startsWith('[');
-    cardMap.querySelector('.map-mass').innerHTML = isotope ? 'Número de<br>massa [A]' : 'Massa<br>atômica';
-    example.setAttribute('aria-label', `Exemplo: ${name}, número atômico ${number}, símbolo ${symbol}, ${isotope ? 'número de massa' : 'massa atômica'} ${mass}, ${state}, ${tile.dataset.category}`);
+    cardMap.querySelector('.map-mass').innerHTML = isotope
+      ? 'Número de<br>massa [A]'
+      : 'Massa<br>atômica';
+    example.setAttribute(
+      'aria-label',
+      `Exemplo: ${name}, número atômico ${number}, símbolo ${symbol}, ${isotope ? 'número de massa' : 'massa atômica'} ${mass}, ${state}, ${tile.dataset.category}`,
+    );
     requestAnimationFrame(drawCardMap);
   }
 
@@ -158,109 +172,170 @@
     svg.setAttribute('viewBox', `0 0 ${bounds.width} ${bounds.height}`);
     const lines = cardMap.querySelector('.card-map-lines');
     lines.replaceChildren();
-    cardMap.querySelectorAll('[data-points-to]').forEach(label => {
+    cardMap.querySelectorAll('[data-points-to]').forEach((label) => {
       const target = cardMap.querySelector('.' + label.dataset.pointsTo);
-      const a = label.getBoundingClientRect(), b = target.getBoundingClientRect();
-      let x1,y1,x2,y2;
-      switch(label.dataset.side) {
-        case 'top': x1=(a.left+a.right)/2;y1=a.bottom+3;x2=(b.left+b.right)/2;y2=b.top-3;break;
-        case 'bottom': x1=(a.left+a.right)/2;y1=a.top-3;x2=(b.left+b.right)/2;y2=b.bottom+3;break;
-        case 'left': x1=a.right+3;y1=(a.top+a.bottom)/2;x2=b.left-3;y2=(b.top+b.bottom)/2;break;
-        default: x1=a.left-3;y1=(a.top+a.bottom)/2;x2=b.right+3;y2=(b.top+b.bottom)/2;
+      const a = label.getBoundingClientRect(),
+        b = target.getBoundingClientRect();
+      let x1, y1, x2, y2;
+      switch (label.dataset.side) {
+        case 'top':
+          x1 = (a.left + a.right) / 2;
+          y1 = a.bottom + 3;
+          x2 = (b.left + b.right) / 2;
+          y2 = b.top - 3;
+          break;
+        case 'bottom':
+          x1 = (a.left + a.right) / 2;
+          y1 = a.top - 3;
+          x2 = (b.left + b.right) / 2;
+          y2 = b.bottom + 3;
+          break;
+        case 'left':
+          x1 = a.right + 3;
+          y1 = (a.top + a.bottom) / 2;
+          x2 = b.left - 3;
+          y2 = (b.top + b.bottom) / 2;
+          break;
+        default:
+          x1 = a.left - 3;
+          y1 = (a.top + a.bottom) / 2;
+          x2 = b.right + 3;
+          y2 = (b.top + b.bottom) / 2;
       }
-      const path = document.createElementNS(ns,'path');
-      const dx=x2-x1, dy=y2-y1, length=Math.hypot(dx,dy)||1;
-      const bend=Math.min(12,length*.2), nx=-dy/length*bend, ny=dx/length*bend;
-      const sx=x1-bounds.left, sy=y1-bounds.top, ex=x2-bounds.left, ey=y2-bounds.top;
-      const c1={x:sx+dx*.3+nx,y:sy+dy*.3+ny};
-      const c2={x:ex-dx*.26+nx*.7,y:ey-dy*.26+ny*.7};
-      const sample=t=>{
-        const u=1-t;
-        const x=u*u*u*sx+3*u*u*t*c1.x+3*u*t*t*c2.x+t*t*t*ex;
-        const y=u*u*u*sy+3*u*u*t*c1.y+3*u*t*t*c2.y+t*t*t*ey;
-        const vx=3*u*u*(c1.x-sx)+6*u*t*(c2.x-c1.x)+3*t*t*(ex-c2.x);
-        const vy=3*u*u*(c1.y-sy)+6*u*t*(c2.y-c1.y)+3*t*t*(ey-c2.y);
-        const scale=Math.hypot(vx,vy)||1;
-        return {x,y,nx:-vy/scale,ny:vx/scale};
+      const path = document.createElementNS(ns, 'path');
+      const dx = x2 - x1,
+        dy = y2 - y1,
+        length = Math.hypot(dx, dy) || 1;
+      const bend = Math.min(12, length * 0.2),
+        nx = (-dy / length) * bend,
+        ny = (dx / length) * bend;
+      const sx = x1 - bounds.left,
+        sy = y1 - bounds.top,
+        ex = x2 - bounds.left,
+        ey = y2 - bounds.top;
+      const c1 = { x: sx + dx * 0.3 + nx, y: sy + dy * 0.3 + ny };
+      const c2 = { x: ex - dx * 0.26 + nx * 0.7, y: ey - dy * 0.26 + ny * 0.7 };
+      const sample = (t) => {
+        const u = 1 - t;
+        const x = u * u * u * sx + 3 * u * u * t * c1.x + 3 * u * t * t * c2.x + t * t * t * ex;
+        const y = u * u * u * sy + 3 * u * u * t * c1.y + 3 * u * t * t * c2.y + t * t * t * ey;
+        const vx = 3 * u * u * (c1.x - sx) + 6 * u * t * (c2.x - c1.x) + 3 * t * t * (ex - c2.x);
+        const vy = 3 * u * u * (c1.y - sy) + 6 * u * t * (c2.y - c1.y) + 3 * t * t * (ey - c2.y);
+        const scale = Math.hypot(vx, vy) || 1;
+        return { x, y, nx: -vy / scale, ny: vx / scale };
       };
       // Filled, tapered engraving, with restrained irregular edges and carved grain.
-      const endT=1-Math.min(8,length*.32)/length;
-      const left=[],right=[];
-      for(let i=0;i<=16;i++){
-        const t=endT*i/16,p=sample(t);
-        const width=Math.min(1.9,length*.065)*(.45+.55*Math.sin(Math.PI*(.16+.7*i/16)));
-        const grain=(i%3-1)*.16;
-        left.push([p.x+p.nx*(width+grain),p.y+p.ny*(width+grain)]);
-        right.push([p.x-p.nx*(width-grain),p.y-p.ny*(width-grain)]);
+      const endT = 1 - Math.min(8, length * 0.32) / length;
+      const left = [],
+        right = [];
+      for (let i = 0; i <= 16; i++) {
+        const t = (endT * i) / 16,
+          p = sample(t);
+        const width =
+          Math.min(1.9, length * 0.065) *
+          (0.45 + 0.55 * Math.sin(Math.PI * (0.16 + (0.7 * i) / 16)));
+        const grain = ((i % 3) - 1) * 0.16;
+        left.push([p.x + p.nx * (width + grain), p.y + p.ny * (width + grain)]);
+        right.push([p.x - p.nx * (width - grain), p.y - p.ny * (width - grain)]);
       }
-      const neck=sample(endT),head=Math.min(4.5,length*.18);
-      const outline=[...left,[neck.x+neck.nx*head,neck.y+neck.ny*head],[ex,ey],[neck.x-neck.nx*head*.86,neck.y-neck.ny*head*.86],...right.reverse()];
-      let shape=outline.map((p,i)=>(i?'L':'M')+p[0].toFixed(2)+','+p[1].toFixed(2)).join(' ')+'Z';
-      if(length>26){
-        for(const t of [.3,.55]){
-          const p=sample(t*endT),q=sample((t+.06)*endT);
-          shape+=` M${p.x+p.nx*.65},${p.y+p.ny*.65} L${q.x},${q.y} L${p.x-p.nx*.45},${p.y-p.ny*.45} Z`;
+      const neck = sample(endT),
+        head = Math.min(4.5, length * 0.18);
+      const outline = [
+        ...left,
+        [neck.x + neck.nx * head, neck.y + neck.ny * head],
+        [ex, ey],
+        [neck.x - neck.nx * head * 0.86, neck.y - neck.ny * head * 0.86],
+        ...right.reverse(),
+      ];
+      let shape =
+        outline.map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(2) + ',' + p[1].toFixed(2)).join(' ') +
+        'Z';
+      if (length > 26) {
+        for (const t of [0.3, 0.55]) {
+          const p = sample(t * endT),
+            q = sample((t + 0.06) * endT);
+          shape += ` M${p.x + p.nx * 0.65},${p.y + p.ny * 0.65} L${q.x},${q.y} L${p.x - p.nx * 0.45},${p.y - p.ny * 0.45} Z`;
         }
       }
-      path.setAttribute('d',shape);
-      path.setAttribute('fill-rule','evenodd');
+      path.setAttribute('d', shape);
+      path.setAttribute('fill-rule', 'evenodd');
       lines.appendChild(path);
     });
   }
   new ResizeObserver(drawCardMap).observe(cardMap);
   document.fonts?.ready.then(drawCardMap);
-  window.addEventListener('resize',drawCardMap);
+  window.addEventListener('resize', drawCardMap);
 
   const category = document.getElementById('category');
   const physical = document.getElementById('physical-state');
-  legend.querySelectorAll('.legend-category').forEach(item => {
+  legend.querySelectorAll('.legend-category').forEach((item) => {
     const button = document.createElement('button');
-    button.type = 'button'; button.innerHTML = item.innerHTML;
+    button.type = 'button';
+    button.innerHTML = item.innerHTML;
     button.setAttribute('aria-pressed', 'false');
     button.addEventListener('click', () => {
       category.value = category.value === item.dataset.category ? '' : item.dataset.category;
-      category.dispatchEvent(new Event('change', {bubbles:true}));
+      category.dispatchEvent(new Event('change', { bubbles: true }));
     });
     item.replaceChildren(button);
   });
-  const stateValues = ['Sólido','Líquido','Gasoso','Não determinado'];
-  legend.querySelectorAll('.periodic-legend-states li').forEach((item,index) => {
+  const stateValues = ['Sólido', 'Líquido', 'Gasoso', 'Não determinado'];
+  legend.querySelectorAll('.periodic-legend-states li').forEach((item, index) => {
     const image = item.querySelector('img');
-    const button = document.createElement('button');button.type = 'button';
-    const icon = document.createElement('img'); icon.className = 'legend-state-symbol';
-    icon.src = image.src; icon.alt = ''; icon.width=42; icon.height=42;
+    const button = document.createElement('button');
+    button.type = 'button';
+    const icon = document.createElement('img');
+    icon.className = 'legend-state-symbol';
+    icon.src = image.src;
+    icon.alt = '';
+    icon.width = 42;
+    icon.height = 42;
     icon.dataset.baseSrc = image.src;
-    icon.setAttribute('aria-hidden','true');
-    button.append(icon,document.createTextNode(stateValues[index]));
-    button.dataset.state = stateValues[index];button.setAttribute('aria-pressed','false');
-    button.addEventListener('click',()=>{
+    icon.setAttribute('aria-hidden', 'true');
+    button.append(icon, document.createTextNode(stateValues[index]));
+    button.dataset.state = stateValues[index];
+    button.setAttribute('aria-pressed', 'false');
+    button.addEventListener('click', () => {
       physical.value = physical.value === button.dataset.state ? '' : button.dataset.state;
-      physical.dispatchEvent(new Event('change',{bubbles:true}));
-    });item.replaceChildren(button);
+      physical.dispatchEvent(new Event('change', { bubbles: true }));
+    });
+    item.replaceChildren(button);
   });
   function syncLegend() {
     let selected;
-    legend.querySelectorAll('.legend-category').forEach(item=>{
+    legend.querySelectorAll('.legend-category').forEach((item) => {
       const active = item.dataset.category === category.value;
-      item.querySelector('button').setAttribute('aria-pressed',String(active));
-      if(active) selected = item;
+      item.querySelector('button').setAttribute('aria-pressed', String(active));
+      if (active) selected = item;
     });
-    legend.style.setProperty('--selected-category',selected ? getComputedStyle(selected).getPropertyValue('--cat') : 'var(--ink)');
-    legend.querySelectorAll('[data-state]').forEach(button=>{
-      button.setAttribute('aria-pressed',String(button.dataset.state===physical.value));
-      const matching = tiles.find(tile=>tile.dataset.category===category.value && tile.dataset.state===button.dataset.state);
+    legend.style.setProperty(
+      '--selected-category',
+      selected ? getComputedStyle(selected).getPropertyValue('--cat') : 'var(--ink)',
+    );
+    legend.querySelectorAll('[data-state]').forEach((button) => {
+      button.setAttribute('aria-pressed', String(button.dataset.state === physical.value));
+      const matching = tiles.find(
+        (tile) =>
+          tile.dataset.category === category.value && tile.dataset.state === button.dataset.state,
+      );
       const icon = button.querySelector('img');
       icon.src = matching ? matching.querySelector('.folio-state-icon').src : icon.dataset.baseSrc;
       icon.style.filter = selected && matching ? 'none' : 'grayscale(1)';
     });
   }
-  category.addEventListener('change',syncLegend);physical.addEventListener('change',syncLegend);
-  new MutationObserver(syncLegend).observe(document.body,{attributes:true,attributeFilter:['data-palette','data-theme']});
+  category.addEventListener('change', syncLegend);
+  physical.addEventListener('change', syncLegend);
+  new MutationObserver(syncLegend).observe(document.body, {
+    attributes: true,
+    attributeFilter: ['data-palette', 'data-theme'],
+  });
   syncLegend();
 
   grid.prepend(ropes);
   grid.classList.add('cordel-collection');
-  let frame = 0, lastDrawing = '', lastMode = null;
+  let frame = 0,
+    lastDrawing = '',
+    lastMode = null;
   function draw() {
     frame = 0;
     const periodic = grid.classList.contains('periodic');
@@ -268,26 +343,38 @@
       lastMode = periodic;
       if (periodic) chooseCardExample();
       lastDrawing = '';
-      document.querySelector('#colecao')?.classList.toggle('catalog-periodic',periodic);
+      document.querySelector('#colecao')?.classList.toggle('catalog-periodic', periodic);
       stopBreeze();
       armBreeze();
       const viewport = document.querySelector('#colecao .catalog-viewport');
       if (viewport) {
         viewport.scrollLeft = 0;
-        viewport.setAttribute('aria-label', periodic ? 'Tabela periódica em cordel, com rolagem horizontal quando necessária' : 'Varal dos elementos');
+        viewport.setAttribute(
+          'aria-label',
+          periodic
+            ? 'Tabela periódica em cordel, com rolagem horizontal quando necessária'
+            : 'Varal dos elementos',
+        );
       }
       const heading = document.querySelector('#colecao .catalog-title h2');
-      if (heading) heading.textContent = periodic ? 'Tabela periódica em cordel' : 'Um varal de elementos';
+      if (heading)
+        heading.textContent = periodic ? 'Tabela periódica em cordel' : 'Um varal de elementos';
       const intro = document.querySelector('#colecao .catalog-intro');
-      if (intro) intro.textContent = periodic ? 'Explore por grupos e períodos ou sorteie um elemento para começar.' : 'Escolha um folheto ou sorteie um elemento para começar.';
+      if (intro)
+        intro.textContent = periodic
+          ? 'Explore por grupos e períodos ou sorteie um elemento para começar.'
+          : 'Escolha um folheto ou sorteie um elemento para começar.';
     }
     // Ropes follow the upper edges of each period, preserving varal positioning.
     const rows = [];
     for (const tile of tiles) {
       if (tile.hidden || tile.offsetWidth === 0) continue;
       const y = tile.offsetTop - (periodic ? 6 : 12);
-      let row = rows.find(row => Math.abs(row.y - y) < 2);
-      if (!row) { row = { y, pins: [] }; rows.push(row); }
+      let row = rows.find((row) => Math.abs(row.y - y) < 2);
+      if (!row) {
+        row = { y, pins: [] };
+        rows.push(row);
+      }
       row.pins.push(tile.offsetLeft + tile.offsetWidth / 2);
     }
     // Keep each cord connection synchronized with the actual element-row
@@ -295,40 +382,52 @@
     if (periodic) {
       const periodCords = [...rows].sort((a, b) => a.y - b.y).slice(0, 3);
       periodCords.forEach((row, index) => {
-        legend.style.setProperty('--legend-cord-y-' + (index + 1),
-          (row.y - legend.offsetTop).toFixed(1) + 'px');
+        legend.style.setProperty(
+          '--legend-cord-y-' + (index + 1),
+          (row.y - legend.offsetTop).toFixed(1) + 'px',
+        );
       });
     }
-    const width = grid.clientWidth, height = grid.clientHeight;
-    const paths = rows.map(({y, pins}) => {
-      pins.sort((a,b) => a-b);
-      const points = [[3,y-6], ...pins.map(x => [x,y]), [width-3,y-6]];
+    const width = grid.clientWidth,
+      height = grid.clientHeight;
+    const paths = rows.map(({ y, pins }) => {
+      pins.sort((a, b) => a - b);
+      const points = [[3, y - 6], ...pins.map((x) => [x, y]), [width - 3, y - 6]];
       let d = `M ${points[0][0]} ${points[0][1]}`;
-      for (let i=1; i<points.length; i++) {
-        const [x0,y0] = points[i-1], [x1,y1] = points[i];
-        d += ` Q ${(x0+x1)/2} ${Math.max(y0,y1)+Math.min(5,(x1-x0)*.035)} ${x1} ${y1}`;
+      for (let i = 1; i < points.length; i++) {
+        const [x0, y0] = points[i - 1],
+          [x1, y1] = points[i];
+        d += ` Q ${(x0 + x1) / 2} ${Math.max(y0, y1) + Math.min(5, (x1 - x0) * 0.035)} ${x1} ${y1}`;
       }
       return d;
     });
-    const key = JSON.stringify([width,height,paths]);
+    const key = JSON.stringify([width, height, paths]);
     if (key === lastDrawing) return;
     lastDrawing = key;
-    ropes.setAttribute('viewBox', `0 0 ${Math.max(1,width)} ${Math.max(1,height)}`);
+    ropes.setAttribute('viewBox', `0 0 ${Math.max(1, width)} ${Math.max(1, height)}`);
     const fragment = document.createDocumentFragment();
-    paths.forEach(d => {
-      for (const cls of ['cordel-rope','cordel-rope cordel-rope-fibre']) {
-        const path = document.createElementNS(ns,'path');
-        path.setAttribute('class',cls); path.setAttribute('d',d); fragment.appendChild(path);
+    paths.forEach((d) => {
+      for (const cls of ['cordel-rope', 'cordel-rope cordel-rope-fibre']) {
+        const path = document.createElementNS(ns, 'path');
+        path.setAttribute('class', cls);
+        path.setAttribute('d', d);
+        fragment.appendChild(path);
       }
     });
     ropes.replaceChildren(fragment);
   }
-  function schedule() { if (!frame) frame = requestAnimationFrame(draw); }
+  function schedule() {
+    if (!frame) frame = requestAnimationFrame(draw);
+  }
   // SVG child replacement does not trigger this attribute-only observer.
-  new MutationObserver(schedule).observe(grid,{attributes:true,subtree:true,attributeFilter:['hidden','class']});
+  new MutationObserver(schedule).observe(grid, {
+    attributes: true,
+    subtree: true,
+    attributeFilter: ['hidden', 'class'],
+  });
   if ('ResizeObserver' in window) new ResizeObserver(schedule).observe(grid);
-  window.addEventListener('resize',schedule,{passive:true});
-  window.addEventListener('pageshow',schedule);
+  window.addEventListener('resize', schedule, { passive: true });
+  window.addEventListener('pageshow', schedule);
   document.fonts?.ready.then(schedule);
 
   // Breeze in both the hanging varal and the compact periodic table.
@@ -339,9 +438,12 @@
   let windTimer = null;
   let lastWindMode = null;
   function motionBlocked() {
-    return document.hidden ||
-      motionPreference.matches || document.documentElement.classList.contains('reduce-motion') ||
-      document.documentElement.classList.contains('simple-reading');
+    return (
+      document.hidden ||
+      motionPreference.matches ||
+      document.documentElement.classList.contains('reduce-motion') ||
+      document.documentElement.classList.contains('simple-reading')
+    );
   }
   function stopBreeze() {
     if (windTimer !== null) clearTimeout(windTimer);
@@ -369,53 +471,77 @@
     const viewport = periodic ? document.querySelector('#colecao .catalog-viewport') : null;
     const clip = viewport?.getBoundingClientRect();
     tiles.forEach((tile, index) => {
-      if (tile.hidden || typeof tile.animate !== 'function' ||
-          tile.matches(':hover, :focus-within, :active') ||
-          (periodic && tile.classList.contains('unmatched'))) return;
+      if (
+        tile.hidden ||
+        typeof tile.animate !== 'function' ||
+        tile.matches(':hover, :focus-within, :active') ||
+        (periodic && tile.classList.contains('unmatched'))
+      )
+        return;
       const rect = tile.getBoundingClientRect();
-      if (rect.bottom <= 0 || rect.top >= window.innerHeight ||
-          rect.right <= 0 || rect.left >= window.innerWidth) return;
+      if (
+        rect.bottom <= 0 ||
+        rect.top >= window.innerHeight ||
+        rect.right <= 0 ||
+        rect.left >= window.innerWidth
+      )
+        return;
       // Periodic view scrolls independently on narrow screens: only animate
       // folhetos actually visible inside that clipped horizontal viewport.
-      if (clip && (rect.right <= clip.left || rect.left >= clip.right ||
-          rect.bottom <= clip.top || rect.top >= clip.bottom)) return;
-      const rest = periodic ? 0 :
-        (parseFloat(getComputedStyle(tile).getPropertyValue('--folio-tilt')) || 0);
+      if (
+        clip &&
+        (rect.right <= clip.left ||
+          rect.left >= clip.right ||
+          rect.bottom <= clip.top ||
+          rect.top >= clip.bottom)
+      )
+        return;
+      const rest = periodic
+        ? 0
+        : parseFloat(getComputedStyle(tile).getPropertyValue('--folio-tilt')) || 0;
       // Smaller periodic cards move less than the large varal folhetos.
-      const amplitude = periodic ? .75 + (index % 5) * .105 :
-        1.15 + (index % 7) * .055;
-      const frames = Array.from({length:65}, (_,i) => {
+      const amplitude = periodic ? 0.75 + (index % 5) * 0.105 : 1.15 + (index % 7) * 0.055;
+      const frames = Array.from({ length: 65 }, (_, i) => {
         const u = i / 64;
-        const gust = Math.sin(2.5 * Math.PI * u) * Math.sin(Math.PI * u) ** 2 * Math.exp(-.6 * u);
-        return {offset:u, transform:`rotate(${(rest + amplitude * gust).toFixed(4)}deg)`};
+        const gust = Math.sin(2.5 * Math.PI * u) * Math.sin(Math.PI * u) ** 2 * Math.exp(-0.6 * u);
+        return { offset: u, transform: `rotate(${(rest + amplitude * gust).toFixed(4)}deg)` };
       });
       const col = periodic ? parseInt(tile.style.getPropertyValue('--col'), 10) || 0 : 0;
       const row = periodic ? parseInt(tile.style.getPropertyValue('--row'), 10) || 0 : 0;
       const animation = tile.animate(frames, {
-        duration:periodic ? 2900 + (index % 4) * 110 : 3200 + (index % 4) * 140,
-        delay:periodic ? col * 45 + row % 3 * 65 :
-          Math.min(420,Math.round(tile.offsetLeft / Math.max(1,grid.clientWidth) * 350)) + (index % 3) * 35,
-        easing:'linear',fill:'none'
+        duration: periodic ? 2900 + (index % 4) * 110 : 3200 + (index % 4) * 140,
+        delay: periodic
+          ? col * 45 + (row % 3) * 65
+          : Math.min(420, Math.round((tile.offsetLeft / Math.max(1, grid.clientWidth)) * 350)) +
+            (index % 3) * 35,
+        easing: 'linear',
+        fill: 'none',
       });
       activeWind.set(tile, animation);
-      const finished = () => { if (activeWind.get(tile) === animation) activeWind.delete(tile); };
+      const finished = () => {
+        if (activeWind.get(tile) === animation) activeWind.delete(tile);
+      };
       animation.onfinish = finished;
       animation.oncancel = finished;
     });
   }
-  tiles.forEach(tile => {
+  tiles.forEach((tile) => {
     const settle = () => activeWind.get(tile)?.cancel();
-    tile.addEventListener('pointerenter',settle);
-    tile.addEventListener('pointerdown',settle);
-    tile.addEventListener('focusin',settle);
+    tile.addEventListener('pointerenter', settle);
+    tile.addEventListener('pointerdown', settle);
+    tile.addEventListener('focusin', settle);
   });
   function refreshMotion() {
-    if (motionBlocked()) stopBreeze(); else armBreeze();
+    if (motionBlocked()) stopBreeze();
+    else armBreeze();
   }
-  document.addEventListener('visibilitychange',refreshMotion);
-  window.addEventListener('pagehide',stopBreeze);
-  window.addEventListener('pageshow',refreshMotion);
-  motionPreference.addEventListener?.('change',refreshMotion);
-  new MutationObserver(refreshMotion).observe(document.documentElement,{attributes:true,attributeFilter:['class']});
+  document.addEventListener('visibilitychange', refreshMotion);
+  window.addEventListener('pagehide', stopBreeze);
+  window.addEventListener('pageshow', refreshMotion);
+  motionPreference.addEventListener?.('change', refreshMotion);
+  new MutationObserver(refreshMotion).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['class'],
+  });
   schedule();
 })();
