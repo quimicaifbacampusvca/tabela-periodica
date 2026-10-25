@@ -143,7 +143,7 @@
       const heading = document.querySelector('#colecao .catalog-title h2');
       if (heading) heading.textContent = periodic ? 'Tabela periódica em cordel' : 'Um varal de elementos';
       const intro = document.querySelector('#colecao .catalog-intro');
-      if (intro) intro.textContent = periodic ? 'Explore os elementos por grupos e períodos.' : 'Escolha um folheto e descubra a química no cotidiano.';
+      if (intro) intro.textContent = periodic ? 'Explore por grupos e períodos ou sorteie um elemento para começar.' : 'Escolha um folheto ou sorteie um elemento para começar.';
     }
     // Ropes follow the upper edges of each period, preserving varal positioning.
     const rows = [];

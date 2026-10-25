@@ -1,0 +1,62 @@
+const {chromium}=require('playwright');
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+(async()=>{
+ const browser=await chromium.launch();
+ fs.mkdirSync('dist/home-review',{recursive:true});
+ try {
+  for(const width of [320,390,650,800,1440]){
+   const page=await browser.newPage({viewport:{width,height:900},reducedMotion:'reduce'});
+   const errors=[];page.on('pageerror',e=>errors.push(String(e)));
+   await page.goto('http://127.0.0.1:8765/',{waitUntil:'networkidle'});
+   await page.evaluate(()=>document.fonts.ready);
+   assert.equal(await page.locator('a.tile').count(),118);
+   assert.equal(await page.locator('#count').count(),0);
+   assert.equal(await page.getByText('Conheça o cobre',{exact:false}).count(),0);
+   assert.equal(await page.locator('.discovery-strip').count(),0);
+   assert.equal(await page.locator('header nav>a').count(),0);
+   assert.equal(await page.locator('.grid.periodic').count(),0);
+   await page.locator('#search').fill('cobre');
+   assert.equal(await page.locator('a.tile:visible').count(),1);
+   await page.locator('#search').fill('xyz-inexistente');
+   assert(await page.locator('#empty').isVisible());
+   await page.locator('#search').fill('');
+   assert(!(await page.locator('#category').isVisible()));
+   await page.locator('#catalog-filters>summary').click();
+   await page.locator('#category').selectOption({label:'Halogênio'});
+   assert.equal(await page.locator('a.tile:visible').count(),6);
+   await page.locator('[data-view=periodic]').click();
+   assert.equal(await page.locator('a.tile:visible').count(),118);
+   assert.equal(await page.locator('a.tile:not(.unmatched)').count(),6);
+   await page.locator('[data-view=collection]').click();
+   await page.locator('#category').selectOption('');
+   await page.locator('#catalog-filters>summary').click();
+   await page.locator('#home-menu>summary').click();
+   await page.locator('#home-menu .install-open').click();
+   assert(await page.locator('#install-dialog').isVisible());
+   await page.locator('#install-close').click();
+   assert(await page.locator('#home-menu>summary').evaluate(e=>document.activeElement===e));
+   for(const scale of [1,2]){
+    await page.evaluate(scale=>document.documentElement.style.setProperty('--scale',scale),scale);
+    const size=await page.evaluate(()=>({scroll:document.documentElement.scrollWidth,client:document.documentElement.clientWidth}));
+    assert(size.scroll<=size.client+2,`${width}px / ${scale}: page overflow ${JSON.stringify(size)}`);
+   }
+   await page.evaluate(()=>document.documentElement.style.setProperty('--scale','1'));
+   await page.screenshot({path:`dist/home-review/home-${width}.png`,fullPage:false});
+   await page.locator('#colecao').scrollIntoViewIfNeeded();
+   await page.screenshot({path:`dist/home-review/catalog-${width}.png`});
+   assert.deepEqual(errors,[]);await page.close();
+  }
+  const page=await browser.newPage({viewport:{width:390,height:844}});
+  await page.goto('http://127.0.0.1:8765/');
+  const video=page.locator('.approved-intro-video');
+  await page.waitForFunction(()=>document.querySelector('video').readyState>=2);
+  const duration=await video.evaluate(v=>v.duration);
+  assert(duration>5.7&&duration<6,'opening contains only the retained sequence');
+  await page.locator('#intro-skip').click();
+  await page.waitForFunction(()=>document.querySelector('#brand-intro').hidden);
+  assert(!(await page.locator('main').evaluate(e=>e.inert)));
+  await page.close();
+ } finally {await browser.close();}
+ console.log('PASS: mobile/desktop, 118 elements, search, filters, modes, menu, font scaling and trimmed intro.');
+})().catch(e=>{console.error(e);process.exit(1)});

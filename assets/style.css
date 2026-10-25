@@ -34,3 +34,33 @@ dialog:not(.access-drawer) button:hover{background:var(--soft)}
 @media(max-width:650px){header nav{width:100%;gap:.35rem}header nav>a,header nav>button{flex:1 1 auto;padding:.55rem .35rem;font-size:.74rem}body:not(.element-page) .tools{padding:1rem}body:not(.element-page) .tools label{flex:1 1 min(100%,15rem)}}
 @media(max-width:350px){header nav>a,header nav>button{flex:1 1 100%}body:not(.element-page) .view-switch button{min-width:0;flex:1 1 auto}}
 @media(forced-colors:active){header nav>a,header nav>button,body:not(.element-page) .tools,body:not(.element-page) .view-switch{box-shadow:none;border-color:CanvasText}body:not(.element-page) .view-switch button[aria-pressed=true]{color:HighlightText;background:Highlight}}
+/* Página inicial: decisões editoriais e controles do catálogo. */
+body:not(.element-page) .home-menu{position:relative}
+body:not(.element-page) .home-menu[hidden]{display:none!important}
+body:not(.element-page) .home-menu>summary{display:flex;align-items:center;justify-content:center;min-height:44px;padding:.5rem .75rem;border:2px solid var(--ink);background:var(--surface);box-shadow:2px 2px 0 var(--line);font-size:.78rem;font-weight:700;cursor:pointer;list-style:none}
+body:not(.element-page) .home-menu>summary::-webkit-details-marker{display:none}
+body:not(.element-page) .home-menu>summary::after{content:'▾';margin-left:.5rem}
+body:not(.element-page) .home-menu[open]>summary::after{content:'▴'}
+body:not(.element-page) .home-menu-panel{position:absolute;z-index:20;right:0;top:calc(100% + .5rem);width:min(16rem,calc(100vw - 2rem));padding:.6rem;border:2px solid var(--ink);background:var(--surface);box-shadow:3px 3px 0 var(--line)}
+body:not(.element-page) .home-menu-panel button{width:100%;min-height:48px;border:2px solid var(--ink);border-radius:0;font-size:.85rem;white-space:normal}
+body:not(.element-page) #colecao{scroll-margin-top:1rem;padding-top:2rem}
+body:not(.element-page) .catalog-actions{display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:.75rem}
+body:not(.element-page) #random-element{min-height:48px;padding:.55rem .85rem;border:2px solid var(--ink);border-radius:0;background:var(--surface);box-shadow:2px 2px 0 var(--line);font:700 .85rem/1.4 CordelSans,system-ui,sans-serif}
+body:not(.element-page) .catalog-filters{flex:0 1 17rem;min-width:0;max-width:100%;align-self:flex-end}
+body:not(.element-page) .catalog-filters>summary{min-height:48px;display:flex;align-items:center;gap:.5rem;padding:.55rem .8rem;border:2px solid var(--ink);background:var(--paper);font:700 .84rem/1.4 CordelSans,system-ui,sans-serif;cursor:pointer;list-style:none;flex-wrap:wrap}
+body:not(.element-page) .catalog-filters>summary::-webkit-details-marker{display:none}
+body:not(.element-page) .catalog-filters>summary::after{content:'+';margin-left:auto}
+body:not(.element-page) .catalog-filters[open]>summary::after{content:'−'}
+body:not(.element-page) .filter-active{font-size:.68rem;font-weight:400}
+body:not(.element-page) .filter-active:empty{display:none}
+body:not(.element-page) .catalog-filter-panel{padding-top:.65rem}
+body:not(.element-page) .catalog-filter-panel label{min-width:0}
+body:not(.element-page) .opening h1{overflow-wrap:anywhere}
+@media(max-width:650px){
+  body:not(.element-page) .head>nav{width:auto;margin-left:auto}
+  body:not(.element-page) .catalog-title{gap:1rem}
+  body:not(.element-page) .catalog-actions{width:100%;justify-content:space-between;gap:.65rem}
+  body:not(.element-page) .catalog-title h2{margin-bottom:.5rem}
+  body:not(.element-page) .tools>label,body:not(.element-page) .catalog-filters{flex:1 1 100%;width:100%}
+  body:not(.element-page) .opening h1{font-size:clamp(2.3rem,9vw,3rem)}
+}

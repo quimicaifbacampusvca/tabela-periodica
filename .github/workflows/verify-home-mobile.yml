@@ -1,0 +1,36 @@
+name: Verificar página inicial e abertura
+on:
+  push:
+    branches: [tabelaifbavca]
+    paths:
+      - 'index.html'
+      - 'assets/style.css'
+      - 'assets/home.js'
+      - 'assets/app.js'
+      - 'assets/cordel-collection.js'
+      - 'assets/intro/**'
+      - 'tests/verify-home-mobile.cjs'
+      - '.github/workflows/verify-home-mobile.yml'
+  workflow_dispatch:
+jobs:
+  home:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-save playwright
+      - run: npx playwright install --with-deps chromium
+      - name: Conferir estrutura e comportamento
+        run: |
+          node tests/verify-intro.cjs
+          python3 scripts/validate-elements.py
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/cordel-home.log 2>&1 &
+          node tests/verify-home-mobile.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: revisao-home-mobile
+          path: dist/home-review

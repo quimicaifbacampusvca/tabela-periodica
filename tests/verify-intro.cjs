@@ -20,6 +20,9 @@ assert.ok(script.includes("event.persisted"),'BFCache restore is safe');
 assert.ok(style.includes('prefers-reduced-motion:reduce'),'honors OS reduced-motion setting');
 assert.ok(style.includes('max-width:650px'),'mobile stage fits in viewport');
 assert.match(sw,/const CACHE='cordel-varal-v[0-9]+(?:-[a-z0-9]+)*'/,'valid versioned PWA cache');
-assert.ok(fs.existsSync(path.join(root,'assets/intro/cordel-abertura-v06-web.mp4')));
+assert.ok(fs.existsSync(path.join(root,'assets/intro/cordel-abertura-v07-livro-aberto.mp4')));
 assert.equal((home.match(/<a class="tile category-/g)||[]).length,118,'periodic elements preserved');
 console.log('PASS: native video, transitions, accessible skip, responsive stage, PWA and 118 elements');
+
+assert.ok(home.includes('poster="assets/intro/cordel-abertura-v07-poster.webp"'),'starts on open book');
+assert.ok(!home.includes('cordel-abertura-v06-web.mp4'),'old opening is not played');
