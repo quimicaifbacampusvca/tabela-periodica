@@ -47,6 +47,17 @@ const fs=require('node:fs');
    assert.equal(await page.locator('a.tile:not(.unmatched)').count(),118);
    assert.equal(await page.locator('#category').inputValue(),'');
    const legend=page.locator('.periodic-central-legend');
+   await page.waitForFunction(()=>document.querySelectorAll('.card-map-lines path').length===5);
+   assert.equal(await legend.locator('.card-map-label').count(),5);
+   assert.equal(await legend.locator('.legend-reading dl').count(),0);
+   const mapFits=await legend.locator('.legend-card-map').evaluate(map=>{
+     const box=map.getBoundingClientRect();
+     return [...map.querySelectorAll('.card-map-label,.legend-example')].every(el=>{
+       const r=el.getBoundingClientRect();return r.left>=box.left-1 && r.right<=box.right+1 && r.top>=box.top-1 && r.bottom<=box.bottom+1;
+     });
+   });
+   assert(mapFits,'card annotations fit the map at '+width);
+
    const layout=await legend.evaluate(el=>{
      const list=el.querySelector('.periodic-legend-categories');
      return {columns:getComputedStyle(list).gridTemplateColumns.split(' ').length, overflow:el.scrollHeight>el.clientHeight+2};

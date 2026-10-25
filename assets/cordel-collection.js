@@ -80,9 +80,17 @@
       </section>
       <section class="legend-reading" aria-labelledby="legend-reading-heading">
         <h4 id="legend-reading-heading">Como ler o card</h4>
-        <div class="legend-example" aria-label="Exemplo: ferro, número atômico 26, símbolo Fe, massa 55,845 u, sólido">
-          <div class="example-top"><strong>26</strong><img src="assets/colecao/estado_solido_transicao.webp" alt="Sólido" width="30" height="30"></div>
-          <strong class="example-symbol">Fe</strong><span>Ferro</span><small>55,845 u</small>
+        <div class="legend-card-map">
+          <span class="card-map-label map-state" data-points-to="example-state" data-side="top">Estado físico<br>+ categoria</span>
+          <span class="card-map-label map-number" data-points-to="example-number" data-side="left">Número<br>atômico</span>
+          <div class="legend-example" aria-label="Exemplo: ferro, número atômico 26, símbolo Fe, massa 55,845 u, sólido, metal de transição">
+            <div class="example-top"><strong class="example-number">26</strong><img class="example-state" src="assets/colecao/estado_solido_transicao.webp" alt="Sólido, metal de transição" width="42" height="42"></div>
+            <strong class="example-symbol">Fe</strong><span class="example-name">Ferro</span><small class="example-mass">55,845 u</small>
+          </div>
+          <span class="card-map-label map-symbol" data-points-to="example-symbol" data-side="right">Símbolo<br>químico</span>
+          <span class="card-map-label map-name" data-points-to="example-name" data-side="left">Nome do<br>elemento</span>
+          <span class="card-map-label map-mass" data-points-to="example-mass" data-side="bottom">Massa<br>atômica</span>
+          <svg class="card-map-arrows" aria-hidden="true" focusable="false"><defs><marker id="card-map-arrowhead" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M1 1L7 4L1 7" fill="none" stroke="currentColor" stroke-width="1.2"/></marker></defs><g class="card-map-lines"></g></svg>
         </div>
       </section>
     </div>
@@ -114,6 +122,36 @@
       </div>
     </footer>`;
   grid.appendChild(legend);
+
+  // Arrows follow the actual label/field bounds after fonts, zoom or mode changes.
+  const cardMap = legend.querySelector('.legend-card-map');
+  function drawCardMap() {
+    const bounds = cardMap.getBoundingClientRect();
+    if (!bounds.width || !bounds.height) return;
+    const svg = cardMap.querySelector('.card-map-arrows');
+    svg.setAttribute('viewBox', `0 0 ${bounds.width} ${bounds.height}`);
+    const lines = cardMap.querySelector('.card-map-lines');
+    lines.replaceChildren();
+    cardMap.querySelectorAll('[data-points-to]').forEach(label => {
+      const target = cardMap.querySelector('.' + label.dataset.pointsTo);
+      const a = label.getBoundingClientRect(), b = target.getBoundingClientRect();
+      let x1,y1,x2,y2;
+      switch(label.dataset.side) {
+        case 'top': x1=(a.left+a.right)/2;y1=a.bottom+3;x2=(b.left+b.right)/2;y2=b.top-3;break;
+        case 'bottom': x1=(a.left+a.right)/2;y1=a.top-3;x2=(b.left+b.right)/2;y2=b.bottom+3;break;
+        case 'left': x1=a.right+3;y1=(a.top+a.bottom)/2;x2=b.left-3;y2=(b.top+b.bottom)/2;break;
+        default: x1=a.left-3;y1=(a.top+a.bottom)/2;x2=b.right+3;y2=(b.top+b.bottom)/2;
+      }
+      const path = document.createElementNS(ns,'path');
+      path.setAttribute('d',`M${x1-bounds.left},${y1-bounds.top} L${x2-bounds.left},${y2-bounds.top}`);
+      path.setAttribute('marker-end','url(#card-map-arrowhead)');
+      lines.appendChild(path);
+    });
+  }
+  new ResizeObserver(drawCardMap).observe(cardMap);
+  document.fonts?.ready.then(drawCardMap);
+  window.addEventListener('resize',drawCardMap);
+
   const category = document.getElementById('category');
   const physical = document.getElementById('physical-state');
   legend.querySelectorAll('.legend-category').forEach(item => {
