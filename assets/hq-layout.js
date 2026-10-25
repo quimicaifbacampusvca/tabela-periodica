@@ -86,13 +86,13 @@
   let zoom=1, sizing='initial';
   function applyZoom(value){
     if(edition.hidden)return;
-    zoom=Math.max(.08,Math.min(1.5,value));
+    zoom=Math.max(.01,Math.min(1.5,value));
     const width=table.offsetWidth+8,height=table.offsetHeight+8;
     table.style.transform='scale('+zoom+')';
     canvas.style.width=Math.ceil(width*zoom)+'px';
     canvas.style.height=Math.ceil(height*zoom)+'px';
     zoomValue.value=Math.round(zoom*100)+'%';
-    edition.querySelector('[data-hq-zoom="out"]').disabled=zoom<=.0801;
+    edition.querySelector('[data-hq-zoom="out"]').disabled=zoom<=.0101;
     edition.querySelector('[data-hq-zoom="in"]').disabled=zoom>=1.4999;
     edition.querySelector('[data-hq-zoom="fit"]').setAttribute('aria-pressed',String(sizing==='fit'));
   }
