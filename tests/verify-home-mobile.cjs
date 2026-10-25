@@ -105,6 +105,7 @@ const fs=require('node:fs');
    await demo.goto('http://127.0.0.1:8765/',{waitUntil:'networkidle'});
    await demo.locator('[data-view=periodic]').click();
    const sample=demo.locator('.legend-example');
+   await demo.waitForFunction(()=>!!document.querySelector('.legend-example').dataset.element);
    assert.equal(await sample.getAttribute('data-element'),random===0?'1':'118');
    const z=await sample.getAttribute('data-element');
    const tile=demo.locator('a.tile[data-search^="'+z+' "]');
@@ -115,6 +116,7 @@ const fs=require('node:fs');
    assert((await demo.locator('.map-mass').textContent()).includes(random===0?'atômica':'massa [A]'));
    await demo.locator('[data-view=collection]').click();
    await demo.locator('[data-view=periodic]').click();
+   await demo.waitForFunction(previous=>document.querySelector('.legend-example').dataset.element!==previous,z);
    assert.notEqual(await sample.getAttribute('data-element'),z,'new example on re-entry');
    await demo.close();
   }

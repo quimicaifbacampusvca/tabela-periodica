@@ -21,7 +21,11 @@ def wait(code): return WebDriverWait(driver,20).until(lambda _:js(code))
 def click(selector):
     el=WebDriverWait(driver,20).until(EC.element_to_be_clickable((By.CSS_SELECTOR,selector)));el.click()
 def count(selector):return js('return document.querySelectorAll(arguments[0]).length',selector)
-def select(selector,value):Select(driver.find_element(By.CSS_SELECTOR,selector)).select_by_value(value)
+def select(selector,value):
+    menu=Select(driver.find_element(By.CSS_SELECTOR,selector))
+    options=[option for option in menu.options if option.get_attribute('value')==value]
+    if options:options[0].click()
+    else:menu.select_by_visible_text(value)
 def view():return js('return {width:innerWidth,height:innerHeight,scroll:document.documentElement.scrollWidth,client:document.documentElement.clientWidth}')
 try:
     if kind=='safari':driver=webdriver.Safari()
@@ -67,7 +71,7 @@ try:
         click('[data-shell="4"]');assert 'Camada' in driver.find_element(By.ID,'shell-detail').text
         select('#temperature-unit','K');assert 'K' in driver.find_element(By.CSS_SELECTOR,'[data-property="fusion"]').get_attribute('textContent')
         select('#compare-element','2');select('#compare-property','radius');assert 'definições diferentes' in driver.find_element(By.ID,'comparison-note').text
-        click('#copy-element');assert driver.find_element(By.ID,'share-status').text
+        click('#copy-element');wait("return document.getElementById('share-status').textContent.length>0");assert driver.find_element(By.ID,'share-status').text
         return 'Camadas, unidades, comparação de definições diferentes, compartilhar/fallback.'
     case('Ficha interativa',interactive)
     def print_styles():

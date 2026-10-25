@@ -58,6 +58,8 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: '22' }
       - run: npm install --no-save playwright@${{ matrix.pw }}
+      - name: Preparar permissões do diretório efêmero do contêiner
+        run: chown "$(id -u):$(id -g)" /github/home
       - name: Executar cenários nos motores históricos
         env:
           BROWSER_ENGINE: ${{ matrix.engine }}

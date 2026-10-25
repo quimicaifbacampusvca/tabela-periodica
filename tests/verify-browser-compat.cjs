@@ -46,7 +46,7 @@ async function context(options={}){return browser.newContext({reducedMotion:'red
     await p.locator('#temperature-unit').selectOption('K');assert((await p.locator('[data-property=fusion]').textContent()).includes('K'));
     await p.locator('#energy-unit').selectOption('kJ');assert(!(await p.locator('[data-property=ei]').textContent()).includes('NaN'));
     await p.locator('#compare-element').selectOption('2');await p.locator('#compare-property').selectOption('radius');assert((await p.locator('#comparison-note').textContent()).includes('definições diferentes'));assert(await p.locator('#comparison-bar-a').evaluate(e=>e.parentElement.hidden));
-    await p.locator('#copy-element').click();assert((await p.locator('#share-status').textContent()).length>0);
+    await p.locator('#copy-element').click();await p.waitForFunction(()=>document.getElementById('share-status').textContent.length>0);assert((await p.locator('#share-status').textContent()).length>0);
     await p.setViewportSize({width:390,height:844});await noOverflow(p);
    }finally{await c.close();}
   });
@@ -64,6 +64,7 @@ async function context(options={}){return browser.newContext({reducedMotion:'red
    const c=await context();const p=await c.newPage();try{
     await p.goto(base,{waitUntil:'networkidle'});await p.waitForFunction(()=>navigator.serviceWorker.controller!==null,null,{timeout:90000});
     const ready=await p.evaluate(async()=>{await navigator.serviceWorker.ready;return await caches.keys();});assert(ready.some(x=>x.startsWith('cordel-varal-')));
+    const cachedScenes=await p.evaluate(async()=>{const cache=await caches.open((await caches.keys()).find(x=>x.startsWith('cordel-varal-')));return (await cache.keys()).filter(r=>r.url.includes('/folhetos/cenas/')).length;});assert.equal(cachedScenes,236,'All 236 approved panels must be cached before an unvisited element is opened offline');
     await c.setOffline(true);await p.goto(base+'/elementos/francio/',{waitUntil:'networkidle'});assert.equal(await p.locator('.ep-cover').count(),1);
     await p.waitForFunction(()=>document.querySelectorAll('.ep-print-story-art img').length===2&&[...document.querySelectorAll('.ep-print-story-art img')].every(i=>i.complete),null,{timeout:10000});
     const images=await p.locator('.ep-print-story-art img').evaluateAll(images=>images.map(i=>({width:i.naturalWidth,src:i.src})));assert(images.every(i=>i.width>0),'Offline print images missing: '+JSON.stringify(images));
