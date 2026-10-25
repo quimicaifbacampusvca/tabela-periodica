@@ -60,3 +60,18 @@
 .hq-table-key h3{font:700 2rem/1.3 CordelSerif,Georgia,serif;margin:0 0 1rem}
 .hq-table-key p{font:.95rem/1.6 CordelSans,system-ui,sans-serif;margin:1rem 0}
 @media(forced-colors:active){.hq-table-label{color:CanvasText}}
+
+/* O zoom altera também a área ocupada: sem largura ou altura fantasma. */
+.hq-canvas{position:relative;flex:none}
+.hq-canvas .hq-table{position:absolute;top:0;left:0;transform-origin:top left;min-width:0}
+.hq-zoom-controls{display:flex;align-items:center;flex-wrap:wrap;gap:.45rem;margin:.65rem 0 .3rem}
+.hq-zoom-controls button{min-height:44px;min-width:44px;padding:.45rem .7rem;border:1px solid var(--ink);border-radius:0;background:var(--paper);color:var(--ink);font:700 .8rem/1.3 CordelSans,system-ui,sans-serif;cursor:pointer}
+.hq-zoom-controls button:hover,.hq-zoom-controls button[aria-pressed=true]{background:var(--soft)}
+.hq-zoom-controls button:disabled{opacity:.45;cursor:default}
+.hq-zoom-value{min-width:3.6rem;text-align:center;color:var(--ink);font:.85rem/1.4 CordelSans,system-ui,sans-serif;font-variant-numeric:tabular-nums}
+.hq-scroll{width:100%;box-sizing:border-box;min-width:0}
+.hq-table-key{background:transparent;border:0;border-radius:0;box-shadow:none}
+.hq-heading{padding-bottom:.3rem}
+.hq-intro{margin:.6rem 0}
+.hq-guide{margin:.4rem 0 .6rem}
+@media(max-width:500px){.hq-zoom-controls{gap:.35rem}.hq-zoom-controls button{font-size:.75rem;padding:.4rem .55rem}}

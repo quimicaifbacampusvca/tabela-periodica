@@ -50,6 +50,22 @@ const fs=require('node:fs');
     assert(fit,'page overflow '+width+' '+theme);
    }
    await page.evaluate(()=>document.body.dataset.theme='light');
+   const originalWidth=await page.locator('.hq-panel[data-z="1"]').evaluate(e=>e.getBoundingClientRect().width);
+   await page.locator('[data-hq-zoom=in]').click();
+   assert((await page.locator('.hq-panel[data-z="1"]').evaluate(e=>e.getBoundingClientRect().width))>originalWidth);
+   await page.locator('[data-hq-zoom=fit]').click();
+   const fitted=await page.locator('.hq-scroll').evaluate(e=>e.scrollWidth<=e.clientWidth+2);
+   assert(fitted,'fit-width view must not require horizontal scrolling at '+width);
+   await page.locator('[data-hq-zoom=actual]').click();
+   assert.equal(await page.locator('.hq-zoom-value').textContent(),'100%');
+   assert(await page.locator('.hq-scroll').evaluate(e=>e.scrollWidth>e.clientWidth));
+   await page.evaluate(()=>document.documentElement.style.setProperty('--scale','2'));
+   await page.locator('[data-hq-zoom=fit]').click();
+   assert(await page.locator('.hq-scroll').evaluate(e=>e.scrollWidth<=e.clientWidth+2));
+   assert(await page.evaluate(()=>document.documentElement.scrollWidth<=document.documentElement.clientWidth+2));
+   await page.evaluate(()=>document.documentElement.style.setProperty('--scale','1'));
+   await page.locator('[data-hq-zoom=fit]').click();
+
    await page.screenshot({path:`dist/home-review/hq-${width}.png`,fullPage:false});
    if(width===1440)await page.locator('.hq-table').screenshot({path:'dist/home-review/hq-classic-complete.png'});
    await page.locator('.hq-return').first().click();
