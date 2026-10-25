@@ -97,13 +97,23 @@ async function context(options = {}) {
       },
     );
     await record('Acessibilidade: preferências reais, persistência e paletas', async () => {
-      const c = await context();
+      const c = await context({ reducedMotion: 'no-preference' });
+      await c.addInitScript(() => {
+        if (!localStorage.getItem('cordel_accessibility_v1')) {
+          localStorage.setItem('cordel_accessibility_v1', JSON.stringify({ intro: false }));
+        }
+      });
       const p = await c.newPage();
       try {
         await p.goto(base, { waitUntil: 'networkidle' });
         await p.locator('#home-menu>summary').click();
         await p.locator('#appearance-open').click();
         await p.locator('#access-dark').check();
+        await p.locator('#access-motion').check();
+        assert.equal(
+          await p.evaluate(() => getComputedStyle(document.documentElement).scrollBehavior),
+          'auto',
+        );
         await p.locator('#access-palette').selectOption('mono');
         await p.locator('#font-plus').click();
         await p.locator('#font-plus').click();

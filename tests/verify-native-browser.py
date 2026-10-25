@@ -82,7 +82,10 @@ def click(selector):
             el,
         )
     )
-    js("arguments[0].scrollIntoView({block: 'center', inline: 'nearest'});", el)
+    js(
+        "arguments[0].scrollIntoView({behavior: 'instant', block: 'center', inline: 'nearest'});",
+        el,
+    )
     try:
         el.click()
     except ElementNotInteractableException:
@@ -118,7 +121,7 @@ def select(selector, value):
     ]
     option = options[0] if options else next(o for o in menu.options if o.text == value)
     el = driver.find_element(By.CSS_SELECTOR, selector)
-    js("arguments[0].scrollIntoView({block: 'center'});", el)
+    js("arguments[0].scrollIntoView({behavior: 'instant', block: 'center'});", el)
     try:
         option.click()
     except ElementNotInteractableException:
