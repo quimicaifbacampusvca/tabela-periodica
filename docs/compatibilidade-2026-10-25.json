@@ -1,0 +1,1609 @@
+{
+  "date": "2026-10-25",
+  "publishedCommit": "c20d5690fd095c461a7d4787687d6989feeeab2f",
+  "engineSourceCommit": "cb5a03e49d864784570c675cb94dc6cce66ac6ac",
+  "nativeSourceCommit": "811dae031fdf6ecb0542250ca881fdb4b831ba69",
+  "runtimeFiles": 523,
+  "approvedWebPPanels": 236,
+  "offlinePaths": 521,
+  "allFunctionalScenariosPassed": true,
+  "completeSafariPointerQualification": false,
+  "scenarioGroups": 124,
+  "results": [
+    {
+      "name": "Atual — chrome-stable",
+      "job": 121316597244,
+      "run": 40242332731,
+      "version": "156.0.8078.47",
+      "passed": true,
+      "cases": [
+        {
+          "name": "Página inicial: cinco larguras, filtros combinados, legenda, diálogos, foco, escala e abertura",
+          "status": "passed"
+        },
+        {
+          "name": "Acessibilidade: preferências reais, persistência e paletas",
+          "status": "passed"
+        },
+        {
+          "name": "Armazenamento local bloqueado: inicialização tolerante",
+          "status": "passed"
+        },
+        {
+          "name": "Sem JavaScript: catálogo e conteúdo científico estático",
+          "status": "passed"
+        },
+        {
+          "name": "118 fichas: rotas, dados incorporados, ilustrações e 236 quadros",
+          "status": "passed"
+        },
+        {
+          "name": "Ficha interativa: camadas, unidades, comparação e compartilhar",
+          "status": "passed"
+        },
+        {
+          "name": "Impressão A4: Chromium PDF; todos os motores com mídia print",
+          "status": "passed"
+        },
+        {
+          "name": "Offline: primeira preparação e navegação para folheto não visitado",
+          "status": "passed"
+        },
+        {
+          "name": "Falha do vídeo: entrada não bloqueia o site",
+          "status": "passed"
+        }
+      ],
+      "limitations": [],
+      "userAgent": null,
+      "sourceCommit": "cb5a03e49d864784570c675cb94dc6cce66ac6ac"
+    },
+    {
+      "name": "Histórico PW 1.40.1 — webkit",
+      "job": 121316597389,
+      "run": 40242332731,
+      "version": "17.4",
+      "passed": true,
+      "cases": [
+        {
+          "name": "Página inicial: cinco larguras, filtros combinados, legenda, diálogos, foco, escala e abertura",
+          "status": "passed"
+        },
+        {
+          "name": "Acessibilidade: preferências reais, persistência e paletas",
+          "status": "passed"
+        },
+        {
+          "name": "Armazenamento local bloqueado: inicialização tolerante",
+          "status": "passed"
+        },
+        {
+          "name": "Sem JavaScript: catálogo e conteúdo científico estático",
+          "status": "passed"
+        },
+        {
+          "name": "118 fichas: rotas, dados incorporados, ilustrações e 236 quadros",
+          "status": "passed"
+        },
+        {
+          "name": "Ficha interativa: camadas, unidades, comparação e compartilhar",
+          "status": "passed"
+        },
+        {
+          "name": "Impressão A4: Chromium PDF; todos os motores com mídia print",
+          "status": "passed"
+        },
+        {
+          "name": "Offline: primeira preparação e navegação para folheto não visitado",
+          "status": "passed"
+        },
+        {
+          "name": "Falha do vídeo: entrada não bloqueia o site",
+          "status": "passed"
+        }
+      ],
+      "limitations": [],
+      "userAgent": null,
+      "sourceCommit": "cb5a03e49d864784570c675cb94dc6cce66ac6ac"
+    },
+    {
+      "name": "Histórico PW 1.40.1 — chromium",
+      "job": 121316597400,
+      "run": 40242332731,
+      "version": "120.0.6099.28",
+      "passed": true,
+      "cases": [
+        {
+          "name": "Página inicial: cinco larguras, filtros combinados, legenda, diálogos, foco, escala e abertura",
+          "status": "passed"
+        },
+        {
+          "name": "Acessibilidade: preferências reais, persistência e paletas",
+          "status": "passed"
+        },
+        {
+          "name": "Armazenamento local bloqueado: inicialização tolerante",
+          "status": "passed"
+        },
+        {
+          "name": "Sem JavaScript: catálogo e conteúdo científico estático",
+          "status": "passed"
+        },
+        {
+          "name": "118 fichas: rotas, dados incorporados, ilustrações e 236 quadros",
+          "status": "passed"
+        },
+        {
+          "name": "Ficha interativa: camadas, unidades, comparação e compartilhar",
+          "status": "passed"
+        },
+        {
+          "name": "Impressão A4: Chromium PDF; todos os motores com mídia print",
+          "status": "passed"
+        },
+        {
+          "name": "Offline: primeira preparação e navegação para folheto não visitado",
+          "status": "passed"
+        },
+        {
+          "name": "Falha do vídeo: entrada não bloqueia o site",
+          "status": "passed"
+        }
+      ],
+      "limitations": [],
+      "userAgent": null,
+      "sourceCommit": "cb5a03e49d864784570c675cb94dc6cce66ac6ac"
+    },
+    {
+      "name": "Atual — chromium-current",
+      "job": 121316597416,
+      "run": 40242332731,
+      "version": "156.0.8078.4",
+      "passed": true,
+      "cases": [
+        {
+          "name": "Página inicial: cinco larguras, filtros combinados, legenda, diálogos, foco, escala e abertura",
+          "status": "passed"
+        },
+        {
+          "name": "Acessibilidade: preferências reais, persistência e paletas",
+          "status": "passed"
+        },
+        {
+          "name": "Armazenamento local bloqueado: inicialização tolerante",
+          "status": "passed"
+        },
+        {
+          "name": "Sem JavaScript: catálogo e conteúdo científico estático",
+          "status": "passed"
+        },
+        {
+          "name": "118 fichas: rotas, dados incorporados, ilustrações e 236 quadros",
+          "status": "passed"
+        },
+        {
+          "name": "Ficha interativa: camadas, unidades, comparação e compartilhar",
+          "status": "passed"
+        },
+        {
+          "name": "Impressão A4: Chromium PDF; todos os motores com mídia print",
+          "status": "passed"
+        },
+        {
+          "name": "Offline: primeira preparação e navegação para folheto não visitado",
+          "status": "passed"
+        },
+        {
+          "name": "Falha do vídeo: entrada não bloqueia o site",
+          "status": "passed"
+        }
+      ],
+      "limitations": [],
+      "userAgent": null,
+      "sourceCommit": "cb5a03e49d864784570c675cb94dc6cce66ac6ac"
+    },
+    {
+      "name": "WebKit no macOS",
+      "job": 121316597418,
+      "run": 40242332731,
+      "version": "27.2",
+      "passed": true,
+      "cases": [
+        {
+          "name": "Página inicial: cinco larguras, filtros combinados, legenda, diálogos, foco, escala e abertura",
+          "status": "passed"
+        },
+        {
+          "name": "Acessibilidade: preferências reais, persistência e paletas",
+          "status": "passed"
+        },
+        {
+          "name": "Armazenamento local bloqueado: inicialização tolerante",
+          "status": "passed"
+        },
+        {
+          "name": "Sem JavaScript: catálogo e conteúdo científico estático",
+          "status": "passed"
+        },
+        {
+          "name": "118 fichas: rotas, dados incorporados, ilustrações e 236 quadros",
+          "status": "passed"
+        },
+        {
+          "name": "Ficha interativa: camadas, unidades, comparação e compartilhar",
+          "status": "passed"
+        },
+        {
+          "name": "Impressão A4: Chromium PDF; todos os motores com mídia print",
+          "status": "passed"
+        },
+        {
+          "name": "Offline: primeira preparação e navegação para folheto não visitado",
+          "status": "passed"
+        },
+        {
+          "name": "Falha do vídeo: entrada não bloqueia o site",
+          "status": "passed"
+        }
+      ],
+      "limitations": [],
+      "userAgent": null,
+      "sourceCommit": "cb5a03e49d864784570c675cb94dc6cce66ac6ac"
+    },
+    {
+      "name": "Histórico PW 1.40.1 — firefox",
+      "job": 121316597420,
+      "run": 40242332731,
+      "version": "119.0",
+      "passed": true,
+      "cases": [
+        {
+          "name": "Página inicial: cinco larguras, filtros combinados, legenda, diálogos, foco, escala e abertura",
+          "status": "passed"
+        },
+        {
+          "name": "Acessibilidade: preferências reais, persistência e paletas",
+          "status": "passed"
+        },
+        {
+          "name": "Armazenamento local bloqueado: inicialização tolerante",
+          "status": "passed"
+        },
+        {
+          "name": "Sem JavaScript: catálogo e conteúdo científico estático",
+          "status": "passed"
+        },
+        {
+          "name": "118 fichas: rotas, dados incorporados, ilustrações e 236 quadros",
+          "status": "passed"
+        },
+        {
+          "name": "Ficha interativa: camadas, unidades, comparação e compartilhar",
+          "status": "passed"
+        },
+        {
+          "name": "Impressão A4: Chromium PDF; todos os motores com mídia print",
+          "status": "passed"
+        },
+        {
+          "name": "Offline: primeira preparação e navegação para folheto não visitado",
+          "status": "passed"
+        },
+        {
+          "name": "Falha do vídeo: entrada não bloqueia o site",
+          "status": "passed"
+        }
+      ],
+      "limitations": [],
+      "userAgent": null,
+      "sourceCommit": "cb5a03e49d864784570c675cb94dc6cce66ac6ac"
+    },
+    {
+      "name": "Atual — webkit-linux-current",
+      "job": 121316597421,
+      "run": 40242332731,
+      "version": "27.2",
+      "passed": true,
+      "cases": [
+        {
+          "name": "Página inicial: cinco larguras, filtros combinados, legenda, diálogos, foco, escala e abertura",
+          "status": "passed"
+        },
+        {
+          "name": "Acessibilidade: preferências reais, persistência e paletas",
+          "status": "passed"
+        },
+        {
+          "name": "Armazenamento local bloqueado: inicialização tolerante",
+          "status": "passed"
+        },
+        {
+          "name": "Sem JavaScript: catálogo e conteúdo científico estático",
+          "status": "passed"
+        },
+        {
+          "name": "118 fichas: rotas, dados incorporados, ilustrações e 236 quadros",
+          "status": "passed"
+        },
+        {
+          "name": "Ficha interativa: camadas, unidades, comparação e compartilhar",
+          "status": "passed"
+        },
+        {
+          "name": "Impressão A4: Chromium PDF; todos os motores com mídia print",
+          "status": "passed"
+        },
+        {
+          "name": "Offline: primeira preparação e navegação para folheto não visitado",
+          "status": "passed"
+        },
+        {
+          "name": "Falha do vídeo: entrada não bloqueia o site",
+          "status": "passed"
+        }
+      ],
+      "limitations": [],
+      "userAgent": null,
+      "sourceCommit": "cb5a03e49d864784570c675cb94dc6cce66ac6ac"
+    },
+    {
+      "name": "Histórico PW 1.48.2 — chromium",
+      "job": 121316597434,
+      "run": 40242332731,
+      "version": "130.0.6723.31",
+      "passed": true,
+      "cases": [
+        {
+          "name": "Página inicial: cinco larguras, filtros combinados, legenda, diálogos, foco, escala e abertura",
+          "status": "passed"
+        },
+        {
+          "name": "Acessibilidade: preferências reais, persistência e paletas",
+          "status": "passed"
+        },
+        {
+          "name": "Armazenamento local bloqueado: inicialização tolerante",
+          "status": "passed"
+        },
+        {
+          "name": "Sem JavaScript: catálogo e conteúdo científico estático",
+          "status": "passed"
+        },
+        {
+          "name": "118 fichas: rotas, dados incorporados, ilustrações e 236 quadros",
+          "status": "passed"
+        },
+        {
+          "name": "Ficha interativa: camadas, unidades, comparação e compartilhar",
+          "status": "passed"
+        },
+        {
+          "name": "Impressão A4: Chromium PDF; todos os motores com mídia print",
+          "status": "passed"
+        },
+        {
+          "name": "Offline: primeira preparação e navegação para folheto não visitado",
+          "status": "passed"
+        },
+        {
+          "name": "Falha do vídeo: entrada não bloqueia o site",
+          "status": "passed"
+        }
+      ],
+      "limitations": [],
+      "userAgent": null,
+      "sourceCommit": "cb5a03e49d864784570c675cb94dc6cce66ac6ac"
+    },
+    {
+      "name": "Atual — firefox-current-pw",
+      "job": 121316597465,
+      "run": 40242332731,
+      "version": "157.0",
+      "passed": true,
+      "cases": [
+        {
+          "name": "Página inicial: cinco larguras, filtros combinados, legenda, diálogos, foco, escala e abertura",
+          "status": "passed"
+        },
+        {
+          "name": "Acessibilidade: preferências reais, persistência e paletas",
+          "status": "passed"
+        },
+        {
+          "name": "Armazenamento local bloqueado: inicialização tolerante",
+          "status": "passed"
+        },
+        {
+          "name": "Sem JavaScript: catálogo e conteúdo científico estático",
+          "status": "passed"
+        },
+        {
+          "name": "118 fichas: rotas, dados incorporados, ilustrações e 236 quadros",
+          "status": "passed"
+        },
+        {
+          "name": "Ficha interativa: camadas, unidades, comparação e compartilhar",
+          "status": "passed"
+        },
+        {
+          "name": "Impressão A4: Chromium PDF; todos os motores com mídia print",
+          "status": "passed"
+        },
+        {
+          "name": "Offline: primeira preparação e navegação para folheto não visitado",
+          "status": "passed"
+        },
+        {
+          "name": "Falha do vídeo: entrada não bloqueia o site",
+          "status": "passed"
+        }
+      ],
+      "limitations": [],
+      "userAgent": null,
+      "sourceCommit": "cb5a03e49d864784570c675cb94dc6cce66ac6ac"
+    },
+    {
+      "name": "Histórico PW 1.48.2 — webkit",
+      "job": 121316597513,
+      "run": 40242332731,
+      "version": "18.0",
+      "passed": true,
+      "cases": [
+        {
+          "name": "Página inicial: cinco larguras, filtros combinados, legenda, diálogos, foco, escala e abertura",
+          "status": "passed"
+        },
+        {
+          "name": "Acessibilidade: preferências reais, persistência e paletas",
+          "status": "passed"
+        },
+        {
+          "name": "Armazenamento local bloqueado: inicialização tolerante",
+          "status": "passed"
+        },
+        {
+          "name": "Sem JavaScript: catálogo e conteúdo científico estático",
+          "status": "passed"
+        },
+        {
+          "name": "118 fichas: rotas, dados incorporados, ilustrações e 236 quadros",
+          "status": "passed"
+        },
+        {
+          "name": "Ficha interativa: camadas, unidades, comparação e compartilhar",
+          "status": "passed"
+        },
+        {
+          "name": "Impressão A4: Chromium PDF; todos os motores com mídia print",
+          "status": "passed"
+        },
+        {
+          "name": "Offline: primeira preparação e navegação para folheto não visitado",
+          "status": "passed"
+        },
+        {
+          "name": "Falha do vídeo: entrada não bloqueia o site",
+          "status": "passed"
+        }
+      ],
+      "limitations": [],
+      "userAgent": null,
+      "sourceCommit": "cb5a03e49d864784570c675cb94dc6cce66ac6ac"
+    },
+    {
+      "name": "Histórico PW 1.48.2 — firefox",
+      "job": 121316597525,
+      "run": 40242332731,
+      "version": "131.0",
+      "passed": true,
+      "cases": [
+        {
+          "name": "Página inicial: cinco larguras, filtros combinados, legenda, diálogos, foco, escala e abertura",
+          "status": "passed"
+        },
+        {
+          "name": "Acessibilidade: preferências reais, persistência e paletas",
+          "status": "passed"
+        },
+        {
+          "name": "Armazenamento local bloqueado: inicialização tolerante",
+          "status": "passed"
+        },
+        {
+          "name": "Sem JavaScript: catálogo e conteúdo científico estático",
+          "status": "passed"
+        },
+        {
+          "name": "118 fichas: rotas, dados incorporados, ilustrações e 236 quadros",
+          "status": "passed"
+        },
+        {
+          "name": "Ficha interativa: camadas, unidades, comparação e compartilhar",
+          "status": "passed"
+        },
+        {
+          "name": "Impressão A4: Chromium PDF; todos os motores com mídia print",
+          "status": "passed"
+        },
+        {
+          "name": "Offline: primeira preparação e navegação para folheto não visitado",
+          "status": "passed"
+        },
+        {
+          "name": "Falha do vídeo: entrada não bloqueia o site",
+          "status": "passed"
+        }
+      ],
+      "limitations": [],
+      "userAgent": null,
+      "sourceCommit": "cb5a03e49d864784570c675cb94dc6cce66ac6ac"
+    },
+    {
+      "name": "Atual — edge-stable",
+      "job": 121316597527,
+      "run": 40242332731,
+      "version": "156.0.4314.42",
+      "passed": true,
+      "cases": [
+        {
+          "name": "Página inicial: cinco larguras, filtros combinados, legenda, diálogos, foco, escala e abertura",
+          "status": "passed"
+        },
+        {
+          "name": "Acessibilidade: preferências reais, persistência e paletas",
+          "status": "passed"
+        },
+        {
+          "name": "Armazenamento local bloqueado: inicialização tolerante",
+          "status": "passed"
+        },
+        {
+          "name": "Sem JavaScript: catálogo e conteúdo científico estático",
+          "status": "passed"
+        },
+        {
+          "name": "118 fichas: rotas, dados incorporados, ilustrações e 236 quadros",
+          "status": "passed"
+        },
+        {
+          "name": "Ficha interativa: camadas, unidades, comparação e compartilhar",
+          "status": "passed"
+        },
+        {
+          "name": "Impressão A4: Chromium PDF; todos os motores com mídia print",
+          "status": "passed"
+        },
+        {
+          "name": "Offline: primeira preparação e navegação para folheto não visitado",
+          "status": "passed"
+        },
+        {
+          "name": "Falha do vídeo: entrada não bloqueia o site",
+          "status": "passed"
+        }
+      ],
+      "limitations": [],
+      "userAgent": null,
+      "sourceCommit": "cb5a03e49d864784570c675cb94dc6cce66ac6ac"
+    },
+    {
+      "name": "Safari real — macos-15",
+      "job": 121322790188,
+      "run": 40244395580,
+      "sourceCommit": "811dae031fdf6ecb0542250ca881fdb4b831ba69",
+      "version": "26.6.1",
+      "passed": true,
+      "cases": [
+        {
+          "name": "Home, 118 elementos, filtros combinados, diálogos, temas e persistência",
+          "status": "passed",
+          "seconds": 114.12392997741699,
+          "details": [
+            {
+              "requested": 390,
+              "actual": {
+                "scroll": 375,
+                "client": 375,
+                "width": 390,
+                "height": 848
+              }
+            },
+            {
+              "requested": 1280,
+              "actual": {
+                "scroll": 1265,
+                "client": 1265,
+                "width": 1280,
+                "height": 848
+              }
+            }
+          ]
+        },
+        {
+          "name": "118 fichas e 236 quadros carregados",
+          "status": "passed",
+          "seconds": 24.51287579536438,
+          "details": {
+            "pages": 118,
+            "panels": 236
+          }
+        },
+        {
+          "name": "Ficha interativa",
+          "status": "passed",
+          "seconds": 7.035204887390137,
+          "details": "Camadas, unidades, comparação de definições diferentes, compartilhar/fallback."
+        },
+        {
+          "name": "Layout das regras de impressão (simulação CSS explicitamente identificada)",
+          "status": "passed",
+          "seconds": 2.4545488357543945,
+          "details": {
+            "method": "Applied print CSS rules, not a native print dialog or paginated PDF",
+            "pages": [
+              {
+                "slug": "silicio",
+                "appliedRules": 385,
+                "width": 793.6875,
+                "height": 1118.734375,
+                "images": [
+                  {
+                    "limit": 1118.734375,
+                    "fit": "contain",
+                    "width": 347,
+                    "bottom": 1018.484375
+                  },
+                  {
+                    "limit": 1118.734375,
+                    "fit": "contain",
+                    "width": 347,
+                    "bottom": 1018.484375
+                  }
+                ]
+              },
+              {
+                "slug": "arsenio",
+                "appliedRules": 385,
+                "width": 793.6875,
+                "height": 1118.734375,
+                "images": [
+                  {
+                    "limit": 1118.734375,
+                    "fit": "contain",
+                    "width": 1104,
+                    "bottom": 1018.484375
+                  },
+                  {
+                    "limit": 1118.734375,
+                    "fit": "contain",
+                    "width": 1104,
+                    "bottom": 1018.484375
+                  }
+                ]
+              },
+              {
+                "slug": "francio",
+                "appliedRules": 385,
+                "width": 793.6875,
+                "height": 1118.734375,
+                "images": [
+                  {
+                    "limit": 1118.734375,
+                    "fit": "contain",
+                    "width": 1104,
+                    "bottom": 1018.484375
+                  },
+                  {
+                    "limit": 1118.734375,
+                    "fit": "contain",
+                    "width": 1104,
+                    "bottom": 1018.484375
+                  }
+                ]
+              },
+              {
+                "slug": "oganessonio",
+                "appliedRules": 385,
+                "width": 793.6875,
+                "height": 1118.734375,
+                "images": [
+                  {
+                    "limit": 1118.734375,
+                    "fit": "contain",
+                    "width": 1104,
+                    "bottom": 1018.484375
+                  },
+                  {
+                    "limit": 1118.734375,
+                    "fit": "contain",
+                    "width": 1104,
+                    "bottom": 1018.484375
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "limitations": [
+        "No physical iOS/Android device.",
+        "Native print dialogs, OS installation prompts and external VLibras translation are not automated.",
+        "Any trusted-keyboard fallback is recorded explicitly; it does not homologate pointer delivery for that activation.",
+        "Safari minimum window size can exceed the requested mobile viewport. Exact actual sizes are recorded."
+      ],
+      "inputFallbacks": [
+        {
+          "selector": "#catalog-filters>summary",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "[data-view=\"periodic\"]",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": ".periodic-legend-states button[data-state=\"Líquido\"]",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": ".periodic-legend-states button[data-state=\"Líquido\"]",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "[data-view=\"collection\"]",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "#home-menu>summary",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "#appearance-open",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "#access-dark",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "#appearance-close",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "#home-menu>summary",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "#appearance-open",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "#access-reset",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "#appearance-close",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "#home-menu>summary",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "#home-menu .install-open",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "#install-close",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "#catalog-filters>summary",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "[data-view=\"periodic\"]",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": ".periodic-legend-states button[data-state=\"Líquido\"]",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": ".periodic-legend-states button[data-state=\"Líquido\"]",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "[data-view=\"collection\"]",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "#home-menu>summary",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "#appearance-open",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "#access-dark",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "#appearance-close",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "#home-menu>summary",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "#appearance-open",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "#access-reset",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "#appearance-close",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "#home-menu>summary",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "#home-menu .install-open",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "#install-close",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "[data-shell=\"4\"]",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "#copy-element",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        }
+      ],
+      "inputTags": {
+        "#catalog-filters>summary": "SUMMARY",
+        "[data-view=\"periodic\"]": "BUTTON",
+        ".periodic-legend-states button[data-state=\"Líquido\"]": "BUTTON",
+        "[data-view=\"collection\"]": "BUTTON",
+        "#home-menu>summary": "SUMMARY",
+        "#appearance-open": "BUTTON",
+        "#access-dark": "INPUT",
+        "#appearance-close": "BUTTON",
+        "#access-reset": "BUTTON",
+        "#home-menu .install-open": "BUTTON",
+        "#install-close": "BUTTON",
+        "[data-shell=\"4\"]": "BUTTON",
+        "#copy-element": "BUTTON"
+      },
+      "interactionDiagnostics": [],
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.6.1 Safari/605.1.15"
+    },
+    {
+      "name": "Firefox oficial — esr",
+      "job": 121322790367,
+      "run": 40244395580,
+      "sourceCommit": "811dae031fdf6ecb0542250ca881fdb4b831ba69",
+      "version": "153.5.1",
+      "passed": true,
+      "cases": [
+        {
+          "name": "Home, 118 elementos, filtros combinados, diálogos, temas e persistência",
+          "status": "passed",
+          "seconds": 7.169887542724609,
+          "details": [
+            {
+              "requested": 390,
+              "actual": {
+                "client": 488,
+                "height": 814,
+                "scroll": 488,
+                "width": 500
+              }
+            },
+            {
+              "requested": 1280,
+              "actual": {
+                "client": 1268,
+                "height": 814,
+                "scroll": 1268,
+                "width": 1280
+              }
+            }
+          ]
+        },
+        {
+          "name": "118 fichas e 236 quadros carregados",
+          "status": "passed",
+          "seconds": 12.387913227081299,
+          "details": {
+            "pages": 118,
+            "panels": 236
+          }
+        },
+        {
+          "name": "Ficha interativa",
+          "status": "passed",
+          "seconds": 1.1306531429290771,
+          "details": "Camadas, unidades, comparação de definições diferentes, compartilhar/fallback."
+        },
+        {
+          "name": "Layout das regras de impressão (simulação CSS explicitamente identificada)",
+          "status": "passed",
+          "seconds": 1.000964641571045,
+          "details": {
+            "method": "Applied print CSS rules, not a native print dialog or paginated PDF",
+            "pages": [
+              {
+                "slug": "silicio",
+                "appliedRules": 385,
+                "height": 1118.7333984375,
+                "images": [
+                  {
+                    "bottom": 1018.616668701172,
+                    "fit": "contain",
+                    "limit": 1118.7333984375,
+                    "width": 1104
+                  },
+                  {
+                    "bottom": 1018.616668701172,
+                    "fit": "contain",
+                    "limit": 1118.7333984375,
+                    "width": 1104
+                  }
+                ],
+                "width": 793.7000122070312
+              },
+              {
+                "slug": "arsenio",
+                "appliedRules": 385,
+                "height": 1118.7333984375,
+                "images": [
+                  {
+                    "bottom": 1018.616668701172,
+                    "fit": "contain",
+                    "limit": 1118.7333984375,
+                    "width": 1104
+                  },
+                  {
+                    "bottom": 1018.616668701172,
+                    "fit": "contain",
+                    "limit": 1118.7333984375,
+                    "width": 1104
+                  }
+                ],
+                "width": 793.7000122070312
+              },
+              {
+                "slug": "francio",
+                "appliedRules": 385,
+                "height": 1118.7333984375,
+                "images": [
+                  {
+                    "bottom": 1018.616668701172,
+                    "fit": "contain",
+                    "limit": 1118.7333984375,
+                    "width": 1104
+                  },
+                  {
+                    "bottom": 1018.616668701172,
+                    "fit": "contain",
+                    "limit": 1118.7333984375,
+                    "width": 1104
+                  }
+                ],
+                "width": 793.7000122070312
+              },
+              {
+                "slug": "oganessonio",
+                "appliedRules": 385,
+                "height": 1118.7333984375,
+                "images": [
+                  {
+                    "bottom": 1018.616668701172,
+                    "fit": "contain",
+                    "limit": 1118.7333984375,
+                    "width": 1104
+                  },
+                  {
+                    "bottom": 1018.616668701172,
+                    "fit": "contain",
+                    "limit": 1118.7333984375,
+                    "width": 1104
+                  }
+                ],
+                "width": 793.7000122070312
+              }
+            ]
+          }
+        }
+      ],
+      "limitations": [
+        "No physical iOS/Android device.",
+        "Native print dialogs, OS installation prompts and external VLibras translation are not automated.",
+        "Any trusted-keyboard fallback is recorded explicitly; it does not homologate pointer delivery for that activation.",
+        "Safari minimum window size can exceed the requested mobile viewport. Exact actual sizes are recorded."
+      ],
+      "inputFallbacks": [],
+      "inputTags": {
+        "#catalog-filters>summary": "summary",
+        "[data-view=\"periodic\"]": "button",
+        ".periodic-legend-states button[data-state=\"Líquido\"]": "button",
+        "[data-view=\"collection\"]": "button",
+        "#home-menu>summary": "summary",
+        "#appearance-open": "button",
+        "#access-dark": "input",
+        "#appearance-close": "button",
+        "#access-reset": "button",
+        "#home-menu .install-open": "button",
+        "#install-close": "button",
+        "[data-shell=\"4\"]": "button",
+        "#copy-element": "button"
+      },
+      "interactionDiagnostics": [],
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:153.0) Gecko/20100101 Firefox/153.0"
+    },
+    {
+      "name": "Firefox oficial — stable",
+      "job": 121322790368,
+      "run": 40244395580,
+      "sourceCommit": "811dae031fdf6ecb0542250ca881fdb4b831ba69",
+      "version": "158.0.1",
+      "passed": true,
+      "cases": [
+        {
+          "name": "Home, 118 elementos, filtros combinados, diálogos, temas e persistência",
+          "status": "passed",
+          "seconds": 7.074649095535278,
+          "details": [
+            {
+              "requested": 390,
+              "actual": {
+                "client": 488,
+                "height": 814,
+                "scroll": 488,
+                "width": 500
+              }
+            },
+            {
+              "requested": 1280,
+              "actual": {
+                "client": 1268,
+                "height": 814,
+                "scroll": 1268,
+                "width": 1280
+              }
+            }
+          ]
+        },
+        {
+          "name": "118 fichas e 236 quadros carregados",
+          "status": "passed",
+          "seconds": 11.89389443397522,
+          "details": {
+            "pages": 118,
+            "panels": 236
+          }
+        },
+        {
+          "name": "Ficha interativa",
+          "status": "passed",
+          "seconds": 0.7932932376861572,
+          "details": "Camadas, unidades, comparação de definições diferentes, compartilhar/fallback."
+        },
+        {
+          "name": "Layout das regras de impressão (simulação CSS explicitamente identificada)",
+          "status": "passed",
+          "seconds": 0.9546267986297607,
+          "details": {
+            "method": "Applied print CSS rules, not a native print dialog or paginated PDF",
+            "pages": [
+              {
+                "slug": "silicio",
+                "appliedRules": 385,
+                "height": 1118.7333984375,
+                "images": [
+                  {
+                    "bottom": 1018.616668701172,
+                    "fit": "contain",
+                    "limit": 1118.7333984375,
+                    "width": 1104
+                  },
+                  {
+                    "bottom": 1018.616668701172,
+                    "fit": "contain",
+                    "limit": 1118.7333984375,
+                    "width": 1104
+                  }
+                ],
+                "width": 793.7000122070312
+              },
+              {
+                "slug": "arsenio",
+                "appliedRules": 385,
+                "height": 1118.7333984375,
+                "images": [
+                  {
+                    "bottom": 1018.616668701172,
+                    "fit": "contain",
+                    "limit": 1118.7333984375,
+                    "width": 1104
+                  },
+                  {
+                    "bottom": 1018.616668701172,
+                    "fit": "contain",
+                    "limit": 1118.7333984375,
+                    "width": 1104
+                  }
+                ],
+                "width": 793.7000122070312
+              },
+              {
+                "slug": "francio",
+                "appliedRules": 385,
+                "height": 1118.7333984375,
+                "images": [
+                  {
+                    "bottom": 1018.616668701172,
+                    "fit": "contain",
+                    "limit": 1118.7333984375,
+                    "width": 1104
+                  },
+                  {
+                    "bottom": 1018.616668701172,
+                    "fit": "contain",
+                    "limit": 1118.7333984375,
+                    "width": 1104
+                  }
+                ],
+                "width": 793.7000122070312
+              },
+              {
+                "slug": "oganessonio",
+                "appliedRules": 385,
+                "height": 1118.7333984375,
+                "images": [
+                  {
+                    "bottom": 1018.616668701172,
+                    "fit": "contain",
+                    "limit": 1118.7333984375,
+                    "width": 1104
+                  },
+                  {
+                    "bottom": 1018.616668701172,
+                    "fit": "contain",
+                    "limit": 1118.7333984375,
+                    "width": 1104
+                  }
+                ],
+                "width": 793.7000122070312
+              }
+            ]
+          }
+        }
+      ],
+      "limitations": [
+        "No physical iOS/Android device.",
+        "Native print dialogs, OS installation prompts and external VLibras translation are not automated.",
+        "Any trusted-keyboard fallback is recorded explicitly; it does not homologate pointer delivery for that activation.",
+        "Safari minimum window size can exceed the requested mobile viewport. Exact actual sizes are recorded."
+      ],
+      "inputFallbacks": [],
+      "inputTags": {
+        "#catalog-filters>summary": "summary",
+        "[data-view=\"periodic\"]": "button",
+        ".periodic-legend-states button[data-state=\"Líquido\"]": "button",
+        "[data-view=\"collection\"]": "button",
+        "#home-menu>summary": "summary",
+        "#appearance-open": "button",
+        "#access-dark": "input",
+        "#appearance-close": "button",
+        "#access-reset": "button",
+        "#home-menu .install-open": "button",
+        "#install-close": "button",
+        "[data-shell=\"4\"]": "button",
+        "#copy-element": "button"
+      },
+      "interactionDiagnostics": [],
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:158.0) Gecko/20100101 Firefox/158.0"
+    },
+    {
+      "name": "Safari real — macos-26",
+      "job": 121322790452,
+      "run": 40244395580,
+      "sourceCommit": "811dae031fdf6ecb0542250ca881fdb4b831ba69",
+      "version": "26.6.2",
+      "passed": true,
+      "cases": [
+        {
+          "name": "Home, 118 elementos, filtros combinados, diálogos, temas e persistência",
+          "status": "passed",
+          "seconds": 110.73740100860596,
+          "details": [
+            {
+              "requested": 390,
+              "actual": {
+                "scroll": 373,
+                "client": 373,
+                "width": 390,
+                "height": 848
+              }
+            },
+            {
+              "requested": 1280,
+              "actual": {
+                "scroll": 1263,
+                "client": 1263,
+                "width": 1280,
+                "height": 848
+              }
+            }
+          ]
+        },
+        {
+          "name": "118 fichas e 236 quadros carregados",
+          "status": "passed",
+          "seconds": 22.78078532218933,
+          "details": {
+            "pages": 118,
+            "panels": 236
+          }
+        },
+        {
+          "name": "Ficha interativa",
+          "status": "passed",
+          "seconds": 6.947494983673096,
+          "details": "Camadas, unidades, comparação de definições diferentes, compartilhar/fallback."
+        },
+        {
+          "name": "Layout das regras de impressão (simulação CSS explicitamente identificada)",
+          "status": "passed",
+          "seconds": 1.9492449760437012,
+          "details": {
+            "method": "Applied print CSS rules, not a native print dialog or paginated PDF",
+            "pages": [
+              {
+                "slug": "silicio",
+                "appliedRules": 385,
+                "width": 793.6875,
+                "height": 1118.734375,
+                "images": [
+                  {
+                    "limit": 1118.734375,
+                    "fit": "contain",
+                    "width": 347,
+                    "bottom": 1018.484375
+                  },
+                  {
+                    "limit": 1118.734375,
+                    "fit": "contain",
+                    "width": 347,
+                    "bottom": 1018.484375
+                  }
+                ]
+              },
+              {
+                "slug": "arsenio",
+                "appliedRules": 385,
+                "width": 793.6875,
+                "height": 1118.734375,
+                "images": [
+                  {
+                    "limit": 1118.734375,
+                    "fit": "contain",
+                    "width": 1104,
+                    "bottom": 1018.484375
+                  },
+                  {
+                    "limit": 1118.734375,
+                    "fit": "contain",
+                    "width": 1104,
+                    "bottom": 1018.484375
+                  }
+                ]
+              },
+              {
+                "slug": "francio",
+                "appliedRules": 385,
+                "width": 793.6875,
+                "height": 1118.734375,
+                "images": [
+                  {
+                    "limit": 1118.734375,
+                    "fit": "contain",
+                    "width": 1104,
+                    "bottom": 1018.484375
+                  },
+                  {
+                    "limit": 1118.734375,
+                    "fit": "contain",
+                    "width": 1104,
+                    "bottom": 1018.484375
+                  }
+                ]
+              },
+              {
+                "slug": "oganessonio",
+                "appliedRules": 385,
+                "width": 793.6875,
+                "height": 1118.734375,
+                "images": [
+                  {
+                    "limit": 1118.734375,
+                    "fit": "contain",
+                    "width": 1104,
+                    "bottom": 1018.484375
+                  },
+                  {
+                    "limit": 1118.734375,
+                    "fit": "contain",
+                    "width": 1104,
+                    "bottom": 1018.484375
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "limitations": [
+        "No physical iOS/Android device.",
+        "Native print dialogs, OS installation prompts and external VLibras translation are not automated.",
+        "Any trusted-keyboard fallback is recorded explicitly; it does not homologate pointer delivery for that activation.",
+        "Safari minimum window size can exceed the requested mobile viewport. Exact actual sizes are recorded."
+      ],
+      "inputFallbacks": [
+        {
+          "selector": "#catalog-filters>summary",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "[data-view=\"periodic\"]",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": ".periodic-legend-states button[data-state=\"Líquido\"]",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": ".periodic-legend-states button[data-state=\"Líquido\"]",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "[data-view=\"collection\"]",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "#home-menu>summary",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "#appearance-open",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "#access-dark",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "#appearance-close",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "#home-menu>summary",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "#appearance-open",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "#access-reset",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "#appearance-close",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "#home-menu>summary",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "#home-menu .install-open",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "#install-close",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "#catalog-filters>summary",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "[data-view=\"periodic\"]",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": ".periodic-legend-states button[data-state=\"Líquido\"]",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": ".periodic-legend-states button[data-state=\"Líquido\"]",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "[data-view=\"collection\"]",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "#home-menu>summary",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "#appearance-open",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "#access-dark",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "#appearance-close",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "#home-menu>summary",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "#appearance-open",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "#access-reset",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "#appearance-close",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "#home-menu>summary",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "#home-menu .install-open",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "#install-close",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "[data-shell=\"4\"]",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        },
+        {
+          "selector": "#copy-element",
+          "method": "trusted keyboard activation",
+          "limitation": "pointer delivery by the native driver was not confirmed for this activation"
+        }
+      ],
+      "inputTags": {
+        "#catalog-filters>summary": "SUMMARY",
+        "[data-view=\"periodic\"]": "BUTTON",
+        ".periodic-legend-states button[data-state=\"Líquido\"]": "BUTTON",
+        "[data-view=\"collection\"]": "BUTTON",
+        "#home-menu>summary": "SUMMARY",
+        "#appearance-open": "BUTTON",
+        "#access-dark": "INPUT",
+        "#appearance-close": "BUTTON",
+        "#access-reset": "BUTTON",
+        "#home-menu .install-open": "BUTTON",
+        "#install-close": "BUTTON",
+        "[data-shell=\"4\"]": "BUTTON",
+        "#copy-element": "BUTTON"
+      },
+      "interactionDiagnostics": [],
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.6.2 Safari/605.1.15"
+    }
+  ],
+  "legendArrow": {
+    "status": "passed",
+    "scope": "Targeted visual check and homepage regression; mass arrow now curves below and points upward",
+    "sourceCommit": "16364f0834d6e775a782ab6e1f27296795697bd8",
+    "homeWorkflowRun": 40243830919
+  },
+  "diagnosticRuns": [
+    {
+      "id": 40243004062,
+      "scope": "Native mouse, keyboard and separately labelled synthetic JavaScript control at 1280px"
+    },
+    {
+      "id": 40243246991,
+      "scope": "Same diagnostic at requested widths 390 and 1280; intermittent native pointer delivery, especially macOS 26"
+    }
+  ],
+  "limitations": [
+    "Safari functional checks used recorded trusted keyboard fallbacks when native pointer events were not delivered; this does not qualify every pointer activation.",
+    "No physical iOS/Android device, physical printer, OS installation UI or external VLibras translation was homologated.",
+    "Historical Playwright builds are engine samples, not every stable release or every operating system."
+  ]
+}

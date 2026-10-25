@@ -35,3 +35,5 @@ As ferramentas são necessárias apenas para desenvolvimento. O site publicado c
 Os workflows de `construção` separam escrita e contratos, renderização e impressão, motores atuais e históricos, Safari nativo e Firefox oficial. Os relatórios registram versões efetivamente executadas; WebKit automatizado não equivale a todas as versões do Safari. Viewports móveis são emulados, sem homologação em aparelhos físicos.
 
 Contato para relatar erros: **202411320020@ifba.edu.br**.
+
+[Relatório de compatibilidade de 25/10/2026](docs/COMPATIBILIDADE-2026-10-25.md), com versões executadas, resultados e limites de cobertura.
