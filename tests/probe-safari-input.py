@@ -35,65 +35,68 @@ try:
         "localStorage.setItem('cordel_accessibility_v1', JSON.stringify({motion:true,intro:false}))"
     )
     driver.set_window_size(1280, 900)
-    for target in ["filters", "copy"]:
-        for method in [
-            "element-click",
-            "pointer-actions",
-            "keyboard",
-            "javascript-diagnostic",
-        ]:
-            driver.get(
-                "http://127.0.0.1:8765/"
-                + ("elementos/ferro/" if target == "copy" else "")
-            )
-            selector = (
-                "#copy-element" if target == "copy" else "#catalog-filters>summary"
-            )
-            el = driver.find_element(By.CSS_SELECTOR, selector)
-            before = driver.execute_script(
+    for width in [390, 1280]:
+        driver.set_window_size(width, 900)
+        for target in ["filters", "copy"]:
+            for method in [
+                "element-click",
+                "pointer-actions",
+                "keyboard",
+                "javascript-diagnostic",
+            ]:
+                driver.get(
+                    "http://127.0.0.1:8765/"
+                    + ("elementos/ferro/" if target == "copy" else "")
+                )
+                selector = (
+                    "#copy-element" if target == "copy" else "#catalog-filters>summary"
+                )
+                el = driver.find_element(By.CSS_SELECTOR, selector)
+                before = driver.execute_script(
+                    """
+                    const e=arguments[0];e.scrollIntoView({behavior:'instant',block:'center'});
+                    window.__probeClicks=[];
+                    document.addEventListener('click',event=>window.__probeClicks.push({
+                      target:event.target.outerHTML.slice(0,200),trusted:event.isTrusted,
+                      x:event.clientX,y:event.clientY,prevented:event.defaultPrevented}),true);
+                    const r=e.getBoundingClientRect();return {x:r.x,y:r.y,w:r.width,h:r.height,
+                      hit:document.elementFromPoint(r.x+r.width/2,r.y+r.height/2)?.outerHTML.slice(0,200),
+                      inert:e.closest('[inert]')?.outerHTML.slice(0,100),
+                      viewport:{width:innerWidth,height:innerHeight,outerWidth,outerHeight,devicePixelRatio,scrollX,scrollY,visualScale:visualViewport?.scale}};
+                """,
+                    el,
+                )
+                error = None
+                try:
+                    if method == "element-click":
+                        el.click()
+                    elif method == "pointer-actions":
+                        ActionChains(driver).move_to_element(el).click().perform()
+                    elif method == "keyboard":
+                        el.send_keys(Keys.ENTER if target == "copy" else Keys.SPACE)
+                    else:
+                        driver.execute_script("arguments[0].click()", el)
+                    time.sleep(1)
+                except Exception as exc:
+                    error = str(exc)
+                after = driver.execute_script(
+                    """
+                    return {clicks:window.__probeClicks,filters:document.getElementById('catalog-filters')?.open,
+                      share:document.getElementById('share-status')?.textContent,
+                      active:document.activeElement?.outerHTML.slice(0,200)};
                 """
-                const e=arguments[0];e.scrollIntoView({behavior:'instant',block:'center'});
-                window.__probeClicks=[];
-                document.addEventListener('click',event=>window.__probeClicks.push({
-                  target:event.target.outerHTML.slice(0,200),trusted:event.isTrusted,
-                  x:event.clientX,y:event.clientY,prevented:event.defaultPrevented}),true);
-                const r=e.getBoundingClientRect();return {x:r.x,y:r.y,w:r.width,h:r.height,
-                  hit:document.elementFromPoint(r.x+r.width/2,r.y+r.height/2)?.outerHTML.slice(0,200),
-                  inert:e.closest('[inert]')?.outerHTML.slice(0,100),
-                  viewport:{width:innerWidth,height:innerHeight}};
-            """,
-                el,
-            )
-            error = None
-            try:
-                if method == "element-click":
-                    el.click()
-                elif method == "pointer-actions":
-                    ActionChains(driver).move_to_element(el).click().perform()
-                elif method == "keyboard":
-                    el.send_keys(Keys.ENTER if target == "copy" else Keys.SPACE)
-                else:
-                    driver.execute_script("arguments[0].click()", el)
-                time.sleep(1)
-            except Exception as exc:
-                error = str(exc)
-            after = driver.execute_script(
-                """
-                return {clicks:window.__probeClicks,filters:document.getElementById('catalog-filters')?.open,
-                  share:document.getElementById('share-status')?.textContent,
-                  active:document.activeElement?.outerHTML.slice(0,200)};
-            """
-            )
-            report["results"].append(
-                {
-                    "target": target,
-                    "method": method,
-                    "before": before,
-                    "after": after,
-                    "error": error,
-                }
-            )
-            driver.save_screenshot(str(out / f"{target}-{method}.png"))
+                )
+                report["results"].append(
+                    {
+                        "width_requested": width,
+                        "target": target,
+                        "method": method,
+                        "before": before,
+                        "after": after,
+                        "error": error,
+                    }
+                )
+                driver.save_screenshot(str(out / f"{width}-{target}-{method}.png"))
 finally:
     signal.alarm(0)
     if driver:
