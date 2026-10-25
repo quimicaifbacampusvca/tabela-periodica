@@ -5,6 +5,7 @@ from pathlib import Path
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.common.exceptions import ElementNotInteractableException
 from selenium.webdriver.support.ui import WebDriverWait, Select
 from selenium.webdriver.support import expected_conditions as EC
@@ -72,7 +73,24 @@ def click(selector):
         el = el.find_element(By.XPATH, "ancestor::label[1]")
     WebDriverWait(driver, 20).until(lambda _: el.is_displayed() and el.is_enabled())
     js("arguments[0].scrollIntoView({block: 'center', inline: 'nearest'});", el)
-    el.click()
+    try:
+        el.click()
+    except ElementNotInteractableException:
+        report.setdefault("interactionDiagnostics", []).append(
+            js(
+                """
+            const el = arguments[0], scroller = el.closest('.access-body');
+            const rect = n => {const b=n.getBoundingClientRect();return {x:b.x,y:b.y,width:b.width,height:b.height}};
+            return {id:el.id,element:rect(el),scroller:scroller?rect(scroller):null,
+              scrollTop:scroller?.scrollTop,scrollHeight:scroller?.scrollHeight,
+              viewport:{width:innerWidth,height:innerHeight},
+              hit:document.elementFromPoint(el.getBoundingClientRect().x+5,el.getBoundingClientRect().y+5)?.outerHTML?.slice(0,200)};
+        """,
+                el,
+            )
+        )
+        driver.save_screenshot(str(out / "interaction-failure.png"))
+        ActionChains(driver).move_to_element(el).click().perform()
 
 
 def count(selector):
@@ -177,6 +195,9 @@ try:
             click("#home-menu>summary")
             click("#appearance-open")
             click("#access-reset")
+            wait(
+                "return document.body.dataset.theme === (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'original')"
+            )
             click("#appearance-close")
             click("#home-menu>summary")
             click("#home-menu .install-open")

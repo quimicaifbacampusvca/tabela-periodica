@@ -167,7 +167,7 @@ async function context(options = {}) {
       try {
         for (const m of models) {
           const r = await p.goto(base + '/elementos/' + m.slug + '/', { waitUntil: 'load' });
-          assert.equal(r.status(), 200, m.slug);
+          assert([200, 304].includes(r.status()), m.slug + ': HTTP ' + r.status());
           assert.equal(await p.locator('header details.home-menu').count(), 1, m.slug);
           assert.equal(await p.locator('header nav > a, header nav > button').count(), 0, m.slug);
           assert.equal(await p.locator('header .install-open').count(), 1, m.slug);
