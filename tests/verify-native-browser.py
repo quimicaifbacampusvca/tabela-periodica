@@ -70,7 +70,12 @@ def click(selector):
     el = WebDriverWait(driver, 20).until(
         EC.presence_of_element_located((By.CSS_SELECTOR, selector))
     )
-    if el.tag_name == "input" and el.get_attribute("type") == "checkbox":
+    raw_tag = el.tag_name
+    report.setdefault("inputTags", {})[selector] = raw_tag
+    if (
+        raw_tag.lower() == "input"
+        and (el.get_attribute("type") or "").lower() == "checkbox"
+    ):
         el = el.find_element(By.XPATH, "ancestor::label[1]")
     WebDriverWait(driver, 20).until(lambda _: el.is_displayed() and el.is_enabled())
     WebDriverWait(driver, 10).until(
@@ -133,11 +138,11 @@ def click(selector):
             # Keep a real, trusted input path; never synthesize click() in the page.
             key_target = (
                 el.find_element(By.CSS_SELECTOR, "input")
-                if el.tag_name == "label"
+                if el.tag_name.lower() == "label"
                 else el
             )
             key_target.send_keys(
-                Keys.ENTER if el.tag_name in ("button", "a") else Keys.SPACE
+                Keys.ENTER if el.tag_name.lower() == "a" else Keys.SPACE
             )
             assert received(), f"No trusted activation reached {selector}"
             report.setdefault("inputFallbacks", []).append(
