@@ -73,7 +73,7 @@ def temp_note(z):
       16: 'A base associa as temperaturas à forma beta, monoclínica, do enxofre. Mudanças de estrutura e condições experimentais afetam os valores.',
       33: 'O arsênio sublima sob pressão atmosférica. O valor de fusão de 817 °C exige pressão elevada; a base registra 614 °C para a sublimação. Não são apresentados como um intervalo líquido a 1 atm.',
       34: 'As temperaturas desta base se referem à forma cinza, hexagonal, do selênio.',
-      87: 'As temperaturas do frâncio nesta base são estimativas. Elas não confirmam seu estado macroscópico a 25 °C.',
+      87: 'As temperaturas do frâncio nesta base são estimativas. A classificação tabulada como sólido a 25 °C não equivale à medição de uma amostra macroscópica.',
       97: 'A base associa os valores à forma alfa do berquélio; as amostras e condições de caracterização são limitadas.'
     }.get(z, 'Para elementos com amostras muito limitadas, valores tabulados podem depender de estimativas e de condições específicas; eles não confirmam o estado físico.' if z>=100 or z==85 else '')
 
@@ -118,6 +118,7 @@ for m, raw, art in zip(models, RAW, EDITORIAL['elements']):
     group_label = 'Série destacada' if m['series'] else f'Grupo {m["group"]}'
     placement = f'{m["category"]} · período {m["period"]}' if m['series'] else f'Grupo {m["group"]} · período {m["period"]}'
     state_note = ('A classificação é conservadora: não há caracterização suficiente para afirmar um estado macroscópico nesta condição. “Não determinado” indica uma lacuna de conhecimento, não um quarto estado físico.' if m['state']=='Não determinado' else 'O estado indicado se refere à substância simples a 25 °C e 1 atm. Compostos, ligas e objetos que contêm o elemento podem ter outras propriedades.')
+    state_note = art.get('state_note') or state_note
     isotope_mass = m['mass'].startswith('[')
     mass_label = 'Número de massa indicado' if isotope_mass else 'Massa atômica apresentada'
     mass_note = ('O número entre colchetes é o número de massa A de um isótopo indicado na tabela de referência. Não é uma massa atômica média: A conta prótons e nêutrons.' if isotope_mass else 'Este valor representa a massa atômica média de referência, expressa em u. Ele depende da composição isotópica e não permite deduzir a quantidade de nêutrons de um átomo individual.')

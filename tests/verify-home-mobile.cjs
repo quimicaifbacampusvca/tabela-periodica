@@ -11,6 +11,11 @@ const fs=require('node:fs');
    await page.goto('http://127.0.0.1:8765/',{waitUntil:'networkidle'});
    await page.evaluate(()=>document.fonts.ready);
    assert.equal(await page.locator('a.tile').count(),118);
+   for(const z of [85,87,100,101,102,103]){
+    const tile=page.locator('a.tile[data-search^="'+z+' "]');
+    assert.equal(await tile.locator('.folio-state strong').textContent(),'Sólido');
+    assert((await tile.locator('.folio-state-icon').getAttribute('src')).includes('estado_solido_'));
+   }
    assert.equal(await page.locator('#count').count(),0);
    assert.equal(await page.getByText('Conheça o cobre',{exact:false}).count(),0);
    assert.equal(await page.locator('.discovery-strip').count(),0);

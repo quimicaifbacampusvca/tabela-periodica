@@ -2,7 +2,7 @@
   "version": "v08",
   "condition": "25 °C e 1 atm; substância simples",
   "mass_reference": "CIAAW 2024; números entre colchetes: edição IUPAC de 4 de maio de 2022",
-  "state_policy": "Estados previstos ou sem caracterização macroscópica suficiente não são apresentados como confirmados. At, Fr e Fm–Og usam Não determinado nesta proposta conservadora.",
+  "state_policy": "Condição: 25 °C e 1 atm. At, Fr e Fm–Lr são apresentados como sólidos tabulados, com ressalvas sobre caracterização macroscópica nas fichas. Rf–Og permanecem Não determinado: previsões de estado não são apresentadas como confirmação experimental. Revisão comparativa dos 118 elementos com PubChem em 25/10/2026.",
   "elements": [
     {
       "z": 1,
@@ -2072,14 +2072,15 @@
       "category": "Halogênio",
       "category_key": "halogenios",
       "color": "#A24967",
-      "state": "Não determinado",
+      "state": "Sólido",
       "map_row": 6,
       "map_column": 17,
       "illustration_description": "Célula de manipulação",
       "source_urls": [
         "https://ciaaw.org/abridged-atomic-weights.htm",
         "https://periodic-table.rsc.org/element/85/astatine",
-        "https://iupac.org/wp-content/uploads/2022/07/IUPAC_Periodic_Table-04May22_CRA.pdf"
+        "https://iupac.org/wp-content/uploads/2022/07/IUPAC_Periodic_Table-04May22_CRA.pdf",
+        "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
       ],
       "phrase": "É estudado em laboratório; sem aplicação cotidiana.",
       "phrase_sources": [
@@ -2087,7 +2088,8 @@
           "label": "RSC: Astato",
           "url": "https://periodic-table.rsc.org/element/85/astatine"
         }
-      ]
+      ],
+      "state_note": "O astato é classificado como sólido na referência PubChem. As quantidades disponíveis são extremamente pequenas; esta classificação não significa que suas propriedades macroscópicas tenham sido completamente medidas."
     },
     {
       "z": 86,
@@ -2122,7 +2124,7 @@
       "category": "Metal alcalino",
       "category_key": "alcalinos",
       "color": "#A94F29",
-      "state": "Não determinado",
+      "state": "Sólido",
       "map_row": 7,
       "map_column": 1,
       "illustration_description": "Armadilha de átomos",
@@ -2130,7 +2132,8 @@
         "https://ciaaw.org/abridged-atomic-weights.htm",
         "https://periodic-table.rsc.org/element/87/francium",
         "https://iupac.org/wp-content/uploads/2022/07/IUPAC_Periodic_Table-04May22_CRA.pdf",
-        "https://triumf.ca/facilities-experiments/"
+        "https://triumf.ca/facilities-experiments/",
+        "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
       ],
       "phrase": "Seus átomos são estudados em armadilhas de laboratório.",
       "phrase_sources": [
@@ -2142,7 +2145,8 @@
           "label": "TRIUMF: átomos de frâncio",
           "url": "https://triumf.ca/facilities-experiments/"
         }
-      ]
+      ],
+      "state_note": "O frâncio é classificado como sólido a 25 °C na referência PubChem. Trata-se de uma classificação tabulada; as propriedades macroscópicas e as temperaturas de transição dependem de estimativas, pois não se dispõe de uma amostra macroscópica estável."
     },
     {
       "z": 88,
@@ -2485,14 +2489,15 @@
       "category": "Actinídeo",
       "category_key": "actinideos",
       "color": "#805256",
-      "state": "Não determinado",
+      "state": "Sólido",
       "map_row": 9,
       "map_column": 15,
       "illustration_description": "Coletor de pesquisa",
       "source_urls": [
         "https://ciaaw.org/abridged-atomic-weights.htm",
         "https://periodic-table.rsc.org/element/100/fermium",
-        "https://iupac.org/wp-content/uploads/2022/07/IUPAC_Periodic_Table-04May22_CRA.pdf"
+        "https://iupac.org/wp-content/uploads/2022/07/IUPAC_Periodic_Table-04May22_CRA.pdf",
+        "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
       ],
       "phrase": "Produzido em quantidades minúsculas para pesquisa.",
       "phrase_sources": [
@@ -2500,7 +2505,8 @@
           "label": "RSC: Férmio",
           "url": "https://periodic-table.rsc.org/element/100/fermium"
         }
-      ]
+      ],
+      "state_note": "Classificado como sólido na referência PubChem. As amostras disponíveis são muito limitadas; a classificação tabulada não deve ser confundida com uma caracterização macroscópica completa."
     },
     {
       "z": 101,
@@ -2510,14 +2516,15 @@
       "category": "Actinídeo",
       "category_key": "actinideos",
       "color": "#805256",
-      "state": "Não determinado",
+      "state": "Sólido",
       "map_row": 9,
       "map_column": 16,
       "illustration_description": "Módulo de pesquisa",
       "source_urls": [
         "https://ciaaw.org/abridged-atomic-weights.htm",
         "https://periodic-table.rsc.org/element/101/mendelevium",
-        "https://iupac.org/wp-content/uploads/2022/07/IUPAC_Periodic_Table-04May22_CRA.pdf"
+        "https://iupac.org/wp-content/uploads/2022/07/IUPAC_Periodic_Table-04May22_CRA.pdf",
+        "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
       ],
       "phrase": "Utilizado apenas em pesquisa científica.",
       "phrase_sources": [
@@ -2525,7 +2532,8 @@
           "label": "RSC: Mendelévio",
           "url": "https://periodic-table.rsc.org/element/101/mendelevium"
         }
-      ]
+      ],
+      "state_note": "Classificado como sólido na referência PubChem. As amostras disponíveis são muito limitadas; a classificação tabulada não deve ser confundida com uma caracterização macroscópica completa."
     },
     {
       "z": 102,
@@ -2535,14 +2543,15 @@
       "category": "Actinídeo",
       "category_key": "actinideos",
       "color": "#805256",
-      "state": "Não determinado",
+      "state": "Sólido",
       "map_row": 9,
       "map_column": 17,
       "illustration_description": "Tubo de pesquisa",
       "source_urls": [
         "https://ciaaw.org/abridged-atomic-weights.htm",
         "https://periodic-table.rsc.org/element/102/nobelium",
-        "https://iupac.org/wp-content/uploads/2022/07/IUPAC_Periodic_Table-04May22_CRA.pdf"
+        "https://iupac.org/wp-content/uploads/2022/07/IUPAC_Periodic_Table-04May22_CRA.pdf",
+        "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
       ],
       "phrase": "É investigado em experimentos de laboratório.",
       "phrase_sources": [
@@ -2550,7 +2559,8 @@
           "label": "RSC: Nobélio",
           "url": "https://periodic-table.rsc.org/element/102/nobelium"
         }
-      ]
+      ],
+      "state_note": "Classificado como sólido na referência PubChem. As amostras disponíveis são muito limitadas; a classificação tabulada não deve ser confundida com uma caracterização macroscópica completa."
     },
     {
       "z": 103,
@@ -2560,14 +2570,15 @@
       "category": "Actinídeo",
       "category_key": "actinideos",
       "color": "#805256",
-      "state": "Não determinado",
+      "state": "Sólido",
       "map_row": 9,
       "map_column": 18,
       "illustration_description": "Filtro de íons",
       "source_urls": [
         "https://ciaaw.org/abridged-atomic-weights.htm",
         "https://periodic-table.rsc.org/element/103/lawrencium",
-        "https://iupac.org/wp-content/uploads/2022/07/IUPAC_Periodic_Table-04May22_CRA.pdf"
+        "https://iupac.org/wp-content/uploads/2022/07/IUPAC_Periodic_Table-04May22_CRA.pdf",
+        "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON"
       ],
       "phrase": "Produzido para estudar os elementos mais pesados.",
       "phrase_sources": [
@@ -2575,7 +2586,8 @@
           "label": "RSC: Laurêncio",
           "url": "https://periodic-table.rsc.org/element/103/lawrencium"
         }
-      ]
+      ],
+      "state_note": "Classificado como sólido na referência PubChem. As amostras disponíveis são muito limitadas; a classificação tabulada não deve ser confundida com uma caracterização macroscópica completa."
     },
     {
       "z": 104,
