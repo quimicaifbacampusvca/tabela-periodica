@@ -1,0 +1,40 @@
+name: Escrita e integridade do código
+on:
+  push:
+    branches: [construção]
+    paths:
+      - '**/*.html'
+      - '**/*.js'
+      - '**/*.cjs'
+      - '**/*.mjs'
+      - '**/*.css'
+      - '**/*.py'
+      - '**/*.json'
+      - '.prettierrc.json'
+      - '.prettierignore'
+      - '.github/workflows/verify-code-style.yml'
+  pull_request:
+    branches: [construção]
+permissions:
+  contents: read
+jobs:
+  style-and-contracts:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '22', cache: npm }
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: npm ci --ignore-scripts
+      - run: python3 -m pip install -r requirements-dev.txt
+      - run: npm run format:check
+      - run: python3 -m black --check scripts tests
+      - run: npm run verify:elements
+      - run: node scripts/test-element-model.cjs
+      - run: node tests/verify-editorial.mjs
+      - run: node tests/verify-intro.cjs
+      - run: node tests/verify-periodic.mjs
+      - run: node tests/verify-periodic-mobile.cjs
+      - run: node tests/verify-folheto-print.cjs

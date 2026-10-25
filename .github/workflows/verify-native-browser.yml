@@ -1,0 +1,69 @@
+name: Safari e Firefox nativos
+on:
+  push:
+    branches: [construção]
+    paths:
+      - 'tests/verify-native-browser.py'
+      - '.github/workflows/verify-native-browser.yml'
+      - 'assets/*.js'
+      - 'assets/*.css'
+      - 'index.html'
+      - 'elementos/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  safari:
+    name: Safari real — ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix: { os: [macos-15, macos-26] }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: python3 -m pip install selenium
+      - name: Habilitar driver nativo Apple
+        run: |
+          sudo safaridriver --enable
+          safaridriver --version
+          open -a Safari
+          sleep 2
+      - env: { NATIVE_BROWSER: safari, COMPAT_ID: 'safari-${{ matrix.os }}' }
+        run: |
+          python3 tests/compat-server.py 8765 --bind 127.0.0.1 >/tmp/compat-http.log 2>&1 &
+          for attempt in $(seq 1 40); do curl -fsS http://127.0.0.1:8765/ >/dev/null && break; sleep 0.25; done
+          python3 tests/verify-native-browser.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: 'compat-safari-${{ matrix.os }}', path: dist/compatibility, retention-days: 7 }
+  firefox_native:
+    name: Firefox oficial — ${{ matrix.channel }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix: { channel: [stable, esr] }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: python3 -m pip install selenium
+      - name: Obter Firefox oficial Mozilla
+        env: { FIREFOX_CHANNEL: '${{ matrix.channel }}' }
+        run: |
+          if [ "$FIREFOX_CHANNEL" = esr ]; then PRODUCT=firefox-esr-latest-ssl; else PRODUCT=firefox-latest-ssl; fi
+          curl -fL "https://download.mozilla.org/?product=$PRODUCT&os=linux64&lang=en-US" -o /tmp/firefox.tar
+          mkdir -p /tmp/firefox-official
+          tar -xf /tmp/firefox.tar -C /tmp/firefox-official --strip-components=1
+          /tmp/firefox-official/firefox --version
+      - env: { NATIVE_BROWSER: firefox, FIREFOX_BINARY: /tmp/firefox-official/firefox, COMPAT_ID: 'firefox-official-${{ matrix.channel }}' }
+        run: |
+          python3 tests/compat-server.py 8765 --bind 127.0.0.1 >/tmp/compat-http.log 2>&1 &
+          for attempt in $(seq 1 40); do curl -fsS http://127.0.0.1:8765/ >/dev/null && break; sleep 0.25; done
+          python3 tests/verify-native-browser.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: 'compat-firefox-official-${{ matrix.channel }}', path: dist/compatibility, retention-days: 7 }

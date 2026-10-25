@@ -46,3 +46,7 @@ As fichas são produzidas por `scripts/build-elements.py`. Depois de regenerá-l
 ## Testes de compatibilidade
 
 Consulte `.github/workflows/verify-browser-compat.yml`. Os relatórios registram as versões efetivamente executadas e distinguem Safari nativo, WebKit automatizado, navegadores comerciais e builds históricos de motores. Um teste em WebKit não deve ser declarado como teste em todas as versões do Safari.
+
+## Organização das branches
+
+A manutenção e os testes ficam em `construção`. A branch publicada `tabelaifbavca` contém somente os arquivos de utilização do site. Veja `docs/BRANCHES.md` antes de publicar: não reintroduzir arquivos de desenvolvimento por um merge integral. O workflow `verify-code-style.yml` verifica automaticamente a escrita e os contratos na branch de construção.

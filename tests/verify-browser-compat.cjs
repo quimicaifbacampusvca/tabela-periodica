@@ -224,6 +224,18 @@ async function context(options = {}) {
           () => document.getElementById('share-status').textContent.length > 0,
         );
         assert((await p.locator('#share-status').textContent()).length > 0);
+        await p.evaluate(() => {
+          document.getElementById('share-status').textContent = '';
+          document.getElementById('share-fallback').hidden = true;
+          Object.defineProperty(navigator, 'clipboard', {
+            configurable: true,
+            value: { writeText: () => new Promise(() => {}) },
+          });
+        });
+        await p.locator('#copy-element').click();
+        await p.waitForFunction(() => !document.getElementById('share-fallback').hidden);
+        assert((await p.locator('#element-url').inputValue()).includes('/elementos/ferro/'));
+        assert((await p.locator('#share-status').textContent()).includes('selecionado'));
         await p.setViewportSize({ width: 390, height: 844 });
         await noOverflow(p);
       } finally {

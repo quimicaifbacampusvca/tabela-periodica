@@ -72,6 +72,16 @@ def click(selector):
     if el.tag_name == "input" and el.get_attribute("type") == "checkbox":
         el = el.find_element(By.XPATH, "ancestor::label[1]")
     WebDriverWait(driver, 20).until(lambda _: el.is_displayed() and el.is_enabled())
+    WebDriverWait(driver, 10).until(
+        lambda _: js(
+            """
+        const dialog = arguments[0].closest('dialog');
+        return !dialog || !dialog.getAnimations ||
+          dialog.getAnimations().every(animation => animation.playState !== 'running');
+    """,
+            el,
+        )
+    )
     js("arguments[0].scrollIntoView({block: 'center', inline: 'nearest'});", el)
     try:
         el.click()
@@ -98,7 +108,11 @@ def count(selector):
 
 
 def select(selector, value):
-    menu = Select(driver.find_element(By.CSS_SELECTOR, selector))
+    el = WebDriverWait(driver, 20).until(
+        EC.visibility_of_element_located((By.CSS_SELECTOR, selector))
+    )
+    WebDriverWait(driver, 10).until(lambda _: el.is_enabled())
+    menu = Select(el)
     options = [
         option for option in menu.options if option.get_attribute("value") == value
     ]
@@ -170,6 +184,7 @@ try:
             field.send_keys(" ")
             field.clear()
             click("#catalog-filters>summary")
+            wait("return document.getElementById('catalog-filters').open")
             select("#category", "Halogênio")
             assert count("a.tile:not([hidden])") == 6
             click('[data-view="periodic"]')

@@ -104,7 +104,19 @@
     url.search = '';
     try {
       if (!navigator.clipboard?.writeText) throw new Error('Clipboard unavailable');
-      await navigator.clipboard.writeText(url.href);
+      // Some browsers leave clipboard permission requests pending indefinitely.
+      // Keep the existing manual-copy path reachable when that happens.
+      let clipboardTimer;
+      try {
+        await Promise.race([
+          navigator.clipboard.writeText(url.href),
+          new Promise((_, reject) => {
+            clipboardTimer = setTimeout(() => reject(new Error('Clipboard timeout')), 3000);
+          }),
+        ]);
+      } finally {
+        clearTimeout(clipboardTimer);
+      }
       $('share-fallback').hidden = true;
       $('share-status').textContent = 'Link do folheto copiado.';
     } catch {
