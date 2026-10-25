@@ -91,6 +91,27 @@ const fs=require('node:fs');
    await page.screenshot({path:`dist/home-review/catalog-${width}.png`});
    assert.deepEqual(errors,[]);await page.close();
   }
+
+  // Both ends of the 118-element pool: ordinary mass and isotope notation.
+  for(const random of [0,0.999999]){
+   const demo=await browser.newPage({viewport:{width:1440,height:900},reducedMotion:'reduce'});
+   await demo.addInitScript(value=>{Math.random=()=>value;},random);
+   await demo.goto('http://127.0.0.1:8765/',{waitUntil:'networkidle'});
+   await demo.locator('[data-view=periodic]').click();
+   const sample=demo.locator('.legend-example');
+   assert.equal(await sample.getAttribute('data-element'),random===0?'1':'118');
+   const z=await sample.getAttribute('data-element');
+   const tile=demo.locator('a.tile[data-search^="'+z+' "]');
+   for(const [example,source] of [['.example-number','.z'],['.example-symbol','.symbol'],['.example-name','.name'],['.example-mass','.folio-mass']]){
+    assert.equal((await sample.locator(example).textContent()).trim(),(await tile.locator(source).textContent()).trim());
+   }
+   assert.equal(await sample.locator('img').getAttribute('src'),await tile.locator('.folio-state-icon').evaluate(img=>img.src));
+   assert((await demo.locator('.map-mass').textContent()).includes(random===0?'atômica':'massa [A]'));
+   await demo.locator('[data-view=collection]').click();
+   await demo.locator('[data-view=periodic]').click();
+   assert.notEqual(await sample.getAttribute('data-element'),z,'new example on re-entry');
+   await demo.close();
+  }
   const page=await browser.newPage({viewport:{width:390,height:844}});
   await page.goto('http://127.0.0.1:8765/');
   const video=page.locator('.approved-intro-video');

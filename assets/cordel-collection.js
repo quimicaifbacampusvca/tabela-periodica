@@ -125,6 +125,32 @@
 
   // Arrows follow the actual label/field bounds after fonts, zoom or mode changes.
   const cardMap = legend.querySelector('.legend-card-map');
+
+  let previousExample = null;
+  function chooseCardExample() {
+    const choices = tiles.filter(tile => tile !== previousExample);
+    const tile = choices[Math.floor(Math.random() * choices.length)];
+    previousExample = tile;
+    const example = cardMap.querySelector('.legend-example');
+    const number = tile.querySelector('.z').textContent.trim();
+    const symbol = tile.querySelector('.symbol').textContent.trim();
+    const name = tile.querySelector('.name').textContent.trim();
+    const mass = tile.querySelector('.folio-mass').textContent.trim();
+    const state = tile.querySelector('.folio-state strong').textContent.trim();
+    const icon = tile.querySelector('.folio-state-icon');
+    example.dataset.element = number;
+    example.querySelector('.example-number').textContent = number;
+    example.querySelector('.example-symbol').textContent = symbol;
+    example.querySelector('.example-name').textContent = name;
+    example.querySelector('.example-mass').textContent = mass;
+    const image = example.querySelector('.example-state');
+    image.src = icon.src; image.alt = state + ', ' + tile.dataset.category;
+    const isotope = mass.startsWith('[');
+    cardMap.querySelector('.map-mass').innerHTML = isotope ? 'Número de<br>massa [A]' : 'Massa<br>atômica';
+    example.setAttribute('aria-label', `Exemplo: ${name}, número atômico ${number}, símbolo ${symbol}, ${isotope ? 'número de massa' : 'massa atômica'} ${mass}, ${state}, ${tile.dataset.category}`);
+    requestAnimationFrame(drawCardMap);
+  }
+
   function drawCardMap() {
     const bounds = cardMap.getBoundingClientRect();
     if (!bounds.width || !bounds.height) return;
@@ -210,6 +236,7 @@
     const periodic = grid.classList.contains('periodic');
     if (lastMode !== periodic) {
       lastMode = periodic;
+      if (periodic) chooseCardExample();
       lastDrawing = '';
       document.querySelector('#colecao')?.classList.toggle('catalog-periodic',periodic);
       stopBreeze();
