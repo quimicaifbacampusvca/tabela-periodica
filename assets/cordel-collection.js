@@ -131,8 +131,9 @@
   legend.querySelectorAll('.periodic-legend-states li').forEach((item,index) => {
     const image = item.querySelector('img');
     const button = document.createElement('button');button.type = 'button';
-    const icon = document.createElement('i'); icon.className = 'legend-state-symbol';
-    icon.style.setProperty('--state-image', `url("${new URL(image.getAttribute('src'), document.baseURI).href}")`);
+    const icon = document.createElement('img'); icon.className = 'legend-state-symbol';
+    icon.src = image.src; icon.alt = ''; icon.width=42; icon.height=42;
+    icon.dataset.baseSrc = image.src;
     icon.setAttribute('aria-hidden','true');
     button.append(icon,document.createTextNode(stateValues[index]));
     button.dataset.state = stateValues[index];button.setAttribute('aria-pressed','false');
@@ -149,7 +150,13 @@
       if(active) selected = item;
     });
     legend.style.setProperty('--selected-category',selected ? getComputedStyle(selected).getPropertyValue('--cat') : 'var(--ink)');
-    legend.querySelectorAll('[data-state]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.state===physical.value)));
+    legend.querySelectorAll('[data-state]').forEach(button=>{
+      button.setAttribute('aria-pressed',String(button.dataset.state===physical.value));
+      const matching = tiles.find(tile=>tile.dataset.category===category.value && tile.dataset.state===button.dataset.state);
+      const icon = button.querySelector('img');
+      icon.src = matching ? matching.querySelector('.folio-state-icon').src : icon.dataset.baseSrc;
+      icon.style.filter = selected && matching ? 'none' : 'grayscale(1)';
+    });
   }
   category.addEventListener('change',syncLegend);physical.addEventListener('change',syncLegend);
   new MutationObserver(syncLegend).observe(document.body,{attributes:true,attributeFilter:['data-palette','data-theme']});

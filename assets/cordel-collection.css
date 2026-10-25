@@ -507,3 +507,5 @@ body[data-theme=contrast] .grid.cordel-collection.periodic .periodic-central-leg
 .periodic-central-legend .periodic-legend-states button{flex-direction:row;justify-content:flex-start;text-align:left;gap:.45rem;min-height:2.2rem}
 .periodic-central-legend .periodic-legend-states button[aria-pressed=true]::after{margin-left:auto}
 @media(pointer:coarse){.periodic-central-legend .periodic-legend-states button{min-height:44px}}
+
+.periodic-central-legend img.legend-state-symbol{display:block;width:2rem;height:1.9rem;object-fit:contain;background:none;mask:none;-webkit-mask:none;filter:grayscale(1)}
