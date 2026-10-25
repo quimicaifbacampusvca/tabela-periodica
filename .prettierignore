@@ -1,9 +1,0 @@
-node_modules/
-dist/
-assets/colecao/
-assets/folhetos/
-assets/intro/
-assets/fonts/
-*.json
-package.json
-package-lock.json
