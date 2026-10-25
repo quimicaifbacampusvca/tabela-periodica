@@ -542,3 +542,7 @@ body[data-theme=contrast] .grid.cordel-collection.periodic .periodic-central-leg
 .periodic-central-legend .card-map-lines path{stroke-width:1.25;stroke-linecap:round;stroke-linejoin:round;opacity:.88}
 
 .periodic-central-legend .legend-card-map .example-name{max-width:100%;text-align:center;overflow-wrap:anywhere;hyphens:manual;line-height:1.2}
+
+/* Setas entalhadas: corpo preenchido, afilado e com pequenas incisões. */
+.periodic-central-legend .card-map-lines path{fill:currentColor;stroke:none;opacity:1;shape-rendering:geometricPrecision}
+.periodic-central-legend .card-map-label{font:700 .7rem/1.35 CordelSerif,Georgia,serif;letter-spacing:-.015em}

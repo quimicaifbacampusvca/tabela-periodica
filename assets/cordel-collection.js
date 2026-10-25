@@ -170,10 +170,40 @@
       }
       const path = document.createElementNS(ns,'path');
       const dx=x2-x1, dy=y2-y1, length=Math.hypot(dx,dy)||1;
-      const bend=Math.min(8,length*.14), nx=-dy/length*bend, ny=dx/length*bend;
+      const bend=Math.min(12,length*.2), nx=-dy/length*bend, ny=dx/length*bend;
       const sx=x1-bounds.left, sy=y1-bounds.top, ex=x2-bounds.left, ey=y2-bounds.top;
-      path.setAttribute('d',`M${sx},${sy} C${sx+dx*.32+nx},${sy+dy*.32+ny} ${ex-dx*.28+nx*.7},${ey-dy*.28+ny*.7} ${ex},${ey}`);
-      path.setAttribute('marker-end','url(#card-map-arrowhead)');
+      const c1={x:sx+dx*.3+nx,y:sy+dy*.3+ny};
+      const c2={x:ex-dx*.26+nx*.7,y:ey-dy*.26+ny*.7};
+      const sample=t=>{
+        const u=1-t;
+        const x=u*u*u*sx+3*u*u*t*c1.x+3*u*t*t*c2.x+t*t*t*ex;
+        const y=u*u*u*sy+3*u*u*t*c1.y+3*u*t*t*c2.y+t*t*t*ey;
+        const vx=3*u*u*(c1.x-sx)+6*u*t*(c2.x-c1.x)+3*t*t*(ex-c2.x);
+        const vy=3*u*u*(c1.y-sy)+6*u*t*(c2.y-c1.y)+3*t*t*(ey-c2.y);
+        const scale=Math.hypot(vx,vy)||1;
+        return {x,y,nx:-vy/scale,ny:vx/scale};
+      };
+      // Filled, tapered engraving, with restrained irregular edges and carved grain.
+      const endT=1-Math.min(8,length*.32)/length;
+      const left=[],right=[];
+      for(let i=0;i<=16;i++){
+        const t=endT*i/16,p=sample(t);
+        const width=Math.min(1.9,length*.065)*(.45+.55*Math.sin(Math.PI*(.16+.7*i/16)));
+        const grain=(i%3-1)*.16;
+        left.push([p.x+p.nx*(width+grain),p.y+p.ny*(width+grain)]);
+        right.push([p.x-p.nx*(width-grain),p.y-p.ny*(width-grain)]);
+      }
+      const neck=sample(endT),head=Math.min(4.5,length*.18);
+      const outline=[...left,[neck.x+neck.nx*head,neck.y+neck.ny*head],[ex,ey],[neck.x-neck.nx*head*.86,neck.y-neck.ny*head*.86],...right.reverse()];
+      let shape=outline.map((p,i)=>(i?'L':'M')+p[0].toFixed(2)+','+p[1].toFixed(2)).join(' ')+'Z';
+      if(length>26){
+        for(const t of [.3,.55]){
+          const p=sample(t*endT),q=sample((t+.06)*endT);
+          shape+=` M${p.x+p.nx*.65},${p.y+p.ny*.65} L${q.x},${q.y} L${p.x-p.nx*.45},${p.y-p.ny*.45} Z`;
+        }
+      }
+      path.setAttribute('d',shape);
+      path.setAttribute('fill-rule','evenodd');
       lines.appendChild(path);
     });
   }
