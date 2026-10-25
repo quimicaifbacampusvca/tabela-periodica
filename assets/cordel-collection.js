@@ -132,7 +132,7 @@
     const image = item.querySelector('img');
     const button = document.createElement('button');button.type = 'button';
     const icon = document.createElement('i'); icon.className = 'legend-state-symbol';
-    icon.style.setProperty('--state-image', `url("${image.getAttribute('src')}")`);
+    icon.style.setProperty('--state-image', `url("${new URL(image.getAttribute('src'), document.baseURI).href}")`);
     icon.setAttribute('aria-hidden','true');
     button.append(icon,document.createTextNode(stateValues[index]));
     button.dataset.state = stateValues[index];button.setAttribute('aria-pressed','false');
