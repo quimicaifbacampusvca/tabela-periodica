@@ -84,7 +84,6 @@
           <div class="example-top"><strong>26</strong><img src="assets/colecao/estado_solido_transicao.webp" alt="Sólido" width="30" height="30"></div>
           <strong class="example-symbol">Fe</strong><span>Ferro</span><small>55,845 u</small>
         </div>
-        <dl><div><dt>26</dt><dd>Número atômico</dd></div><div><dt>Fe</dt><dd>Símbolo químico</dd></div><div><dt>Ferro</dt><dd>Nome do elemento</dd></div><div><dt>55,845 u</dt><dd>Massa atômica</dd></div><div><dt>Ícone</dt><dd>Estado físico</dd></div></dl>
       </section>
     </div>
     <footer class="periodic-legend-footer">
