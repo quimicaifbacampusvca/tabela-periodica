@@ -1133,6 +1133,7 @@ dialog.access-drawer[open] {
 .simple-reading .tile:hover {
   transform: none;
 }
+.reduce-motion,
 .reduce-motion *,
 .reduce-motion *:before,
 .reduce-motion *:after {
