@@ -1,4 +1,4 @@
-const CACHE = "cordel-varal-v86-reduced-motion";
+const CACHE = "cordel-varal-v87-mass-arrow";
 const ROOT = new URL("./", self.location.href).href;
 // Critical UI files must be revalidated online, not served indefinitely from
 // an older app-shell cache. Offline fallback keeps the PWA usable.

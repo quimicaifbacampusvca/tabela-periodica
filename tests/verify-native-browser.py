@@ -6,7 +6,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
-from selenium.common.exceptions import ElementNotInteractableException
+from selenium.common.exceptions import ElementNotInteractableException, TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait, Select
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -22,6 +22,7 @@ report = {
     "limitations": [
         "No physical iOS/Android device.",
         "Native print dialogs, OS installation prompts and external VLibras translation are not automated.",
+        "Any trusted-keyboard fallback is recorded explicitly; it does not homologate pointer delivery for that activation.",
         "Safari minimum window size can exceed the requested mobile viewport. Exact actual sizes are recorded.",
     ],
 }
@@ -86,6 +87,18 @@ def click(selector):
         "arguments[0].scrollIntoView({behavior: 'instant', block: 'center', inline: 'nearest'});",
         el,
     )
+    token = str(time.monotonic_ns())
+    js(
+        """
+        const token = arguments[1];
+        window.__cordelClickAck = null;
+        arguments[0].addEventListener('click', event => {
+          if (event.isTrusted) window.__cordelClickAck = token;
+        }, {once: true});
+    """,
+        el,
+        token,
+    )
     try:
         el.click()
     except ElementNotInteractableException:
@@ -104,6 +117,36 @@ def click(selector):
         )
         driver.save_screenshot(str(out / "interaction-failure.png"))
         ActionChains(driver).move_to_element(el).click().perform()
+
+    def received():
+        try:
+            WebDriverWait(driver, 1, poll_frequency=0.1).until(
+                lambda _: js("return window.__cordelClickAck === arguments[0]", token)
+            )
+            return True
+        except TimeoutException:
+            return False
+
+    if not received():
+        ActionChains(driver).move_to_element(el).click().perform()
+        if not received():
+            # Keep a real, trusted input path; never synthesize click() in the page.
+            key_target = (
+                el.find_element(By.CSS_SELECTOR, "input")
+                if el.tag_name == "label"
+                else el
+            )
+            key_target.send_keys(
+                Keys.ENTER if el.tag_name in ("button", "a") else Keys.SPACE
+            )
+            assert received(), f"No trusted activation reached {selector}"
+            report.setdefault("inputFallbacks", []).append(
+                {
+                    "selector": selector,
+                    "method": "trusted keyboard activation",
+                    "limitation": "pointer delivery by the native driver was not confirmed for this activation",
+                }
+            )
 
 
 def count(selector):
