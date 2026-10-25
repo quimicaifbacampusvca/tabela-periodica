@@ -36,6 +36,14 @@ const fs=require('node:fs');
    assert(await page.locator('#install-dialog').isVisible());
    await page.locator('#install-close').click();
    assert(await page.locator('#home-menu>summary').evaluate(e=>document.activeElement===e));
+   await page.locator('#home-menu>summary').click();
+   await page.locator('#appearance-open').click();
+   assert(await page.locator('#appearance').isVisible());
+   await page.locator('#appearance-close').click();
+   assert(await page.locator('#home-menu>summary').evaluate(e=>document.activeElement===e));
+   await page.locator('#home-menu .install-open').evaluate(e=>e.hidden=true);
+   assert(await page.locator('#home-menu>summary').isVisible());
+   assert.equal(await page.locator('footer a[href="mailto:202411320020@ifba.edu.br"]').count(),1);
    for(const scale of [1,2]){
     await page.evaluate(scale=>document.documentElement.style.setProperty('--scale',scale),scale);
     const size=await page.evaluate(()=>({scroll:document.documentElement.scrollWidth,client:document.documentElement.clientWidth}));

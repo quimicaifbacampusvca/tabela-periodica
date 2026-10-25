@@ -64,3 +64,7 @@ body:not(.element-page) .opening h1{overflow-wrap:anywhere}
   body:not(.element-page) .tools>label,body:not(.element-page) .catalog-filters{flex:1 1 100%;width:100%}
   body:not(.element-page) .opening h1{font-size:clamp(2.3rem,9vw,3rem)}
 }
+
+.site-contact{margin-top:1.25rem;padding-top:1rem;border-top:1px solid var(--line);max-width:55rem}
+.site-contact p{margin:.35rem 0;font-size:.85rem;line-height:1.6}
+.site-contact a{overflow-wrap:anywhere}
