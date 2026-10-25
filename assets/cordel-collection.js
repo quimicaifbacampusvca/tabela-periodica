@@ -90,7 +90,7 @@
           <span class="card-map-label map-symbol" data-points-to="example-symbol" data-side="right">Símbolo<br>químico</span>
           <span class="card-map-label map-name" data-points-to="example-name" data-side="left">Nome do<br>elemento</span>
           <span class="card-map-label map-mass" data-points-to="example-mass" data-side="bottom">Massa<br>atômica</span>
-          <svg class="card-map-arrows" aria-hidden="true" focusable="false"><defs><marker id="card-map-arrowhead" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M1 1L7 4L1 7" fill="none" stroke="currentColor" stroke-width="1.2"/></marker></defs><g class="card-map-lines"></g></svg>
+          <svg class="card-map-arrows" aria-hidden="true" focusable="false"><defs><marker id="card-map-arrowhead" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M.6 .9L7.3 4.2L.8 7.1L2.8 4.1Z" fill="currentColor" stroke="none"/></marker></defs><g class="card-map-lines"></g></svg>
         </div>
       </section>
     </div>
@@ -143,7 +143,10 @@
         default: x1=a.left-3;y1=(a.top+a.bottom)/2;x2=b.right+3;y2=(b.top+b.bottom)/2;
       }
       const path = document.createElementNS(ns,'path');
-      path.setAttribute('d',`M${x1-bounds.left},${y1-bounds.top} L${x2-bounds.left},${y2-bounds.top}`);
+      const dx=x2-x1, dy=y2-y1, length=Math.hypot(dx,dy)||1;
+      const bend=Math.min(8,length*.14), nx=-dy/length*bend, ny=dx/length*bend;
+      const sx=x1-bounds.left, sy=y1-bounds.top, ex=x2-bounds.left, ey=y2-bounds.top;
+      path.setAttribute('d',`M${sx},${sy} C${sx+dx*.32+nx},${sy+dy*.32+ny} ${ex-dx*.28+nx*.7},${ey-dy*.28+ny*.7} ${ex},${ey}`);
       path.setAttribute('marker-end','url(#card-map-arrowhead)');
       lines.appendChild(path);
     });
