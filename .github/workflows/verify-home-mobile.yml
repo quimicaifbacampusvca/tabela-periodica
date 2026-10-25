@@ -8,6 +8,7 @@ on:
       - 'assets/home.js'
       - 'assets/app.js'
       - 'assets/cordel-collection.js'
+      - 'assets/cordel-collection.css'
       - 'assets/intro/**'
       - 'tests/verify-home-mobile.cjs'
       - '.github/workflows/verify-home-mobile.yml'

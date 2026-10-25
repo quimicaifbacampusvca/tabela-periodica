@@ -44,14 +44,14 @@
   legend.setAttribute('aria-labelledby','periodic-legend-heading');
   legend.innerHTML = `
     <header class="periodic-legend-heading">
-      <span class="periodic-legend-overline">COMO LER A TABELA</span>
-      <h3 id="periodic-legend-heading">Elementos no cotidiano <span>| legenda central</span></h3>
+      
+      <h3 id="periodic-legend-heading">Como ler a tabela</h3>
     </header>
     <div class="periodic-legend-columns">
       <section class="periodic-legend-column" aria-labelledby="periodic-legend-categories-heading">
         <div class="periodic-legend-caption">
-          <h4 id="periodic-legend-categories-heading">COR = CATEGORIA</h4>
-          <span>Cor dominante do ícone</span>
+          <h4 id="periodic-legend-categories-heading">Categorias</h4>
+          <span>Selecione uma categoria e combine com um estado.</span>
         </div>
         <ul class="periodic-legend-categories">
           <li class="legend-category" data-category="Metal alcalino"><i aria-hidden="true"></i><span>Metais alcalinos</span></li>
@@ -65,10 +65,9 @@
           <li class="legend-category" data-category="Lantanídeo"><i aria-hidden="true"></i><span>Lantanídeos</span></li>
           <li class="legend-category" data-category="Actinídeo"><i aria-hidden="true"></i><span>Actinídeos</span></li>
         </ul>
-      </section>
-      <section class="periodic-legend-column periodic-legend-physical" aria-labelledby="periodic-legend-states-heading">
+      <section class="periodic-legend-physical" aria-labelledby="periodic-legend-states-heading">
         <div class="periodic-legend-caption">
-          <h4 id="periodic-legend-states-heading">FORMA = ESTADO</h4>
+          <h4 id="periodic-legend-states-heading">Estados físicos</h4>
           <span>A 25 °C e 1 atm</span>
         </div>
         <ul class="periodic-legend-states">
@@ -77,6 +76,15 @@
           <li><img src="assets/colecao/estado_gasoso_grupo18.webp" alt="" width="42" height="42"><span>Gasoso</span></li>
           <li><img src="assets/colecao/estado_nao_determinado_actinideos.webp" alt="" width="42" height="42"><span>Não determinado</span></li>
         </ul>
+      </section>
+      </section>
+      <section class="legend-reading" aria-labelledby="legend-reading-heading">
+        <h4 id="legend-reading-heading">Como ler o card</h4>
+        <div class="legend-example" aria-label="Exemplo: ferro, número atômico 26, símbolo Fe, massa 55,845 u, sólido">
+          <div class="example-top"><strong>26</strong><img src="assets/colecao/estado_solido_transicao.webp" alt="Sólido" width="30" height="30"></div>
+          <strong class="example-symbol">Fe</strong><span>Ferro</span><small>55,845 u</small>
+        </div>
+        <dl><div><dt>26</dt><dd>Número atômico</dd></div><div><dt>Fe</dt><dd>Símbolo químico</dd></div><div><dt>Ferro</dt><dd>Nome do elemento</dd></div><div><dt>55,845 u</dt><dd>Massa atômica</dd></div><div><dt>Ícone</dt><dd>Estado físico</dd></div></dl>
       </section>
     </div>
     <footer class="periodic-legend-footer">
@@ -106,23 +114,47 @@
         </div>
       </div>
     </footer>`;
-  // The legend hangs from the same three physical cord lines as the folhetos.
-  // Its rope connections and wooden pins follow actual period offsets.
-  const legendCordContainer = document.createElement('div');
-  legendCordContainer.className = 'periodic-legend-cords';
-  legendCordContainer.setAttribute('aria-hidden', 'true');
-  for (let i = 1; i <= 3; i++) {
-    const lane = document.createElement('span');
-    lane.className = 'periodic-legend-cord-lane periodic-legend-cord-lane-' + i;
-    for (const side of ['start', 'end']) {
-      const pin = document.createElement('i');
-      pin.className = 'periodic-legend-pin periodic-legend-pin-' + side;
-      lane.appendChild(pin);
-    }
-    legendCordContainer.appendChild(lane);
-  }
-  legend.appendChild(legendCordContainer);
   grid.appendChild(legend);
+  const category = document.getElementById('category');
+  const physical = document.getElementById('physical-state');
+  legend.querySelectorAll('.legend-category').forEach(item => {
+    const button = document.createElement('button');
+    button.type = 'button'; button.innerHTML = item.innerHTML;
+    button.setAttribute('aria-pressed', 'false');
+    button.addEventListener('click', () => {
+      category.value = category.value === item.dataset.category ? '' : item.dataset.category;
+      category.dispatchEvent(new Event('change', {bubbles:true}));
+    });
+    item.replaceChildren(button);
+  });
+  const stateValues = ['Sólido','Líquido','Gasoso','Não determinado'];
+  legend.querySelectorAll('.periodic-legend-states li').forEach((item,index) => {
+    const image = item.querySelector('img');
+    const button = document.createElement('button');button.type = 'button';
+    const icon = document.createElement('i'); icon.className = 'legend-state-symbol';
+    icon.style.setProperty('--state-image', `url("${image.getAttribute('src')}")`);
+    icon.setAttribute('aria-hidden','true');
+    button.append(icon,document.createTextNode(stateValues[index]));
+    button.dataset.state = stateValues[index];button.setAttribute('aria-pressed','false');
+    button.addEventListener('click',()=>{
+      physical.value = physical.value === button.dataset.state ? '' : button.dataset.state;
+      physical.dispatchEvent(new Event('change',{bubbles:true}));
+    });item.replaceChildren(button);
+  });
+  function syncLegend() {
+    let selected;
+    legend.querySelectorAll('.legend-category').forEach(item=>{
+      const active = item.dataset.category === category.value;
+      item.querySelector('button').setAttribute('aria-pressed',String(active));
+      if(active) selected = item;
+    });
+    legend.style.setProperty('--selected-category',selected ? getComputedStyle(selected).getPropertyValue('--cat') : 'var(--ink)');
+    legend.querySelectorAll('[data-state]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.state===physical.value)));
+  }
+  category.addEventListener('change',syncLegend);physical.addEventListener('change',syncLegend);
+  new MutationObserver(syncLegend).observe(document.body,{attributes:true,attributeFilter:['data-palette','data-theme']});
+  syncLegend();
+
   grid.prepend(ropes);
   grid.classList.add('cordel-collection');
   let frame = 0, lastDrawing = '', lastMode = null;

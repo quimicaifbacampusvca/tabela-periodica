@@ -24,12 +24,4 @@
       trigger.focus();
     });
   }
-  const filters = document.getElementById('catalog-filters');
-  const category = document.getElementById('category');
-  if (filters && category) {
-    const active = filters.querySelector('.filter-active');
-    category.addEventListener('change', () => {
-      active.textContent = category.value ? 'Categoria selecionada' : '';
-    });
-  }
 })();

@@ -461,3 +461,43 @@ body[data-theme=contrast] .grid.cordel-collection.periodic .periodic-central-leg
     --periodic-cell-min:7.9rem;
   }
 }
+
+/* Legenda integrada: categorias em duas colunas e leitura do card à direita. */
+.grid.cordel-collection.periodic{grid-template-rows:1.2rem repeat(3,minmax(8.5rem,auto)) repeat(4,minmax(5.7rem,auto)) 1.15rem repeat(2,minmax(5.7rem,auto))}
+.grid.cordel-collection.periodic .periodic-central-legend{border:0;outline:0;box-shadow:none;margin:0;padding:.35rem .65rem;gap:.5rem;background:var(--paper);z-index:2}
+.periodic-central-legend .periodic-legend-heading{border:0;padding:0}
+.periodic-central-legend .periodic-legend-heading h3{font:700 1.15rem/1.25 CordelSerif,Georgia,serif}
+.periodic-central-legend .periodic-legend-columns{grid-template-columns:minmax(0,1.65fr) minmax(0,1fr);gap:1rem;align-items:start}
+.periodic-central-legend .periodic-legend-categories{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:none;gap:.15rem .5rem;flex:none}
+.periodic-central-legend .legend-category{margin:0;font-size:.7rem;display:block}
+.periodic-central-legend button{color:var(--ink);background:transparent;border:1px solid transparent;border-radius:0;box-shadow:none;min-height:2rem;cursor:pointer;font:inherit;padding:.2rem .25rem;text-align:left;line-height:1.3}
+.periodic-central-legend .legend-category button{display:flex;align-items:center;gap:.35rem;width:100%;height:100%}
+.periodic-central-legend .legend-category i{width:.7rem;height:.7rem;box-shadow:none;flex:none}
+.periodic-central-legend button[aria-pressed=true]{border-color:var(--ink);background:var(--soft);font-weight:700}
+.periodic-central-legend button[aria-pressed=true]::after{content:'✓';margin-left:auto;padding-left:.15rem}
+.periodic-central-legend button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.periodic-central-legend .periodic-legend-caption{margin:0 0 .25rem}
+.periodic-central-legend .periodic-legend-caption h4,.periodic-central-legend .legend-reading h4{font:700 .78rem/1.3 CordelSerif,Georgia,serif;margin:0 0 .2rem}
+.periodic-central-legend .periodic-legend-caption>span{font-size:.62rem;line-height:1.3}
+.periodic-central-legend .periodic-legend-physical{border:0;padding:0;margin-top:.55rem}
+.periodic-central-legend .periodic-legend-states{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:none;gap:.1rem}
+.periodic-central-legend .periodic-legend-states li{display:block;font-size:.6rem}
+.periodic-central-legend .periodic-legend-states button{width:100%;display:flex;flex-direction:column;align-items:center;gap:.2rem;text-align:center;min-height:3.5rem}
+.periodic-central-legend .legend-state-symbol{display:block;width:1.8rem;height:1.65rem;background:var(--selected-category,var(--ink));mask:var(--state-image) center/contain no-repeat;-webkit-mask:var(--state-image) center/contain no-repeat;flex:none}
+.periodic-central-legend .periodic-legend-states button[aria-pressed=true]::after{margin:0;padding:0;line-height:1}
+.periodic-central-legend .legend-reading{min-width:0;padding-left:.5rem}
+.periodic-central-legend .legend-example{border:1px solid var(--ink);outline:1px solid var(--line);outline-offset:-4px;padding:.5rem;max-width:6rem;margin:.4rem auto;display:flex;flex-direction:column;align-items:center;font:.75rem/1.4 CordelSans,sans-serif}
+.periodic-central-legend .example-top{display:flex;justify-content:space-between;align-items:center;width:100%}
+.periodic-central-legend .example-top img{width:1.5rem;height:1.5rem;object-fit:contain;filter:grayscale(1)}
+.periodic-central-legend .example-symbol{font:700 1.8rem/1.2 CordelSerif,serif}
+.periodic-central-legend dl{margin:.5rem 0 0;font:.62rem/1.4 CordelSans,sans-serif}
+.periodic-central-legend dl div{display:grid;grid-template-columns:3.4rem 1fr;gap:.3rem;margin:.2rem 0}
+.periodic-central-legend dt{font-weight:700}.periodic-central-legend dd{margin:0}
+.periodic-central-legend .periodic-legend-footer{border:0;gap:.6rem;padding:0;align-items:end}
+.periodic-central-legend .periodic-legend-notes{font-size:.57rem;line-height:1.35;flex:1}
+.periodic-central-legend .periodic-legend-credit{max-width:52%;gap:.4rem;flex-shrink:0}
+.periodic-central-legend .periodic-legend-ifba-mark{width:1.5rem;height:2rem}
+.periodic-central-legend .periodic-legend-credit-copy strong{font-size:.8rem}
+.periodic-central-legend .periodic-legend-credit-copy span{font-size:.58rem;white-space:normal}
+@media(pointer:coarse){.periodic-central-legend button{min-height:44px}}
+@media(forced-colors:active){.periodic-central-legend .legend-state-symbol{background:ButtonText;forced-color-adjust:none}.periodic-central-legend button[aria-pressed=true]{border:2px solid Highlight}}
