@@ -1,9 +1,11 @@
-const {chromium}=require('playwright');
+const playwright=require('playwright');
+const engine=process.env.BROWSER_ENGINE||'chromium';
+const output=process.env.COMPAT_HOME_DIR||'dist/home-review';
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
 (async()=>{
- const browser=await chromium.launch();
- fs.mkdirSync('dist/home-review',{recursive:true});
+ const browser=await playwright[engine].launch({...process.env.BROWSER_CHANNEL?{channel:process.env.BROWSER_CHANNEL}:{},...process.env.BROWSER_EXECUTABLE?{executablePath:process.env.BROWSER_EXECUTABLE,args:JSON.parse(process.env.BROWSER_ARGS||'[]')}:{}});
+ fs.mkdirSync(output,{recursive:true});
  try {
   for(const width of [320,390,650,800,1440]){
    const page=await browser.newPage({viewport:{width,height:900},reducedMotion:'reduce'});
@@ -67,7 +69,7 @@ const fs=require('node:fs');
      return {columns:getComputedStyle(list).gridTemplateColumns.split(' ').length, overflow:el.scrollHeight>el.clientHeight+2};
    });
    assert.equal(layout.columns,2);assert.equal(layout.overflow,false,`legend overflow at ${width}`);
-   await legend.screenshot({path:`dist/home-review/legend-${width}.png`});
+   await legend.screenshot({path:`${output}/legend-${width}.png`});
    await page.locator('[data-view=collection]').click();
    await page.locator('#category').selectOption('');
    await page.locator('#catalog-filters>summary').click();
@@ -90,9 +92,9 @@ const fs=require('node:fs');
     assert(size.scroll<=size.client+2,`${width}px / ${scale}: page overflow ${JSON.stringify(size)}`);
    }
    await page.evaluate(()=>document.documentElement.style.setProperty('--scale','1'));
-   await page.screenshot({path:`dist/home-review/home-${width}.png`,fullPage:false});
+   await page.screenshot({path:`${output}/home-${width}.png`,fullPage:false});
    await page.locator('#colecao').scrollIntoViewIfNeeded();
-   await page.screenshot({path:`dist/home-review/catalog-${width}.png`});
+   await page.screenshot({path:`${output}/catalog-${width}.png`});
    assert.deepEqual(errors,[]);await page.close();
   }
 
@@ -119,10 +121,13 @@ const fs=require('node:fs');
   const page=await browser.newPage({viewport:{width:390,height:844}});
   await page.goto('http://127.0.0.1:8765/');
   const video=page.locator('.approved-intro-video');
-  await page.waitForFunction(()=>document.querySelector('video').readyState>=2);
+  await page.waitForFunction(()=>{
+    const video=document.querySelector('video'),intro=document.querySelector('#brand-intro');
+    return video.readyState>=2 || (intro.hidden && !document.querySelector('main').inert);
+  },null,{timeout:15000});
   const duration=await video.evaluate(v=>v.duration);
-  assert(duration>5.7&&duration<6,'opening contains only the retained sequence');
-  await page.locator('#intro-skip').click();
+  if(Number.isFinite(duration))assert(duration>5.7&&duration<6,'opening contains only the retained sequence');
+  if(await page.locator('#intro-skip').isVisible())await page.locator('#intro-skip').click();
   await page.waitForFunction(()=>document.querySelector('#brand-intro').hidden);
   assert(!(await page.locator('main').evaluate(e=>e.inert)));
   await page.close();

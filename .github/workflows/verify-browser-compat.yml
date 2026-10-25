@@ -1,0 +1,142 @@
+name: Compatibilidade e retrocompatibilidade
+on:
+  push:
+    branches: [tabelaifbavca]
+    paths: ['tests/verify-browser-compat.cjs', 'tests/verify-native-browser.py', 'tests/verify-home-mobile.cjs', '.github/workflows/verify-browser-compat.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  current:
+    name: Atual — ${{ matrix.target }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { target: chrome-stable, engine: chromium, install: chrome, channel: chrome }
+          - { target: edge-stable, engine: chromium, install: msedge, channel: msedge }
+          - { target: chromium-current, engine: chromium, install: chromium, channel: '' }
+          - { target: firefox-current-pw, engine: firefox, install: firefox, channel: '' }
+          - { target: webkit-linux-current, engine: webkit, install: webkit, channel: '' }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '22' }
+      - run: npm install --no-save playwright
+      - run: npx playwright install --with-deps ${{ matrix.install }}
+      - name: Executar cenários completos
+        env:
+          BROWSER_ENGINE: ${{ matrix.engine }}
+          BROWSER_CHANNEL: ${{ matrix.channel }}
+          COMPAT_ID: ${{ matrix.target }}
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/compat-http.log 2>&1 &
+          for attempt in $(seq 1 40); do curl -fsS http://127.0.0.1:8765/ >/dev/null && break; sleep 0.25; done
+          node tests/verify-browser-compat.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: 'compat-${{ matrix.target }}', path: dist/compatibility, retention-days: 7 }
+  historical:
+    name: Histórico PW ${{ matrix.pw }} — ${{ matrix.engine }}
+    runs-on: ubuntu-24.04
+    container: mcr.microsoft.com/playwright:v${{ matrix.pw }}-${{ matrix.base }}
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { engine: chromium, pw: '1.40.1', base: jammy }
+          - { engine: firefox, pw: '1.40.1', base: jammy }
+          - { engine: webkit, pw: '1.40.1', base: jammy }
+          - { engine: chromium, pw: '1.48.2', base: noble }
+          - { engine: firefox, pw: '1.48.2', base: noble }
+          - { engine: webkit, pw: '1.48.2', base: noble }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '22' }
+      - run: npm install --no-save playwright@${{ matrix.pw }}
+      - name: Executar cenários nos motores históricos
+        env:
+          BROWSER_ENGINE: ${{ matrix.engine }}
+          COMPAT_ID: historical-${{ matrix.pw }}-${{ matrix.engine }}
+          PLAYWRIGHT_BROWSERS_PATH: /ms-playwright
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/compat-http.log 2>&1 &
+          for attempt in $(seq 1 40); do curl -fsS http://127.0.0.1:8765/ >/dev/null && break; sleep 0.25; done
+          node tests/verify-browser-compat.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: 'compat-historical-${{ matrix.pw }}-${{ matrix.engine }}', path: dist/compatibility, retention-days: 7 }
+  macwebkit:
+    name: WebKit no macOS
+    runs-on: macos-26
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '22' }
+      - run: npm install --no-save playwright
+      - run: npx playwright install webkit
+      - env: { BROWSER_ENGINE: webkit, COMPAT_ID: webkit-macos }
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/compat-http.log 2>&1 &
+          for attempt in $(seq 1 40); do curl -fsS http://127.0.0.1:8765/ >/dev/null && break; sleep 0.25; done
+          node tests/verify-browser-compat.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: compat-webkit-macos, path: dist/compatibility, retention-days: 7 }
+  safari:
+    name: Safari real — ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix: { os: [macos-15, macos-26] }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: python3 -m pip install selenium
+      - name: Habilitar driver nativo Apple
+        run: |
+          sudo safaridriver --enable
+          safaridriver --version
+      - env: { NATIVE_BROWSER: safari, COMPAT_ID: 'safari-${{ matrix.os }}' }
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/compat-http.log 2>&1 &
+          for attempt in $(seq 1 40); do curl -fsS http://127.0.0.1:8765/ >/dev/null && break; sleep 0.25; done
+          python3 tests/verify-native-browser.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: 'compat-safari-${{ matrix.os }}', path: dist/compatibility, retention-days: 7 }
+  firefox_native:
+    name: Firefox oficial — ${{ matrix.channel }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix: { channel: [stable, esr] }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: python3 -m pip install selenium
+      - name: Obter Firefox oficial Mozilla
+        env: { FIREFOX_CHANNEL: '${{ matrix.channel }}' }
+        run: |
+          if [ "$FIREFOX_CHANNEL" = esr ]; then PRODUCT=firefox-esr-latest-ssl; else PRODUCT=firefox-latest-ssl; fi
+          curl -fL "https://download.mozilla.org/?product=$PRODUCT&os=linux64&lang=en-US" -o /tmp/firefox.tar
+          mkdir -p /tmp/firefox-official
+          tar -xf /tmp/firefox.tar -C /tmp/firefox-official --strip-components=1
+          /tmp/firefox-official/firefox --version
+      - env: { NATIVE_BROWSER: firefox, FIREFOX_BINARY: /tmp/firefox-official/firefox, COMPAT_ID: 'firefox-official-${{ matrix.channel }}' }
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/compat-http.log 2>&1 &
+          for attempt in $(seq 1 40); do curl -fsS http://127.0.0.1:8765/ >/dev/null && break; sleep 0.25; done
+          python3 tests/verify-native-browser.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: 'compat-firefox-official-${{ matrix.channel }}', path: dist/compatibility, retention-days: 7 }
