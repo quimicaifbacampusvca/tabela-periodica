@@ -1,0 +1,32 @@
+name: Diagnóstico de entrada no Safari
+on:
+  push:
+    branches: [construção]
+    paths: ['tests/probe-safari-input.py', '.github/workflows/probe-safari-input.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  diagnostic:
+    name: Sondagem — ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix: { os: [macos-15, macos-26] }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: python3 -m pip install selenium
+      - run: |
+          sudo safaridriver --enable
+          open -a Safari
+      - name: Comparar métodos reais e controle JavaScript identificado
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/probe-http.log 2>&1 &
+          for attempt in $(seq 1 40); do curl -fsS http://127.0.0.1:8765/ >/dev/null && break; sleep 0.25; done
+          python3 tests/probe-safari-input.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: 'safari-input-${{ matrix.os }}', path: dist/safari-input-probe, retention-days: 7 }
