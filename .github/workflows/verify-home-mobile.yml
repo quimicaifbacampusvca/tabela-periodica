@@ -8,6 +8,9 @@ on:
       - 'assets/home.js'
       - 'assets/app.js'
       - 'assets/cordel-collection.js'
+      - 'assets/hq-layout.js'
+      - 'assets/hq-layout.css'
+      - 'tests/verify-hq.cjs'
       - 'assets/cordel-collection.css'
       - 'assets/intro/**'
       - 'tests/verify-home-mobile.cjs'
@@ -30,6 +33,7 @@ jobs:
           python3 scripts/validate-elements.py
           python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/cordel-home.log 2>&1 &
           node tests/verify-home-mobile.cjs
+          node tests/verify-hq.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
