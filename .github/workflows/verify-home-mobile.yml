@@ -4,6 +4,7 @@ on:
     branches: [tabelaifbavca]
     paths:
       - 'index.html'
+      - 'sw.js'
       - 'assets/style.css'
       - 'assets/home.js'
       - 'assets/app.js'
