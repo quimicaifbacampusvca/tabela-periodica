@@ -1446,13 +1446,16 @@ dialog:not(.access-drawer) button:hover {
   }
 }
 /* Página inicial: decisões editoriais e controles do catálogo. */
-body:not(.element-page) .home-menu {
+body:not(.element-page) .home-menu,
+body.element-page .home-menu {
   position: relative;
 }
-body:not(.element-page) .home-menu[hidden] {
+body:not(.element-page) .home-menu[hidden],
+body.element-page .home-menu[hidden] {
   display: none !important;
 }
-body:not(.element-page) .home-menu > summary {
+body:not(.element-page) .home-menu > summary,
+body.element-page .home-menu > summary {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1466,17 +1469,21 @@ body:not(.element-page) .home-menu > summary {
   cursor: pointer;
   list-style: none;
 }
-body:not(.element-page) .home-menu > summary::-webkit-details-marker {
+body:not(.element-page) .home-menu > summary::-webkit-details-marker,
+body.element-page .home-menu > summary::-webkit-details-marker {
   display: none;
 }
-body:not(.element-page) .home-menu > summary::after {
+body:not(.element-page) .home-menu > summary::after,
+body.element-page .home-menu > summary::after {
   content: '▾';
   margin-left: 0.5rem;
 }
-body:not(.element-page) .home-menu[open] > summary::after {
+body:not(.element-page) .home-menu[open] > summary::after,
+body.element-page .home-menu[open] > summary::after {
   content: '▴';
 }
-body:not(.element-page) .home-menu-panel {
+body:not(.element-page) .home-menu-panel,
+body.element-page .home-menu-panel {
   position: absolute;
   z-index: 20;
   right: 0;
@@ -1487,7 +1494,8 @@ body:not(.element-page) .home-menu-panel {
   background: var(--surface);
   box-shadow: 3px 3px 0 var(--line);
 }
-body:not(.element-page) .home-menu-panel button {
+body:not(.element-page) .home-menu-panel button,
+body.element-page .home-menu-panel button {
   width: 100%;
   min-height: 48px;
   border: 2px solid var(--ink);
@@ -1605,4 +1613,34 @@ body:not(.element-page) .opening h1 {
 }
 .site-contact a {
   overflow-wrap: anywhere;
+}
+
+/* O menu das fichas compartilha o mesmo acabamento do menu inicial. */
+body.element-page .home-menu-panel a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 48px;
+  padding: 0.5rem 0.75rem;
+  border: 2px solid var(--ink);
+  border-radius: 0;
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: 2px 2px 0 var(--line);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+}
+body.element-page .home-menu-panel a:hover,
+body.element-page .home-menu-panel a:focus-visible {
+  background: var(--soft);
+  box-shadow: 3px 3px 0 var(--accent);
+}
+@media (max-width: 650px) {
+  body.element-page .head > nav {
+    width: auto;
+    margin-left: auto;
+  }
 }

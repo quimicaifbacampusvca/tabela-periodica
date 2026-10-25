@@ -1,4 +1,4 @@
-/* Controles locais da página inicial. */
+/* Menu compartilhado da página inicial e das fichas: fechamento e restauração de foco. */
 (() => {
   'use strict';
   const menu = document.getElementById('home-menu');
@@ -14,7 +14,7 @@
         event.preventDefault();
       }
     });
-    menu.querySelectorAll('button').forEach((button) => {
+    menu.querySelectorAll('button, a').forEach((button) => {
       button.addEventListener('click', () => {
         menu.open = false;
       });
