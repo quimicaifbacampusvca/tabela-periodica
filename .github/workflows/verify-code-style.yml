@@ -33,6 +33,7 @@ jobs:
       - run: npm run format:check
       - run: python3 -m black --check scripts tests
       - run: npm run verify:elements
+      - run: python3 scripts/validate-print-states.py
       - run: node scripts/test-element-model.cjs
       - run: node tests/verify-editorial.mjs
       - run: node tests/verify-intro.cjs
